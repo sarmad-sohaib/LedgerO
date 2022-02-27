@@ -7,4 +7,9 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="gray">#CCCCCC</color>
+    <color name="puce">#CC8899</color>
+    <color name="violent_vixen">#883377</color>
+    <color name="blackcurrant">#3D3242</color>
 </resources>
