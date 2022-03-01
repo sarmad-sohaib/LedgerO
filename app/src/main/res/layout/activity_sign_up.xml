@@ -23,35 +23,52 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"></TextView>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:layout_marginRight="50dp"
-        android:layout_marginLeft="50dp"
-        android:hint="Username"
-     android:textColorHint="@color/white"
-        app:placeholderTextColor="@color/white"
 
-        android:boxStrokeColor="@color/white"
+<!--    Text field layout-->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout"
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="100dp"
+
+        android:layout_marginRight="50dp"
+        android:hint="Username"
+        android:textColorHint="@color/white"
 
 
         app:hintTextColor="@color/white"
-        style="@style/Widget.Material3.TextInputEditText.FilledBox"
-        app:boxStrokeWidth="3dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
 
+        
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:startIconDrawable="@drawable/icon_username"
+        app:startIconTint="@color/white">
+        <!--        app:boxBackgroundColor="@color/white"-->
+        <!--        app:boxStrokeColor="@color/white"-->
+<!--        app:boxBackgroundMode="filled"-->
+<!--        android:backgroundTint="@color/white"-->
+
+
+
+
+        <!--Text field inside the text field layout        -->
         <com.google.android.material.textfield.TextInputEditText
+
+            android:id="@+id/iv_username_sa"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:cursorVisible="true"
+
             android:background="@android:color/transparent"
             android:backgroundTint="#FFFFFF"
             android:textColor="@color/white"
             android:textSize="16sp"
 
-            app:boxStrokeColor="@color/white" />
+            android:theme="@style/TextInputLayoutAppearance"
+            />
 
 
     </com.google.android.material.textfield.TextInputLayout>
