@@ -4,9 +4,13 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Android Projects/LedgerO/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/LedgrO/LedgerO/app/src/main/res/drawable/button_shape.xml" value="0.1045" />
+        <entry key="..\:/LedgrO/LedgerO/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.1045" />
+        <entry key="..\:/LedgrO/LedgerO/app/src/main/res/drawable/icon_password.xml" value="0.1045" />
+        <entry key="..\:/LedgrO/LedgerO/app/src/main/res/drawable/icon_username.xml" value="0.1045" />
         <entry key="..\:/LedgrO/LedgerO/app/src/main/res/drawable/main_gradient_background.xml" value="0.1045" />
         <entry key="..\:/LedgrO/LedgerO/app/src/main/res/layout/activity_login.xml" value="0.20416666666666666" />
-        <entry key="..\:/LedgrO/LedgerO/app/src/main/res/layout/activity_sign_up.xml" value="0.22" />
+        <entry key="..\:/LedgrO/LedgerO/app/src/main/res/layout/activity_sign_up.xml" value="0.25" />
       </map>
     </option>
   </component>
