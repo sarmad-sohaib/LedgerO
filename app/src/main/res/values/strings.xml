@@ -2,10 +2,16 @@
     <string name="app_name">LedgerO</string>
     <string name="username">Username</string>
     <string name="login">Login</string>
+    <string name="signup">SIGNUP</string>
     <string name="password">Password</string>
+<<<<<<< HEAD
     <string name="forgot_password">Forgot Password?</string>
     <string name="or">Or</string>
     <string name="via_google">Via Google</string>
     <string name="don_t_have_an_account">Don\'t have an account?</string>
     <string name="sign_up">Sign up</string>
+=======
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="log_in">Log in</string>
+>>>>>>> signUpScreen
 </resources>
