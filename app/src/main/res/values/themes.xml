@@ -1,8 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.LedgerO" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.LedgerO" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimary">@color/violent_vixen</item>
         <item name="colorPrimaryVariant">@color/violent_vixen</item>
         <item name="colorOnPrimary">@color/purple_200</item>
         <!-- Secondary brand color. -->
@@ -13,11 +13,7 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
 
-
-
     </style>
-
-
     <style name="Widget.AppTheme.TextInputLayout.FilledBox.Dense" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.Dense">
         <item name="errorIconDrawable">@null</item>
         <item name="hintTextColor">@color/black</item>
