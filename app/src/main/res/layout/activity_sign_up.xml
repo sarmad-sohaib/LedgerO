@@ -7,6 +7,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SignUpActivity"
+
+    android:fillViewport="true"
     android:background="@drawable/main_gradient_background"
     >
 <androidx.constraintlayout.widget.ConstraintLayout
@@ -32,7 +34,7 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/signup_login_userdetail_wrapper_margin_top"
         android:orientation="vertical"
@@ -48,20 +50,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
-            android:hint="@string/username"
+            android:hint="@string/phone_no"
             app:hintTextColor="@color/white"
-            app:startIconDrawable="@drawable/icon_username"
+            app:startIconDrawable="@drawable/ic_outline_phone_24"
             app:startIconTint="@color/white"
 
             >
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tf_username_signUp"
+                android:id="@+id/tf_user_phone_signUp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:textColor="@color/white"
-                android:textCursorDrawable="@drawable/shape" />
+                android:inputType="number"
+                android:textCursorDrawable="@drawable/text_cursor" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -79,7 +82,7 @@
 
             app:passwordToggleEnabled="true"
             app:passwordToggleTint="@color/white"
-            app:startIconDrawable="@drawable/icon_password"
+            app:startIconDrawable="@drawable/ic_outline_lock_24"
             app:startIconTint="@color/white">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -91,7 +94,7 @@
 
 
                 android:textColor="@color/white"
-                android:textCursorDrawable="@drawable/shape"
+                android:textCursorDrawable="@drawable/text_cursor"
 
                 />
 
@@ -112,10 +115,10 @@
 
             app:passwordToggleEnabled="true"
             app:passwordToggleTint="@color/white"
-            app:startIconDrawable="@drawable/icon_password"
+            app:startIconDrawable="@drawable/ic_outline_lock_24"
             app:startIconTint="@color/white">
 
-            <com.google.android.material.textfield.TextInputEditText
+                   <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/tf_reenter_password_signUp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -124,7 +127,7 @@
 
 
                 android:textColor="@color/white"
-                android:textCursorDrawable="@drawable/shape"
+                android:textCursorDrawable="@drawable/text_cursor"
 
                 />
 
@@ -170,7 +173,7 @@
             android:textSize="15sp"></TextView>
 
         <TextView
-            android:id="@+id/tv_login_new_account_signUp"
+            android:id="@+id/tv_login_signUp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
