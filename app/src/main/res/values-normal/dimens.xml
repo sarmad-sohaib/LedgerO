@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+
+    <dimen name="signup_login_parent_horizontal_padding">58dp</dimen>
+    <dimen name="signup_login_tv_margin_top">100dp</dimen>
+    <dimen name="signup_login_tv_horizontal_margin">110dp</dimen>
+    <dimen name="signup_login_userdetail_wrapper_margin_top">84dp</dimen>
+    <dimen name="signup_login_userdetail_fields_margin_top">30dp</dimen>
+    <dimen name="signup_login_actionButton_layout_height">50dp</dimen>
+    <dimen name="signup_login_actionButton_margin_top">50dp</dimen>
+    <dimen name="signup_login_quickaction_tv_margin_top">50dp</dimen>
+
+
+</resources>

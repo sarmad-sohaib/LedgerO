@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <dimen name="signup_login_parent_horizontal_padding">25dp</dimen>
+    <dimen name="signup_login_tv_margin_top">50dp</dimen>
+    <dimen name="signup_login_tv_horizontal_margin">55dp</dimen>
+    <dimen name="signup_login_userdetail_wrapper_margin_top">42dp</dimen>
+    <dimen name="signup_login_userdetail_fields_margin_top">15dp</dimen>
+    <dimen name="signup_login_actionButton_layout_height">25dp</dimen>
+    <dimen name="signup_login_actionButton_margin_top">25dp</dimen>
+    <dimen name="signup_login_quickaction_tv_margin_top">25dp</dimen>
+
+</resources>
