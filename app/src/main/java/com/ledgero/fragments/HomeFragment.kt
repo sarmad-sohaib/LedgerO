@@ -1,11 +1,10 @@
 package com.ledgero.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TableLayout
+import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.ledgero.R
@@ -21,12 +20,12 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
 
-        val view:View = inflater.inflate(R.layout.fragment_home, container, false)
+        val view: View = inflater.inflate(R.layout.fragment_home, container, false)
 
+        //Accessing views using id
         tabs = view.findViewById(R.id.tabs_home)
-        val viewPager = view.findViewById<ViewPager>(R.id.vp_home)
+        viewPager = view.findViewById(R.id.vp_home)
 
         pagerAdapter = PagerAdapter(childFragmentManager)
 
