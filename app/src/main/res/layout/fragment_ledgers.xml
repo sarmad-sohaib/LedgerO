@@ -6,13 +6,149 @@
     android:layout_height="match_parent"
     tools:context=".fragments.LedgersFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/shape_bg"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:background="@drawable/main_gradient_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/shape_bg_white"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/layout_bg"
+        android:backgroundTint="@color/white"
+        app:layout_constraintBottom_toTopOf="@id/bt_view_report"
+        app:layout_constraintEnd_toEndOf="@id/shape_bg"
+        app:layout_constraintStart_toStartOf="@id/shape_bg"
+        app:layout_constraintTop_toTopOf="@id/shape_bg" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/bt_view_report"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        app:cornerRadius="10dp"
+        android:text="Cash Register"
+        android:fontFamily="@font/ropa_sans_regular"
+        android:textColor="@color/violent_vixen"
+        android:textAllCaps="false"
+        android:textSize="16sp"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="@color/white"
+        app:layout_constraintBottom_toBottomOf="@id/shape_bg"
+        app:layout_constraintEnd_toEndOf="@+id/shape_bg_white"
+        app:layout_constraintStart_toStartOf="@+id/shape_bg_white"
+        app:layout_constraintTop_toBottomOf="@id/shape_bg_white" />
+
+    <View
+        android:id="@+id/line_horizontal"
+        android:layout_width="1dp"
+        android:layout_height="50dp"
+        android:background="@color/gray"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@id/shape_bg_white"
+        app:layout_constraintStart_toStartOf="@id/shape_bg_white"
+        app:layout_constraintTop_toTopOf="@id/shape_bg_white"/>
+
+    <View
+        android:id="@+id/line_vertical"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_margin="8dp"
+        android:background="@color/gray"
+        app:layout_constraintEnd_toEndOf="@id/shape_bg_white"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@id/shape_bg_white"
+        app:layout_constraintTop_toBottomOf="@id/line_horizontal" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:fontFamily="@font/ropa_sans_regular"
+        android:text="View Report"
+        android:textColor="@color/violent_vixen"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/shape_bg_white"
+        app:layout_constraintEnd_toEndOf="@id/shape_bg_white"
+        app:layout_constraintStart_toStartOf="@id/shape_bg_white"
+        app:layout_constraintTop_toBottomOf="@id/line_vertical" />
+
+    <TextView
+        android:id="@+id/tv_give"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:text="Rs. 00"
+        android:fontFamily="@font/ropa_sans_regular"
+        android:textColor="@color/green"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@id/tv_you_will_give"
+        app:layout_constraintEnd_toStartOf="@id/line_horizontal"
+        app:layout_constraintStart_toStartOf="@id/shape_bg_white"
+        app:layout_constraintTop_toTopOf="@id/line_horizontal" />
+
+    <TextView
+        android:id="@+id/tv_you_will_give"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:text="You'll give"
+
+        android:fontFamily="@font/ropa_sans_regular"
+        app:layout_constraintBottom_toTopOf="@id/line_vertical"
+        app:layout_constraintEnd_toEndOf="@id/tv_give"
+        app:layout_constraintStart_toStartOf="@id/tv_give" />
+
+    <TextView
+        android:id="@+id/tv_get"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:text="Rs. 00"
+        android:fontFamily="@font/ropa_sans_regular"
+        android:textColor="@color/red"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_you_will_get"
+        app:layout_constraintEnd_toEndOf="@+id/shape_bg_white"
+        app:layout_constraintStart_toEndOf="@+id/line_horizontal"
+        app:layout_constraintTop_toTopOf="@+id/shape_bg_white" />
+
+    <TextView
+        android:id="@+id/tv_you_will_get"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:text="You'll get"
+        android:fontFamily="@font/ropa_sans_regular"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/line_vertical"
+        app:layout_constraintEnd_toEndOf="@+id/tv_get"
+        app:layout_constraintStart_toStartOf="@+id/tv_get" />
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="64dp"
+
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/button_shape"
+        app:backgroundTint="@color/puce"
+        android:text="Add new ledger"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:fontFamily="@font/ropa_sans_regular"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/line_horizontal" />
+    
 </androidx.constraintlayout.widget.ConstraintLayout>
