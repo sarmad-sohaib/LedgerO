@@ -1,14 +1,219 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.MoneyFragment">
+    tools:context=".fragments.LedgersFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/shape_bg_money_frag"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:background="@drawable/main_gradient_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/shape_bg_white_money_frag"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/layout_bg"
+        android:backgroundTint="@color/white"
+        app:layout_constraintBottom_toTopOf="@id/bt_cash_register_money_frag"
+        app:layout_constraintEnd_toEndOf="@id/shape_bg_money_frag"
+        app:layout_constraintStart_toStartOf="@id/shape_bg_money_frag"
+        app:layout_constraintTop_toTopOf="@id/shape_bg_money_frag" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/bt_cash_register_money_frag"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        app:cornerRadius="10dp"
+        android:text="Cash Register"
+        android:fontFamily="@font/ropa_sans_regular"
+        android:textColor="@color/violent_vixen"
+        android:textAllCaps="false"
+        android:textSize="16sp"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="@color/white"
+        app:layout_constraintBottom_toBottomOf="@id/shape_bg_money_frag"
+        app:layout_constraintEnd_toEndOf="@+id/shape_bg_white_money_frag"
+        app:layout_constraintStart_toStartOf="@+id/shape_bg_white_money_frag"
+        app:layout_constraintTop_toBottomOf="@id/shape_bg_white_money_frag" />
+
+    <View
+        android:id="@+id/line_horizontal_money_frag"
+        android:layout_width="1dp"
+        android:layout_height="50dp"
+        android:background="@color/gray"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@id/shape_bg_white_money_frag"
+        app:layout_constraintStart_toStartOf="@id/shape_bg_white_money_frag"
+        app:layout_constraintTop_toTopOf="@id/shape_bg_white_money_frag"/>
+
+    <View
+        android:id="@+id/line_vertical_money_frag"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_margin="8dp"
+        android:background="@color/gray"
+        app:layout_constraintEnd_toEndOf="@id/shape_bg_white_money_frag"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@id/shape_bg_white_money_frag"
+        app:layout_constraintTop_toBottomOf="@id/line_horizontal_money_frag" />
+
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="money" />
+        android:id="@+id/tv_payment_history_money_frag"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:fontFamily="@font/ropa_sans_regular"
+        android:text="Payment History"
+        android:textColor="@color/violent_vixen"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/shape_bg_white_money_frag"
+        app:layout_constraintEnd_toEndOf="@id/shape_bg_white_money_frag"
+        app:layout_constraintStart_toStartOf="@id/shape_bg_white_money_frag"
+        app:layout_constraintTop_toBottomOf="@id/line_vertical_money_frag" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/tv_give_money_frag"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:text="Rs. 00"
+        android:fontFamily="@font/ropa_sans_regular"
+        android:textColor="@color/green"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@id/tv_you_will_give_money_frag"
+        app:layout_constraintEnd_toStartOf="@id/line_horizontal_money_frag"
+        app:layout_constraintStart_toStartOf="@id/shape_bg_white_money_frag"
+        app:layout_constraintTop_toTopOf="@id/line_horizontal_money_frag" />
+
+    <TextView
+        android:id="@+id/tv_you_will_give_money_frag"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:text="You'll give"
+
+        android:fontFamily="@font/ropa_sans_regular"
+        app:layout_constraintBottom_toTopOf="@id/line_vertical_money_frag"
+        app:layout_constraintEnd_toEndOf="@id/tv_give_money_frag"
+        app:layout_constraintStart_toStartOf="@id/tv_give_money_frag" />
+
+    <TextView
+        android:id="@+id/tv_get_money_frag"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:text="Rs. 00"
+        android:fontFamily="@font/ropa_sans_regular"
+        android:textColor="@color/red"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_you_will_get_money_frag"
+        app:layout_constraintEnd_toEndOf="@+id/shape_bg_white_money_frag"
+        app:layout_constraintStart_toEndOf="@+id/line_horizontal_money_frag"
+        app:layout_constraintTop_toTopOf="@+id/shape_bg_white_money_frag" />
+
+    <TextView
+        android:id="@+id/tv_you_will_get_money_frag"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:text="You'll get"
+        android:fontFamily="@font/ropa_sans_regular"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/line_vertical_money_frag"
+        app:layout_constraintEnd_toEndOf="@+id/tv_get_money_frag"
+        app:layout_constraintStart_toStartOf="@+id/tv_get_money_frag" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/bt_add_new_reminder"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="64dp"
+
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/button_shape"
+        app:backgroundTint="@color/puce"
+        android:text="Add new reminder"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:fontFamily="@font/ropa_sans_regular"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/line_horizontal_money_frag" />
+
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/drop_shadow"
+        android:elevation="2dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintEnd_toEndOf="@+id/bt_cash_register_money_frag"
+        app:layout_constraintStart_toStartOf="@+id/bt_cash_register_money_frag"
+        app:layout_constraintTop_toBottomOf="@+id/shape_bg_money_frag" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:elevation="20dp"
+        android:fontFamily="@font/ropa_sans_regular"
+        android:gravity="center"
+        android:text="Reminders"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/view"
+        app:layout_constraintEnd_toEndOf="@+id/view"
+        app:layout_constraintStart_toStartOf="@+id/view"
+        app:layout_constraintTop_toTopOf="@+id/view" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:elevation="10dp"
+        android:fontFamily="@font/ropa_sans_regular"
+        android:gravity="center"
+        android:text="Rs 0000 pending"
+        app:layout_constraintEnd_toEndOf="@+id/view"
+        app:layout_constraintStart_toStartOf="@+id/view"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:elevation="10dp"
+        android:layout_marginHorizontal="8dp"
+        android:src="@drawable/ic_baseline_calendar_today_24"
+        app:layout_constraintBottom_toBottomOf="@+id/textView5"
+        app:layout_constraintStart_toStartOf="@+id/view"
+        app:layout_constraintTop_toTopOf="@+id/textView4" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Wednesday, March 16, 2022"
+        android:gravity="center"
+        android:layout_marginVertical="32dp"
+        android:textSize="24sp"
+        android:fontFamily="@font/ropa_sans_regular"
+        android:textColor="@color/gray"
+        app:layout_constraintEnd_toEndOf="@+id/view"
+        app:layout_constraintStart_toStartOf="@+id/view"
+        app:layout_constraintTop_toBottomOf="@+id/view" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
