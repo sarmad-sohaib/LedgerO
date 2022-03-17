@@ -8,17 +8,10 @@
     <string name="you_ll_get">You\'ll get</string>
     <string name="rs_00">Rs. 00</string>
     <string name="you_ll_give">You\'ll give</string>
-    <string name="rs_00">Rs. 00</string>
     <string name="payment_history">Payment History</string>
     <string name="cash_register">Cash Register</string>
-    <string name="cash_register">Cash Register</string>
     <string name="view_report">View Report</string>
-    <string name="rs_00">Rs. 00</string>
-    <string name="rs_00">Rs. 00</string>
     <string name="add_new_group">Add new group</string>
-    <string name="cash_register">Cash Register</string>
-    <string name="view_report">View Report</string>
-    <string name="rs_00">Rs. 00</string>
-    <string name="rs_00">Rs. 00</string>
+
     <string name="add_new_ledger">Add new ledger</string>
 </resources>
