@@ -4,7 +4,6 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Android Projects/LedgerO/app/src/main/res/layout/activity_main.xml" value="0.22" />
-
         <entry key="..\:/LedgrO/LedgerO/app/src/main/res/drawable/button_shape.xml" value="0.1045" />
         <entry key="..\:/LedgrO/LedgerO/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.1045" />
         <entry key="..\:/LedgrO/LedgerO/app/src/main/res/drawable/icon_password.xml" value="0.1045" />
@@ -14,29 +13,7 @@
         <entry key="..\:/LedgrO/LedgerO/app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="..\:/LedgrO/LedgerO/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/LedgrO/LedgerO/app/src/main/res/layout/activity_sign_up.xml" value="0.33" />
-        <entry key="..\:/Android Projects/LedgerO/app/src/main/res/layout/activity_sign_up.xml" value="0.22447916666666667" />
-        <entry key="..\:/D/Android Projects/LedgerO/app/src/main/res/drawable/main_gradient_background.xml" value="0.231" />
-        <entry key="..\:/D/Android Projects/LedgerO/app/src/main/res/drawable/text_cursor.xml" value="0.231" />
-        <entry key="..\:/D/Android Projects/LedgerO/app/src/main/res/layout/activity_home.xml" value="0.25" />
-        <entry key="..\:/D/Android Projects/LedgerO/app/src/main/res/layout/activity_login.xml" value="0.18426678067550234" />
-        <entry key="..\:/D/Android Projects/LedgerO/app/src/main/res/layout/activity_main.xml" value="0.18" />
-        <entry key="..\:/D/Android Projects/LedgerO/app/src/main/res/layout/fragment_home.xml" value="0.18426678067550234" />
-        <entry key="..\:/D/Android Projects/LedgerO/app/src/main/res/layout/fragment_money.xml" value="0.18426678067550234" />
-        <entry key="..\:/D/Android Projects/LedgerO/app/src/main/res/layout/fragment_more.xml" value="0.18426678067550234" />
-        <entry key="..\:/D/Android Projects/LedgerO/app/src/main/res/menu/bottom_nav_menu.xml" value="0.18426678067550234" />
-        <entry key="..\:/D/Android Projects/LedgerO/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.18426678067550234" />
-        <entry key="..\:/Users/sarma/Documents/Android development/Android Projects/LedgerO/app/src/main/res/drawable/button_shape.xml" value="0.246" />
-        <entry key="..\:/Users/sarma/Documents/Android development/Android Projects/LedgerO/app/src/main/res/drawable/drop_shadow.xml" value="0.2095" />
-        <entry key="..\:/Users/sarma/Documents/Android development/Android Projects/LedgerO/app/src/main/res/layout/activity_login.xml" value="0.18426678067550234" />
-        <entry key="..\:/Users/sarma/Documents/Android development/Android Projects/LedgerO/app/src/main/res/layout/activity_main.xml" value="0.18426678067550234" />
-        <entry key="..\:/Users/sarma/Documents/Android development/Android Projects/LedgerO/app/src/main/res/layout/activity_sign_up.xml" value="0.18426678067550234" />
-        <entry key="..\:/Users/sarma/Documents/Android development/Android Projects/LedgerO/app/src/main/res/layout/dialg_box.xml" value="0.18426678067550234" />
-        <entry key="..\:/Users/sarma/Documents/Android development/Android Projects/LedgerO/app/src/main/res/layout/fragment_group_ledgers.xml" value="0.18426678067550234" />
-        <entry key="..\:/Users/sarma/Documents/Android development/Android Projects/LedgerO/app/src/main/res/layout/fragment_home.xml" value="0.3683760683760684" />
-        <entry key="..\:/Users/sarma/Documents/Android development/Android Projects/LedgerO/app/src/main/res/layout/fragment_ledgers.xml" value="0.33" />
-        <entry key="..\:/Users/sarma/Documents/Android development/Android Projects/LedgerO/app/src/main/res/layout/fragment_money.xml" value="0.33" />
-        <entry key="..\:/Users/sarma/Documents/Android development/Android Projects/LedgerO/app/src/main/res/layout/fragment_more.xml" value="0.18426678067550234" />
-
+        <entry key="..\:/LedgrO/LedgerO/app/src/main/res/layout/dialg_box.xml" value="0.28515625" />
       </map>
     </option>
   </component>
