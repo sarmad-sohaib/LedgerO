@@ -10,16 +10,17 @@ import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
 
-   lateinit var loginViewViewModel : LoginViewModel
+   lateinit var loginViewModel : LoginViewModel
 
    val TAG:String ="LoginActivity"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        loginViewViewModel= ViewModelProvider(this).get(LoginViewModel::class.java)
+        loginViewModel= ViewModelProvider(this).get(LoginViewModel::class.java)
 
-        if (loginViewViewModel.checkLoginUser()){
+        loginViewModel.setmyContext(this)
+        if (loginViewModel.isUserLogin()){
 
             Log.d(TAG, "onCreate: User Already Login")
             intent = Intent(this, MainActivity::class.java)
@@ -41,23 +42,22 @@ tv_signup_login.setOnClickListener(){
         //onClick of Login Button
         bt_login_login.setOnClickListener(){
 
-            loginViewViewModel.userPhone=tf_phone_login.text.toString()
-            loginViewViewModel.userPass=tf_password_login.text.toString()
+            loginViewModel.userEmail=tf_phone_login.text.toString()
+            loginViewModel.userPassword= tf_password_login.text.toString()
 
-            if (!loginViewViewModel.userPhone.isNullOrBlank() && !loginViewViewModel.userPass.isNullOrBlank()){
+            if (loginViewModel.validateUserInfo()){
 
-// phone number and password is added
-                Log.d(TAG, "onCreate: Phone Number and Password is Added Correctly...Going To Login The User")
+                Log.d(TAG, "onCreate: User Input is Validated")
 
+                Log.d(TAG, "onCreate: Passing User Info To Firebase")
 
-
-
-            }else{
-                // phone number or password is missing
-                Toast.makeText(this,"Please Enter Phone Number And Password",Toast.LENGTH_LONG).show()
-                Log.d(TAG, "onCreate: Phone or Passwor is not added")
+                loginViewModel.signIn()
             }
-        }
+
+
+
+
+            }
 
 
     }

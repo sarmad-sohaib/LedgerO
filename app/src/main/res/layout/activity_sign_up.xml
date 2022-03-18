@@ -63,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:textColor="@color/white"
-                android:inputType="number"
+                android:inputType="text"
                 android:textCursorDrawable="@drawable/text_cursor" />
 
         </com.google.android.material.textfield.TextInputLayout>

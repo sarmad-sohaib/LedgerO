@@ -1,10 +1,13 @@
 package com.ledgero
 
+import android.app.Activity
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.text.InputType
+import android.text.TextUtils
 import android.util.Log
+import android.util.Patterns
 import android.widget.EditText
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
@@ -22,33 +25,149 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_sign_up.*
 
 class SignUpViewModel: ViewModel() {
+    //user details
+    //TODO: Use ViewModelFactory to Initialize these fields
+    lateinit var tf_user_phone_signUp: TextInputEditText
+    lateinit var tf_password_signUp: TextInputEditText
+    lateinit var tf_reenter_password_signUp: TextInputEditText
+    lateinit var tf_user_email_signUp: TextInputEditText
+    lateinit var context: Context
+    var auth = Firebase.auth
+    lateinit var storedVerificationId: String
+    lateinit var resendToken: PhoneAuthProvider.ForceResendingToken
+    var userPhone: String = "+92"
+    val TAG = "SignUP ViewModel"
+    lateinit var mUser: FirebaseUser
+    private var isUserCreated = false
+
+
+
+
+
+    fun signUpWithemail(){
+
+        if (!isValidEmail(tf_user_email_signUp.text.toString())){
+            Log.d(TAG, "signUpWithemail: Email Not Valid")
+            Toast.makeText(context,"Please Enter Valid Email Address",Toast.LENGTH_LONG).show()
+            return
+        }
+
+        if (!isValidPassword()){
+            Log.d(TAG, "signUpWithemail: Invalid Password")
+            Toast.makeText(context, "Please Enter Password Again!!", Toast.LENGTH_SHORT).show()
+
+            return
+        }
+
+        Log.d(TAG, "signUpWithemail: Email And Password is correct, Going To Sign Up")
+
+        createUserAccount(tf_user_email_signUp.text.toString(),tf_password_signUp.text.toString())
+
+    }
+
+    private fun createUserAccount(email: String, password: String): Boolean {
+
+
+
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener() { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d(TAG, "createUserAccount:success")
+                   mUser = auth.currentUser!!
+                  Toast.makeText(context, "Account Created Successfully!", Toast.LENGTH_SHORT).show()
+                    context.startActivity(Intent(context,MainActivity::class.java))
+                    val ac = context as Activity
+                    ac.finish()
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w(TAG, "createUserWithEmail:failure", task.exception)
+                    Toast.makeText(context, "User Already Exists.",
+                        Toast.LENGTH_SHORT).show()
+                   isUserCreated=false
+                }
+            }
+        return isUserCreated
+
+    }
+
+    //validate Email Addrress
+    fun isValidEmail(email:String):Boolean{
+
+        return !TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    }
+
+    fun isValidPassword():Boolean{
+
+        if (tf_password_signUp.text.isNullOrBlank() || tf_password_signUp.length() < 6) {
+
+            Log.d(TAG, "onCreate: Password Incorrect")
+            Toast.makeText(
+                context,
+                "Password must be of 6 or more characters",
+                Toast.LENGTH_LONG
+            )
+                .show()
+            return false
+
+
+        }
+        //check if re-enter password field is filled or not
+        if (!tf_reenter_password_signUp.text.isNullOrBlank()) {
+
+            //re-enter field is not empty..checking if it matches with password field
+            if (!tf_reenter_password_signUp.text.toString()
+                    .equals(tf_password_signUp.text.toString())
+            ) {
+                Log.d(TAG, "onCreate: Re-Enter Password does not match with Password")
+                Toast.makeText(
+                    context,
+                    "Re-Enter Password does'nt match with Password",
+                    Toast.LENGTH_LONG
+                ).show()
+                return false
+
+            }
+
+        }// prompt user that re-enter field is empty
+        else {
+
+            Log.d(TAG, "onCreate: Re-Enter Password is Empty")
+            Toast.makeText(context, "Please Re-Enter the Password", Toast.LENGTH_LONG).show()
+            return false
+        }
+
+        return true
+    }
+
+
+
+
+
+
+
+
+
+
+
 
 
 
     //---- Phone Auth Start ------//
     //*****************************************************************************************************
 
-        //user details
-        //TODO: Use ViewModelFactory to Initialize these fields
-        lateinit var tf_user_phone_signUp: TextInputEditText
-        lateinit var tf_password_signUp: TextInputEditText
-        lateinit var tf_reenter_password_signUp: TextInputEditText
-        lateinit var context: Context
-        var auth = Firebase.auth
-        lateinit var storedVerificationId: String
-        lateinit var resendToken: PhoneAuthProvider.ForceResendingToken
-        var userPhone: String = "+92"
-        val TAG = "SignUP ViewModel"
         fun initializeFields(
             phone: TextInputEditText,
             password: TextInputEditText,
             reenterPass: TextInputEditText,
-            dcontext: Context
+            dcontext: Context,
+
         ) {
             this.tf_user_phone_signUp = phone
             this.tf_password_signUp = password
             this.tf_reenter_password_signUp = reenterPass
             this.context = dcontext
+            this.tf_user_email_signUp=phone
 
         }
 
@@ -80,41 +199,8 @@ class SignUpViewModel: ViewModel() {
             // TODO: Remove Test Toast
             Toast.makeText(context, "Usernumber : $userPhone", Toast.LENGTH_LONG).show()
             Log.d(TAG, "userDetailCheck: Usernumber : $userPhone")
-            if (tf_password_signUp.text.isNullOrBlank() || tf_password_signUp.length() < 6) {
 
-                Log.d(TAG, "onCreate: Password Incorrect")
-                Toast.makeText(
-                    context,
-                    "Password must be of 6 or more characters",
-                    Toast.LENGTH_LONG
-                )
-                    .show()
-                return false
-
-
-            }
-            //check if re-enter password field is filled or not
-            if (!tf_reenter_password_signUp.text.isNullOrBlank()) {
-
-                //re-enter field is not empty..checking if it matches with password field
-                if (!tf_reenter_password_signUp.text.toString()
-                        .equals(tf_password_signUp.text.toString())
-                ) {
-                    Log.d(TAG, "onCreate: Re-Enter Password does not match with Password")
-                    Toast.makeText(
-                        context,
-                        "Re-Enter Password does'nt match with Password",
-                        Toast.LENGTH_LONG
-                    ).show()
-                    return false
-
-                }
-
-            }// prompt user that re-enter field is empty
-            else {
-
-                Log.d(TAG, "onCreate: Re-Enter Password is Empty")
-                Toast.makeText(context, "Please Re-Enter the Password", Toast.LENGTH_LONG).show()
+            if (!isValidPassword()){
                 return false
             }
 
