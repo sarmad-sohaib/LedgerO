@@ -16,4 +16,15 @@
     <string name="view_report">View Report</string>
     <string name="add_new_group">Add new group</string>
     <string name="add_new_ledger">Add new ledger</string>
+    <string name="log_in">Login</string>
+    <string name="phone_no">Phone No.</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="or">Or</string>
+    <string name="via_google">Via Google</string>
+    <string name="don_t_have_an_account">Don\'t have an account?</string>
+    <string name="username">Username</string>
+    <string name="signup">Signup</string>
+    <string name="already_have_an_account">Already have an account?</string>
 </resources>
