@@ -27,7 +27,7 @@
     <string name="username">Username</string>
     <string name="signup">Signup</string>
     <string name="already_have_an_account">Already have an account?</string>
-   <string name="re_enter_passsword">Re-enter passsword</string>
+    <string name="re_enter_passsword">Re-enter passsword</string>
     <string name="app_name">LedgerO</string>
     <string name="email">Email</string>
 </resources>
