@@ -20,26 +20,27 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tv_email_dialog_frag"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/addbt"
+        android:id="@+id/bt_add_dialog_frag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginVertical="32dp"
         android:text="Add"
         android:minWidth="100dp"
         app:cornerRadius="100dp"
-        app:layout_constraintEnd_toStartOf="@+id/materialButton"
+        app:layout_constraintEnd_toStartOf="@+id/bt_cancel_dialog_frag"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/filledTextField" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/materialButton"
+        android:id="@+id/bt_cancel_dialog_frag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginVertical="32dp"
@@ -50,7 +51,7 @@
         android:minWidth="100dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/addbt"
+        app:layout_constraintStart_toEndOf="@+id/bt_add_dialog_frag"
         app:layout_constraintTop_toBottomOf="@+id/filledTextField" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
