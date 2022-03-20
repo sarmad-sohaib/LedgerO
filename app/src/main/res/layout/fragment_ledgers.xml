@@ -134,6 +134,7 @@
         app:layout_constraintStart_toStartOf="@+id/tv_get_money_frag" />
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/bt_add_new_ledger"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginEnd="8dp"

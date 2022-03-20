@@ -1,5 +1,6 @@
 package com.ledgero
 
+
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -9,6 +10,7 @@ import com.ledgero.fragments.HomeFragment
 import com.ledgero.fragments.MoneyFragment
 import com.ledgero.fragments.MoreFragment
 
+
 class MainActivity : AppCompatActivity() {
 
     private lateinit var curruntFragment: Fragment
@@ -16,6 +18,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
 
 //         Restricting darkMode in this activity
 //        TODO: change this line when dark mode needed in the activity
@@ -59,6 +62,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         bottomNavigationView.setOnNavigationItemSelectedListener(navLisner)
+
 
     }
 }

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "620991783347",
+    "project_id": "ledgero",
+    "storage_bucket": "ledgero.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:620991783347:android:cdb239b34aad1ce8ce2bc6",
+        "android_client_info": {
+          "package_name": "com.ledgero"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "620991783347-ju7cbn3blj2bmouebhbveufpa012bk7h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ledgero",
+            "certificate_hash": "5945211a3ec7d1b92fc0d3be133c64298497e979"
+          }
+        },
+        {
+          "client_id": "620991783347-67ak7g0i9ek4hs9hlqopah1qi3v274rv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbowqYO-qn0TDZU52KkHNp4hb0HV3x2Lo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "620991783347-67ak7g0i9ek4hs9hlqopah1qi3v274rv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
