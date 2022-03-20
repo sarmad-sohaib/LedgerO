@@ -14,7 +14,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
+<!--ggmrijgi-->
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/shape_bg_white_money_frag"
         android:layout_width="0dp"
