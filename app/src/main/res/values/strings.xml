@@ -30,4 +30,5 @@
     <string name="re_enter_passsword">Re-enter passsword</string>
     <string name="app_name">LedgerO</string>
     <string name="email">Email</string>
+    <string name="_00_ledgers">00 ledgers</string>
 </resources>

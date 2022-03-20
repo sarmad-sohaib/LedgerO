@@ -7,14 +7,14 @@
     tools:context=".fragments.LedgersFragment">
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/shape_bg_money_frag"
+        android:id="@+id/shape_bg_ledger_frag"
         android:layout_width="0dp"
         android:layout_height="200dp"
         android:background="@drawable/main_gradient_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-<!--ggmrijgi-->
+
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/shape_bg_white_money_frag"
         android:layout_width="0dp"
@@ -24,9 +24,9 @@
         android:background="@drawable/layout_bg"
         android:backgroundTint="@color/white"
         app:layout_constraintBottom_toTopOf="@id/bt_cash_register_money_frag"
-        app:layout_constraintEnd_toEndOf="@id/shape_bg_money_frag"
-        app:layout_constraintStart_toStartOf="@id/shape_bg_money_frag"
-        app:layout_constraintTop_toTopOf="@id/shape_bg_money_frag" />
+        app:layout_constraintEnd_toEndOf="@id/shape_bg_ledger_frag"
+        app:layout_constraintStart_toStartOf="@id/shape_bg_ledger_frag"
+        app:layout_constraintTop_toTopOf="@id/shape_bg_ledger_frag" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/bt_cash_register_money_frag"
@@ -40,7 +40,7 @@
         android:textColor="@color/violent_vixen"
         android:textSize="16sp"
         app:cornerRadius="10dp"
-        app:layout_constraintBottom_toBottomOf="@id/shape_bg_money_frag"
+        app:layout_constraintBottom_toBottomOf="@id/shape_bg_ledger_frag"
         app:layout_constraintEnd_toEndOf="@+id/shape_bg_white_money_frag"
         app:layout_constraintStart_toStartOf="@+id/shape_bg_white_money_frag"
         app:layout_constraintTop_toBottomOf="@id/shape_bg_white_money_frag" />
@@ -150,4 +150,46 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/line_horizontal_money_frag" />
+
+<!--Search bar-->
+    <EditText
+        android:id="@+id/tv_search_bar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:drawablePadding="8dp"
+        android:paddingHorizontal="8dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:clickable="true"
+        android:textColor="@color/blackcurrant"
+        android:hint="@string/_00_ledgers"
+        android:drawableStart="@drawable/ic_outline_person_search_24"
+        android:drawableEnd="@drawable/ic_outline_as_pdf_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/shape_bg_ledger_frag" />
+
+<!--    <com.google.android.material.textfield.TextInputLayout-->
+<!--        android:id="@+id/filledTextField"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:endIconDrawable="@drawable/ic_outline_as_pdf_24"-->
+<!--        app:startIconDrawable="@drawable/ic_outline_person_search_24"-->
+<!--        app:startIconTint="@color/blackcurrant"-->
+<!--        app:endIconTint="@color/blackcurrant"-->
+<!--        app:endIconMode="custom"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/shape_bg_money_frag">-->
+
+<!--        <com.google.android.material.textfield.TextInputEditText-->
+<!--            android:id="@+id/tv_search_ledgers_frag"-->
+<!--            android:gravity="center_vertical"-->
+<!--            android:background="@android:color/transparent"-->
+<!--            android:textColor="@color/blackcurrant"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content" />-->
+
+<!--    </com.google.android.material.textfield.TextInputLayout>-->
+
 </androidx.constraintlayout.widget.ConstraintLayout>
