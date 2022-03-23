@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.ledgero.R
-import com.ledgero.models.PagerAdapter
+import com.ledgero.adapters.PagerAdapter
 
 class HomeFragment : Fragment() {
 
