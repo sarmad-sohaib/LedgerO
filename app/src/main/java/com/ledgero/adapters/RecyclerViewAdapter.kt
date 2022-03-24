@@ -5,6 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
+import androidx.core.content.contentValuesOf
 import androidx.recyclerview.widget.RecyclerView
 import com.ledgero.R
 
@@ -49,7 +51,10 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>
             ledgerMoney = itemView.findViewById(R.id.tv_money)
             ledgerDetail = itemView.findViewById(R.id.tv_detail)
             ledgerNotification = itemView.findViewById(R.id.bt_notification_send)
-        }
 
+            itemView.setOnClickListener { v: View ->
+                Toast.makeText(itemView.context, adapterPosition.toString(), Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }
