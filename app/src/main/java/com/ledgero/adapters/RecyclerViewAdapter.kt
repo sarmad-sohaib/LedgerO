@@ -6,12 +6,10 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.contentValuesOf
 import androidx.recyclerview.widget.RecyclerView
 import com.ledgero.R
 
-class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>(){
-
+class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
 
     private val ledgerNames = arrayOf("Sarmad", "Sohaib")
     private val ledgerTimeStamps = arrayOf("Sarmad", "Sohaib")
@@ -38,7 +36,7 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>
         return ledgerNames.size
     }
 
-    inner class ViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var ledgerName: TextView
         var ledgerTimeStamp: TextView
         var ledgerMoney: TextView
@@ -53,7 +51,8 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>
             ledgerNotification = itemView.findViewById(R.id.bt_notification_send)
 
             itemView.setOnClickListener { v: View ->
-                Toast.makeText(itemView.context, adapterPosition.toString(), Toast.LENGTH_SHORT).show()
+                Toast.makeText(itemView.context, ledgerName.text, Toast.LENGTH_SHORT)
+                    .show()
             }
         }
     }
