@@ -22,7 +22,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.activity_sign_up.*
+import com.ledgero.DataClasses.UserInformation
 
 class SignUpViewModel: ViewModel() {
     //user details
@@ -92,12 +92,12 @@ class SignUpViewModel: ViewModel() {
     }
 
     //validate Email Addrress
-    fun isValidEmail(email:String):Boolean{
+   private fun isValidEmail(email:String):Boolean{
 
         return !TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
 
-    fun isValidPassword():Boolean{
+   private fun isValidPassword():Boolean{
 
         if (tf_password_signUp.text.isNullOrBlank() || tf_password_signUp.length() < 6) {
 
