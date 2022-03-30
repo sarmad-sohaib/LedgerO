@@ -7,7 +7,7 @@
     tools:context=".fragments.LedgersFragment">
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/shape_bg_money_frag"
+        android:id="@+id/shape_bg_ledger_frag"
         android:layout_width="0dp"
         android:layout_height="200dp"
         android:background="@drawable/main_gradient_background"
@@ -24,9 +24,9 @@
         android:background="@drawable/layout_bg"
         android:backgroundTint="@color/white"
         app:layout_constraintBottom_toTopOf="@id/bt_cash_register_money_frag"
-        app:layout_constraintEnd_toEndOf="@id/shape_bg_money_frag"
-        app:layout_constraintStart_toStartOf="@id/shape_bg_money_frag"
-        app:layout_constraintTop_toTopOf="@id/shape_bg_money_frag" />
+        app:layout_constraintEnd_toEndOf="@id/shape_bg_ledger_frag"
+        app:layout_constraintStart_toStartOf="@id/shape_bg_ledger_frag"
+        app:layout_constraintTop_toTopOf="@id/shape_bg_ledger_frag" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/bt_cash_register_money_frag"
@@ -40,7 +40,7 @@
         android:textColor="@color/violent_vixen"
         android:textSize="16sp"
         app:cornerRadius="10dp"
-        app:layout_constraintBottom_toBottomOf="@id/shape_bg_money_frag"
+        app:layout_constraintBottom_toBottomOf="@id/shape_bg_ledger_frag"
         app:layout_constraintEnd_toEndOf="@+id/shape_bg_white_money_frag"
         app:layout_constraintStart_toStartOf="@+id/shape_bg_white_money_frag"
         app:layout_constraintTop_toBottomOf="@id/shape_bg_white_money_frag" />
@@ -150,4 +150,32 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/line_horizontal_money_frag" />
+
+    <!--Search bar-->
+    <EditText
+        android:id="@+id/tv_search_bar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:drawableStart="@drawable/ic_outline_person_search_24"
+        android:drawableEnd="@drawable/ic_outline_as_pdf_24"
+        android:drawablePadding="8dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:fontFamily="@font/ropa_sans_regular"
+        android:hint="@string/_00_ledgers"
+        android:paddingHorizontal="8dp"
+        android:textColor="@color/blackcurrant"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/shape_bg_ledger_frag" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_ledgers"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_search_bar" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
