@@ -20,9 +20,12 @@ import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import com.ledgero.DataClasses.UserInformation
+import com.ledgero.DataClasses.Entries
+import com.ledgero.DataClasses.SingleLedgers
+import com.ledgero.DataClasses.User
+import java.util.*
+import kotlin.collections.ArrayList
 
 class SignUpViewModel: ViewModel() {
     //user details
@@ -75,7 +78,12 @@ class SignUpViewModel: ViewModel() {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "createUserAccount:success")
                    mUser = auth.currentUser!!
-                  Toast.makeText(context, "Account Created Successfully!", Toast.LENGTH_SHORT).show()
+
+                    Toast.makeText(context, "Account Created Successfully!, Saving User in DB", Toast.LENGTH_SHORT).show()
+
+
+                    saveuserinDB(mUser)
+
                     context.startActivity(Intent(context,MainActivity::class.java))
                     val ac = context as Activity
                     ac.finish()
@@ -216,7 +224,7 @@ class SignUpViewModel: ViewModel() {
 
 
                         val user = task.result?.user
-                        saveuserinDB(user)
+
                         context.startActivity(Intent(context, MainActivity::class.java))
 
                     } else {
@@ -244,12 +252,25 @@ class SignUpViewModel: ViewModel() {
         }
 
         fun saveuserinDB(user: FirebaseUser?) {
-            val newUser = UserInformation(
-                userPhone,
-                user?.uid.toString()
-            )
-            val db = Firebase.database.reference
-            db.child("users").child(userPhone).setValue(newUser)
+
+
+
+            var nUser=  User()
+            nUser.userEmail=tf_user_email_signUp.text.toString()
+            nUser.userID= user?.uid
+            nUser.total_single_ledgers=0;
+            nUser.userName="New User"
+            nUser.userPhone="00000"
+            nUser.user_group_Ledgers=null
+            nUser.user_single_Ledgers=null
+            nUser.user_total_give=0
+            nUser.user_total_take=0
+
+            Toast.makeText(context, "User Created...Uploading", Toast.LENGTH_SHORT).show()
+
+            var db= FirebaseDatabase.getInstance().reference
+
+            db.child("/users").push().setValue(nUser)
 
         }
 
@@ -263,7 +284,7 @@ class SignUpViewModel: ViewModel() {
             Log.d(TAG, "isUserExist: result fetched")
             if (result.value != null) {
                 Log.d(TAG, "isUserExist: Yes, User Exists")
-                var user: UserInformation = result.value as UserInformation
+                var user: User = result.value as User
                 Toast.makeText(context, "User Already Exist : ${user.userID}", Toast.LENGTH_LONG)
                     .show()
 

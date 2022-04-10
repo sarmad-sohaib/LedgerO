@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -31,11 +32,15 @@ class LedgersFragment : Fragment() {
 
         adapter = RecyclerViewAdapter()
         rv.adapter = adapter
+        bt.setOnClickListener(){
 
+            Toast.makeText(context, "Add New Clicked", Toast.LENGTH_SHORT).show()
+            var dialog= CustomDialogFragment()
+            dialog.show(childFragmentManager,"customDialog")
+            Toast.makeText(context, "Show Dialog Called", Toast.LENGTH_SHORT).show()
 
-        bt.setOnClickListener {
-            dialog.show(childFragmentManager, "CustomDialog")
         }
+
         return view
     }
 }
