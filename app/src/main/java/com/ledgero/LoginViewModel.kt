@@ -3,6 +3,7 @@ package com.ledgero
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.provider.Settings
 import android.text.TextUtils
 import android.util.Log
 import android.util.Patterns
@@ -14,6 +15,10 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.ledgero.model.DatabaseUtill
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 
 class LoginViewModel : ViewModel() {
 
@@ -83,6 +88,15 @@ private var TAG="LoginViewModel:"
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithEmail:success")
                     val user = auth.currentUser
+
+//                    //call this function to update current user data
+//                    //so whenever user login its data will be fetched from
+//                    //firebase and be updated
+                    GlobalScope.launch {
+                        var user = async { DatabaseUtill().updateCurrentUser(user!!.uid) }
+                        Log.d(TAG, "signIn: ${user.await()}")
+                    }
+
                    context.startActivity(Intent(context,MainActivity::class.java))
                     val ac= context as Activity
                     ac.finish()

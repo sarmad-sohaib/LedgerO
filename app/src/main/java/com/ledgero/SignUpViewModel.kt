@@ -255,22 +255,23 @@ class SignUpViewModel: ViewModel() {
 
 
 
-            var nUser=  User()
-            nUser.userEmail=tf_user_email_signUp.text.toString()
-            nUser.userID= user?.uid
-            nUser.total_single_ledgers=0;
-            nUser.userName="New User"
-            nUser.userPhone="00000"
-            nUser.user_group_Ledgers=null
-            nUser.user_single_Ledgers=null
-            nUser.user_total_give=0
-            nUser.user_total_take=0
+//            here User is created. User is Singleton class
+            User.userEmail=tf_user_email_signUp.text.toString()
+            User.userID= user?.uid.toString()
+            User.total_single_ledgers=0;
+            User.userName="New User"
+            User.userPhone="00000"
+            User.user_group_Ledgers=null
+            User.user_single_Ledgers=null
+            User.user_total_give=0
+            User.user_total_take=0
+
 
             Toast.makeText(context, "User Created...Uploading", Toast.LENGTH_SHORT).show()
 
             var db= FirebaseDatabase.getInstance().reference
 
-            db.child("/users").push().setValue(nUser)
+            db.child("/users").child(User.userID!!).setValue(User)
 
         }
 
@@ -278,7 +279,7 @@ class SignUpViewModel: ViewModel() {
 
             Log.d(TAG, "isUserExist: called")
             val db = FirebaseDatabase.getInstance().getReference()
-            // db.child()
+            // db_reference.child()
             Log.d(TAG, "isUserExist: ${db.child("/users").get().result.toString()}")
             var result = db.child("users").get().result
             Log.d(TAG, "isUserExist: result fetched")
