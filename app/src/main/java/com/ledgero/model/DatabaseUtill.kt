@@ -10,6 +10,8 @@ import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 import com.ledgero.DataClasses.FriendUsers
 import com.ledgero.DataClasses.User
+import com.ledgero.Interfaces.FetchUsers
+
 
 class DatabaseUtill {
 
@@ -17,51 +19,65 @@ class DatabaseUtill {
     var db_reference= FirebaseDatabase.getInstance().reference
 
 
-   private var users : ArrayList<FriendUsers> = ArrayList()
 
-    constructor(){
-        getAllUsersData()
+    constructor() {
+
+
     }
 
 
-    fun getUser(email:String):FriendUsers?{
+    fun getUser(email:String, userCallBack:FetchUsers){
         Log.d(TAG, "getUser: Called")
-        var mUser: FriendUsers? =null
 
 
-        if (!users.isEmpty()){
-            for (u in users){
-                if (u.userEmail.equals(email)){
-                    Log.d(TAG, "getUser: $email : found!!")
-                    mUser=u
+        getAllUsersData(object : FetchUsers{
+            override fun OnAllUsersFetched(users: ArrayList<FriendUsers>?) {
+                var mUser: FriendUsers? =null
+
+
+                if (users!=null){
+                    for (u in users){
+                        if (u.userEmail.equals(email)){
+                            Log.d(TAG, "getUser: $email : found!!")
+                            mUser=u
+                        }
+                    }
+                    if (mUser==null){
+                        Log.d(TAG, "getUser: $email : Not Found.")
+                    }
+                }else{
+
+                    Log.d(TAG, "getUser: No Data To Find User ")
                 }
+               userCallBack.OnSingleUserFetched(mUser)
             }
-            if (mUser==null){
-                Log.d(TAG, "getUser: $email : Not Found.")
+
+            override fun OnSingleUserFetched(user: FriendUsers?) {
+                ;//nothing to do here
             }
-        }else{
-            Log.d(TAG, "getUser: No Data To Find User ")
-        }
-        return mUser
+        })
+
     }
 
 
-     fun getAllUsersData():ArrayList<FriendUsers>{
+     fun getAllUsersData(usersFetched: FetchUsers){
          Log.d(TAG, "getAllUsersData: called")
         db_reference.child("users").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 // Get Post object and use the values to update the UI
+              var usersList = ArrayList<FriendUsers>()
                 Log.d(TAG, "onDataChange: called")
                 for (ds in dataSnapshot.children) {
                     var user = ds.getValue(FriendUsers::class.java)
                     Log.d(TAG, "onDataChange: Read Users ${user.toString()} ")
                     if (user!= null){
                         if (!user?.userID.equals(Firebase.auth.currentUser?.uid) ){
-                            users.add(user!!)
+                            usersList?.add(user!!)
                             Log.d(TAG, "onDataChange: ${user.userEmail} ")
                         }}
 
                 }
+                usersFetched.OnAllUsersFetched(usersList)
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -69,7 +85,6 @@ class DatabaseUtill {
             }
         })
 
-        return users
     }
 
     fun updateCurrentUser(uid:String):User{

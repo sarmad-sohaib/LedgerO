@@ -14,13 +14,14 @@
         <entry key="..\:/LedgrO/LedgerO/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/LedgrO/LedgerO/app/src/main/res/layout/activity_sign_up.xml" value="0.33" />
         <entry key="..\:/LedgrO/LedgerO/app/src/main/res/layout/dialg_box.xml" value="0.28515625" />
-        <entry key="..\:/LedgrO/LedgerO/app/src/main/res/layout/fragment_custom_dialog.xml" value="0.33" />
+        <entry key="..\:/LedgrO/LedgerO/app/src/main/res/layout/fragment_custom_dialog.xml" value="0.5" />
         <entry key="..\:/LedgrO/LedgerO/app/src/main/res/layout/fragment_group_ledgers.xml" value="0.30625" />
         <entry key="..\:/LedgrO/LedgerO/app/src/main/res/layout/fragment_home.xml" value="0.28515625" />
         <entry key="..\:/LedgrO/LedgerO/app/src/main/res/layout/fragment_ledgers.xml" value="0.33" />
         <entry key="..\:/LedgrO/LedgerO/app/src/main/res/layout/fragment_money.xml" value="0.2796875" />
         <entry key="..\:/LedgrO/LedgerO/app/src/main/res/layout/fragment_more.xml" value="0.30625" />
-        <entry key="..\:/LedgrO/LedgerO/app/src/main/res/layout/recycler_view_model.xml" value="0.28515625" />
+        <entry key="..\:/LedgrO/LedgerO/app/src/main/res/layout/recycler_view_model.xml" value="0.33" />
+        <entry key="..\:/LedgrO/LedgerO/app/src/main/res/layout/user_found_layout.xml" value="0.5" />
       </map>
     </option>
   </component>
