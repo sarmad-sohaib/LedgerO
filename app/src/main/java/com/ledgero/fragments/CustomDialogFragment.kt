@@ -16,6 +16,7 @@ import com.ledgero.DataClasses.User
 import com.ledgero.Interfaces.FetchUsers
 import com.ledgero.R
 import com.ledgero.model.DatabaseUtill
+import com.ledgero.model.UtillFunctions
 import kotlinx.android.synthetic.main.fragment_custom_dialog.view.*
 
 
@@ -59,37 +60,42 @@ var isUserAdded:Boolean= false
         }
 
         rootView.bt_cancel_dialog_frag.setOnClickListener(){
-            rootView.visibility=View.GONE
+
 
         }
 
     rootView.bt_add_dialog_frag.setOnClickListener(){
 
-        showInfoMessage()
-        Toast.makeText(context, "Finding Users", Toast.LENGTH_SHORT).show()
-
+        hideInfoMessage()
+        var dialog=UtillFunctions.setProgressDialog(requireContext(),"Searching Users..Please Wait!")
+        UtillFunctions.showProgressDialog(dialog)
 
         var email= rootView.tv_email_dialog_frag.text.toString()
-
-         db.getUser(email,object : FetchUsers{
-            override fun OnAllUsersFetched(users: ArrayList<FriendUsers>?) {
-                ;//nothing to do here for now
-            }
-
-            override fun OnSingleUserFetched(user: FriendUsers?) {
-
-                if (user!=null){
-                    friendUser=user
-                    showUserFoundList(user)
-                    Toast.makeText(context, "$email : Found", Toast.LENGTH_SHORT).show()
+        if (!email.isEmpty()){
+            db.getUser(email,object : FetchUsers{
+                override fun OnAllUsersFetched(users: ArrayList<FriendUsers>?) {
+                    ;//nothing to do here for now
                 }
-                else{
-                    Toast.makeText(context, "$email : No Such User Found", Toast.LENGTH_SHORT).show()
-                                  }
-                hideInfoMessage()
-            }
 
-        })
+                override fun OnSingleUserFetched(user: FriendUsers?) {
+
+                    if (user!=null){
+                        friendUser=user
+                        showUserFoundList(user)
+                        Toast.makeText(context, "$email : Found", Toast.LENGTH_SHORT).show()
+                    }
+                    else{
+                        showInfoMessage("Sorry! No user Found.")
+                        Toast.makeText(context, "$email : No Such User Found", Toast.LENGTH_SHORT).show()
+
+                    }
+                    UtillFunctions.hideProgressDialog(dialog)
+                }
+
+            })
+
+        }
+
 
         }
 
@@ -117,12 +123,12 @@ var isUserAdded:Boolean= false
     }
 
     private fun hideInfoMessage() {
-        infoTextView.text="Searching For User...Please Wait!"
+
         infoTextView.visibility=View.INVISIBLE;
     }
 
-    private fun showInfoMessage() {
+    private fun showInfoMessage(message:String) {
 
-      infoTextView.text="Searching For User...Please Wait!"
+      infoTextView.text=message
 infoTextView.visibility=View.VISIBLE;
     }}
