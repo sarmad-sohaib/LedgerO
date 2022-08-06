@@ -46,6 +46,7 @@ class LedgersFragment : Fragment() {
             Toast.makeText(context, "Add New Clicked", Toast.LENGTH_SHORT).show()
             var dialog= CustomDialogFragment(rv.adapter)
             dialog.show(childFragmentManager,"customDialog")
+            rv.adapter!!.notifyDataSetChanged()
             Toast.makeText(context, "Show Dialog Called", Toast.LENGTH_SHORT).show()
 
 

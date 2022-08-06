@@ -52,14 +52,18 @@ var isUserAdded:Boolean= false
 
 
 
+
         //binding Views ends here...
 
         userFoundList_addFriendBtn.setOnClickListener(){
             addFriendInUser(friendUser)
+            this.dismiss()
 
         }
 
         rootView.bt_cancel_dialog_frag.setOnClickListener(){
+
+            this.dismiss()
 
 
         }
@@ -81,6 +85,12 @@ var isUserAdded:Boolean= false
 
                     if (user!=null){
                         friendUser=user
+                        if (checkIfUserAlreadyFriend(user)){
+                            Toast.makeText(context, "$email : Already exist in your ledger list", Toast.LENGTH_SHORT).show()
+                            UtillFunctions.hideProgressDialog(dialog)
+
+                            return
+                        }
                         showUserFoundList(user)
                         Toast.makeText(context, "$email : Found", Toast.LENGTH_SHORT).show()
                     }
@@ -103,6 +113,28 @@ var isUserAdded:Boolean= false
 
 
         return rootView
+
+    }
+
+    private fun checkIfUserAlreadyFriend(user: FriendUsers): Boolean {
+        var exist=false
+        if (User.user_single_Ledgers != null){
+            if (!User.user_single_Ledgers!!.isEmpty())
+            {
+
+                for (i in User.user_single_Ledgers!!){
+                    if (user.userID!!.equals(i.friend_user!!.userID)){
+
+                        exist=true
+                    }
+
+                }
+        }
+        }
+        return exist
+
+
+
 
     }
 

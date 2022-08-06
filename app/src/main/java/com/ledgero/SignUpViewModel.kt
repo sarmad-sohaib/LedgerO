@@ -24,6 +24,7 @@ import com.google.firebase.ktx.Firebase
 import com.ledgero.DataClasses.Entries
 import com.ledgero.DataClasses.SingleLedgers
 import com.ledgero.DataClasses.User
+import com.ledgero.model.UtillFunctions
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -71,7 +72,8 @@ class SignUpViewModel: ViewModel() {
     private fun createUserAccount(email: String, password: String): Boolean {
 
 
-
+        var dialog= UtillFunctions.setProgressDialog(context,"Creating Account...")
+        UtillFunctions.showProgressDialog(dialog)
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener() { task ->
                 if (task.isSuccessful) {
@@ -83,6 +85,7 @@ class SignUpViewModel: ViewModel() {
 
 
                     saveuserinDB(mUser)
+                    UtillFunctions.hideProgressDialog(dialog)
 
                     context.startActivity(Intent(context,MainActivity::class.java))
                     val ac = context as Activity
@@ -90,7 +93,8 @@ class SignUpViewModel: ViewModel() {
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "createUserWithEmail:failure", task.exception)
-                    Toast.makeText(context, "Not Able To Sign Up.",
+                    UtillFunctions.hideProgressDialog(dialog)
+                    Toast.makeText(context, "Not Able To Sign Up: "+ task.exception,
                         Toast.LENGTH_SHORT).show()
                    isUserCreated=false
                 }

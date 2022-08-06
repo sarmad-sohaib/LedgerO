@@ -37,7 +37,7 @@ class UtillFunctions {
             ll.layoutParams = llParam
             val progressBar = ProgressBar(context)
             progressBar.isIndeterminate = true
-            progressBar.setPadding(0, 0, llPadding, 0)
+            progressBar.setPadding(-30, 0, 0, 0)
             progressBar.layoutParams = llParam
             llParam = LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -47,7 +47,7 @@ class UtillFunctions {
             val tvText = TextView(context)
             tvText.text = text
             tvText.setTextColor(Color.parseColor("#000000"))
-            tvText.textSize = 20f
+            tvText.textSize = 15f
             tvText.layoutParams = llParam
             ll.addView(progressBar)
             ll.addView(tvText)

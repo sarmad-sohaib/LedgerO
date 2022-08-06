@@ -16,6 +16,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.ledgero.model.DatabaseUtill
+import com.ledgero.model.UtillFunctions
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
@@ -82,6 +83,9 @@ private var TAG="LoginViewModel:"
     }
 
     fun signIn() {
+
+        var dialog = UtillFunctions.setProgressDialog(context,"Checking Credentials...")
+        UtillFunctions.showProgressDialog(dialog)
         auth.signInWithEmailAndPassword(userEmail, userPassword)
             .addOnCompleteListener() { task ->
                 if (task.isSuccessful) {
@@ -97,13 +101,15 @@ private var TAG="LoginViewModel:"
                         Log.d(TAG, "signIn: ${user.await()}")
                     }
 
+                    UtillFunctions.hideProgressDialog(dialog)
                    context.startActivity(Intent(context,MainActivity::class.java))
                     val ac= context as Activity
                     ac.finish()
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithEmail:failure", task.exception)
-                    Toast.makeText(context, "Can't Find The User",
+                    UtillFunctions.hideProgressDialog(dialog)
+                    Toast.makeText(context, "Can't Find The User. Please check your email or password",
                         Toast.LENGTH_SHORT).show()
 
                 }
