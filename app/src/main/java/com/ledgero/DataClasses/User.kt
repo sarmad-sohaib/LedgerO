@@ -1,6 +1,9 @@
 package com.ledgero.DataClasses
 
-  object User{
+import com.ledgero.Interfaces.OnUpdateUserSingleLedger
+import com.ledgero.model.DatabaseUtill
+
+object User{
 
       var userPhone:String?=""
     var userID:String?=""
@@ -18,7 +21,7 @@ package com.ledgero.DataClasses
 // add a new ledger by adding a new friend
 //so we can just make a empty ledger with default
 //values and add given friend ledger
-fun add_Single_Ledger(friend:FriendUsers){
+fun add_friend_for_single_ledger(friend:FriendUsers){
 
     if (user_single_Ledgers==null){
         user_single_Ledgers= ArrayList()
@@ -31,7 +34,16 @@ fun add_Single_Ledger(friend:FriendUsers){
 
     var single_ledger= SingleLedgers()
     single_ledger.friend_user=friend
+    single_ledger.ledgerUID= userID+friend.userID
     this.user_single_Ledgers!!.add(single_ledger)
+    var db=DatabaseUtill()
+    db.createNewSingleLedger(this.userID!!, user_single_Ledgers!!,object : OnUpdateUserSingleLedger{
+
+        override fun onSingleLedgerUpdated(boolean: Boolean) {
+
+        }
+    })
+
 
 }
 

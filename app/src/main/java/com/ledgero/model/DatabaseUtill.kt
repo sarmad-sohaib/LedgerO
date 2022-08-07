@@ -9,8 +9,10 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 import com.ledgero.DataClasses.FriendUsers
+import com.ledgero.DataClasses.SingleLedgers
 import com.ledgero.DataClasses.User
 import com.ledgero.Interfaces.FetchUsers
+import com.ledgero.Interfaces.OnUpdateUserSingleLedger
 
 
 class DatabaseUtill {
@@ -20,8 +22,8 @@ class DatabaseUtill {
 
 
 
-    constructor() {
 
+    constructor() {
 
     }
 
@@ -111,6 +113,25 @@ class DatabaseUtill {
         return user
     }
 
+    fun updateuserSingleLedgersList(uid:String, callback:OnUpdateUserSingleLedger ){
+
+;
+    }
+    //when user add a new friend to start ledger, we will call this
+    //function after initializing singleLedger object
+    //then we need to create/add this new ledger to this user+ the friend user
+ fun createNewSingleLedger(uid: String,newLedgerList: ArrayList<SingleLedgers>, callback: OnUpdateUserSingleLedger) {
+
+        //create new entry field in /ledgersEntries/
+db_reference.child("users").child(uid).child("user_single_Ledgers").setValue(newLedgerList)
+    .addOnCompleteListener(){
+        if (it.isSuccessful){
+            Log.d(TAG, "createNewSingleLedger: added successfully")
+        }
+    }
+
+
+ }
 
 
 }

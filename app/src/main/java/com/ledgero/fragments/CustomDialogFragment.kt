@@ -86,7 +86,7 @@ var isUserAdded:Boolean= false
                     if (user!=null){
                         friendUser=user
                         if (checkIfUserAlreadyFriend(user)){
-                            Toast.makeText(context, "$email : Already exist in your ledger list", Toast.LENGTH_SHORT).show()
+//                            Toast.makeText(context, "$email : Already exist in your ledger list", Toast.LENGTH_SHORT).show()
                             UtillFunctions.hideProgressDialog(dialog)
 
                             return
@@ -140,7 +140,7 @@ var isUserAdded:Boolean= false
 
     private fun addFriendInUser(friendUser: FriendUsers) {
         Toast.makeText(context, "New Ledger Added", Toast.LENGTH_SHORT).show()
-        User.add_Single_Ledger(friendUser)
+        User.add_friend_for_single_ledger(friendUser)
         isUserAdded=true
         adapter!!.notifyDataSetChanged()
 
