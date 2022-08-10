@@ -13,6 +13,7 @@ import com.ledgero.DataClasses.SingleLedgers
 import com.ledgero.DataClasses.User
 import com.ledgero.Interfaces.FetchUsers
 import com.ledgero.Interfaces.OnUpdateUserSingleLedger
+import com.ledgero.Interfaces.OnUserDetailUpdate
 
 
 class DatabaseUtill {
@@ -89,15 +90,15 @@ class DatabaseUtill {
 
     }
 
-    fun updateCurrentUser(uid:String):User{
+    fun updateCurrentUser(uid:String, callback:FetchUsers):User{
         Log.d(TAG, "updateCurrentUser: Called")
         var user:User= User
-        db_reference.child("users").child(uid).addValueEventListener(object: ValueEventListener{
+        db_reference.child("users").child(uid).addListenerForSingleValueEvent(object: ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()){
                     Log.d(TAG, "onDataChange: Current User Data Fetched")
                     user= snapshot.getValue<User>()!!
-
+                    callback.OnSingleUserFetched(null)
 
                 }
             }
@@ -122,16 +123,42 @@ class DatabaseUtill {
     //then we need to create/add this new ledger to this user+ the friend user
  fun createNewSingleLedger(uid: String,newLedgerList: ArrayList<SingleLedgers>, callback: OnUpdateUserSingleLedger) {
 
+        Log.d(TAG, "createNewSingleLedger: "+uid)
         //create new entry field in /ledgersEntries/
 db_reference.child("users").child(uid).child("user_single_Ledgers").setValue(newLedgerList)
     .addOnCompleteListener(){
         if (it.isSuccessful){
             Log.d(TAG, "createNewSingleLedger: added successfully")
+            callback.onSingleLedgerUpdated(true)
+        }
+        if (it.isCanceled){
+            Log.d(TAG, "createNewSingleLedger: Cannot update the ledger")
+            callback.onSingleLedgerUpdated(false)
+
         }
     }
 
 
  }
 
+
+    fun updateUserTotalLedgerCount(uid:String,callback:OnUserDetailUpdate){
+        Log.d(TAG, "updateUserTotalLedgerCount: called")
+
+        db_reference.child("users").child(uid).child("total_single_ledgers").setValue(User.total_single_ledgers)
+            .addOnCompleteListener(){
+                if (it.isSuccessful){
+
+                    Log.d(TAG, "updateUserTotalLedgerCount: updated succesfully")
+                    callback.onUserDetailsUpdated(true)
+                }
+                if (it.isCanceled){
+                    Log.d(TAG, "updateUserTotalLedgerCount: not able to update user info")
+                    callback.onUserDetailsUpdated(false)
+                }
+
+            }
+
+        }
 
 }

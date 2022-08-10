@@ -1,10 +1,14 @@
 package com.ledgero.DataClasses
 
+import android.util.Log
 import com.ledgero.Interfaces.OnUpdateUserSingleLedger
+import com.ledgero.Interfaces.OnUserDetailUpdate
 import com.ledgero.model.DatabaseUtill
 
 object User{
 
+
+    val TAG="User"
       var userPhone:String?=""
     var userID:String?=""
         var userEmail:String?=""
@@ -41,6 +45,18 @@ fun add_friend_for_single_ledger(friend:FriendUsers){
 
         override fun onSingleLedgerUpdated(boolean: Boolean) {
 
+            if (boolean){
+                total_single_ledgers= user_single_Ledgers!!.size
+                db.updateUserTotalLedgerCount(userID!!,object:OnUserDetailUpdate{
+                    override fun onUserDetailsUpdated(boolean: Boolean) {
+                      if (boolean){
+                          Log.d(TAG, "onUserDetailsUpdated: updated")
+                      }
+                    }
+
+
+                })
+            }
         }
     })
 

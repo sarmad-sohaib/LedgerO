@@ -144,6 +144,7 @@ var isUserAdded:Boolean= false
         isUserAdded=true
         adapter!!.notifyDataSetChanged()
 
+
     }
 
     private fun showUserFoundList(user: FriendUsers) {

@@ -1,12 +1,15 @@
 package com.ledgero
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import com.ledgero.DataClasses.FriendUsers
 import com.ledgero.DataClasses.User
+import com.ledgero.Interfaces.FetchUsers
 import com.ledgero.model.DatabaseUtill
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.coroutines.GlobalScope
@@ -33,16 +36,25 @@ class LoginActivity : AppCompatActivity() {
 //            //call this function to update the current user data
 //            //so whenever user login, its data will be fetched from
 //            //firebase and will be updated.
-            GlobalScope.launch {
-                var user = async {
-                    DatabaseUtill().updateCurrentUser(User.userID!!)
-                }
-                Log.d(TAG, "onCreate: ${user.await()}")
-            }
-            intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
-            return
+
+                    DatabaseUtill().updateCurrentUser(User.userID!!,object :FetchUsers{
+                        override fun OnAllUsersFetched(users: ArrayList<FriendUsers>?) {
+//                            nothing to do it here
+                        }
+
+                        override fun OnSingleUserFetched(user: FriendUsers?) {
+
+                           loginViewModel.context.startActivity(Intent(loginViewModel.context,MainActivity::class.java))
+                            val ac= loginViewModel.context as Activity
+                            ac.finish()
+
+                        }
+
+                    })
+
+
+
+
 
         }
         Log.d(TAG, "onCreate: User Not Logged In")

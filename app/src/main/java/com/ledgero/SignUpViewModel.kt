@@ -22,8 +22,11 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 import com.ledgero.DataClasses.Entries
+import com.ledgero.DataClasses.FriendUsers
 import com.ledgero.DataClasses.SingleLedgers
 import com.ledgero.DataClasses.User
+import com.ledgero.Interfaces.FetchUsers
+import com.ledgero.model.DatabaseUtill
 import com.ledgero.model.UtillFunctions
 import java.util.*
 import kotlin.collections.ArrayList
@@ -85,11 +88,22 @@ class SignUpViewModel: ViewModel() {
 
 
                     saveuserinDB(mUser)
-                    UtillFunctions.hideProgressDialog(dialog)
+                    DatabaseUtill().updateCurrentUser(mUser.uid,object :FetchUsers{
+                        override fun OnAllUsersFetched(users: ArrayList<FriendUsers>?) {
+//                            nothing to do here
+                        }
 
-                    context.startActivity(Intent(context,MainActivity::class.java))
-                    val ac = context as Activity
-                    ac.finish()
+                        override fun OnSingleUserFetched(user: FriendUsers?) {
+                            UtillFunctions.hideProgressDialog(dialog)
+
+
+                            context.startActivity(Intent(context,MainActivity::class.java))
+                            val ac = context as Activity
+                            ac.finish()
+                        }
+
+                    })
+
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "createUserWithEmail:failure", task.exception)
@@ -261,7 +275,7 @@ class SignUpViewModel: ViewModel() {
 
 //            here User is created. User is Singleton class
             User.userEmail=tf_user_email_signUp.text.toString()
-            User.userID= user?.uid.toString()
+            User.userID= user?.uid
             User.total_single_ledgers=0;
             User.userName="New User"
             User.userPhone="00000"
