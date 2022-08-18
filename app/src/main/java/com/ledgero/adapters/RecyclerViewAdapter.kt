@@ -9,6 +9,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.ledgero.DataClasses.SingleLedgers
+import com.ledgero.DataClasses.User
 import com.ledgero.R
 
 class RecyclerViewAdapter(context: Context,singleLedgers: ArrayList<SingleLedgers>?): RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
@@ -22,6 +23,8 @@ init {
 
 }
 
+
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -33,7 +36,7 @@ init {
     }
 
     override fun onBindViewHolder(holder: RecyclerViewAdapter.ViewHolder, position: Int) {
-        holder.ledgerName.text = singleLedgers?.get(position)?.friend_user!!.userName
+        holder.ledgerName.text = singleLedgers?.get(position)?.friend_userName
         holder.ledgerTimeStamp.text = "07:00 AM"
         holder.ledgerMoney.text = singleLedgers?.get(position)?.total_amount.toString()
 
@@ -67,4 +70,5 @@ init {
             }
         }
     }
+
 }

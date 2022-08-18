@@ -3,7 +3,9 @@ package com.ledgero.DataClasses
 import java.util.*
 import kotlin.collections.ArrayList
 
-data class SingleLedgers(    var friend_user:FriendUsers?=null,
+data class SingleLedgers(    var friend_userID:String?=null,
+                             var friend_userName:String?=null,
+                             var friend_userEmail:String?=null,
                              var total_entries:Int?=null,
                              var total_amount:Float?=null,
                              var entries:ArrayList<Entries>?=null,

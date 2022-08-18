@@ -15,9 +15,9 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import com.ledgero.DataClasses.FriendUsers
 import com.ledgero.DataClasses.User
 import com.ledgero.Interfaces.FetchUsers
+import com.ledgero.Interfaces.OnUserDetailUpdate
 import com.ledgero.model.DatabaseUtill
 import com.ledgero.model.UtillFunctions
 import kotlinx.coroutines.GlobalScope
@@ -100,17 +100,14 @@ private var TAG="LoginViewModel:"
 //                    //call this function to update current user data
 //                    //so whenever user login its data will be fetched from
 //                    //firebase and be updated
-                    DatabaseUtill().updateCurrentUser(user!!.uid,object:FetchUsers{
-                        override fun OnAllUsersFetched(users: ArrayList<FriendUsers>?) {
-//                            Nothing to do here
-                        }
-
-                        override fun OnSingleUserFetched(user: FriendUsers?) {
+                    DatabaseUtill().updateCurrentUser(user!!.uid,object:OnUserDetailUpdate{
+                        override fun onUserDetailsUpdated(boolean: Boolean) {
                             UtillFunctions.hideProgressDialog(dialog)
                             context.startActivity(Intent(context,MainActivity::class.java))
                             val ac= context as Activity
                             ac.finish()
                         }
+
                     })
 
 

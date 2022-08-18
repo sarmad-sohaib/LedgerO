@@ -7,10 +7,11 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
-import com.ledgero.DataClasses.FriendUsers
 import com.ledgero.DataClasses.User
 import com.ledgero.Interfaces.FetchUsers
+import com.ledgero.Interfaces.OnUserDetailUpdate
 import com.ledgero.model.DatabaseUtill
+import com.ledgero.model.UtillFunctions
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
@@ -28,6 +29,8 @@ class LoginActivity : AppCompatActivity() {
         loginViewModel= ViewModelProvider(this).get(LoginViewModel::class.java)
 
         loginViewModel.setmyContext(this)
+        var dialog = UtillFunctions.setProgressDialog(this,"Checking Credentials...")
+        UtillFunctions.showProgressDialog(dialog)
         if (loginViewModel.isUserLogin()){
 
 
@@ -37,14 +40,12 @@ class LoginActivity : AppCompatActivity() {
 //            //so whenever user login, its data will be fetched from
 //            //firebase and will be updated.
 
-                    DatabaseUtill().updateCurrentUser(User.userID!!,object :FetchUsers{
-                        override fun OnAllUsersFetched(users: ArrayList<FriendUsers>?) {
-//                            nothing to do it here
-                        }
+                    DatabaseUtill().updateCurrentUser(User.userID!!,object :OnUserDetailUpdate{
 
-                        override fun OnSingleUserFetched(user: FriendUsers?) {
+                        override fun onUserDetailsUpdated(boolean: Boolean) {
 
-                           loginViewModel.context.startActivity(Intent(loginViewModel.context,MainActivity::class.java))
+                            UtillFunctions.hideProgressDialog(dialog)
+                            loginViewModel.context.startActivity(Intent(loginViewModel.context,MainActivity::class.java))
                             val ac= loginViewModel.context as Activity
                             ac.finish()
 
@@ -56,8 +57,13 @@ class LoginActivity : AppCompatActivity() {
 
 
 
+        }else{
+            Log.d(TAG, "onCreate: User Not Logged In")
+            Toast.makeText(this, "Please Login!", Toast.LENGTH_SHORT).show()
+            UtillFunctions.hideProgressDialog(dialog)
         }
-        Log.d(TAG, "onCreate: User Not Logged In")
+
+
 
 tv_signup_login.setOnClickListener(){
 

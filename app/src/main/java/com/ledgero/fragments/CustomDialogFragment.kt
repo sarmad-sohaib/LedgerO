@@ -11,7 +11,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.RecyclerView
-import com.ledgero.DataClasses.FriendUsers
 import com.ledgero.DataClasses.User
 import com.ledgero.Interfaces.FetchUsers
 import com.ledgero.R
@@ -29,7 +28,9 @@ var isUserAdded:Boolean= false
  lateinit var userFoundList_userName: TextView
  lateinit var userFoundList_userEmail: TextView
  lateinit var userFoundList_addFriendBtn: Button
- lateinit var friendUser: FriendUsers
+ lateinit var friendUserUID: String
+ lateinit var friendUserName: String
+ lateinit var friendUserEmail: String
 
 
 
@@ -56,7 +57,7 @@ var isUserAdded:Boolean= false
         //binding Views ends here...
 
         userFoundList_addFriendBtn.setOnClickListener(){
-            addFriendInUser(friendUser)
+            addFriendInUser(friendUserUID,friendUserEmail,friendUserName)
             this.dismiss()
 
         }
@@ -77,21 +78,23 @@ var isUserAdded:Boolean= false
         var email= rootView.tv_email_dialog_frag.text.toString()
         if (!email.isEmpty()){
             db.getUser(email,object : FetchUsers{
-                override fun OnAllUsersFetched(users: ArrayList<FriendUsers>?) {
+                override fun OnAllUsersFetched(users: ArrayList<String>?) {
                     ;//nothing to do here for now
                 }
 
-                override fun OnSingleUserFetched(user: FriendUsers?) {
+                override fun OnSingleUserFetched(user: String?, userEmail: String?, userName: String?) {
 
                     if (user!=null){
-                        friendUser=user
+                        friendUserUID=user
+                        friendUserEmail=userEmail!!
+                        friendUserName=userName!!
                         if (checkIfUserAlreadyFriend(user)){
 //                            Toast.makeText(context, "$email : Already exist in your ledger list", Toast.LENGTH_SHORT).show()
                             UtillFunctions.hideProgressDialog(dialog)
 
                             return
                         }
-                        showUserFoundList(user)
+                        showUserFoundList(user,userEmail,userName)
                         Toast.makeText(context, "$email : Found", Toast.LENGTH_SHORT).show()
                     }
                     else{
@@ -116,14 +119,14 @@ var isUserAdded:Boolean= false
 
     }
 
-    private fun checkIfUserAlreadyFriend(user: FriendUsers): Boolean {
+    private fun checkIfUserAlreadyFriend(user: String): Boolean {
         var exist=false
-        if (User.user_single_Ledgers != null){
-            if (!User.user_single_Ledgers!!.isEmpty())
+        if (User.getUserSingleLedgers()!= null){
+            if (!User.getUserSingleLedgers()!!.isEmpty())
             {
 
-                for (i in User.user_single_Ledgers!!){
-                    if (user.userID!!.equals(i.friend_user!!.userID)){
+                for (i in User.getUserSingleLedgers()!!){
+                    if (user!!.equals(i.friend_userID)){
 
                         exist=true
                     }
@@ -138,19 +141,19 @@ var isUserAdded:Boolean= false
 
     }
 
-    private fun addFriendInUser(friendUser: FriendUsers) {
+    private fun addFriendInUser(friendUser: String, friendUserEmail: String, friendUserName: String) {
         Toast.makeText(context, "New Ledger Added", Toast.LENGTH_SHORT).show()
-        User.add_friend_for_single_ledger(friendUser)
+        UtillFunctions.createNewLedger(friendUser,friendUserEmail,friendUserName)
         isUserAdded=true
         adapter!!.notifyDataSetChanged()
 
 
     }
 
-    private fun showUserFoundList(user: FriendUsers) {
+    private fun showUserFoundList(user: String, userEmail: String?, userName: String?) {
 
-        userFoundList_userName.text=user.userName
-        userFoundList_userEmail.text=user.userEmail
+        userFoundList_userName.text=userName
+        userFoundList_userEmail.text=userEmail
         userFoundList_Container.visibility=View.VISIBLE
 
     }

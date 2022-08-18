@@ -22,10 +22,10 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 import com.ledgero.DataClasses.Entries
-import com.ledgero.DataClasses.FriendUsers
 import com.ledgero.DataClasses.SingleLedgers
 import com.ledgero.DataClasses.User
 import com.ledgero.Interfaces.FetchUsers
+import com.ledgero.Interfaces.OnUserDetailUpdate
 import com.ledgero.model.DatabaseUtill
 import com.ledgero.model.UtillFunctions
 import java.util.*
@@ -88,12 +88,8 @@ class SignUpViewModel: ViewModel() {
 
 
                     saveuserinDB(mUser)
-                    DatabaseUtill().updateCurrentUser(mUser.uid,object :FetchUsers{
-                        override fun OnAllUsersFetched(users: ArrayList<FriendUsers>?) {
-//                            nothing to do here
-                        }
-
-                        override fun OnSingleUserFetched(user: FriendUsers?) {
+                    DatabaseUtill().updateCurrentUser(mUser.uid,object :OnUserDetailUpdate{
+                        override fun onUserDetailsUpdated(boolean: Boolean) {
                             UtillFunctions.hideProgressDialog(dialog)
 
 
@@ -101,6 +97,7 @@ class SignUpViewModel: ViewModel() {
                             val ac = context as Activity
                             ac.finish()
                         }
+
 
                     })
 
@@ -280,7 +277,7 @@ class SignUpViewModel: ViewModel() {
             User.userName="New User"
             User.userPhone="00000"
             User.user_group_Ledgers=null
-            User.user_single_Ledgers=null
+            User.setUserSingleLedger(ArrayList())
             User.user_total_give=0
             User.user_total_take=0
 
