@@ -1,19 +1,34 @@
 package com.ledgero.adapters
 
+import android.content.Context
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
+import com.ledgero.DataClasses.SingleLedgers
+import com.ledgero.DataClasses.User
+import com.ledgero.MainActivity
 import com.ledgero.R
+import com.ledgero.fragments.IndividualLedgerScreen
+import com.ledgero.fragments.LedgersFragment
 
-class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
+class RecyclerViewAdapter(context: Context,singleLedgers: ArrayList<SingleLedgers>?): RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
 
-    private val ledgerNames = arrayOf("Sarmad", "Sohaib")
-    private val ledgerTimeStamps = arrayOf("Sarmad", "Sohaib")
-    private val ledgersMoney = arrayOf("50", "40")
+ var context: Context
+ var singleLedgers: ArrayList<SingleLedgers>?
+
+init {
+    this.context= context
+    this.singleLedgers= singleLedgers
+
+}
+
+
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -26,14 +41,19 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>
     }
 
     override fun onBindViewHolder(holder: RecyclerViewAdapter.ViewHolder, position: Int) {
-        holder.ledgerName.text = ledgerNames[position]
-        holder.ledgerTimeStamp.text = ledgerTimeStamps[position]
-        holder.ledgerMoney.text = ledgersMoney[position]
+        holder.ledgerName.text = singleLedgers?.get(position)?.friend_userName
+        holder.ledgerTimeStamp.text = "07:00 AM"
+        holder.ledgerMoney.text = singleLedgers?.get(position)?.total_amount.toString()
+        holder.ledgerUID=singleLedgers?.get(position)?.ledgerUID.toString()
 
     }
 
     override fun getItemCount(): Int {
-        return ledgerNames.size
+        if (singleLedgers==null){
+            return 0
+        }else{
+            return singleLedgers!!.size
+        }
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -42,6 +62,7 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>
         var ledgerMoney: TextView
         var ledgerDetail: TextView
         var ledgerNotification: Button
+        var ledgerUID: String=""
 
         init {
             ledgerName = itemView.findViewById(R.id.tv_ledger_name)
@@ -53,7 +74,13 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>
             itemView.setOnClickListener { v: View ->
                 Toast.makeText(itemView.context, ledgerName.text, Toast.LENGTH_SHORT)
                     .show()
+
+                var frag=IndividualLedgerScreen()
+                frag.data(ledgerUID)
+                MainActivity.getMainActivityInstance().setFragment(frag,true,"individScreen")
+
             }
         }
     }
+
 }

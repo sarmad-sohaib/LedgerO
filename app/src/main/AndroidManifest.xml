@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LedgerO">
         <activity
+            android:name=".IndividualLedger_Screen"
+            android:exported="false" />
+        <activity
             android:name=".SignUpActivity"
             android:exported="true" />
         <activity
@@ -24,9 +27,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustNothing">
-
-        </activity>
+            android:windowSoftInputMode="adjustNothing"></activity>
     </application>
 
 </manifest>

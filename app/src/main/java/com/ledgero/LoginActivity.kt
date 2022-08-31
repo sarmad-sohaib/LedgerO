@@ -1,12 +1,21 @@
 package com.ledgero
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import com.ledgero.DataClasses.User
+import com.ledgero.Interfaces.FetchUsers
+import com.ledgero.Interfaces.OnUserDetailUpdate
+import com.ledgero.model.DatabaseUtill
+import com.ledgero.model.UtillFunctions
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
 
@@ -20,16 +29,41 @@ class LoginActivity : AppCompatActivity() {
         loginViewModel= ViewModelProvider(this).get(LoginViewModel::class.java)
 
         loginViewModel.setmyContext(this)
+        var dialog = UtillFunctions.setProgressDialog(this,"Checking Credentials...")
+        UtillFunctions.showProgressDialog(dialog)
         if (loginViewModel.isUserLogin()){
 
-            Log.d(TAG, "onCreate: User Already Login")
-            intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
-            return
 
+            Log.d(TAG, "onCreate: User Already Login")
+
+//            //call this function to update the current user data
+//            //so whenever user login, its data will be fetched from
+//            //firebase and will be updated.
+
+                    DatabaseUtill().updateCurrentUser(User.userID!!,object :OnUserDetailUpdate{
+
+                        override fun onUserDetailsUpdated(boolean: Boolean) {
+
+                            UtillFunctions.hideProgressDialog(dialog)
+                            loginViewModel.context.startActivity(Intent(loginViewModel.context,MainActivity::class.java))
+                            val ac= loginViewModel.context as Activity
+                            ac.finish()
+
+                        }
+
+                    })
+
+
+
+
+
+        }else{
+            Log.d(TAG, "onCreate: User Not Logged In")
+            Toast.makeText(this, "Please Login!", Toast.LENGTH_SHORT).show()
+            UtillFunctions.hideProgressDialog(dialog)
         }
-        Log.d(TAG, "onCreate: User Not Logged In")
+
+
 
 tv_signup_login.setOnClickListener(){
 
@@ -49,7 +83,8 @@ tv_signup_login.setOnClickListener(){
 
                 Log.d(TAG, "onCreate: User Input is Validated")
 
-                Log.d(TAG, "onCreate: Passing User Info To Firebase")
+                Log.d(TAG, "onCreate: Passing User Info To Firebase and updating user")
+
 
                 loginViewModel.signIn()
             }

@@ -3,6 +3,7 @@ package com.ledgero
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.provider.Settings
 import android.text.TextUtils
 import android.util.Log
 import android.util.Patterns
@@ -14,6 +15,14 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.ledgero.DataClasses.User
+import com.ledgero.Interfaces.FetchUsers
+import com.ledgero.Interfaces.OnUserDetailUpdate
+import com.ledgero.model.DatabaseUtill
+import com.ledgero.model.UtillFunctions
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 
 class LoginViewModel : ViewModel() {
 
@@ -33,6 +42,7 @@ private var TAG="LoginViewModel:"
         val currentUser= auth.currentUser
         if (currentUser != null){
             Log.d(TAG, "isUserLogin: true ")
+            User.userID=currentUser.uid
             return true
         }else {
             Log.d(TAG, "isUserLogin: false")
@@ -77,19 +87,36 @@ private var TAG="LoginViewModel:"
     }
 
     fun signIn() {
+
+        var dialog = UtillFunctions.setProgressDialog(context,"Checking Credentials...")
+        UtillFunctions.showProgressDialog(dialog)
         auth.signInWithEmailAndPassword(userEmail, userPassword)
             .addOnCompleteListener() { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithEmail:success")
                     val user = auth.currentUser
-                   context.startActivity(Intent(context,MainActivity::class.java))
-                    val ac= context as Activity
-                    ac.finish()
+
+//                    //call this function to update current user data
+//                    //so whenever user login its data will be fetched from
+//                    //firebase and be updated
+                    DatabaseUtill().updateCurrentUser(user!!.uid,object:OnUserDetailUpdate{
+                        override fun onUserDetailsUpdated(boolean: Boolean) {
+                            UtillFunctions.hideProgressDialog(dialog)
+                            context.startActivity(Intent(context,MainActivity::class.java))
+                            val ac= context as Activity
+                            ac.finish()
+                        }
+
+                    })
+
+
+
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithEmail:failure", task.exception)
-                    Toast.makeText(context, "Can't Find The User",
+                    UtillFunctions.hideProgressDialog(dialog)
+                    Toast.makeText(context, "Can't Find The User. Please check your email or password",
                         Toast.LENGTH_SHORT).show()
 
                 }
