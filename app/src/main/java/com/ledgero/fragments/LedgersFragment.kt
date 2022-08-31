@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 import com.ledgero.DataClasses.User
+import com.ledgero.MainActivity
 import com.ledgero.R
 import com.ledgero.adapters.RecyclerViewAdapter
 import com.ledgero.model.DatabaseUtill
@@ -21,6 +22,7 @@ class LedgersFragment : Fragment() {
 
     companion object{
         var adapter: RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>? = null
+
 
     }
     private var TAG= "LedgerFragment"
@@ -61,6 +63,8 @@ class LedgersFragment : Fragment() {
 
         return view
     }
+
+
 
     override fun onStart() {
         super.onStart()

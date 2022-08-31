@@ -18,6 +18,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_nav_menu" />
 
+
+
     <FrameLayout
         android:id="@+id/fl_fragment_container_main"
         android:layout_width="match_parent"

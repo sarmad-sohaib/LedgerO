@@ -69,6 +69,8 @@ var isUserAdded:Boolean= false
 
         }
 
+
+   
     rootView.bt_add_dialog_frag.setOnClickListener(){
 
         hideInfoMessage()

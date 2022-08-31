@@ -66,5 +66,7 @@ dependencies {
     // ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.0-alpha04")
 
+    // FragmentX
+    implementation("androidx.fragment:fragment-ktx:1.5.2")
 
 }

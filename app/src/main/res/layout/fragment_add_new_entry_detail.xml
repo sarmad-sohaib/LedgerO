@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.AddNewEntryDetail">
+
+
+    <TextView
+        android:id="@+id/add_new_entry_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/new_entry_detail_title"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:layout_marginVertical="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></TextView>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/add_new_entry_amount_filledTextField"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+android:layout_marginVertical="15dp"
+        android:hint="@string/add_new_entry_amount_hint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+     app:layout_constraintTop_toBottomOf="@+id/add_new_entry_title">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tv_amount_add_new_entry"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:background="@drawable/round_black_corner_bg_inputfield"
+            android:clipToOutline="true"
+            android:inputType="numberDecimal"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/add_new_entry_description_filledTextField"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+
+
+        android:hint="@string/add_new_entry_description_hint"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+     app:layout_constraintTop_toBottomOf="@+id/add_new_entry_amount_filledTextField">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tv_description_add_new_entry"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lines="3"
+
+            android:gravity="top"
+            android:background="@drawable/round_black_corner_bg_inputfield"
+            android:clipToOutline="true"
+            android:inputType="textMultiLine"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/bt_add_new_entry"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="68dp"
+        android:background="@drawable/button_shape"
+        android:fontFamily="@font/ropa_sans_regular"
+        android:text="@string/add_new_entry_btn_text"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textFontWeight="400"
+        app:backgroundTint="@color/puce"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

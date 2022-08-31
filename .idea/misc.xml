@@ -7,10 +7,25 @@
         <entry key="..\:/HamzaFYP/LedgerO/app/src/main/res/layout/activity_login.xml" value="0.48058252427184467" />
         <entry key="..\:/HamzaFYP/LedgerO/app/src/main/res/layout/fragment_custom_dialog.xml" value="0.48058252427184467" />
         <entry key="..\:/HamzaFYP/LedgerO/app/src/main/res/layout/fragment_ledgers.xml" value="0.48058252427184467" />
+        <entry key="..\:/LedgerO/LedgerO/app/src/main/res/drawable/button_shape.xml" value="0.1095" />
+        <entry key="..\:/LedgerO/LedgerO/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1095" />
+        <entry key="..\:/LedgerO/LedgerO/app/src/main/res/drawable/ic_outline_money_24.xml" value="0.1095" />
+        <entry key="..\:/LedgerO/LedgerO/app/src/main/res/drawable/main_gradient_background.xml" value="0.1095" />
+        <entry key="..\:/LedgerO/LedgerO/app/src/main/res/drawable/notification_view_background.xml" value="0.1095" />
+        <entry key="..\:/LedgerO/LedgerO/app/src/main/res/drawable/round_black_corner_bg_inputfield.xml" value="0.1095" />
+        <entry key="..\:/LedgerO/LedgerO/app/src/main/res/layout/activity_individual_ledger_screen.xml" value="0.25" />
         <entry key="..\:/LedgerO/LedgerO/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/LedgerO/LedgerO/app/src/main/res/layout/dialg_box.xml" value="0.20416666666666666" />
+        <entry key="..\:/LedgerO/LedgerO/app/src/main/res/layout/fragment_add_new_entry_detail.xml" value="0.25" />
+        <entry key="..\:/LedgerO/LedgerO/app/src/main/res/layout/fragment_custom_dialog.xml" value="0.20416666666666666" />
+        <entry key="..\:/LedgerO/LedgerO/app/src/main/res/layout/fragment_group_ledgers.xml" value="0.20416666666666666" />
         <entry key="..\:/LedgerO/LedgerO/app/src/main/res/layout/fragment_home.xml" value="0.15806159420289856" />
+        <entry key="..\:/LedgerO/LedgerO/app/src/main/res/layout/fragment_individual_ledger__screen.xml" value="0.19010416666666666" />
+        <entry key="..\:/LedgerO/LedgerO/app/src/main/res/layout/fragment_individual_ledger_screen.xml" value="0.25" />
         <entry key="..\:/LedgerO/LedgerO/app/src/main/res/layout/fragment_ledgers.xml" value="0.25" />
+        <entry key="..\:/LedgerO/LedgerO/app/src/main/res/layout/individual_ledger_recycler_view.xml" value="0.25" />
         <entry key="..\:/LedgerO/LedgerO/app/src/main/res/layout/recycler_view_model.xml" value="0.22" />
+        <entry key="..\:/LedgerO/LedgerO/app/src/main/res/layout/round_border_bg_inputfield.xml" value="0.203125" />
         <entry key="..\:/LedgrO/LedgerO/app/src/main/res/drawable/button_shape.xml" value="0.1045" />
         <entry key="..\:/LedgrO/LedgerO/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.1045" />
         <entry key="..\:/LedgrO/LedgerO/app/src/main/res/drawable/icon_password.xml" value="0.1045" />
