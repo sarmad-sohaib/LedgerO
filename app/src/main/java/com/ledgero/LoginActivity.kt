@@ -53,16 +53,6 @@ tv_signup_login.setOnClickListener(){
 
                 loginViewModel.signIn()
             }
-
-
-
-
             }
-
-
     }
-
-
-
-
 }
