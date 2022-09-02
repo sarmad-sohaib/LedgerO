@@ -46,13 +46,21 @@ rv.adapter= adapter
         gotButton.setOnClickListener(){
             //1 will inidcate that user clicked got button
           setFragmentResult("addEntryBtn", bundleOf("mode" to 1,"ledger" to currentSelectLedger))
-            MainActivity.getMainActivityInstance().setFragment(AddNewEntryDetail(),true,"addNewEntry")
+           parentFragmentManager
+               .beginTransaction()
+               .addToBackStack(null)
+               .replace(R.id.fl_fragment_container_main,AddNewEntryDetail())
+               .commit()
 
         }
         gaveButton.setOnClickListener(){
             //0 will indicate that user clicked gave button
             setFragmentResult("addEntryBtn", bundleOf("mode" to 0,"ledger" to currentSelectLedger))
-            MainActivity.getMainActivityInstance().setFragment(AddNewEntryDetail(),true,"addNewEntry")
+            parentFragmentManager
+                .beginTransaction()
+                .addToBackStack(null)
+                .replace(R.id.fl_fragment_container_main,AddNewEntryDetail())
+                .commit()
 
         }
 
@@ -73,5 +81,8 @@ rv.adapter= adapter
     }
 
 
-
+    override fun onResume() {
+        parentFragmentManager.clearBackStack("addEntry")
+        super.onResume()
+    }
 }

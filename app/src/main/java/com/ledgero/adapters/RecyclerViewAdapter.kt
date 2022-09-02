@@ -16,6 +16,7 @@ import com.ledgero.MainActivity
 import com.ledgero.R
 import com.ledgero.fragments.IndividualLedgerScreen
 import com.ledgero.fragments.LedgersFragment
+import com.ledgero.fragments.MoreFragment
 
 class RecyclerViewAdapter(context: Context,singleLedgers: ArrayList<SingleLedgers>?): RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
 
@@ -77,7 +78,11 @@ init {
 
                 var frag=IndividualLedgerScreen()
                 frag.data(ledgerUID)
-                MainActivity.getMainActivityInstance().setFragment(frag,true,"individScreen")
+                MainActivity.getMainActivityInstance().supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.fl_fragment_container_main, frag)
+                    .addToBackStack(null)
+                    .commit()
 
             }
         }

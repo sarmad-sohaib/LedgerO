@@ -71,9 +71,8 @@ class AddNewEntryDetail : Fragment() {
 
                     currentLedger.addEntry(entry)
 
-                    var frag= IndividualLedgerScreen()
-                    frag.data(currentLedger.ledgerUID.toString())
-                    MainActivity.getMainActivityInstance().setFragment(frag,false,"individScreen")
+                    parentFragmentManager.popBackStack()
+
 
 
                 }else{
