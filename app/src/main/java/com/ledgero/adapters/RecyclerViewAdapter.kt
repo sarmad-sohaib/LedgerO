@@ -1,22 +1,17 @@
 package com.ledgero.adapters
 
 import android.content.Context
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
-import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ledgero.DataClasses.SingleLedgers
-import com.ledgero.DataClasses.User
 import com.ledgero.MainActivity
 import com.ledgero.R
 import com.ledgero.fragments.IndividualLedgerScreen
-import com.ledgero.fragments.LedgersFragment
-import com.ledgero.fragments.MoreFragment
 
 class RecyclerViewAdapter(context: Context,singleLedgers: ArrayList<SingleLedgers>?): RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
 
@@ -76,8 +71,8 @@ init {
                 Toast.makeText(itemView.context, ledgerName.text, Toast.LENGTH_SHORT)
                     .show()
 
-                var frag=IndividualLedgerScreen()
-                frag.data(ledgerUID)
+                var frag=IndividualLedgerScreen(ledgerUID)
+
                 MainActivity.getMainActivityInstance().supportFragmentManager
                     .beginTransaction()
                     .replace(R.id.fl_fragment_container_main, frag)

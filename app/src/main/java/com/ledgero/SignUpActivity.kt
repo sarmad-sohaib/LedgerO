@@ -1,27 +1,11 @@
 package com.ledgero
 
-import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.InputType
-import android.util.Log
-import android.widget.EditText
-import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.textfield.TextInputEditText
-import com.google.firebase.FirebaseException
-import com.google.firebase.FirebaseTooManyRequestsException
-import com.google.firebase.auth.*
-import com.google.firebase.auth.PhoneAuthProvider
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
+import com.ledgero.ViewModels.SignUpViewModel
 import kotlinx.android.synthetic.main.activity_sign_up.*
-import java.util.concurrent.TimeUnit
 
 class SignUpActivity : AppCompatActivity() {
 

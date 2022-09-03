@@ -1,9 +1,8 @@
-package com.ledgero
+package com.ledgero.ViewModels
 
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.provider.Settings
 import android.text.TextUtils
 import android.util.Log
 import android.util.Patterns
@@ -11,18 +10,12 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.ledgero.DataClasses.User
-import com.ledgero.Interfaces.FetchUsers
 import com.ledgero.Interfaces.OnUserDetailUpdate
+import com.ledgero.MainActivity
 import com.ledgero.model.DatabaseUtill
 import com.ledgero.model.UtillFunctions
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
 
 class LoginViewModel : ViewModel() {
 
@@ -103,7 +96,7 @@ private var TAG="LoginViewModel:"
                     DatabaseUtill().updateCurrentUser(user!!.uid,object:OnUserDetailUpdate{
                         override fun onUserDetailsUpdated(boolean: Boolean) {
                             UtillFunctions.hideProgressDialog(dialog)
-                            context.startActivity(Intent(context,MainActivity::class.java))
+                            context.startActivity(Intent(context, MainActivity::class.java))
                             val ac= context as Activity
                             ac.finish()
                         }

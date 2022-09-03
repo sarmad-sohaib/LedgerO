@@ -6,6 +6,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
+import com.ledgero.DataClasses.Entries
 import com.ledgero.DataClasses.SingleLedgers
 import com.ledgero.DataClasses.User
 import com.ledgero.Interfaces.FetchUsers
@@ -343,4 +344,9 @@ db_reference.child("users").child(uid).child("user_single_Ledgers").setValue(new
           path.removeEventListener(firebase_LedgersListener!!)
       }
   }
+
+
+    fun addNewEntryInLedger(ledgerUID:String, entry:Entries){
+
+    }
 }

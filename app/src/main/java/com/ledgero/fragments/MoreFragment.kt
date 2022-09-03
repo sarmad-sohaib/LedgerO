@@ -13,7 +13,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.ledgero.LoginActivity
-import com.ledgero.MainActivity
 import com.ledgero.R
 import kotlinx.android.synthetic.main.fragment_more.*
 
