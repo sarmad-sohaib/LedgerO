@@ -20,6 +20,9 @@ class IndividualScreenViewModel(private val individualScreenRepo: IndividualScre
 
         }
 
+    fun deleteEntry(pos : Int){
+        individualScreenRepo.deleteEntry(pos)
+    }
    private fun getEntriesFromRepo():LiveData<ArrayList<Entries>>{
 
         return individualScreenRepo.getEntries()

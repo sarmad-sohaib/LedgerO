@@ -71,6 +71,17 @@ private    var listener= object: ValueEventListener{
     }
 
 
+    fun deleteEntry(pos: Int){
+        entriesData.removeAt(pos)
+
+        db_reference.child("ledgerEntries").child(ledgerUID).setValue(entriesData).addOnCompleteListener()
+        {
+            if (it.isSuccessful){
+                Log.d(TAG, "addNewEntry: Updated Successfully!!")
+            }
+        }
+    }
+
     fun addNewEntry(entry: Entries) {
 
 ledgerEntiresLiveData.value?.add(0,entry)

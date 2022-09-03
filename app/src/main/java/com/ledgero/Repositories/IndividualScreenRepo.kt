@@ -18,4 +18,7 @@ class IndividualScreenRepo(private val individualScreenDAO: IndividualScreenDAO)
     fun removeListener(){
         individualScreenDAO.removeListener()
     }
+    fun deleteEntry(pos: Int){
+        individualScreenDAO.deleteEntry(pos)
+    }
 }

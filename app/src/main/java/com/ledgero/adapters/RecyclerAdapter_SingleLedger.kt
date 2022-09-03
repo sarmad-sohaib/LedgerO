@@ -58,7 +58,6 @@ class RecyclerAdapter_SingleLedger (context: Context, entires: ArrayList<Entries
 
 
 
-
     inner class  MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         var title: TextView

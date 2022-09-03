@@ -1,25 +1,26 @@
 package com.ledgero.fragments
 
+import android.app.AlertDialog
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.ledgero.DataClasses.Entries
+import com.ledgero.DAOs.IndividualScreenDAO
 import com.ledgero.DataClasses.SingleLedgers
 import com.ledgero.DataClasses.User
 import com.ledgero.R
-import com.ledgero.adapters.RecyclerAdapter_SingleLedger
-import com.ledgero.DAOs.IndividualScreenDAO
 import com.ledgero.Repositories.IndividualScreenRepo
 import com.ledgero.ViewModelFactories.IndividualScreenViewModeFactory
 import com.ledgero.ViewModels.IndividualScreenViewModel
+import com.ledgero.adapters.RecyclerAdapter_SingleLedger
 import kotlinx.android.synthetic.main.fragment_individual_ledger_screen.view.*
 
 class IndividualLedgerScreen(ledgerUID:String) : Fragment() {
@@ -56,7 +57,7 @@ lateinit     var viewModel: IndividualScreenViewModel
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         // Inflate the layout for this fragment
         var view= inflater.inflate(R.layout.fragment_individual_ledger_screen, container, false)
@@ -80,6 +81,7 @@ lateinit     var viewModel: IndividualScreenViewModel
         adapter= RecyclerAdapter_SingleLedger(requireContext(),currentSelectLedger!!.entries)
         rv.adapter= adapter
 
+        getTouchHelper(rv).attachToRecyclerView(rv)
         viewModel.getEntries().observe(viewLifecycleOwner, Observer{
 
             currentSelectLedger!!.entries=it /* = java.util.ArrayList<com.ledgero.DataClasses.Entries> */
@@ -121,4 +123,92 @@ lateinit     var viewModel: IndividualScreenViewModel
         parentFragmentManager.clearBackStack("addEntry")
         super.onResume()
     }
+
+
+    //this will enable left/right swipes on RV
+    fun getTouchHelper(rv: RecyclerView):ItemTouchHelper{
+
+        var callBack:ItemTouchHelper.SimpleCallback =object :ItemTouchHelper.
+        SimpleCallback(0,ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT)
+        {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder,
+            ): Boolean {
+  return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+
+                var position= viewHolder.adapterPosition
+if (direction==ItemTouchHelper.LEFT){
+
+    getDeleteDialougeBox(position,rv).show()
+
+}
+                if (direction==ItemTouchHelper.RIGHT){
+
+                    getEditDialougeBox(position,rv).show()
+                }
+
+            }
+
+
+        }
+
+var itemTouchHelper: ItemTouchHelper= ItemTouchHelper(callBack)
+
+
+return itemTouchHelper
+
+    }
+
+
+    fun getDeleteDialougeBox(pos: Int, rv: RecyclerView): AlertDialog.Builder{
+
+       var dialog= AlertDialog.Builder(this.context)
+
+        dialog.setTitle("Deleting Ledger Entry")
+            .setMessage("Are you sure to delete entry!")
+            .setCancelable(true)
+            .setPositiveButton("Yes Delete it"){dialogInterface,it->
+                //delete entry
+
+                viewModel.deleteEntry(pos)
+                dialogInterface.dismiss()
+                rv.adapter!!.notifyDataSetChanged()
+
+            }
+            .setNegativeButton("No"){dialogInterface,it->
+                //cancel it
+            dialogInterface.cancel()
+                rv.adapter!!.notifyDataSetChanged()
+
+            }
+    return dialog
+    }
+
+    fun getEditDialougeBox(pos: Int, rv: RecyclerView): AlertDialog.Builder{
+
+        var dialog= AlertDialog.Builder(this.context)
+
+        dialog.setTitle("Edit Ledger Entry")
+            .setMessage("Are you sure to Edit entry!")
+            .setCancelable(true)
+            .setPositiveButton("Yes Delete it"){dialogInterface,it->
+                //delete entry
+
+                dialogInterface.dismiss()
+                rv.adapter!!.notifyDataSetChanged()
+            }
+            .setNegativeButton("No"){dialogInterface,it->
+                //cancel it
+                dialogInterface.cancel()
+                rv.adapter!!.notifyDataSetChanged()
+
+            }
+        return dialog
+    }
+
 }
