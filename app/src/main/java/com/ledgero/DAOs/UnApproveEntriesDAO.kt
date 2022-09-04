@@ -29,8 +29,9 @@ class UnApproveEntriesDAO(private val ledgerUID: String) {
 
                 }
                  unApprovedEntiresLiveData.value=unApprovedentriesData
-            }
-        }
+            }else{
+            unApprovedEntiresLiveData.value=ArrayList<Entries>()
+        }}
 
         override fun onCancelled(error: DatabaseError) {
             TODO("Not yet implemented")
@@ -57,20 +58,62 @@ class UnApproveEntriesDAO(private val ledgerUID: String) {
     }
 
 
-    fun deleteEntry(pos: Int){
-        unApprovedentriesData.removeAt(pos)
+    fun deleteEntry_Approved(pos: Int){
+      //first delete it from ledgers then from requestedEntries
+        var entry= unApprovedentriesData.get(pos)
+        var key= entry.entryUID.toString()
 
-        db_reference.child("entriesRequests").child(ledgerUID).push().setValue(unApprovedentriesData).addOnCompleteListener()
+
+        db_reference.child("ledgerEntries").child(ledgerUID).child(key).removeValue().addOnCompleteListener()
         {
             if (it.isSuccessful){
-                Log.d(TAG, "DelteEntry: Deleted Successfully!!")
+                Log.d(TAG, "DelteEntry: Deleted Successfully From Ledger!!")
+                deleteEntryFromUnApproved(key)
             }
         }
     }
 
 
     fun entryApprove(pos: Int){
-        ;
+        //add entry into ledgers then delet it from request
+
+        var entry = unApprovedentriesData.get(pos)
+        entry.isApproved=true
+        var key= entry.entryUID.toString()
+        addEntryInLedger(key,entry)
+
+
     }
+    private fun addEntryInLedger(entryKey:String, entry: Entries){
+
+        db_reference.child("ledgerEntries").child(ledgerUID).child(entryKey).setValue(entry)
+            .addOnCompleteListener(){
+                deleteEntryFromUnApproved(entryKey)
+            }
+    }
+
+    private fun deleteEntryFromUnApproved(entryKey: String){
+        db_reference.child("entriesRequests").child(ledgerUID).child(entryKey)
+            .removeValue()
+            .addOnCompleteListener(){
+                Log.d(TAG, "deleteEntryFromUnApproved: Entery Added in ledger and deleted from UnApproved")
+            }
+    }
+
+    fun enteryRejected(pos:Int){
+        //add this entry into reject entries then remove it from here
+        var entry = unApprovedentriesData.get(pos)
+        var key= entry.entryUID.toString()
+        addEntryInRejectEntries(key,entry)
+    }
+    private fun addEntryInRejectEntries(entryKey:String, entry: Entries){
+
+        db_reference.child("canceledEntries").child(ledgerUID).child(entryKey).setValue(entry)
+            .addOnCompleteListener(){
+                deleteEntryFromUnApproved(entryKey)
+            }
+    }
+
+
 
 }

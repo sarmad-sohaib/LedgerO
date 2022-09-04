@@ -23,8 +23,12 @@ private    var listener= object: ValueEventListener{
             if(snapshot.exists()){
                 entriesData= ArrayList<Entries>()
 
-                entriesData= snapshot.getValue<ArrayList<Entries>>()!!
 
+                for (i in snapshot.children){
+                    var entry: Entries = i.getValue<Entries>()!!
+                    entriesData.add(0,entry)//adding  at 0 index so latest entry shows on top
+
+                }
 
                 ledgerEntiresLiveData.value=entriesData
             }
@@ -56,19 +60,27 @@ private    var listener= object: ValueEventListener{
 
 
     fun deleteEntry(pos: Int){
-        entriesData.removeAt(pos)
 
-        db_reference.child("ledgerEntries").child(ledgerUID).setValue(entriesData).addOnCompleteListener()
+        var key = entriesData.get(pos).entryUID.toString()
+        var entry= entriesData.get(pos)
+        entry.requestMode=2
+        entry.entryMadeBy_userID=User.userID
+
+
+        db_reference.child("entriesRequests").child(ledgerUID).child(key).setValue(entry).addOnCompleteListener()
         {
             if (it.isSuccessful){
-                Log.d(TAG, "addNewEntry: Updated Successfully!!")
+                Log.d(TAG, "deleteEntry: Requested To Delete!!")
             }
         }
     }
 
     fun addNewEntry(entry: Entries) {
 
+
         var key= db_reference.child("entriesRequests").child(ledgerUID).push().key
+        entry.entryUID=key
+        entry.requestMode=1
         db_reference.child("entriesRequests").child(ledgerUID).child(key!!).setValue(entry)
             .addOnCompleteListener()
         {

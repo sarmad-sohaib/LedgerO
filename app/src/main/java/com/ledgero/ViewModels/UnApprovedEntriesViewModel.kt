@@ -33,5 +33,12 @@ class UnApprovedEntriesViewModel(private val unApprovedEntriesRepo: UnApprovedEn
         unApprovedEntriesRepo.removeListener()
     }
 
+    fun approveEntry(pos:Int){
+        unApprovedEntriesRepo.approveEntry(pos)
+    }
+
+    fun rejectEntry(pos:Int){
+        unApprovedEntriesRepo.rejectedEntry(pos)
+    }
 
 }

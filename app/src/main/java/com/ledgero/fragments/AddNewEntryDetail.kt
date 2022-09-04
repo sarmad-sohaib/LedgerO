@@ -64,7 +64,7 @@ class AddNewEntryDetail : Fragment() {
 
                     var flag = if (entryMode==1) true else false
 
-                    var entry = Entries(amount,flag,des,title,0,false,User.userID,1)
+                    var entry = Entries(amount,flag,des,title,0,false,User.userID,"",1)
 
 
                     IndividualLedgerScreen.instanceObject!!.viewModel.addNewEntry(entry)

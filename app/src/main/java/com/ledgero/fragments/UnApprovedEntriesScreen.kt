@@ -27,7 +27,7 @@ import com.ledgero.adapters.UnApprovedEntries_RVAdapter
 class UnApprovedEntriesScreen(var ledgerUID: String) : Fragment() {
     var currentSelectedLedgerUID:String=ledgerUID
     var currentSelectLedger: SingleLedgers? =null
-    lateinit     var viewModel: IndividualScreenViewModel
+    lateinit     var viewModel: UnApprovedEntriesViewModel
 
     private var layoutManager: RecyclerView.LayoutManager? = null
 
@@ -42,7 +42,7 @@ class UnApprovedEntriesScreen(var ledgerUID: String) : Fragment() {
 
         var dao= UnApproveEntriesDAO(ledgerUID)
         var repo = UnApprovedEntriesRepo(dao)
-         var viewModel= ViewModelProvider(this, UnApprovedEntriesViewModelFactory(repo))
+          viewModel= ViewModelProvider(this, UnApprovedEntriesViewModelFactory(repo))
             .get(UnApprovedEntriesViewModel::class.java)
 
 
@@ -53,16 +53,21 @@ class UnApprovedEntriesScreen(var ledgerUID: String) : Fragment() {
         rv.layoutManager = layoutManager
         var adapter: RecyclerView.Adapter<UnApprovedEntries_RVAdapter.UnApprovedEntries_ViewHolder>? = null
 
-       adapter = UnApprovedEntries_RVAdapter(requireContext(), ArrayList<Entries>())
+       adapter = UnApprovedEntries_RVAdapter(requireContext(), ArrayList<Entries>(),viewModel)
         rv.adapter= adapter
 
         viewModel.getEntries().observe(viewLifecycleOwner, Observer{
-            adapter = UnApprovedEntries_RVAdapter(requireContext(), it)
+            adapter = UnApprovedEntries_RVAdapter(requireContext(), it,viewModel)
             rv.adapter=adapter
 
         })
 
 
     return view
+    }
+
+    override fun onDestroy() {
+        viewModel.removeListener()
+        super.onDestroy()
     }
 }
