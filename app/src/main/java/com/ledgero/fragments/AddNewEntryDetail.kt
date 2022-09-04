@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import com.ledgero.DataClasses.Entries
 import com.ledgero.DataClasses.SingleLedgers
+import com.ledgero.DataClasses.User
 import com.ledgero.R
 import com.ledgero.model.DatabaseUtill
 import kotlinx.android.synthetic.main.fragment_add_new_entry_detail.view.*
@@ -62,7 +63,8 @@ class AddNewEntryDetail : Fragment() {
                     var title= "title "
 
                     var flag = if (entryMode==1) true else false
-                    var entry = Entries(amount,flag,des,title,0)
+
+                    var entry = Entries(amount,flag,des,title,0,false,User.userID,1)
 
 
                     IndividualLedgerScreen.instanceObject!!.viewModel.addNewEntry(entry)

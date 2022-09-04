@@ -110,7 +110,25 @@ lateinit     var viewModel: IndividualScreenViewModel
         }
 
 
-   return view
+
+
+        var unApprovedBtn=view.bt_unapproved_entriest_individScreen
+        var canceledEntries=view.bt_canceled_entries_individScreen
+
+
+        unApprovedBtn.setOnClickListener(){
+
+            var frag= UnApprovedEntriesScreen(currentSelectedLedgerUID)
+
+            parentFragmentManager
+                .beginTransaction()
+                .replace(R.id.fl_fragment_container_main,frag)
+                .addToBackStack(null)
+                .commit()
+        }
+
+
+        return view
     }
 
 

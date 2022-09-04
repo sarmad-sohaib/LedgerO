@@ -31,12 +31,15 @@
     <string name="app_name">LedgerO</string>
     <string name="email">Email</string>
     <string name="_00_ledgers">00 ledgers</string>
-    <string name="share_reportBtn_individual">Share Report</string>
-    <string name="save_reportBtn_individual">Save Report</string>
+    <string name="un_approved_Btn_individual">Un-Approved Entries</string>
+    <string name="canceled_entries_Btn_individual">Canceled Entries</string>
     <string name="bt_got_individScreen">Got</string>
     <string name="bt_gave_individScreen">Gave</string>
     <string name="new_entry_detail_title">Entry Information</string>
     <string name="add_new_entry_amount_hint">Rs.</string>
     <string name="add_new_entry_description_hint">Description</string>
     <string name="add_new_entry_btn_text">Save</string>
+    <string name="unapproved_screen_title">Un-Approved Entried</string>
+    <string name="unapproved_screen_approveall_btn">Approve All</string>
+    <string name="unapproved_screen_waitingtext">Waiting For Approval</string>
 </resources>

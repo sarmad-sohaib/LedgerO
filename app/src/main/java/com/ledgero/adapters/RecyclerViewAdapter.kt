@@ -13,7 +13,8 @@ import com.ledgero.MainActivity
 import com.ledgero.R
 import com.ledgero.fragments.IndividualLedgerScreen
 
-class RecyclerViewAdapter(context: Context,singleLedgers: ArrayList<SingleLedgers>?): RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
+class RecyclerViewAdapter(context: Context,singleLedgers: ArrayList<SingleLedgers>?):
+    RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
 
  var context: Context
  var singleLedgers: ArrayList<SingleLedgers>?
