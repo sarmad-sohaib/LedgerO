@@ -205,12 +205,11 @@
             android:id="@+id/rv_ledgers_individualScreen"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintVertical_bias="0.0"
-            app:layout_constraintTop_toBottomOf="@+id/shape_bg_ledger_frag"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/bt_got_individScreen"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/shape_bg_ledger_frag"
             tools:listitem="@layout/individual_ledger_recycler_view" />
 
 

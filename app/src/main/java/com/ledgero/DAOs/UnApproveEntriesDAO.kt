@@ -57,11 +57,34 @@ class UnApproveEntriesDAO(private val ledgerUID: String) {
 
     }
 
+    fun rejectDeleteRequestForApprovedEntry(pos:Int){
+      //  We need to set its reqMode to 0 in ledger list, so another request can be performed on it
+        //and save a copy in canceled with reqCode 2, so if requester press requestAgain button it will work
+    var entry= unApprovedentriesData.get(pos)
+
+       updateEntryInLedger(entry) //updating in ledgersEntries
+    }
+
+    private fun updateEntryInLedger(entry: Entries) {
+        entry.requestMode=0
+        db_reference.child("ledgerEntries").child(ledgerUID).child(entry.entryUID.toString())
+            .setValue(entry).addOnCompleteListener(){
+                if (it.isSuccessful){
+                    Log.d(TAG, "DelteEntry: Deleted Successfully From Ledger!!")
+                  entry.requestMode=2
+                    enteryRejected(entry)// add this entry in canceled
+                }
+            }
+
+    }
 
     fun deleteEntry_Approved(pos: Int){
       //first delete it from ledgers then from requestedEntries
+        //then check if its in canceled of any user
+        //delete it from there too
         var entry= unApprovedentriesData.get(pos)
         var key= entry.entryUID.toString()
+        entry.requestMode=0
 
 
         db_reference.child("ledgerEntries").child(ledgerUID).child(key).removeValue().addOnCompleteListener()
@@ -69,6 +92,7 @@ class UnApproveEntriesDAO(private val ledgerUID: String) {
             if (it.isSuccessful){
                 Log.d(TAG, "DelteEntry: Deleted Successfully From Ledger!!")
                 deleteEntryFromUnApproved(key)
+                checkAndDeleteFromCanceledEntries(key)
             }
         }
     }
@@ -79,6 +103,7 @@ class UnApproveEntriesDAO(private val ledgerUID: String) {
 
         var entry = unApprovedentriesData.get(pos)
         entry.isApproved=true
+        entry.requestMode=0
         var key= entry.entryUID.toString()
         addEntryInLedger(key,entry)
 
@@ -92,16 +117,32 @@ class UnApproveEntriesDAO(private val ledgerUID: String) {
             }
     }
 
+    private fun checkAndDeleteFromCanceledEntries(entryKey: String) {
+        db_reference.child("canceledEntries").child(ledgerUID).child(entryKey)
+            .removeValue()
+            .addOnCompleteListener() {
+                Log.d(TAG, "checkAndDeleteFromCanceledEntries: Delete From Canceled")
+            }
+
+    }
     private fun deleteEntryFromUnApproved(entryKey: String){
         db_reference.child("entriesRequests").child(ledgerUID).child(entryKey)
             .removeValue()
             .addOnCompleteListener(){
                 Log.d(TAG, "deleteEntryFromUnApproved: Entery Added in ledger and deleted from UnApproved")
+
             }
     }
 
+    fun enteryRejected(entry:Entries){
+        //add this entry into cancel entries then remove it from here
+
+        var key= entry.entryUID.toString()
+
+        addEntryInRejectEntries(key,entry)
+    }
     fun enteryRejected(pos:Int){
-        //add this entry into reject entries then remove it from here
+        //add this entry into cancel entries then remove it from here
         var entry = unApprovedentriesData.get(pos)
         var key= entry.entryUID.toString()
         addEntryInRejectEntries(key,entry)
@@ -114,6 +155,22 @@ class UnApproveEntriesDAO(private val ledgerUID: String) {
             }
     }
 
+    fun deleteUnApprovedEntryThenUpdateLedgerEntry(pos: Int){
+      var entry= unApprovedentriesData.get(pos)
+        entry.requestMode=0
+        deleteEntryFromUnApproved(entry.entryUID.toString())
+        updateEntryInLedgerEntries(entry)
+    }
+
+    private fun updateEntryInLedgerEntries(entry: Entries){
+        db_reference.child("ledgerEntries").child(ledgerUID).child(entry.entryUID.toString())
+            .setValue(entry).addOnCompleteListener(){
+                if (it.isSuccessful){
+                    Log.d(TAG, "updateEntryInLedgerEntries: Entry Updated!!")
+
+                }
+            }
+    }
 
 
 }

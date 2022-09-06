@@ -16,6 +16,17 @@ class UnApprovedEntriesRepo(private val unApproveEntriesDAO: UnApproveEntriesDAO
     fun removeListener(){
        unApproveEntriesDAO.removeListener()
     }
+
+    fun rejectNewAddedEntry(pos: Int){
+        unApproveEntriesDAO.enteryRejected(pos)
+    }
+
+    fun rejectDeleteRequestForApprovedEntry(pos:Int){
+        unApproveEntriesDAO.rejectDeleteRequestForApprovedEntry(pos)
+    }
+
+
+
     fun deleteEntry(pos: Int){
         unApproveEntriesDAO.deleteEntry_Approved(pos)
     }
@@ -24,6 +35,10 @@ class UnApprovedEntriesRepo(private val unApproveEntriesDAO: UnApproveEntriesDAO
     }
     fun rejectedEntry(pos:Int){
         unApproveEntriesDAO.enteryRejected(pos)
+    }
+
+    fun deleteUnApprovedEntryThenUpdateLedgerEntry(pos: Int) {
+unApproveEntriesDAO.deleteUnApprovedEntryThenUpdateLedgerEntry(pos)
     }
 
 }

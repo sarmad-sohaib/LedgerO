@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ledgero.DAOs.IndividualScreenDAO
+import com.ledgero.DataClasses.Entries
 import com.ledgero.DataClasses.SingleLedgers
 import com.ledgero.DataClasses.User
 import com.ledgero.R
@@ -28,6 +30,7 @@ class IndividualLedgerScreen(ledgerUID:String) : Fragment() {
      var currentSelectedLedgerUID:String
     var currentSelectLedger: SingleLedgers? =null
 lateinit     var viewModel: IndividualScreenViewModel
+lateinit var entries: ArrayList<Entries>
 
     private var layoutManager: RecyclerView.LayoutManager? = null
 
@@ -87,6 +90,7 @@ lateinit     var viewModel: IndividualScreenViewModel
             currentSelectLedger!!.entries=it /* = java.util.ArrayList<com.ledgero.DataClasses.Entries> */
             adapter= RecyclerAdapter_SingleLedger(requireContext(),currentSelectLedger!!.entries)
             rv.adapter= adapter
+            entries=it
         })
         gotButton.setOnClickListener(){
             //1 will inidcate that user clicked got button
@@ -114,6 +118,15 @@ lateinit     var viewModel: IndividualScreenViewModel
 
         var unApprovedBtn=view.bt_unapproved_entriest_individScreen
         var canceledEntries=view.bt_canceled_entries_individScreen
+
+        canceledEntries.setOnClickListener {
+            var frag = CanceledEntriesScreen(currentSelectedLedgerUID)
+            parentFragmentManager
+                .beginTransaction()
+                .replace(R.id.fl_fragment_container_main,frag)
+                .addToBackStack(null)
+                .commit()
+        }
 
 
         unApprovedBtn.setOnClickListener(){
@@ -193,9 +206,23 @@ return itemTouchHelper
             .setPositiveButton("Yes Delete it"){dialogInterface,it->
                 //delete entry
 
-                viewModel.deleteEntry(pos)
-                dialogInterface.dismiss()
-                rv.adapter!!.notifyDataSetChanged()
+                var entry= entries.get(pos)
+                if (entry.requestMode==0){
+                    viewModel.deleteEntry(pos)
+                    dialogInterface.dismiss()
+                    var frag = UnApprovedEntriesScreen(currentSelectedLedgerUID)
+                    parentFragmentManager.beginTransaction()
+                        .replace(R.id.fl_fragment_container_main,frag)
+                        .commit()
+                }else{
+                    if (entry.requestMode==2){
+                        Toast.makeText(context, "Already Requested For Deletion. Please Check Un-Approved Entries", Toast.LENGTH_SHORT).show()
+                  rv.adapter!!.notifyDataSetChanged()
+                    }
+                }
+
+
+
 
             }
             .setNegativeButton("No"){dialogInterface,it->

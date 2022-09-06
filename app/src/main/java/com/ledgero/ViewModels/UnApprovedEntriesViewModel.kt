@@ -38,7 +38,27 @@ class UnApprovedEntriesViewModel(private val unApprovedEntriesRepo: UnApprovedEn
     }
 
     fun rejectEntry(pos:Int){
+
+        //check if rejected Entry was new entry or was approved entry requested for delete/update
+        var entry = allUnApprovedEntries.value!!.get(pos)
+
+        if (entry.requestMode==1)//means it was just a new entry requested to add, so we can simply delete it from un-approved and move it to canceled
+        {
+            unApprovedEntriesRepo.rejectNewAddedEntry(pos)
+        }
+        if (entry.requestMode==2){
+            // means it was a approved Entry requested to delete
+            unApprovedEntriesRepo.rejectDeleteRequestForApprovedEntry(pos)
+
+        }
+
+
         unApprovedEntriesRepo.rejectedEntry(pos)
+    }
+
+    fun deleteUnApprovedEntryThenUpdateLedgerEntry(pos: Int) {
+        unApprovedEntriesRepo.deleteUnApprovedEntryThenUpdateLedgerEntry(pos)
+
     }
 
 }

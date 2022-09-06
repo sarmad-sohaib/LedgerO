@@ -31,8 +31,10 @@ private    var listener= object: ValueEventListener{
                 }
 
                 ledgerEntiresLiveData.value=entriesData
+            }else{
+            ledgerEntiresLiveData.value=ArrayList<Entries>()
             }
-        }
+            }
 
         override fun onCancelled(error: DatabaseError) {
             TODO("Not yet implemented")
@@ -71,8 +73,19 @@ private    var listener= object: ValueEventListener{
         {
             if (it.isSuccessful){
                 Log.d(TAG, "deleteEntry: Requested To Delete!!")
+                updateEntry(entry)
             }
         }
+    }
+
+    private fun updateEntry(entry: Entries) {
+        db_reference.child("ledgerEntries").child(ledgerUID).child(entry.entryUID!!).setValue(entry)
+            .addOnCompleteListener()
+            {
+                if (it.isSuccessful) {
+                    Log.d(TAG, "UpdateEntry: Updated Successfully!!")
+                }
+            }
     }
 
     fun addNewEntry(entry: Entries) {

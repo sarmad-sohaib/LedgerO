@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.ledgero.DataClasses.Entries
@@ -60,8 +61,12 @@ class UnApprovedEntries_RVAdapter(context: Context, entries: ArrayList<Entries>?
         }
 
         if (entry.entryMadeBy_userID.equals(User.userID)){
-            holder.buttonLayout.visibility= View.GONE
-                holder.waitingText.visibility= View.VISIBLE
+          holder.requester_buttonLayout.visibility=View.VISIBLE
+            holder.receiver_buttonLayout.visibility=View.GONE
+        }else{
+            holder.requester_buttonLayout.visibility=View.GONE
+            holder.receiver_buttonLayout.visibility=View.VISIBLE
+
         }
 
 
@@ -82,10 +87,13 @@ class UnApprovedEntries_RVAdapter(context: Context, entries: ArrayList<Entries>?
         var entryName: TextView
         var entryTimeStamp: TextView
         var entryMoney: TextView
-        var buttonLayout: LinearLayout
-        var waitingText: TextView
-        var acceptBtn: Button
-        var rejectBtn: Button
+        var receiver_buttonLayout: LinearLayout
+        var acceptBtn_receiver: Button
+        var rejectBtn_receiver: Button
+        var requester_buttonLayout: LinearLayout
+        var waitBtn_requester: Button
+        var deleteBtn_requester: Button
+
         var giveTaleFlag: TextView
         var entryUID: String=""
         var mainLayout: ConstraintLayout
@@ -94,16 +102,32 @@ class UnApprovedEntries_RVAdapter(context: Context, entries: ArrayList<Entries>?
             entryName= itemView.findViewById(R.id.entry_title_tv_unApprovedEntries)
             entryTimeStamp= itemView.findViewById(R.id.entry_timeStamp_tv_unApprovedEntries)
             entryMoney= itemView.findViewById(R.id.entry_amount_tv_unApprovedEntries)
-            buttonLayout= itemView.findViewById(R.id.buttons_layout_unapprovedEntries)
-            waitingText= itemView.findViewById(R.id.waitingText_tv_unapprovedEntries)
-            acceptBtn= itemView.findViewById(R.id.bt_accept_unapprovedentries)
-            rejectBtn= itemView.findViewById(R.id.bt_reject_unapprovedentries)
             giveTaleFlag = itemView.findViewById(R.id.entry_modeFlag_tv_unApprovedEntries)
             mainLayout= itemView.findViewById(R.id.main_layout_unapprovedEntries)
+            receiver_buttonLayout= itemView.findViewById(R.id.buttons_layout_receiver_unapprovedEntries)
+            acceptBtn_receiver= itemView.findViewById(R.id.bt_accept_receiver_unapprovedentries)
+            rejectBtn_receiver= itemView.findViewById(R.id.bt_reject_receiver_unapprovedentries)
+            requester_buttonLayout= itemView.findViewById(R.id.buttons_layout_requester_unapprovedEntries)
+            waitBtn_requester=itemView.findViewById(R.id.bt_wait_requester_unapprovedentries)
+            deleteBtn_requester= itemView.findViewById(R.id.bt_delete_requester_unapprovedentries)
 
 
 
-            acceptBtn.setOnClickListener(){
+            deleteBtn_requester.setOnClickListener(){
+                if (unApprovedEntries!!.get(adapterPosition).requestMode==1){
+                    //delete the entry from unapproved
+                    viewModel.deleteEntry(adapterPosition)
+                }
+                if (unApprovedEntries!!.get(adapterPosition).requestMode==2){
+
+                    viewModel.deleteUnApprovedEntryThenUpdateLedgerEntry(adapterPosition)
+                }
+            }
+            waitBtn_requester.setOnClickListener(){
+                Toast.makeText(context, "Waiting For Approval", Toast.LENGTH_SHORT).show()
+            }
+
+            acceptBtn_receiver.setOnClickListener(){
 
                 if (unApprovedEntries!!.get(adapterPosition).requestMode==1)//request to add entry
                 {  viewModel.approveEntry(adapterPosition)}
@@ -112,7 +136,9 @@ class UnApprovedEntries_RVAdapter(context: Context, entries: ArrayList<Entries>?
                 }
             }
 
-            rejectBtn.setOnClickListener(){
+            rejectBtn_receiver.setOnClickListener(){
+
+
                 viewModel.rejectEntry(adapterPosition)
             }
         }

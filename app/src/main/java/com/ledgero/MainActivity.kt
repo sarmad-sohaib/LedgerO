@@ -2,6 +2,7 @@ package com.ledgero
 
 
 import android.os.Bundle
+import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
@@ -15,6 +16,7 @@ import com.ledgero.fragments.MoreFragment
 class MainActivity : AppCompatActivity() {
 
     private lateinit var curruntFragment: Fragment
+    private lateinit var main_frag_holder: FrameLayout
 
 
     companion object {
@@ -32,6 +34,7 @@ class MainActivity : AppCompatActivity() {
 
         mainActivity = this
 
+        main_frag_holder= findViewById(R.id.fl_fragment_container_main)
 //         Restricting darkMode in this activity
 //        TODO: change this line when dark mode needed in the activity
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO) //disabling dark mode from this activity
@@ -85,10 +88,12 @@ class MainActivity : AppCompatActivity() {
     override fun onBackPressed() {
 
         if (supportFragmentManager.backStackEntryCount>0){
+            main_frag_holder.removeAllViews()
             supportFragmentManager.popBackStack()
 
         }else{
 
+            main_frag_holder.removeAllViews()
             super.onBackPressed()
 
         }

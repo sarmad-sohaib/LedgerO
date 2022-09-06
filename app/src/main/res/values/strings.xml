@@ -42,4 +42,6 @@
     <string name="unapproved_screen_title">Un-Approved Entried</string>
     <string name="unapproved_screen_approveall_btn">Approve All</string>
     <string name="unapproved_screen_waitingtext">Waiting For Approval</string>
+    <string name="canceled_screen_title">Canceled Entries</string>
+    <string name="canceled_screen_deleteall_btn">Delete All</string>
 </resources>

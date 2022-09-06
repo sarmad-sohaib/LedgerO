@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
@@ -69,8 +70,14 @@ class AddNewEntryDetail : Fragment() {
 
                     IndividualLedgerScreen.instanceObject!!.viewModel.addNewEntry(entry)
 
+                   var frag = UnApprovedEntriesScreen(IndividualLedgerScreen.instanceObject!!.currentSelectedLedgerUID.toString())
+
 
                     parentFragmentManager.popBackStack()
+                    parentFragmentManager.beginTransaction()
+                        .addToBackStack(null)
+                        .replace(R.id.fl_fragment_container_main,frag)
+                        .commit()
 
 
 
