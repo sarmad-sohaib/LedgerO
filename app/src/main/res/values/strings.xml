@@ -37,7 +37,9 @@
     <string name="bt_gave_individScreen">Gave</string>
     <string name="new_entry_detail_title">Entry Information</string>
     <string name="add_new_entry_amount_hint">Rs.</string>
+    <string name="add_new_total_amount_hint">Total</string>
     <string name="add_new_entry_description_hint">Description</string>
+    <string name="add_new_entry_additionalInfo_hint">Additional Info</string>
     <string name="add_new_entry_btn_text">Save</string>
     <string name="unapproved_screen_title">Un-Approved Entried</string>
     <string name="unapproved_screen_approveall_btn">Approve All</string>
