@@ -13,6 +13,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/new_entry_detail_title"
+        android:lineHeight="2dp"
         android:textAlignment="center"
         android:textSize="24sp"
         android:layout_marginVertical="10dp"
@@ -79,7 +80,7 @@ android:enabled="false"
         android:layout_marginTop="10dp"
         android:orientation="vertical"
 
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/add_new_entry_amount_filledTextField"
@@ -118,6 +119,111 @@ android:enabled="false"
             </com.google.android.material.textfield.TextInputLayout>
 
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="5dp"
+                >
+
+                <Button
+                    android:id="@+id/btn_recordVoice_addNewEntryDetail"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+
+                    android:background="@drawable/circular_bg_voice_record_btn"
+                    android:foreground="@drawable/ic_microphone"
+                    android:foregroundGravity="center"
+                    android:foregroundTint="@color/white"
+                    android:layout_marginHorizontal="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"></Button>
+
+                <TextView
+                    android:id="@+id/hint_recordAudio_addNewEntry"
+                    android:layout_width="wrap_content"
+                    android:maxWidth="300dp"
+                    android:gravity="center_horizontal"
+                    android:visibility="visible"
+                    android:layout_height="wrap_content"
+                    android:text="Tap mic button to start recording voice message for entry"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/btn_recordVoice_addNewEntryDetail"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"></TextView>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/audioPlay_layout_addNewEntry"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:paddingVertical="10dp"
+                    android:visibility="gone"
+                    android:weightSum="5"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/btn_recordVoice_addNewEntryDetail"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <Button
+                        android:id="@+id/btn_play_recordVoice_addNewEntryDetail"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/circular_bg_voice_play_record_btn"
+                        android:foreground="@drawable/ic_play_button"
+                        android:foregroundGravity="center_horizontal|center_vertical"
+                        android:foregroundTint="@color/violent_vixen"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"></Button>
+
+                    <SeekBar
+                        android:id="@+id/seekBar_addNewEntry"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="fill"
+                        android:layout_weight="3"
+                        android:minWidth="200dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.203"
+                        app:layout_constraintStart_toEndOf="@+id/btn_play_recordVoice_addNewEntryDetail"
+                        app:layout_constraintTop_toTopOf="parent"></SeekBar>
+
+                    <TextView
+                        android:id="@+id/audioRecordDuration_tv_addNewEntryDetail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="15dp"
+                        android:text="00:00"
+                        app:layout_constraintEnd_toEndOf="@+id/seekBar_addNewEntry"
+                        app:layout_constraintTop_toTopOf="parent"></TextView>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Hold To Delete Or Record New One"
+                        android:textSize="10sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/seekBar_addNewEntry"
+                        app:layout_constraintStart_toStartOf="@+id/seekBar_addNewEntry"
+                        app:layout_constraintTop_toBottomOf="@+id/seekBar_addNewEntry"></TextView>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/audioMaxLimit_tv_addNewEntryDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Max 60s"
+                    app:layout_constraintEnd_toEndOf="@+id/btn_recordVoice_addNewEntryDetail"
+                    app:layout_constraintStart_toStartOf="@+id/btn_recordVoice_addNewEntryDetail"
+                    app:layout_constraintTop_toBottomOf="@+id/btn_recordVoice_addNewEntryDetail"></TextView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
 
 
@@ -133,7 +239,7 @@ android:enabled="false"
         android:layout_gravity="bottom"
 
         android:layout_marginBottom="15dp"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/bt_add_new_entry"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

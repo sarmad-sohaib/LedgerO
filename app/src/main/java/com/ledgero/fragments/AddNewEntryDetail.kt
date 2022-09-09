@@ -1,8 +1,10 @@
 package com.ledgero.fragments
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.InputType
@@ -12,28 +14,38 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
-import android.widget.Toast
-import androidx.core.content.ContextCompat.getSystemService
+import android.widget.*
+import androidx.annotation.RequiresApi
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat.getDrawable
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import com.ledgero.DataClasses.Entries
 import com.ledgero.DataClasses.User
 import com.ledgero.R
-import com.ledgero.UtillClasses.CalculatorUtill
-import kotlinx.android.synthetic.main.calculator_layout.view.*
+import com.ledgero.UtillClasses.Utill_AddNewEntryDetail
 import kotlinx.android.synthetic.main.fragment_add_new_entry_detail.view.*
-import kotlinx.android.synthetic.main.fragment_money.view.*
-import net.objecthunter.exp4j.Expression
 
 
-class AddNewEntryDetail : Fragment() {
+open class AddNewEntryDetail : Fragment() {
 
 
     lateinit var amountTextTV:EditText
     lateinit var totalAmount:EditText
+    lateinit var utill:Utill_AddNewEntryDetail
+
+    lateinit var audioLayout:ConstraintLayout
+    lateinit var audioPlayBtn: Button
+    lateinit var recordBtn : Button
+    lateinit var recordDuartionText: TextView
+    lateinit var recordMaxLimitText: TextView
+    lateinit var hintRecordText: TextView
+    lateinit var recordSeekBar: SeekBar
 
 
+
+
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -43,6 +55,7 @@ class AddNewEntryDetail : Fragment() {
        var view=inflater.inflate(R.layout.fragment_add_new_entry_detail, container, false)
         var entryMode=-1  // mode tell if user pressed Got or Gave
 
+        utill= Utill_AddNewEntryDetail(this)
         amountTextTV= view.tv_amount_add_new_entry
         totalAmount= view.tv_Totalamount_add_new_entry
 
@@ -68,6 +81,7 @@ class AddNewEntryDetail : Fragment() {
 
 
         view.bt_add_new_entry.setOnClickListener(){
+
 
 
 
@@ -124,8 +138,7 @@ class AddNewEntryDetail : Fragment() {
 
                 //this will close the soft keyboard if its open
                 // hide virtual keyboard
-
-                hideKeyboard()
+                    hideKeyboard()
                 if (view.calculator_layout_add_new_entry_include.visibility==View.GONE){
                     view.calculator_layout_add_new_entry_include.visibility=View.VISIBLE
 
@@ -169,6 +182,79 @@ return false
         })
 
 
+        //record audio ui operations
+        audioLayout= view.audioPlay_layout_addNewEntry
+        audioPlayBtn = view.btn_play_recordVoice_addNewEntryDetail
+        recordBtn= view.btn_recordVoice_addNewEntryDetail
+        recordDuartionText= view.audioRecordDuration_tv_addNewEntryDetail
+        recordMaxLimitText= view.audioMaxLimit_tv_addNewEntryDetail
+        hintRecordText=view.hint_recordAudio_addNewEntry
+        recordSeekBar= view.seekBar_addNewEntry
+
+
+        recordBtn.setOnClickListener(){
+            @RequiresApi(Build.VERSION_CODES.S)
+            if (utill.audioRecordUtill.isAudioRecording){
+
+                //stop audio Recording
+                utill.audioRecordUtill.stopAudioRecording()
+                utill.audioRecordUtill.stopTimer()
+                utill.audioRecordUtill.isAudioRecording=false
+                recordBtn.foreground= getDrawable(requireContext(),R.drawable.ic_microphone)
+                audioLayout.visibility = View.VISIBLE
+                hintRecordText.visibility=View.GONE
+                recordMaxLimitText.text="Max 60s"
+
+                // set audioDuration
+                view.audioRecordDuration_tv_addNewEntryDetail.text=utill.audioRecordUtill.getAudioDuration()+"s"
+            }else
+            {
+                //start audio Recording
+                if (utill.audioRecordUtill.isMicPresent()) {
+                if (!utill.audioRecordUtill.isMicPermission())
+         {Toast.makeText(context,"Please Allow Us To Use Your Device Mice", Toast.LENGTH_SHORT).show()
+                }else{
+                utill.audioRecordUtill.startAudioRecording()
+                    utill.audioRecordUtill.startTimer(recordMaxLimitText)
+                    utill.audioRecordUtill.isAudioRecording=true
+                    audioLayout.visibility=View.GONE
+                    hintRecordText.text= "Your voice note is recording. Tap recording button to stop"
+                    hintRecordText.visibility=View.VISIBLE
+
+                  recordBtn.foreground= getDrawable(requireContext(),R.drawable.ic_sound_waveform)
+                } } else {
+                Toast.makeText(context, "Sorry! No Working Mic Found", Toast.LENGTH_SHORT)
+                    .show() }
+            }
+        }
+
+
+        audioLayout.setOnLongClickListener(object : View.OnLongClickListener{
+            override fun onLongClick(p0: View?): Boolean {
+
+                var alertDialog= utill.audioRecordUtill.getAlertDialogForDeletingVoice()
+                alertDialog.show()
+
+                return true
+            }
+
+        })
+
+
+        audioPlayBtn.setOnClickListener(){
+
+            if (utill.audioRecordUtill.isAudioPlaying){
+                utill.audioRecordUtill.stopPlayingAudio()
+                audioPlayBtn.foreground=getDrawable(requireContext(),R.drawable.ic_play_button)
+                utill.audioRecordUtill.isAudioPlaying=false
+            }else{
+                utill.audioRecordUtill.startPlayingAudio(audioPlayBtn,getDrawable(requireContext(),R.drawable.ic_play_button))
+                audioPlayBtn.foreground= getDrawable(requireContext(),R.drawable.ic_pause)
+                utill.audioRecordUtill.isAudioPlaying=true
+            }
+        }
+
+
 
         return view
     }
@@ -176,10 +262,9 @@ return false
     private fun setCalculatorBtnListeners(view: View) {
 
 
-        CalculatorUtill.setClickListenersOnButtons(view,this)
+       utill.CalculatorUtills().setClickListenersOnButtons(view,this)
 
     }
-
 
 
     fun Fragment.hideKeyboard() {
@@ -195,6 +280,14 @@ return false
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
+
+    @RequiresApi(Build.VERSION_CODES.S)
+    override fun onPause() {
+        utill.audioRecordUtill.stopPlayingAudio()
+        utill.audioRecordUtill.stopAudioRecording()
+        utill.audioRecordUtill.stopTimer()
+        super.onPause()
+    }
     override fun onStop() {
 
         super.onStop()
@@ -213,5 +306,15 @@ return false
             amountTextTV.append(string)
             totalAmount.setText("")
         }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.M)
+    fun onMaxAudioRecordDuration(){
+        recordBtn.foreground= getDrawable(requireContext(),R.drawable.ic_microphone)
+        audioLayout.visibility = View.VISIBLE
+        hintRecordText.visibility= View.GONE
+
+        // set audioDuration
+        recordDuartionText.setText(utill.audioRecordUtill.getAudioDuration()+"s")
     }
 }

@@ -9,11 +9,17 @@
         <entry key="..\:/HamzaFYP/LedgerO/app/src/main/res/layout/fragment_ledgers.xml" value="0.48058252427184467" />
         <entry key="..\:/LedgerO/LedgerO/app/src/main/res/drawable/button_shape.xml" value="0.1095" />
         <entry key="..\:/LedgerO/LedgerO/app/src/main/res/drawable/calculator_digit_button_bg.xml" value="0.1285" />
+        <entry key="..\:/LedgerO/LedgerO/app/src/main/res/drawable/circular_bg_voice_play_record_btn.xml" value="0.1285" />
+        <entry key="..\:/LedgerO/LedgerO/app/src/main/res/drawable/circular_bg_voice_record_btn.xml" value="0.1285" />
         <entry key="..\:/LedgerO/LedgerO/app/src/main/res/drawable/ic_baseline_calendar_today_24.xml" value="0.1775" />
         <entry key="..\:/LedgerO/LedgerO/app/src/main/res/drawable/ic_cancel_close.xml" value="0.1775" />
         <entry key="..\:/LedgerO/LedgerO/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1095" />
+        <entry key="..\:/LedgerO/LedgerO/app/src/main/res/drawable/ic_mic.xml" value="0.1285" />
+        <entry key="..\:/LedgerO/LedgerO/app/src/main/res/drawable/ic_microphone.xml" value="0.181" />
         <entry key="..\:/LedgerO/LedgerO/app/src/main/res/drawable/ic_outline_home_24.xml" value="0.1775" />
         <entry key="..\:/LedgerO/LedgerO/app/src/main/res/drawable/ic_outline_money_24.xml" value="0.1095" />
+        <entry key="..\:/LedgerO/LedgerO/app/src/main/res/drawable/ic_pause.xml" value="0.1285" />
+        <entry key="..\:/LedgerO/LedgerO/app/src/main/res/drawable/ic_play_button.xml" value="0.181" />
         <entry key="..\:/LedgerO/LedgerO/app/src/main/res/drawable/ic_request_again.xml" value="0.18" />
         <entry key="..\:/LedgerO/LedgerO/app/src/main/res/drawable/ic_tick_white_bg_black.xml" value="0.1775" />
         <entry key="..\:/LedgerO/LedgerO/app/src/main/res/drawable/ic_tick_white_black_bg_foreground.xml" value="0.1775" />
@@ -28,7 +34,7 @@
         <entry key="..\:/LedgerO/LedgerO/app/src/main/res/layout/calculator_layout_grid.xml" value="0.203125" />
         <entry key="..\:/LedgerO/LedgerO/app/src/main/res/layout/canceled_entries_rv_layout.xml" value="0.25" />
         <entry key="..\:/LedgerO/LedgerO/app/src/main/res/layout/dialg_box.xml" value="0.20416666666666666" />
-        <entry key="..\:/LedgerO/LedgerO/app/src/main/res/layout/fragment_add_new_entry_detail.xml" value="0.22" />
+        <entry key="..\:/LedgerO/LedgerO/app/src/main/res/layout/fragment_add_new_entry_detail.xml" value="0.33" />
         <entry key="..\:/LedgerO/LedgerO/app/src/main/res/layout/fragment_canceled_entries_screen.xml" value="0.20416666666666666" />
         <entry key="..\:/LedgerO/LedgerO/app/src/main/res/layout/fragment_custom_dialog.xml" value="0.20416666666666666" />
         <entry key="..\:/LedgerO/LedgerO/app/src/main/res/layout/fragment_group_ledgers.xml" value="0.20416666666666666" />
