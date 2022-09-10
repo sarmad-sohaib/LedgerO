@@ -1,18 +1,22 @@
 package com.ledgero.DAOs
 
+import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.getValue
+import com.google.firebase.storage.FirebaseStorage
 import com.ledgero.DataClasses.Entries
 import com.ledgero.DataClasses.SingleLedgers
 import com.ledgero.DataClasses.User
 import org.w3c.dom.EntityReference
+import java.io.File
 
 class IndividualScreenDAO(private val ledgerUID: String) {
     private val TAG = "SingleLedgerDAO"
   private  var db_reference = FirebaseDatabase.getInstance().reference
+    private var storeage_reference= FirebaseStorage.getInstance().reference
 
   private  var ledgerEntiresLiveData = MutableLiveData<ArrayList<Entries>>()
     private var entriesData = ArrayList<Entries>()
@@ -88,6 +92,16 @@ private    var listener= object: ValueEventListener{
             }
     }
 
+    private fun addNewEntryWithVoiceRecord(entry: Entries){
+        entry.requestMode=1
+        db_reference.child("entriesRequests").child(ledgerUID).child(entry.entryUID!!).setValue(entry)
+            .addOnCompleteListener()
+            {
+                if (it.isSuccessful){
+                    Log.d(TAG, "addNewEntry: Updated Successfully!!")
+                }
+            }
+    }
     fun addNewEntry(entry: Entries) {
 
 
@@ -101,6 +115,36 @@ private    var listener= object: ValueEventListener{
                 Log.d(TAG, "addNewEntry: Updated Successfully!!")
             }
         }
+
+    }
+
+    fun uploadVoiceNoteThenAddNewEntry(entry: Entries) {
+        var file = Uri.fromFile(File(entry.voiceNote!!.localPath))
+        var key= db_reference.child("entriesRequests").child(ledgerUID).push().key
+        entry.entryUID=key
+        var ref= storeage_reference.child("voiceNotes").child(ledgerUID).child(entry.entryUID.toString())
+          .child("${file.lastPathSegment}")
+
+        ref.putFile(file)
+        .addOnSuccessListener {
+            // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
+            Log.d(TAG, "uploadVoiceNoteThenAddNewEntry: Voice Note Uploaded. -- ${it.metadata.toString()} ")
+
+            //getDownloadURL
+            ref.downloadUrl.addOnCompleteListener(){
+                if (it.isSuccessful){
+                    entry.voiceNote!!.firebaseDownloadURI=it.result.toString()
+                    addNewEntryWithVoiceRecord(entry)
+                }
+                else{
+                    Log.d(TAG, "uploadVoiceNoteThenAddNewEntry: Not Able To Fetch Download URI")
+                }
+            }
+
+        }.addOnFailureListener {
+              Log.d(TAG, "uploadVoiceNoteThenAddNewEntry: Cannot Upload Voice Note")
+          }
+
 
     }
 }

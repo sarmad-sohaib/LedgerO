@@ -21,13 +21,15 @@ import androidx.core.content.ContextCompat.getDrawable
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import com.ledgero.DataClasses.Entries
+import com.ledgero.DataClasses.SingleLedgers
 import com.ledgero.DataClasses.User
+import com.ledgero.DataClasses.VoiceNote
 import com.ledgero.R
 import com.ledgero.UtillClasses.Utill_AddNewEntryDetail
 import kotlinx.android.synthetic.main.fragment_add_new_entry_detail.view.*
 
 
-open class AddNewEntryDetail : Fragment() {
+ class AddNewEntryDetail(var ledger: SingleLedgers) : Fragment() {
 
 
     lateinit var amountTextTV:EditText
@@ -100,8 +102,15 @@ open class AddNewEntryDetail : Fragment() {
 
                     var flag = if (entryMode==1) true else false
 
+
                     var entry = Entries(amount,flag,des,title,0,false,User.userID,"",1)
 
+                        if (utill.audioRecordUtill.hasVoiceNote){
+                            var voiceNote=
+                                VoiceNote(utill.audioRecordUtill.localPath!!,utill.audioRecordUtill.getAudioDuration().toInt(),null)
+                            entry.hasVoiceNote=true
+                            entry.voiceNote=voiceNote
+                        }
 
                     IndividualLedgerScreen.instanceObject!!.viewModel.addNewEntry(entry)
 

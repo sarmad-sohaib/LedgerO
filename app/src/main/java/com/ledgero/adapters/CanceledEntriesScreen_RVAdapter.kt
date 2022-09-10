@@ -119,6 +119,7 @@ class CanceledEntriesScreen_RVAdapter (context: Context, entries: ArrayList<Entr
             }
 
             deleteEntry.setOnClickListener(){
+
                 viewModel.deleteEntry(adapterPosition)
             }
 

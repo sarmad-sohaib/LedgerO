@@ -13,8 +13,14 @@ class IndividualScreenRepo(private val individualScreenDAO: IndividualScreenDAO)
     }
 
     fun addNewEntry(entry: Entries){
+
+        if (entry.hasVoiceNote!!){
+            individualScreenDAO.uploadVoiceNoteThenAddNewEntry(entry)
+        }else{
+
         individualScreenDAO.addNewEntry(entry)
-    }
+        }
+        }
     fun removeListener(){
         individualScreenDAO.removeListener()
     }

@@ -13,8 +13,9 @@ data class Entries(
     var isApproved: Boolean?=false,
     var entryMadeBy_userID: String?=null,
     var entryUID: String?=null,
-var requestMode:Int?=0   //1->addRequest , 2->deleteRequest ,3->editRequest 0=nothing
-
+    var requestMode:Int?=0 ,  //1->addRequest , 2->deleteRequest ,3->editRequest 0=nothing
+    var hasVoiceNote: Boolean?=false,
+    var voiceNote: VoiceNote?=null
                    ): Parcelable
 {
 

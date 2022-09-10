@@ -29,6 +29,7 @@ class Utill_AddNewEntryDetail( var addNewEntryDetail: AddNewEntryDetail) {
 
 
     var audioRecordUtill=AudioRecordUtill()
+    val randomSuffixForAudioFilePath=  (0..9999999).random()
 
 
 
@@ -197,6 +198,9 @@ class Utill_AddNewEntryDetail( var addNewEntryDetail: AddNewEntryDetail) {
         var packageManager=MainActivity.getMainActivityInstance().packageManager
         var context=MainActivity.getMainActivityInstance().applicationContext
         lateinit var handler:Handler
+        var hasVoiceNote=false
+        var localPath:String?=null
+
 
 
 
@@ -205,6 +209,8 @@ class Utill_AddNewEntryDetail( var addNewEntryDetail: AddNewEntryDetail) {
          var mediaRecorder:MediaRecorder?=null
          var isAudioRecording= false
          var isAudioPlaying= false
+
+
 
 
         @RequiresApi(Build.VERSION_CODES.S)
@@ -366,6 +372,8 @@ class Utill_AddNewEntryDetail( var addNewEntryDetail: AddNewEntryDetail) {
                             if (isAudioPlaying){
                                 stopPlayingAudio()
                             }
+                            hasVoiceNote=false
+                            localPath=null
                             addNewEntryDetail.audioLayout.visibility=View.GONE
                             addNewEntryDetail.hintRecordText.text="Tap mic button to start recording voice message for entry"
                             addNewEntryDetail.hintRecordText.visibility= View.VISIBLE
@@ -418,7 +426,11 @@ class Utill_AddNewEntryDetail( var addNewEntryDetail: AddNewEntryDetail) {
     private fun getPathForStoringFile():String{
        var contextWrapper= ContextWrapper(context.applicationContext)
         var voiceDirectory: File = contextWrapper.getExternalFilesDir(Environment.DIRECTORY_MUSIC)!!
-        var file:File= File(voiceDirectory,"ledgerORecordings"+".mp3")
+        var fileName= addNewEntryDetail.ledger.ledgerUID.toString()+addNewEntryDetail.ledger.entries!!.size+"$randomSuffixForAudioFilePath"+".mp3"
+        var file= File(voiceDirectory,fileName)
+        hasVoiceNote=true
+        localPath=file.path
+
 
 
 

@@ -1,5 +1,6 @@
 package com.ledgero.DAOs
 
+import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -8,12 +9,15 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.getValue
+import com.google.firebase.storage.FirebaseStorage
 import com.ledgero.DataClasses.Entries
 import com.ledgero.DataClasses.User
+import java.io.File
 
 class CanceledEntriesDAO(private val ledgerUID: String) {
     private val TAG = "CanceledEntries"
     private var db_reference = FirebaseDatabase.getInstance().reference
+    private var storage_reference= FirebaseStorage.getInstance().reference
 
     private var canceledEntiresLiveData = MutableLiveData<ArrayList<Entries>>()
     private var canceledEntriesData = ArrayList<Entries>()
@@ -62,6 +66,26 @@ class CanceledEntriesDAO(private val ledgerUID: String) {
     }
 
 
+    fun deleteCanceledEntryWithVoice(entry:Entries){
+        var key = entry.entryUID.toString()
+        //first delete voice note from firebase
+        //then delete the entry from canceledEntries
+        deleteVoiceFromFirebaseStorage(entry,key)
+    }
+    private fun deleteVoiceFromFirebaseStorage(entry: Entries,key:String) {
+        var file = Uri.fromFile(File(entry.voiceNote!!.localPath))
+        storage_reference.child("voiceNotes").child(ledgerUID).child(entry.entryUID.toString())
+            .child("${file.lastPathSegment}").delete().addOnCompleteListener(){
+                if (it.isSuccessful){
+                    Log.d(TAG, "deleteVoiceFromFirebaseStorage: Voice Deleted From Firebase Storage")
+
+                    deleteEntryFromCanceled(key)
+                }else{
+                    Log.d(TAG, "deleteVoiceFromFirebaseStorage: Cannot Delete Voice From Firebase Storage. ${it.exception.toString()}")
+                }
+            }
+
+    }
     fun deleteCanceledEntry(pos: Int) {
         var entry = canceledEntriesData.get(pos)
         var key = entry.entryUID.toString()

@@ -98,7 +98,7 @@ lateinit var entries: ArrayList<Entries>
            parentFragmentManager
                .beginTransaction()
                .addToBackStack(null)
-               .replace(R.id.fl_fragment_container_main,AddNewEntryDetail())
+               .replace(R.id.fl_fragment_container_main,AddNewEntryDetail(currentSelectLedger!!))
                .commit()
 
         }
@@ -108,7 +108,7 @@ lateinit var entries: ArrayList<Entries>
             parentFragmentManager
                 .beginTransaction()
                 .addToBackStack(null)
-                .replace(R.id.fl_fragment_container_main,AddNewEntryDetail())
+                .replace(R.id.fl_fragment_container_main,AddNewEntryDetail(currentSelectLedger!!))
                 .commit()
 
         }

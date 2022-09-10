@@ -114,8 +114,9 @@ class UnApprovedEntries_RVAdapter(context: Context, entries: ArrayList<Entries>?
 
 
             deleteBtn_requester.setOnClickListener(){
-                if (unApprovedEntries!!.get(adapterPosition).requestMode==1){
-                    //delete the entry from unapproved
+                if (unApprovedEntries!!.get(adapterPosition).requestMode==1){//addRequest
+                    //means requester don't want receiver to see this entry Addition request in unapproved
+                    // so delete the entry from unapproved
                     viewModel.deleteEntry(adapterPosition)
                 }
                 if (unApprovedEntries!!.get(adapterPosition).requestMode==2){
@@ -129,15 +130,20 @@ class UnApprovedEntries_RVAdapter(context: Context, entries: ArrayList<Entries>?
 
             acceptBtn_receiver.setOnClickListener(){
 
+                // means reciver has accepted the request made by requester
                 if (unApprovedEntries!!.get(adapterPosition).requestMode==1)//request to add entry
-                {  viewModel.approveEntry(adapterPosition)}
-                if (unApprovedEntries!!.get(adapterPosition).requestMode==2){
-                    viewModel.deleteEntry(adapterPosition)
+                {
+                    viewModel.approveEntry(adapterPosition)
+
+                }
+                if (unApprovedEntries!!.get(adapterPosition).requestMode==2){//request to Delete entry
+                    //means reciever accepted to delete a entry from ledger
+                    viewModel.deleteEntryFromLedgerRequest_accepted(adapterPosition)
                 }
             }
 
             rejectBtn_receiver.setOnClickListener(){
-
+                //means reciver did not accept the entry add/del request made by requester
 
                 viewModel.rejectEntry(adapterPosition)
             }
