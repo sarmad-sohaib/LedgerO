@@ -10,17 +10,21 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.ledgero.DataClasses.Entries
 import com.ledgero.DataClasses.SingleLedgers
+import com.ledgero.MainActivity
 import com.ledgero.R
+import com.ledgero.fragments.ViewEntryInfoScreen
 
-class RecyclerAdapter_SingleLedger (context: Context, entires: ArrayList<Entries>?): RecyclerView.Adapter<RecyclerAdapter_SingleLedger.MyViewHolder>()
+class RecyclerAdapter_SingleLedger (context: Context, entires: ArrayList<Entries>?,ledgerUID:String): RecyclerView.Adapter<RecyclerAdapter_SingleLedger.MyViewHolder>()
 {
 
     var context: Context
     var entries: ArrayList<Entries>?
+    var currentLedgerUID: String
 
     init {
         this.context= context
         this.entries= entires
+        this.currentLedgerUID=ledgerUID
 
     }
 
@@ -76,7 +80,18 @@ class RecyclerAdapter_SingleLedger (context: Context, entires: ArrayList<Entries
 
         itemView.setOnClickListener(){
 
-            Toast.makeText(context, "$title : $amount", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "${title.text} : ${amount.text}", Toast.LENGTH_SHORT).show()
+
+            var frag= ViewEntryInfoScreen(entries!!.get(adapterPosition),currentLedgerUID)
+
+
+            MainActivity.getMainActivityInstance().supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.fl_fragment_container_main, frag)
+                .addToBackStack(null)
+                .commit()
+
+
         }
         }
 

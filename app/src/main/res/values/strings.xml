@@ -46,4 +46,8 @@
     <string name="unapproved_screen_waitingtext">Waiting For Approval</string>
     <string name="canceled_screen_title">Canceled Entries</string>
     <string name="canceled_screen_deleteall_btn">Delete All</string>
+    <string name="view_entry_detail_title">View Entry Information</string>
+    <string name="view_entry_edit_btn_text">Edit Entry</string>
+    <string name="view_entry_total_amount_hint">You Gave</string>
+
 </resources>

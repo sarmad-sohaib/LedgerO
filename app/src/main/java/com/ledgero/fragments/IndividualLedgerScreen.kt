@@ -81,14 +81,14 @@ lateinit var entries: ArrayList<Entries>
         var rv = view.findViewById<RecyclerView>(R.id.rv_ledgers_individualScreen)
         layoutManager = LinearLayoutManager(context)
         rv.layoutManager = layoutManager
-        adapter= RecyclerAdapter_SingleLedger(requireContext(),currentSelectLedger!!.entries)
+        adapter= RecyclerAdapter_SingleLedger(requireContext(),currentSelectLedger!!.entries, currentSelectedLedgerUID)
         rv.adapter= adapter
 
         getTouchHelper(rv).attachToRecyclerView(rv)
         viewModel.getEntries().observe(viewLifecycleOwner, Observer{
 
             currentSelectLedger!!.entries=it /* = java.util.ArrayList<com.ledgero.DataClasses.Entries> */
-            adapter= RecyclerAdapter_SingleLedger(requireContext(),currentSelectLedger!!.entries)
+            adapter= RecyclerAdapter_SingleLedger(requireContext(),currentSelectLedger!!.entries,currentSelectedLedgerUID)
             rv.adapter= adapter
             entries=it
         })

@@ -1,7 +1,6 @@
 package com.ledgero.fragments
 
 import android.app.Activity
-import android.app.AlertDialog
 import android.content.Context
 import android.graphics.Color
 import android.os.Build
@@ -59,7 +58,7 @@ import kotlinx.android.synthetic.main.fragment_add_new_entry_detail.view.*
 
         utill= Utill_AddNewEntryDetail(this)
         amountTextTV= view.tv_amount_add_new_entry
-        totalAmount= view.tv_Totalamount_add_new_entry
+        totalAmount= view.tv_Totalamount_view_entry
 
         setFragmentResultListener("addEntryBtn"){addEntryBtn,bundle ->
 
@@ -67,12 +66,12 @@ import kotlinx.android.synthetic.main.fragment_add_new_entry_detail.view.*
 
             if (entryMode==1)//means user pressed GOT
          {
-             view.add_new_entry_title.setTextColor(Color.RED)
+             view.view_entry_entry_title.setTextColor(Color.RED)
 
          }
             if (entryMode==0){
 
-                view.add_new_entry_title.setTextColor(Color.GREEN)
+                view.view_entry_entry_title.setTextColor(Color.GREEN)
 
             }
 
@@ -85,18 +84,20 @@ import kotlinx.android.synthetic.main.fragment_add_new_entry_detail.view.*
         view.bt_add_new_entry.setOnClickListener(){
 
 
+            if(utill.audioRecordUtill.isAudioRecording){
+                Toast.makeText(context, "You Are Recording A Voice...Stop Recording to Save", Toast.LENGTH_SHORT).show()
 
-
+            }else{
 
             if (!totalAmount.text.isNullOrBlank() && !totalAmount.text.toString().equals("Err")){
 
-                if (!view.tv_description_add_new_entry.text.isNullOrBlank()){
+                if (!view.tv_description_view_entry.text.isNullOrBlank()){
 
                     Toast.makeText(context, "Adding New Entry To Ledger", Toast.LENGTH_SHORT).show()
 
                     val amount: Float = java.lang.Float.valueOf(totalAmount.text.toString())
 
-                    var des= view.tv_description_add_new_entry.text.toString()
+                    var des= view.tv_description_view_entry.text.toString()
 
                     var title= if (des.length>16)des.subSequence(0,15).toString() else des.toString()
 
@@ -133,6 +134,7 @@ import kotlinx.android.synthetic.main.fragment_add_new_entry_detail.view.*
                 Toast.makeText(context, "Please Enter Amount!!", Toast.LENGTH_SHORT).show()
 
             }
+            }
         }
 
 
@@ -160,7 +162,7 @@ import kotlinx.android.synthetic.main.fragment_add_new_entry_detail.view.*
 
 
 
-        view.tv_description_add_new_entry.setOnTouchListener(object : View.OnTouchListener{
+        view.tv_description_view_entry.setOnTouchListener(object : View.OnTouchListener{
             override fun onTouch(p0: View?, p1: MotionEvent?): Boolean {
                 view.calculator_layout_add_new_entry_include.visibility=View.GONE
 return false
