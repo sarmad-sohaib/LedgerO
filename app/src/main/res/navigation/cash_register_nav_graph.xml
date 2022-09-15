@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cash_register_nav_graph"
+    app:startDestination="@id/entriesFragment">
+
+    <fragment
+        android:id="@+id/entriesFragment"
+        android:name="com.ledgero.cashregister.ui.entries.EntriesFragment"
+        android:label="fragment_entries"
+        tools:layout="@layout/fragment_entries" >
+        <action
+            android:id="@+id/action_entriesFragment_to_addEditEntryFragment"
+            app:destination="@id/addEditEntryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addEditEntryFragment"
+        android:name="com.ledgero.cashregister.ui.addeditentry.AddEditEntryFragment"
+        android:label="fragment_add_edit_entry"
+        tools:layout="@layout/fragment_add_edit_entry" >
+        <argument
+            android:name="cash_status"
+            app:argType="string" />
+        <argument
+            android:name="task"
+            app:argType="com.ledgero.cashregister.data.Entry"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
+</navigation>
