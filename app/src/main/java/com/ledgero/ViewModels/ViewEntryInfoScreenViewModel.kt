@@ -1,8 +1,10 @@
 package com.ledgero.ViewModels
 
+import android.content.ContextWrapper
 import android.graphics.drawable.Drawable
 import android.media.MediaPlayer
 import android.os.Build
+import android.os.Environment
 import android.os.Handler
 import android.util.Log
 import android.view.View
@@ -16,6 +18,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.ledgero.DataClasses.Entries
+import com.ledgero.MainActivity
 import com.ledgero.R
 import com.ledgero.Repositories.ViewEntryInfoScreenRepo
 import com.ledgero.fragments.ViewEntryInfoScreen
@@ -82,7 +85,10 @@ return false
 
     private fun getPathForStoringFile(): String {
 
-        return view!!.entry.voiceNote!!.localPath.toString()
+        var contextWrapper= ContextWrapper(MainActivity.getMainActivityInstance().applicationContext)
+        return  contextWrapper.getExternalFilesDir(Environment.DIRECTORY_MUSIC)!!.toString()+view!!.entry.voiceNote!!.fileName
+
+
     }
 
     @RequiresApi(Build.VERSION_CODES.M)

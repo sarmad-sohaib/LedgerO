@@ -200,6 +200,7 @@ class Utill_AddNewEntryDetail( var addNewEntryDetail: AddNewEntryDetail) {
         lateinit var handler:Handler
         var hasVoiceNote=false
         var localPath:String?=null
+        var VoicefileName:String?=null
 
 
 
@@ -430,6 +431,8 @@ class Utill_AddNewEntryDetail( var addNewEntryDetail: AddNewEntryDetail) {
         var file= File(voiceDirectory,fileName)
         hasVoiceNote=true
         localPath=file.path
+        VoicefileName=fileName
+
 
 
 

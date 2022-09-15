@@ -1,10 +1,13 @@
 package com.ledgero.ViewModels
 
+import android.content.ContextWrapper
+import android.os.Environment
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ledgero.DataClasses.Entries
+import com.ledgero.MainActivity
 import com.ledgero.Repositories.IndividualScreenRepo
 import java.io.File
 
@@ -40,7 +43,11 @@ class IndividualScreenViewModel(private val individualScreenRepo: IndividualScre
 
     private fun deleteVoiceFromLocalDevice(entry: Entries){
         //delete voice from device
-        val fdelete= File(entry.voiceNote!!.localPath)
+        var contextWrapper= ContextWrapper(MainActivity.getMainActivityInstance().applicationContext)
+
+
+        val fdelete= File( contextWrapper.getExternalFilesDir(Environment.DIRECTORY_MUSIC)!!.toString()+entry.voiceNote!!.fileName
+        )
         if (fdelete.exists()) {
             if (fdelete.delete()) {
 

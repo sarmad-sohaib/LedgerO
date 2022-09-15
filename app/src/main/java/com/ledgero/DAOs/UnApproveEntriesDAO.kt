@@ -1,6 +1,8 @@
 package com.ledgero.DAOs
 
+import android.content.ContextWrapper
 import android.net.Uri
+import android.os.Environment
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -14,6 +16,7 @@ import com.google.firebase.database.ktx.getValue
 import com.google.firebase.storage.FirebaseStorage
 import com.ledgero.DataClasses.Entries
 import com.ledgero.DataClasses.User
+import com.ledgero.MainActivity
 import com.ledgero.UtillClasses.Utill_SingleLedgerMetaData
 import java.io.File
 
@@ -195,7 +198,10 @@ class UnApproveEntriesDAO(private val ledgerUID: String) {
 
     private fun deleteVoiceFromDevice(entry: Entries) {
         //delete voice from device
-        val fdelete= File(entry.voiceNote!!.localPath)
+        var contextWrapper= ContextWrapper(MainActivity.getMainActivityInstance().applicationContext)
+
+        val fdelete= File(contextWrapper.getExternalFilesDir(Environment.DIRECTORY_MUSIC)!!.toString()+entry.voiceNote!!.fileName
+        )
         if (fdelete.exists()) {
             if (fdelete.delete()) {
 
@@ -209,6 +215,7 @@ class UnApproveEntriesDAO(private val ledgerUID: String) {
         }
     }
     private fun deleteVoiceFromFirebaseStorage(entry: Entries) {
+
         var file = Uri.fromFile(File(entry.voiceNote!!.localPath))
         storage_reference.child("voiceNotes").child(ledgerUID).child(entry.entryUID.toString())
             .child("${file.lastPathSegment}").delete().addOnCompleteListener(){

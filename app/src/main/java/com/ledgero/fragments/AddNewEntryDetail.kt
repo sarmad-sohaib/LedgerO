@@ -110,7 +110,7 @@ import kotlinx.android.synthetic.main.fragment_add_new_entry_detail.view.*
 
                         if (utill.audioRecordUtill.hasVoiceNote){
                             var voiceNote=
-                                VoiceNote(utill.audioRecordUtill.localPath!!,utill.audioRecordUtill.getAudioDuration().toInt(),null)
+                                VoiceNote(utill.audioRecordUtill.localPath!!,utill.audioRecordUtill.VoicefileName,utill.audioRecordUtill.getAudioDuration().toInt(),null)
                             entry.hasVoiceNote=true
                             entry.voiceNote=voiceNote
                         }
