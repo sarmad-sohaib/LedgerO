@@ -42,7 +42,7 @@ class UnApprovedEntriesScreen(var ledgerUID: String) : Fragment() {
 
         var dao= UnApproveEntriesDAO(ledgerUID)
         var repo = UnApprovedEntriesRepo(dao)
-          viewModel= ViewModelProvider(this, UnApprovedEntriesViewModelFactory(repo))
+          viewModel= ViewModelProvider(this, UnApprovedEntriesViewModelFactory(repo,currentSelectedLedgerUID))
             .get(UnApprovedEntriesViewModel::class.java)
 
 

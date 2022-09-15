@@ -64,12 +64,12 @@ import kotlinx.android.synthetic.main.fragment_add_new_entry_detail.view.*
 
             entryMode=bundle.getInt("mode")
 
-            if (entryMode==1)//means user pressed GOT
+            if (entryMode==1)//means user pressed GOT  represent false
          {
              view.view_entry_entry_title.setTextColor(Color.RED)
 
          }
-            if (entryMode==0){
+            if (entryMode==0){ //represent true
 
                 view.view_entry_entry_title.setTextColor(Color.GREEN)
 
@@ -101,10 +101,11 @@ import kotlinx.android.synthetic.main.fragment_add_new_entry_detail.view.*
 
                     var title= if (des.length>16)des.subSequence(0,15).toString() else des.toString()
 
-                    var flag = if (entryMode==1) true else false
+                    var flag = if (entryMode==1) false else true
 
 
-                    var entry = Entries(amount,flag,des,title,0,false,User.userID,"",1)
+                    var entry = Entries(amount,flag,des,title,0,false,User.userID,"",1,false
+                                ,null,User.userID)
 
                         if (utill.audioRecordUtill.hasVoiceNote){
                             var voiceNote=
@@ -114,7 +115,6 @@ import kotlinx.android.synthetic.main.fragment_add_new_entry_detail.view.*
                         }
 
                     IndividualLedgerScreen.instanceObject!!.viewModel.addNewEntry(entry)
-
                    var frag = UnApprovedEntriesScreen(IndividualLedgerScreen.instanceObject!!.currentSelectedLedgerUID.toString())
 
 

@@ -2,6 +2,7 @@ package com.ledgero.ViewModels
 
 import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ledgero.DataClasses.Entries
 import com.ledgero.Repositories.IndividualScreenRepo
@@ -11,9 +12,15 @@ class IndividualScreenViewModel(private val individualScreenRepo: IndividualScre
 
         var allEntries: LiveData<ArrayList<Entries>>
         var TAG= "IndividualScreenVM"
+        var totalAmount:LiveData<Float>
+        var giveTakeFlag:LiveData<Boolean?>
 
 
         init {
+            individualScreenRepo.getMetaData()
+            totalAmount= individualScreenRepo.getTotalAmount()
+            giveTakeFlag= individualScreenRepo.getGiveTakeFlag()
+
             allEntries= getEntriesFromRepo()
         }
 
@@ -22,6 +29,14 @@ class IndividualScreenViewModel(private val individualScreenRepo: IndividualScre
             return allEntries
 
         }
+
+    fun getLedgerTotalAmount():LiveData<Float>{
+        return totalAmount
+    }
+    fun getLedgerGiveTakeFlag():LiveData<Boolean?>{
+        return giveTakeFlag
+    }
+
 
     private fun deleteVoiceFromLocalDevice(entry: Entries){
         //delete voice from device
@@ -60,6 +75,9 @@ class IndividualScreenViewModel(private val individualScreenRepo: IndividualScre
     }
     fun removeListener(){
         individualScreenRepo.removeListener()
+    }
+    fun removeLedgerMetaDataListener(){
+        individualScreenRepo.removeLedgerMetaDataListener()
     }
 
 }

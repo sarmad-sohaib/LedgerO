@@ -14,13 +14,13 @@ import com.google.firebase.database.ktx.getValue
 import com.google.firebase.storage.FirebaseStorage
 import com.ledgero.DataClasses.Entries
 import com.ledgero.DataClasses.User
+import com.ledgero.UtillClasses.Utill_SingleLedgerMetaData
 import java.io.File
 
 class UnApproveEntriesDAO(private val ledgerUID: String) {
     private val TAG = "UnApproveEntriesDAO"
     private  var db_reference = FirebaseDatabase.getInstance().reference
     private var storage_reference= FirebaseStorage.getInstance().reference
-
     private  var unApprovedEntiresLiveData = MutableLiveData<ArrayList<Entries>>()
     private var unApprovedentriesData = ArrayList<Entries>()
 

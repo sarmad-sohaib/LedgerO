@@ -6,9 +6,9 @@ import com.ledgero.Repositories.UnApprovedEntriesRepo
 import com.ledgero.ViewModels.IndividualScreenViewModel
 import com.ledgero.ViewModels.UnApprovedEntriesViewModel
 
-class UnApprovedEntriesViewModelFactory( val unApprovedEntriesRepo: UnApprovedEntriesRepo) :  ViewModelProvider.Factory {
+class UnApprovedEntriesViewModelFactory( val unApprovedEntriesRepo: UnApprovedEntriesRepo,val ledgerUID:String) :  ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return UnApprovedEntriesViewModel(unApprovedEntriesRepo) as T
+        return UnApprovedEntriesViewModel(unApprovedEntriesRepo,ledgerUID) as T
     }
 }

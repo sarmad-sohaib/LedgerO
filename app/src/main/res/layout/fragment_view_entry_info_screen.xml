@@ -22,44 +22,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"></TextView>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/view_entry_amount_filledTextField"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="15dp"
-        android:layout_marginLeft="10dp"
-android:maxWidth="200dp"
-        android:minWidth="300dp"
-        android:visibility="gone"
-        android:hint="@string/add_new_entry_amount_hint"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view_entry_entry_title">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tv_amount_view_entry"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/left_side_corner_bg_for_calculator_input"
-
-
-            android:clipToOutline="true"
-            android:inputType="numberDecimal"
-            android:maxLength="20" />
-
-    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/add_new_entry_Totalamount_filledTextField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginVertical="15dp"
+        android:enabled="false"
         android:hint="@string/view_entry_total_amount_hint"
         android:maxWidth="150dp"
-app:layout_goneMarginLeft="150dp"
         android:minWidth="100dp"
-        android:enabled="false"
-        app:layout_constraintStart_toEndOf="@+id/view_entry_amount_filledTextField"
-        app:layout_constraintTop_toBottomOf="@+id/view_entry_entry_title">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_entry_entry_title"
+        app:layout_goneMarginLeft="150dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/tv_Totalamount_view_entry"
@@ -67,10 +43,10 @@ app:layout_goneMarginLeft="150dp"
             android:layout_height="wrap_content"
 
 
-            android:gravity="center_horizontal"
             android:background="@drawable/total_amount_bg_view_entry_detail"
             android:clipToOutline="true"
             android:enabled="false"
+            android:gravity="center_horizontal"
             android:inputType="numberDecimal" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -126,33 +102,6 @@ android:enabled="false"
                 android:id="@+id/voiceLayout"
                 android:paddingVertical="5dp">
 
-                <Button
-                    android:id="@+id/btn_recordVoice_view_entry"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-
-                    android:visibility="gone"
-                    android:layout_marginHorizontal="10dp"
-                    android:background="@drawable/circular_bg_voice_record_btn"
-                    android:foreground="@drawable/ic_microphone"
-                    android:foregroundGravity="center"
-                    android:foregroundTint="@color/white"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"></Button>
-
-                <TextView
-                    android:id="@+id/hint_downloadingAudio_view_entry"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:maxWidth="300dp"
-                    android:text="Voice note is downloading:"
-                    android:visibility="gone"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/btn_recordVoice_view_entry"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"></TextView>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/audioPlay_layout_view_entry"
@@ -162,8 +111,9 @@ android:enabled="false"
                     android:paddingVertical="10dp"
                     android:visibility="gone"
                     android:weightSum="5"
+
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/btn_recordVoice_view_entry"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
@@ -205,29 +155,22 @@ android:enabled="false"
                         app:layout_constraintEnd_toEndOf="@+id/seekBar_view_entry"
                         app:layout_constraintTop_toTopOf="parent"></TextView>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Hold To Delete Or Record New One"
-                        android:textSize="10sp"
-                        android:visibility="gone"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@+id/seekBar_view_entry"
-                        app:layout_constraintStart_toStartOf="@+id/seekBar_view_entry"
-                        app:layout_constraintTop_toBottomOf="@+id/seekBar_view_entry"></TextView>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <TextView
-                    android:id="@+id/audioMaxLimit_tv_view_entry"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Max 60s"
-                    android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="@+id/btn_recordVoice_view_entry"
-                    app:layout_constraintStart_toStartOf="@+id/btn_recordVoice_view_entry"
-                    app:layout_constraintTop_toBottomOf="@+id/btn_recordVoice_view_entry"></TextView>
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/hint_downloadingAudio_view_entry"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:gravity="center_horizontal"
+                android:maxWidth="300dp"
+
+                android:text="Voice note is downloading:"
+                android:visibility="gone"></TextView>
         </LinearLayout>
 
 

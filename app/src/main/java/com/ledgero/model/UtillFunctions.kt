@@ -11,11 +11,16 @@ import android.view.WindowManager
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
+import com.google.firebase.database.ServerValue
+import com.google.firebase.ktx.Firebase
 import com.ledgero.DataClasses.SingleLedgers
 import com.ledgero.DataClasses.User
 import com.ledgero.Interfaces.OnUpdateUserSingleLedger
 import com.ledgero.Interfaces.OnUserDetailUpdate
 import com.ledgero.fragments.LedgersFragment
+import java.sql.Timestamp
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 //all operations to do on client side
@@ -45,6 +50,7 @@ class UtillFunctions {
             single_ledger.friend_userEmail=friendUserEmail
             single_ledger.friend_userName=friendUserName
             single_ledger.ledgerUID= User.userID +friendUID
+            single_ledger.ledgerCreatedByUID=User.userID
             User.addNewLedgerInList(single_ledger)
             LedgersFragment.adapter?.notifyDataSetChanged()
             var db=DatabaseUtill()
@@ -54,6 +60,8 @@ class UtillFunctions {
                 override fun onSingleLedgerUpdated(boolean: Boolean) {
 
                     if (boolean){
+                        LedgersFragment.adapter?.notifyDataSetChanged()
+
 
                         //adding this new ledger into friend uid too
 

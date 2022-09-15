@@ -27,4 +27,26 @@ class IndividualScreenRepo(private val individualScreenDAO: IndividualScreenDAO)
     fun deleteEntry(pos: Int){
         individualScreenDAO.deleteEntry(pos)
     }
+
+    fun getMetaData(){
+        individualScreenDAO.getLedgerMetaData()
+    }
+
+    fun getTotalAmount():LiveData<Float>{
+       return individualScreenDAO.getTotalAmount()
+    }
+
+    fun getGiveTakeFlag():LiveData<Boolean?>{
+        return individualScreenDAO.getGiveTakeFlag()
+    }
+
+    fun getLedgerCreatedBy():String{
+        return individualScreenDAO.getLedgerCreatedBy()
+    }
+
+
+    fun removeLedgerMetaDataListener(){
+        individualScreenDAO.removeLedgerMetaDataListener()
+    }
+
 }

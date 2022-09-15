@@ -39,7 +39,7 @@ init {
 
     override fun onBindViewHolder(holder: RecyclerViewAdapter.ViewHolder, position: Int) {
         holder.ledgerName.text = singleLedgers?.get(position)?.friend_userName
-        holder.ledgerTimeStamp.text = "07:00 AM"
+        holder.ledgerTimeStamp.text = singleLedgers?.get(position)!!.ledger_Created_timeStamp.toString()
         holder.ledgerMoney.text = singleLedgers?.get(position)?.total_amount.toString()
         holder.ledgerUID=singleLedgers?.get(position)?.ledgerUID.toString()
 

@@ -1,17 +1,17 @@
 package com.ledgero.model
 
 import android.util.Log
-import android.widget.Toast
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.getValue
-import com.google.firebase.ktx.Firebase
 import com.ledgero.DataClasses.Entries
 import com.ledgero.DataClasses.SingleLedgers
 import com.ledgero.DataClasses.User
 import com.ledgero.Interfaces.FetchUsers
 import com.ledgero.Interfaces.OnUpdateUserSingleLedger
 import com.ledgero.Interfaces.OnUserDetailUpdate
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 
 //all operations to do on server/db side
@@ -154,8 +154,17 @@ class DatabaseUtill {
                 if (snapshot.exists()){
                     Log.d(TAG, "onDataChange: Current User Data Fetched")
                     user= snapshot.getValue<User>()!!
-
                     callback.onUserDetailsUpdated(true)
+
+                    //now call the function so all ledgers get latest meta-data
+                    if (user.getUserSingleLedgers()!=null){
+                        if (user.getUserSingleLedgers()!!.size>0)
+                        {
+                          //  updateAllLedgerMetaData(User.getUserSingleLedgers()!!,0,callback)
+
+                        }
+                    }
+
 
                 }
             }
@@ -172,6 +181,34 @@ class DatabaseUtill {
         return user
     }
 
+    private fun updateAllLedgerMetaData(
+        ledgers: ArrayList<SingleLedgers>,
+        position: Int,
+        callback: OnUserDetailUpdate
+    ) {
+
+var pos= position
+        if (ledgers.get(pos)==null){
+            callback.onUserDetailsUpdated(true)
+        }else
+        {
+            var i = ledgers.get(pos)
+            db_reference.child("ledgerInfo")
+                .child(i.ledgerUID!!)
+                .get().addOnCompleteListener(){
+                    if (it.isSuccessful){
+                   //     i.ledger_Created_timeStamp= it.result.child("ledger_Created_timeStamp").getValue<Long>()
+                        i.ledgerCreatedByUID= it.result.child("ledgerCreatedByUID").value.toString()
+                        i.total_entries=it.result.child("total_entries").getValue<Int>()
+                        i.total_amount= it.result.child("total_amount").getValue<Float>()
+                        i.give_take_flag= it.result.child("give_take_flag").getValue<Boolean>()
+                    }
+                    updateAllLedgerMetaData(ledgers,pos++,callback)
+
+                }
+        }
+    }
+
     fun updateuserSingleLedgersList(uid:String, callback:OnUpdateUserSingleLedger ){
 
 ;
@@ -179,39 +216,94 @@ class DatabaseUtill {
     //when user add a new friend to start ledger, we will call this
     //function after initializing singleLedger object
     //then we need to create/add this new ledger to this user+ the friend user
- fun createNewSingleLedger(uid: String,newLedger:SingleLedgers,newLedgerList: ArrayList<SingleLedgers>, callback: OnUpdateUserSingleLedger) {
+ fun createNewSingleLedger(uid: String,newLedger:SingleLedgers,newLedgerList: ArrayList<SingleLedgers>,
+                           callback: OnUpdateUserSingleLedger) {
 
-        Log.d(TAG, "createNewSingleLedger: "+uid)
-        //create new entry field in /ledgersEntries/
-db_reference.child("users").child(uid).child("user_single_Ledgers").setValue(newLedgerList)
-    .addOnCompleteListener(){
-        if (it.isSuccessful){
+        Log.d(TAG, "createNewSingleLedger: " + uid)
 
-            //creating ledger entry
-            db_reference.child("ledgerEntries").child(newLedger.ledgerUID.toString()).child("isActive").setValue(true).addOnCompleteListener(){
 
-                if (it.isSuccessful){
-                    Log.d(TAG, "createNewSingleLedger: new Ledger Entry Created")
-                    callback.onSingleLedgerUpdated(true)
-                }
-                if (it.isCanceled){
-                    Log.d(TAG, "createNewSingleLedger: new Ledger Entry Creation Failed")
+        //TODO: Need To clean this up, make DAOs for different task
+
+        //for now to create new ledger we will
+        // Step 1- Make a new node in ledgerInfo and update meta data along with creating timestamp
+        // Step 2- Fetch Creation Timestamp and update the newleder object
+        // Step 3- Add Ledger in user's user single ledger list
+        // Step 4- Call the callback being passed
+
+
+        // -- Step 1 -- New Node in LedgerInfo
+
+        var map = getMetaDataMapForLedger(newLedger)
+        db_reference.child("ledgerInfo").child(newLedger.ledgerUID.toString()).setValue(map)
+            .addOnCompleteListener() {
+                if (it.isSuccessful) {
+
+                // ---Step 2 ---
+                // fetch timestamp created by firebase and update ledger created time
+
+
+                db_reference.child("ledgerInfo")
+                    .child(newLedger.ledgerUID.toString())
+                    .child("ledger_Created_timeStamp")
+                    .get().addOnCompleteListener() {
+
+                        if (it.isSuccessful) {
+
+                        var date = it.result.getValue<Long>()!!
+                        newLedger.ledger_Created_timeStamp = Date(date)
+
+
+                        //--Step 3 --
+                        //create new entry field in /ledgersEntries/
+                        db_reference.child("users").child(uid).child("user_single_Ledgers")
+                            .setValue(newLedgerList)
+                            .addOnCompleteListener() {
+                                if (it.isSuccessful) {
+
+                                    //-- Step 4 -- Callback
+
+                                    Log.d(TAG, "createNewSingleLedger: Created new ledger")
+                                    callback.onSingleLedgerUpdated(true)
+
+                                }
+                                if (it.isCanceled) {
+                                    Log.d(TAG,
+                                        "createNewSingleLedger: Cannot update the ledger")
+                                    callback.onSingleLedgerUpdated(false)
+
+                                }
+                            }
+
+                    }else{
+
+                            Log.d(TAG, "createNewSingleLedger: Could Not Fetch CreatedTimeStamp and Update Ledger")
+                            callback.onSingleLedgerUpdated(false)
+                    }
+                    }
+
+
+            }else{
+                    Log.d(TAG, "createNewSingleLedger: Could Not Upload Meta Data Of Ledfer")
                     callback.onSingleLedgerUpdated(false)
+            }
+    }
 
-                }
             }
 
 
-        }
-        if (it.isCanceled){
-            Log.d(TAG, "createNewSingleLedger: Cannot update the ledger")
-            callback.onSingleLedgerUpdated(false)
 
-        }
+
+    private fun getMetaDataMapForLedger(newLedger: SingleLedgers): HashMap<String, Any> {
+       var map= HashMap<String, Any>()
+        map.put("total_amount",newLedger.total_amount!!)
+        map.put("total_entries",newLedger.total_entries!!)
+        map.put("give_take_flag",newLedger.give_take_flag!!)
+        map.put("ledgerCreatedByUID",newLedger.ledgerCreatedByUID!!)
+        map.put("ledger_Created_timeStamp", ServerValue.TIMESTAMP)
+
+
+        return map
     }
-
-
- }
 
 
     fun updateUserTotalLedgerCount(uid:String,callback:OnUserDetailUpdate){

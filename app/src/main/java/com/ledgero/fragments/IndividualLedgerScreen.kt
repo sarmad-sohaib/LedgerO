@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -20,6 +21,7 @@ import com.ledgero.DataClasses.SingleLedgers
 import com.ledgero.DataClasses.User
 import com.ledgero.R
 import com.ledgero.Repositories.IndividualScreenRepo
+import com.ledgero.UtillClasses.Utill_SingleLedgerMetaData
 import com.ledgero.ViewModelFactories.IndividualScreenViewModeFactory
 import com.ledgero.ViewModels.IndividualScreenViewModel
 import com.ledgero.adapters.RecyclerAdapter_SingleLedger
@@ -65,6 +67,7 @@ lateinit var entries: ArrayList<Entries>
         // Inflate the layout for this fragment
         var view= inflater.inflate(R.layout.fragment_individual_ledger_screen, container, false)
 
+
         //View Model Init
 
         var dao= IndividualScreenDAO(currentSelectedLedgerUID)
@@ -75,6 +78,80 @@ lateinit var entries: ArrayList<Entries>
 
 
         //View Model Init ---Ends Here
+
+
+
+        var gaveText = view.findViewById<TextView>(R.id.tv_give_money_individScreen)
+        var getText = view.findViewById<TextView>(R.id.tv_get_money_individScreen)
+
+
+        viewModel.getLedgerGiveTakeFlag().observe(viewLifecycleOwner,Observer{
+
+            if(it==null){
+                currentSelectLedger!!.give_take_flag=null
+            }
+            if(it==false){
+                currentSelectLedger!!.give_take_flag=false
+            }
+            if(it==true){
+                currentSelectLedger!!.give_take_flag=true
+            }
+        })
+
+
+        //Check if give_take flag is null then it means ledger Amount is clear 00 for both give and take
+        // if give_take flag is true then it means the user who created ledger will get money..means he will get
+        // if give_take flag is false then it means user who created ledfer will owe/give money..mean he will give
+        //now if current user is not the user who created ledger then we will reverse these give and gave
+        //so each time we will check flag and we will check if this user is the one who created or the other one
+        viewModel.getLedgerTotalAmount().observe(viewLifecycleOwner,Observer{
+
+            if(currentSelectLedger!!.give_take_flag==null){
+                gaveText.text="Rs. 00"
+                getText.text="Rs. 00"
+                currentSelectLedger!!.total_amount=it
+
+            }
+            if(currentSelectLedger!!.give_take_flag==true){
+
+                if(User.userID.equals(currentSelectLedger!!.ledgerCreatedByUID)){
+                    //means we will set the amount to get (You'll Get) variable for this user
+                    getText.text="Rs. $it"
+                    gaveText.text= "Rs. 00"
+
+                }else{
+                    //means we will set this amount to  gave (You'll Give)
+                    getText.text="Rs. 00"
+                    gaveText.text= "Rs. $it"
+
+                }
+
+                currentSelectLedger!!.total_amount=it
+
+            }
+            if(currentSelectLedger!!.give_take_flag==false){
+
+
+                if(User.userID.equals(currentSelectLedger!!.ledgerCreatedByUID)){
+                    //means we will set the amount to gave (You'll Give) variable for this user
+                    getText.text="Rs. 00"
+                    gaveText.text= "Rs. $it"
+
+                }else{
+                    //means we will set this amount to  get (You'll Get)
+                    getText.text="Rs. $it"
+                    gaveText.text= "Rs. 00"
+
+                }
+
+                currentSelectLedger!!.total_amount=it
+
+
+            }
+
+        })
+
+
 
         var gotButton= view.bt_got_individScreen
         var gaveButton= view.bt_gave_individScreen
@@ -147,6 +224,7 @@ lateinit var entries: ArrayList<Entries>
 
     override fun onDestroy() {
         viewModel.removeListener()
+        viewModel.removeLedgerMetaDataListener()
         super.onDestroy()
     }
 
@@ -255,5 +333,6 @@ return itemTouchHelper
             }
         return dialog
     }
+
 
 }

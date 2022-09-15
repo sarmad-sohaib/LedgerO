@@ -21,6 +21,14 @@ class IndividualScreenDAO(private val ledgerUID: String) {
   private  var ledgerEntiresLiveData = MutableLiveData<ArrayList<Entries>>()
     private var entriesData = ArrayList<Entries>()
 
+    private lateinit var ledgerCreatedby:String
+    private  var totalAmout:Float =0.0f
+    private var totalEntreis:Int=0
+    private var giveTakeFlag:Boolean?=null
+    private var totaAmountLiveData= MutableLiveData<Float>()
+    private var giveTakeFlagLiveData= MutableLiveData<Boolean?>()
+
+
 
 private    var listener= object: ValueEventListener{
         override fun onDataChange(snapshot: DataSnapshot) {
@@ -31,6 +39,7 @@ private    var listener= object: ValueEventListener{
                 for (i in snapshot.children){
                     var entry: Entries = i.getValue<Entries>()!!
                     entriesData.add(0,entry)//adding  at 0 index so latest entry shows on top
+
 
                 }
 
@@ -70,7 +79,9 @@ private    var listener= object: ValueEventListener{
         var key = entriesData.get(pos).entryUID.toString()
         var entry= entriesData.get(pos)
         entry.requestMode=2
+        entry.originally_addedByUID= entry.entryMadeBy_userID
         entry.entryMadeBy_userID=User.userID
+
 
 
         db_reference.child("entriesRequests").child(ledgerUID).child(key).setValue(entry).addOnCompleteListener()
@@ -147,4 +158,52 @@ private    var listener= object: ValueEventListener{
 
 
     }
+
+
+    fun getTotalAmount():LiveData<Float>{
+        return totaAmountLiveData
+    }
+    fun getGiveTakeFlag():LiveData<Boolean?>{
+        return giveTakeFlagLiveData
+    }
+
+    fun getLedgerCreatedBy():String{
+        return ledgerCreatedby
+    }
+
+    fun getLedgerMetaData(){
+        addLedgerMetaListener()
+    }
+
+
+    private fun addLedgerMetaListener() {
+
+        db_reference.child("ledgerInfo").child(ledgerUID).addValueEventListener(metaDataListener)
+    }
+
+    fun removeLedgerMetaDataListener(){
+        db_reference.child("ledgerInfo").child(ledgerUID).removeEventListener(metaDataListener)
+
+    }
+
+    private var metaDataListener = object: ValueEventListener{
+        override fun onDataChange(snapshot: DataSnapshot) {
+          if (snapshot.exists()){
+             ledgerCreatedby= snapshot.child("ledgerCreatedByUID").value.toString()
+              totalAmout= snapshot.child("total_amount").getValue<Float>()!!
+              totalEntreis= snapshot.child("total_entries").getValue<Int>()!!
+                giveTakeFlag= snapshot.child("give_take_flag").getValue<Boolean?>()
+              giveTakeFlagLiveData.value=giveTakeFlag
+              totaAmountLiveData.value=totalAmout
+
+
+          }
+        }
+
+        override fun onCancelled(error: DatabaseError) {
+            ;
+        }
+
+    }
+
 }

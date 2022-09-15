@@ -5,11 +5,13 @@ import androidx.lifecycle.ViewModel
 import com.ledgero.DataClasses.Entries
 import com.ledgero.Repositories.IndividualScreenRepo
 import com.ledgero.Repositories.UnApprovedEntriesRepo
+import com.ledgero.UtillClasses.Utill_SingleLedgerMetaData
 
-class UnApprovedEntriesViewModel(private val unApprovedEntriesRepo: UnApprovedEntriesRepo) : ViewModel() {
+class UnApprovedEntriesViewModel(private val unApprovedEntriesRepo: UnApprovedEntriesRepo,ledgerUID:String) : ViewModel() {
 
     var allUnApprovedEntries: LiveData<ArrayList<Entries>>
 
+    private var ledgerMetaDataUtill= Utill_SingleLedgerMetaData(ledgerUID)
 
     init {
         allUnApprovedEntries= getEntriesFromRepo()
@@ -43,6 +45,9 @@ class UnApprovedEntriesViewModel(private val unApprovedEntriesRepo: UnApprovedEn
         // because we will be downloading voice if not present in device when user
         // open each entry for edit/review
         unApprovedEntriesRepo.approveEntry(pos)
+
+        updateLedgerMetaData(allUnApprovedEntries.value!!.get(pos))
+
     }
 
     //this function will be called when receiver has accepted the request to delete a entry from ledger
@@ -56,6 +61,7 @@ class UnApprovedEntriesViewModel(private val unApprovedEntriesRepo: UnApprovedEn
             unApprovedEntriesRepo.deleteEntry(pos)
         }
 
+        updateLedgerMetaDataAfterEntryDelete(allUnApprovedEntries.value!!.get(pos))
 
     }
 
@@ -90,4 +96,12 @@ class UnApprovedEntriesViewModel(private val unApprovedEntriesRepo: UnApprovedEn
         unApprovedEntriesRepo.removeListener()
     }
 
+    fun updateLedgerMetaData(entry: Entries){
+        ledgerMetaDataUtill.updateTotalAmount_newEntryAdded(entry)
+
+    }
+    fun updateLedgerMetaDataAfterEntryDelete(entry: Entries){
+        ledgerMetaDataUtill.updateTotalAmount_approvedEntryDeleted(entry)
+
+    }
 }
