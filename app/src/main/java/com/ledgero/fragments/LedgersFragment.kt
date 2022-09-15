@@ -1,5 +1,6 @@
 package com.ledgero.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,9 +12,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 import com.ledgero.DataClasses.User
-import com.ledgero.MainActivity
 import com.ledgero.R
 import com.ledgero.adapters.RecyclerViewAdapter
+import com.ledgero.cashregister.CashRegisterMainActivity
 import com.ledgero.model.DatabaseUtill
 
 class LedgersFragment : Fragment() {
@@ -44,11 +45,10 @@ class LedgersFragment : Fragment() {
 
         adapter = RecyclerViewAdapter(requireContext(),User.getUserSingleLedgers())
         rv.adapter = adapter
-        var bt_cash_register= view.findViewById<MaterialButton>(R.id.bt_cash_register_money_frag)
+        var bt_cash_register= view.findViewById<MaterialButton>(R.id.bt_cash_register_group_ledgers_frag)
 
         bt_cash_register.setOnClickListener(){
-            //this is for testing...you can remove it
-            rv.adapter!!.notifyItemInserted(User.getUserSingleLedgers()!!.size)
+            startActivity(Intent(context, CashRegisterMainActivity::class.java))
         }
         bt.setOnClickListener(){
 

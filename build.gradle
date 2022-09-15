@@ -9,8 +9,13 @@ buildscript {
     }
     dependencies {
 
-        // Add this line
         classpath 'com.google.gms:google-services:4.3.10'
+
+        //hilt
+        classpath("com.google.dagger:hilt-android-gradle-plugin:2.43.1")
+
+        //safe args for navigation components
+        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.5.1")
 
     }
 }

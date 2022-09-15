@@ -19,12 +19,11 @@ class MoneyFragment : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_money, container, false)
 
-        val button = view.findViewById<Button>(R.id.bt_cash_register_money_frag)
+        val button = view.findViewById<Button>(R.id.bt_cash_register_group_ledgers_frag)
 
         button.setOnClickListener() {
             startActivity(Intent(requireContext(), CashRegisterMainActivity::class.java))
         }
-
         // Inflate the layout for this fragment
         return view
     }

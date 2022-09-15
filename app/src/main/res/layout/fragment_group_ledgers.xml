@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.LedgersFragment">
+    tools:context=".fragments.GroupLedgersFragment">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/shape_bg_group_frag"
@@ -23,13 +23,13 @@
         android:layout_marginTop="8dp"
         android:background="@drawable/layout_bg"
         android:backgroundTint="@color/white"
-        app:layout_constraintBottom_toTopOf="@id/bt_cash_register_money_frag"
+        app:layout_constraintBottom_toTopOf="@id/bt_cash_register_group_ledgers_frag"
         app:layout_constraintEnd_toEndOf="@id/shape_bg_group_frag"
         app:layout_constraintStart_toStartOf="@id/shape_bg_group_frag"
         app:layout_constraintTop_toTopOf="@id/shape_bg_group_frag" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/bt_cash_register_money_frag"
+        android:id="@+id/bt_cash_register_group_ledgers_frag"
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_marginBottom="8dp"
