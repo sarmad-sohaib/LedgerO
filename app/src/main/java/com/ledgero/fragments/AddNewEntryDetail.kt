@@ -19,6 +19,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat.getDrawable
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
+import com.google.firebase.database.ServerValue
 import com.ledgero.DataClasses.Entries
 import com.ledgero.DataClasses.SingleLedgers
 import com.ledgero.DataClasses.User
@@ -104,7 +105,7 @@ import kotlinx.android.synthetic.main.fragment_add_new_entry_detail.view.*
                     var flag = if (entryMode==1) false else true
 
 
-                    var entry = Entries(amount,flag,des,title,0,false,User.userID,"",1,false
+                    var entry = Entries(amount,flag,des,title,111111,false,User.userID,"",1,false
                                 ,null,User.userID)
 
                         if (utill.audioRecordUtill.hasVoiceNote){

@@ -123,6 +123,9 @@ private    var listener= object: ValueEventListener{
             .addOnCompleteListener()
         {
             if (it.isSuccessful){
+                db_reference.child("entriesRequests").child(ledgerUID).child(key!!).
+                    updateChildren(mapOf("entry_timeStamp" to ServerValue.TIMESTAMP))
+
                 Log.d(TAG, "addNewEntry: Updated Successfully!!")
             }
         }

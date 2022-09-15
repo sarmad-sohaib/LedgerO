@@ -40,7 +40,8 @@ class RecyclerAdapter_SingleLedger (context: Context, entires: ArrayList<Entries
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
       holder.title.text= entries!!.get(position).entry_title
-        holder.timeStamp.text = Date(entries!!.get(position).entry_timeStamp!!).toString()
+        var date = Date( entries!!.get(position).entry_timeStamp!!)
+        holder.timeStamp.text = date.toString()
 
         holder.amount.text= entries!!.get(position).amount.toString()
         if (entries!!.get(position).give_take_flag!!){

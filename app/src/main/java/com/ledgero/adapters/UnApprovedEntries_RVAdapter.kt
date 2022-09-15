@@ -16,6 +16,8 @@ import com.ledgero.DataClasses.SingleLedgers
 import com.ledgero.DataClasses.User
 import com.ledgero.R
 import com.ledgero.ViewModels.UnApprovedEntriesViewModel
+import java.util.*
+import kotlin.collections.ArrayList
 
 class UnApprovedEntries_RVAdapter(context: Context, entries: ArrayList<Entries>?,viewModel: UnApprovedEntriesViewModel)
     :  RecyclerView.Adapter<UnApprovedEntries_RVAdapter.UnApprovedEntries_ViewHolder>()  {
@@ -48,7 +50,7 @@ class UnApprovedEntries_RVAdapter(context: Context, entries: ArrayList<Entries>?
     var entry=unApprovedEntries!!.get(position)
 
         holder.entryName.text= entry.entry_title
-        holder.entryTimeStamp.text= entry.entry_timeStamp.toString()
+        holder.entryTimeStamp.text= Date( entry.entry_timeStamp!!).toString()
         holder.entryMoney.text= entry.amount.toString()
         if (entry.give_take_flag!!){
             holder.giveTaleFlag.text= "You Get"
