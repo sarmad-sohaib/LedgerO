@@ -8,14 +8,11 @@ import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.ledgero.DataClasses.User
-import com.ledgero.Interfaces.FetchUsers
 import com.ledgero.Interfaces.OnUserDetailUpdate
+import com.ledgero.ViewModels.LoginViewModel
 import com.ledgero.model.DatabaseUtill
 import com.ledgero.model.UtillFunctions
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
 

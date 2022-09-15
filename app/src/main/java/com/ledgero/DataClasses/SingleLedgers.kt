@@ -9,14 +9,15 @@ import kotlin.collections.ArrayList
 data class SingleLedgers(    var friend_userID:String?=null,
                              var friend_userName:String?=null,
                              var friend_userEmail:String?=null,
-                             var total_entries:Int?=null,
-                             var total_amount:Float?=null,
+                             var total_entries:Int?=0,
+                             var total_amount:Float?=0.0f,
                              var entries:ArrayList<Entries>?=null,
                              var ledger_Created_timeStamp: Date?=null,
-                             var give_take_flag:Boolean?=null,
+                             var give_take_flag:Boolean?=false, // null means all clear /false means he owe/get//You'll Give money, true mean he lend/gave/You'll Get
                              var reminder_time: Date?=null,
-                             var entriesListUID:String?=null,
-                             var ledgerUID:String?=null
+                             var ledgerUID:String?=null,
+                             var ledgerCreatedByUID:String?=""
+
 
 
 ): Parcelable

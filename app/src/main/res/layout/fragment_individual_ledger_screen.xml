@@ -33,7 +33,7 @@
         <LinearLayout
             android:id="@+id/buttonDiv"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             app:layout_constraintTop_toBottomOf="@id/shape_bg_white_money_frag"
             app:layout_constraintBottom_toBottomOf="@id/shape_bg_ledger_frag"
             app:layout_constraintEnd_toEndOf="@+id/shape_bg_white_money_frag"
@@ -44,34 +44,34 @@
             android:weightSum="2">
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/bt_share_report_individScreen"
+                android:id="@+id/bt_unapproved_entriest_individScreen"
                 android:layout_width="0dp"
-                android:layout_height="60dp"
+                android:layout_height="match_parent"
                 android:layout_marginRight="10dp"
-                android:layout_marginBottom="8dp"
+                android:layout_gravity="center"
                 android:layout_weight="1"
                 android:backgroundTint="@color/white"
                 app:cornerRadius="10dp"
                 android:fontFamily="@font/ropa_sans_regular"
-                android:text="@string/share_reportBtn_individual"
+                android:text="@string/un_approved_Btn_individual"
                 android:textAllCaps="false"
-                android:textColor="@color/violent_vixen"
+                android:textColor="@color/green"
                 android:textSize="16sp"
 
                 />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/bt_save_report_individScreen"
+                android:id="@+id/bt_canceled_entries_individScreen"
                 android:layout_width="0dp"
-                android:layout_height="60dp"
-                android:layout_marginBottom="8dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
                 android:layout_weight="1"
                 android:backgroundTint="@color/white"
                 app:cornerRadius="10dp"
                 android:fontFamily="@font/ropa_sans_regular"
-                android:text="@string/save_reportBtn_individual"
+                android:text="@string/canceled_entries_Btn_individual"
                 android:textAllCaps="false"
-                android:textColor="@color/violent_vixen"
+                android:textColor="@color/red"
                 android:textSize="16sp"
 
                 />
@@ -205,12 +205,11 @@
             android:id="@+id/rv_ledgers_individualScreen"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintVertical_bias="0.0"
-            app:layout_constraintTop_toBottomOf="@+id/shape_bg_ledger_frag"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/bt_got_individScreen"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/shape_bg_ledger_frag"
             tools:listitem="@layout/individual_ledger_recycler_view" />
 
 

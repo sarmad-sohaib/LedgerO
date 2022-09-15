@@ -1,4 +1,4 @@
-package com.ledgero
+package com.ledgero.ViewModels
 
 import android.app.Activity
 import android.content.Context
@@ -21,14 +21,11 @@ import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
-import com.ledgero.DataClasses.Entries
-import com.ledgero.DataClasses.SingleLedgers
 import com.ledgero.DataClasses.User
-import com.ledgero.Interfaces.FetchUsers
 import com.ledgero.Interfaces.OnUserDetailUpdate
+import com.ledgero.MainActivity
 import com.ledgero.model.DatabaseUtill
 import com.ledgero.model.UtillFunctions
-import java.util.*
 import kotlin.collections.ArrayList
 
 class SignUpViewModel: ViewModel() {
@@ -93,7 +90,7 @@ class SignUpViewModel: ViewModel() {
                             UtillFunctions.hideProgressDialog(dialog)
 
 
-                            context.startActivity(Intent(context,MainActivity::class.java))
+                            context.startActivity(Intent(context, MainActivity::class.java))
                             val ac = context as Activity
                             ac.finish()
                         }
