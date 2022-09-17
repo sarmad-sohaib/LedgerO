@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".cashregister.ui.addeditentry.AddEditEntryFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/editText_entryDescription"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="8dp"
+        android:autofillHints="no"
+        android:hint="@string/description"
+        android:padding="5dp"
+        android:fontFamily="@font/ropa_sans_regular"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/editText_entryAmount"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="8dp"
+        android:autofillHints="no"
+        android:fontFamily="@font/ropa_sans_regular"
+        android:hint="@string/add_new_entry_amount_hint"
+        android:padding="5dp"
+        android:inputType="number" />
+
+    <TextView
+        android:id="@+id/textView_timeStamp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/timestamp"
+        android:layout_margin="8dp"
+        android:gravity="start"
+        android:textSize="20sp"
+        android:fontFamily="@font/ropa_sans_regular" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_saveEntry"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:background="@drawable/button_shape"
+            android:backgroundTint="@color/puce"
+            android:text="@string/save_entry"
+            android:textColor="@color/white"
+            android:textSize="17sp" />
+    </LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

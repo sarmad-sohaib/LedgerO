@@ -41,6 +41,7 @@
     <string name="add_new_entry_description_hint">Description</string>
     <string name="add_new_entry_additionalInfo_hint">Additional Info</string>
     <string name="add_new_entry_btn_text">Save</string>
+
     <string name="unapproved_screen_title">Un-Approved Entried</string>
     <string name="unapproved_screen_approveall_btn">Approve All</string>
     <string name="unapproved_screen_waitingtext">Waiting For Approval</string>
@@ -50,4 +51,12 @@
     <string name="view_entry_edit_btn_text">Edit Entry</string>
     <string name="view_entry_total_amount_hint">You Gave</string>
 
+    <string name="cash_out">Cash Out</string>
+    <string name="cash_in">Cash In</string>
+    <string name="available_cash">Available Cash</string>
+    <string name="_00_00">00.00</string>
+    <string name="description">Description</string>
+    <string name="timestamp">Timestamp</string>
+    <string name="in">In</string>
+    <string name="save_entry">Save Entry</string>
 </resources>
