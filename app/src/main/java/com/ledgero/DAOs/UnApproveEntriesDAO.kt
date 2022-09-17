@@ -200,7 +200,7 @@ class UnApproveEntriesDAO(private val ledgerUID: String) {
         //delete voice from device
         var contextWrapper= ContextWrapper(MainActivity.getMainActivityInstance().applicationContext)
 
-        val fdelete= File(contextWrapper.getExternalFilesDir(Environment.DIRECTORY_MUSIC)!!.toString()+entry.voiceNote!!.fileName
+        val fdelete= File(contextWrapper.getExternalFilesDir(Environment.DIRECTORY_MUSIC)!!.toString()+"/"+entry.voiceNote!!.fileName
         )
         if (fdelete.exists()) {
             if (fdelete.delete()) {

@@ -2,9 +2,13 @@ package com.ledgero.fragments
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.os.bundleOf
@@ -218,15 +222,102 @@ lateinit var entries: ArrayList<Entries>
         }
 
 
+        viewModel.stopListeningForUnApprovedEntriesCount()
+        viewModel.stopListeningForCancelledEntries()
+
+            var unApprovedNotifyIcon= view.findViewById<TextView>(R.id.unApprovedEntriesNotify_TV_individScreen)
+
+            viewModel.startListeningForUnApprovedEntriesCount().observe(viewLifecycleOwner, Observer {
+                if (it!=null){
+                if (it>0){
+                    unApprovedNotifyIcon.text=it.toString()
+                    unApprovedNotifyIcon.visibility=View.VISIBLE
+                    viewModel.vibratePhoneForNewUnApprovedEntry()
+                    val animationZoomOut = AnimationUtils.loadAnimation(context, R.anim.zoom_out_animation)
+
+                    unApprovedNotifyIcon.startAnimation(animationZoomOut)
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        unApprovedNotifyIcon.clearAnimation()
+                    },500)
+                }
+                if (it>99){
+                    unApprovedNotifyIcon.text="99+"
+                    unApprovedNotifyIcon.visibility=View.VISIBLE
+                    val animationZoomOut = AnimationUtils.loadAnimation(context, R.anim.zoom_out_animation)
+                    viewModel.vibratePhoneForNewUnApprovedEntry()
+                    unApprovedNotifyIcon.startAnimation(animationZoomOut)
+
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        unApprovedNotifyIcon.clearAnimation()
+                    },500)
+                }
+                if (it<=0){
+                    unApprovedNotifyIcon.text="0"
+                    unApprovedNotifyIcon.visibility=View.GONE
+                }
+            }
+            })
+
+
+
+        var canceledNotifyIcon= view.findViewById<TextView>(R.id.cacneledEntriesNotify_TV_individScreen)
+
+        viewModel.startListeningForCancelledEntries().observe(viewLifecycleOwner, Observer {
+            if (it!=null){
+                if (it>0){
+                    canceledNotifyIcon.text=it.toString()
+                    canceledNotifyIcon.visibility=View.VISIBLE
+                    viewModel.vibratePhoneForNewUnApprovedEntry()
+                    val animationZoomOut = AnimationUtils.loadAnimation(context, R.anim.zoom_out_animation)
+
+                    canceledNotifyIcon.startAnimation(animationZoomOut)
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        canceledNotifyIcon.clearAnimation()
+                    },500)
+                }
+                if (it>99){
+                    canceledNotifyIcon.text="99+"
+                    canceledNotifyIcon.visibility=View.VISIBLE
+                    val animationZoomOut = AnimationUtils.loadAnimation(context, R.anim.zoom_out_animation)
+                    viewModel.vibratePhoneForNewUnApprovedEntry()
+                    canceledNotifyIcon.startAnimation(animationZoomOut)
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        canceledNotifyIcon.clearAnimation()
+                    },500)
+                }
+                if (it<=0){
+                    canceledNotifyIcon.text="0"
+                    canceledNotifyIcon.visibility=View.GONE
+                }
+            }
+        })
+
+
+
+
+
         return view
     }
 
+    override fun onPause() {
+
+        viewModel.stopListeningForUnApprovedEntriesCount()
+        viewModel.stopListeningForCancelledEntries()
+        super.onPause()
+    }
+
+
 
     override fun onDestroy() {
+
+        viewModel.stopListeningForUnApprovedEntriesCount()
+        viewModel.stopListeningForCancelledEntries()
         viewModel.removeListener()
         viewModel.removeLedgerMetaDataListener()
         super.onDestroy()
     }
+
+
 
     override fun onResume() {
         parentFragmentManager.clearBackStack("addEntry")

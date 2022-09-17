@@ -31,6 +31,7 @@ class ViewEntryInfoScreenViewModel(private val viewEntryInfoScreenRepo: ViewEntr
     var mediaPlayer:MediaPlayer?=null
     var isAudioPlaying:Boolean=false
     lateinit var handler:Handler
+    lateinit var currentEntry: Entries;
 
 
     fun getVoiceNote(entry: Entries): LiveData<Int>? {
@@ -47,6 +48,7 @@ class ViewEntryInfoScreenViewModel(private val viewEntryInfoScreenRepo: ViewEntr
 
     fun readyVoiceNoteToPlay(entry: Entries):Boolean {
 
+        currentEntry=entry
         val fdelete= File(entry.voiceNote!!.localPath)
         if (fdelete.exists()) {
             view!!.voiceLayout.visibility= View.VISIBLE
@@ -71,22 +73,30 @@ return false
             stopPlayingAudio() }
         view!!.voicePlayButton.foreground= ContextCompat.getDrawable(view!!.requireContext(), R.drawable.ic_pause)
 
-        mediaPlayer!!.setDataSource(getPathForStoringFile())
-        mediaPlayer!!.prepare()
+try {
+    mediaPlayer!!.setDataSource(getPathForStoringFile())
+    mediaPlayer!!.prepare()
 
 
-        setUpSeekBar(view!!.seekBar)
-        makeHandler(view!!.seekBar)
+    setUpSeekBar(view!!.seekBar)
+    makeHandler(view!!.seekBar)
 
-        isAudioPlaying=true
-        mediaPlayer!!.start()
+    isAudioPlaying=true
+    mediaPlayer!!.start()
 
+}catch (e:Exception){
+        Log.d("ViewEntryInfo", "startPlayingAudio: error= "+e.message)
+   isAudioPlaying=false
+    stopPlayingAudio()
+    if (currentEntry!=null){
+        readyVoiceNoteToPlay(currentEntry)
     }
+    }}
 
     private fun getPathForStoringFile(): String {
 
         var contextWrapper= ContextWrapper(MainActivity.getMainActivityInstance().applicationContext)
-        return  contextWrapper.getExternalFilesDir(Environment.DIRECTORY_MUSIC)!!.toString()+view!!.entry.voiceNote!!.fileName
+        return  contextWrapper.getExternalFilesDir(Environment.DIRECTORY_MUSIC)!!.toString()+"/"+view!!.entry.voiceNote!!.fileName
 
 
     }

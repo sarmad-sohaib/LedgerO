@@ -12,6 +12,16 @@ class IndividualScreenRepo(private val individualScreenDAO: IndividualScreenDAO)
 
     }
 
+    fun startListeningForUnApprovedEntries(): LiveData<Long>{
+
+        return individualScreenDAO.startListeningForUnApprovedEntries()
+    }
+    fun stopListeningForUnApprovedEntries(){
+        individualScreenDAO.stopListeningForUnApprovedEntries()
+
+    }
+
+
     fun addNewEntry(entry: Entries){
 
         if (entry.hasVoiceNote!!){
@@ -48,5 +58,18 @@ class IndividualScreenRepo(private val individualScreenDAO: IndividualScreenDAO)
     fun removeLedgerMetaDataListener(){
         individualScreenDAO.removeLedgerMetaDataListener()
     }
+
+    fun startListeningForCancelledEntries(): LiveData<Long> {
+
+
+        return individualScreenDAO.startListeningForCancelledEntries()
+
+    }
+
+    fun stopListeningForCancelledEntries() {
+
+        individualScreenDAO.stopListeningForCancelledEntries()
+    }
+
 
 }

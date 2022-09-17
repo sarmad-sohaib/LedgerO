@@ -250,7 +250,7 @@ var pos= position
                         if (it.isSuccessful) {
 
                         var date = it.result.getValue<Long>()!!
-                        newLedger.ledger_Created_timeStamp = Date(date)
+                        newLedger.ledger_Created_timeStamp = date
 
 
                         //--Step 3 --

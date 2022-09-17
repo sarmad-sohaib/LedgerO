@@ -45,6 +45,7 @@ class UtillFunctions {
             //friend and then user's ledger with this friend with will open
             //and user can start adding entries
 
+
             var single_ledger= SingleLedgers()
             single_ledger.friend_userID=friendUID
             single_ledger.friend_userEmail=friendUserEmail

@@ -26,7 +26,7 @@ class ViewEntryInfoScreenDAO(private val ledgerUID: String) {
 
   private  fun downloadVoiceFromFirestoreStorage(entry:Entries){
       var contextWrapper= ContextWrapper(MainActivity.getMainActivityInstance().applicationContext)
-        var file = File(contextWrapper.getExternalFilesDir(Environment.DIRECTORY_MUSIC)!!.toString()+entry.voiceNote!!.fileName)
+        var file = File(contextWrapper.getExternalFilesDir(Environment.DIRECTORY_MUSIC)!!.toString()+"/"+entry.voiceNote!!.fileName)
 
         //Creating a reference to the link
     var httpsReference = FirebaseStorage.getInstance().getReferenceFromUrl(entry.voiceNote!!.firebaseDownloadURI!!)

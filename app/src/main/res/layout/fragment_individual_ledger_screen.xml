@@ -30,6 +30,7 @@
             android:background="@drawable/layout_bg"
             android:backgroundTint="@color/white" />
 
+
         <LinearLayout
             android:id="@+id/buttonDiv"
             android:layout_width="match_parent"
@@ -58,7 +59,9 @@
                 android:textColor="@color/green"
                 android:textSize="16sp"
 
-                />
+                >
+
+            </com.google.android.material.button.MaterialButton>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/bt_canceled_entries_individScreen"
@@ -78,6 +81,40 @@
 
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/unApprovedEntriesNotify_TV_individScreen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="16dp"
+            android:minHeight="16dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginRight="35dp"
+            android:text="0"
+            android:visibility="gone"
+            android:textColor="@color/white"
+            android:textSize="8sp"
+            android:gravity="center"
+            android:background="@drawable/circular_bg_voice_record_btn"
+            app:layout_constraintEnd_toEndOf="@+id/buttonDiv"
+            app:layout_constraintStart_toStartOf="@+id/buttonDiv"
+            app:layout_constraintTop_toBottomOf="@+id/shape_bg_white_money_frag"></TextView>
+        <TextView
+            android:id="@+id/cacneledEntriesNotify_TV_individScreen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="16dp"
+            android:minHeight="16dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginLeft="35dp"
+            android:text="0"
+            android:visibility="gone"
+            android:textColor="@color/white"
+            android:textSize="8sp"
+            android:gravity="center"
+            android:background="@drawable/circular_bg_voice_record_btn"
+            app:layout_constraintEnd_toEndOf="@+id/buttonDiv"
+            app:layout_constraintStart_toStartOf="@+id/buttonDiv"
+            app:layout_constraintTop_toBottomOf="@+id/shape_bg_white_money_frag"></TextView>
         <View
             android:id="@+id/line_horizontal_money_frag"
             android:layout_width="1dp"

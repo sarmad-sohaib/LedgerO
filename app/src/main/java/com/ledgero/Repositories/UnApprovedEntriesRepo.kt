@@ -1,10 +1,13 @@
 package com.ledgero.Repositories
 
+import android.content.ContextWrapper
+import android.os.Environment
 import android.util.Log
 import androidx.lifecycle.LiveData
 import com.ledgero.DAOs.IndividualScreenDAO
 import com.ledgero.DAOs.UnApproveEntriesDAO
 import com.ledgero.DataClasses.Entries
+import com.ledgero.MainActivity
 import java.io.File
 
 class UnApprovedEntriesRepo(private val unApproveEntriesDAO: UnApproveEntriesDAO)  {
@@ -53,7 +56,14 @@ unApproveEntriesDAO.deleteUnApprovedEntryThenUpdateLedgerEntry(pos)
     fun acceptDeleteEntryRequestFromApprovedEntries_withVoice(entry: Entries) {
         //now check if receiver has voice stored in device..then delete it from there first
         //delete voice from device
-        val fdelete= File(entry.voiceNote!!.localPath)
+        var contextWrapper= ContextWrapper(MainActivity.getMainActivityInstance().applicationContext)
+        // this type of vibration requires API 29
+        var path= contextWrapper.getExternalFilesDir(Environment.DIRECTORY_MUSIC)!!.toString()+"/"+entry.voiceNote!!.fileName
+
+
+
+
+        val fdelete= File(path)
         if (fdelete.exists()) {
             if (fdelete.delete()) {
 

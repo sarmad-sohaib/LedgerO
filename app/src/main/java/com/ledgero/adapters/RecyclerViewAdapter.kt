@@ -12,6 +12,8 @@ import com.ledgero.DataClasses.SingleLedgers
 import com.ledgero.MainActivity
 import com.ledgero.R
 import com.ledgero.fragments.IndividualLedgerScreen
+import java.util.*
+import kotlin.collections.ArrayList
 
 class RecyclerViewAdapter(context: Context,singleLedgers: ArrayList<SingleLedgers>?):
     RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
@@ -39,7 +41,7 @@ init {
 
     override fun onBindViewHolder(holder: RecyclerViewAdapter.ViewHolder, position: Int) {
         holder.ledgerName.text = singleLedgers?.get(position)?.friend_userName
-        holder.ledgerTimeStamp.text = singleLedgers?.get(position)!!.ledger_Created_timeStamp.toString()
+        holder.ledgerTimeStamp.text = Date(12324521).toString()
         holder.ledgerMoney.text = singleLedgers?.get(position)?.total_amount.toString()
         holder.ledgerUID=singleLedgers?.get(position)?.ledgerUID.toString()
 

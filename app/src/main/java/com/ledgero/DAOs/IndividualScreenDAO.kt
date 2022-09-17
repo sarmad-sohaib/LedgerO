@@ -28,6 +28,9 @@ class IndividualScreenDAO(private val ledgerUID: String) {
     private var totaAmountLiveData= MutableLiveData<Float>()
     private var giveTakeFlagLiveData= MutableLiveData<Boolean?>()
 
+    private var unAprrovedEntriesCount= MutableLiveData<Long>()
+    private var canceledEntriesCount= MutableLiveData<Long>()
+
 
 
 private    var listener= object: ValueEventListener{
@@ -188,6 +191,79 @@ private    var listener= object: ValueEventListener{
         db_reference.child("ledgerInfo").child(ledgerUID).removeEventListener(metaDataListener)
 
     }
+
+  private  var listenerForUnApproveEntriesDAO =object: ValueEventListener{
+        override fun onDataChange(snapshot: DataSnapshot) {
+        if (snapshot.exists()){
+            unAprrovedEntriesCount.value=snapshot.childrenCount
+        }else{
+            unAprrovedEntriesCount.value=0
+        }
+        }
+
+        override fun onCancelled(error: DatabaseError) {
+          ;
+        }
+
+    }
+    fun startListeningForUnApprovedEntries(): LiveData<Long> {
+
+        db_reference.child("entriesRequests").child(ledgerUID).addValueEventListener(listenerForUnApproveEntriesDAO)
+
+        return unAprrovedEntriesCount
+
+    }
+
+    fun stopListeningForUnApprovedEntries() {
+        db_reference.child("entriesRequests").child(ledgerUID).removeEventListener(listenerForUnApproveEntriesDAO)
+
+    }
+
+
+
+ private   var listenerForCanceledEntries =object: ValueEventListener{
+        override fun onDataChange(snapshot: DataSnapshot) {
+            if (snapshot.exists()){
+
+                var count=0L;
+                for (i in snapshot.children) {
+                    var entry: Entries = i.getValue<Entries>()!!
+                    if(entry.entryMadeBy_userID.equals(User.userID)){
+                        count++
+                    }
+                }
+
+                canceledEntriesCount.value=count
+            }else{
+                canceledEntriesCount.value=0
+            }
+        }
+
+        override fun onCancelled(error: DatabaseError) {
+            ;
+        }}
+
+
+    fun startListeningForCancelledEntries(): LiveData<Long> {
+
+        db_reference.child("canceledEntries").child(ledgerUID).addValueEventListener(listenerForCanceledEntries)
+
+        return canceledEntriesCount
+
+    }
+
+    fun stopListeningForCancelledEntries() {
+        db_reference.child("canceledEntries").child(ledgerUID).removeEventListener(listenerForCanceledEntries)
+
+    }
+
+
+
+
+
+
+
+
 
     private var metaDataListener = object: ValueEventListener{
         override fun onDataChange(snapshot: DataSnapshot) {
