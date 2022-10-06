@@ -1,4 +1,3 @@
 package com.ledgero.DataClasses
 
-class GroupLedgers {
-}
+class GroupLedgers

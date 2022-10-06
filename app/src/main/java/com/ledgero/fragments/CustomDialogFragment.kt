@@ -44,7 +44,7 @@ var isUserAdded:Boolean= false
         var db= DatabaseUtill()
 
         //binding Views
-        infoTextView=rootView.findViewById(R.id.info_tv_dialog_frag);
+        infoTextView=rootView.findViewById(R.id.info_tv_dialog_frag)
         userFoundList_Container=rootView.findViewById(R.id.userFound_Container_dialog_frag)
         userFoundList_userName=rootView.findViewById(R.id.userName_user_found_layout)
         userFoundList_userEmail=rootView.findViewById(R.id.userEmail_user_found_layout)
@@ -56,13 +56,13 @@ var isUserAdded:Boolean= false
 
         //binding Views ends here...
 
-        userFoundList_addFriendBtn.setOnClickListener(){
+        userFoundList_addFriendBtn.setOnClickListener {
             addFriendInUser(friendUserUID,friendUserEmail,friendUserName)
             this.dismiss()
 
         }
 
-        rootView.bt_cancel_dialog_frag.setOnClickListener(){
+        rootView.bt_cancel_dialog_frag.setOnClickListener {
 
             this.dismiss()
 
@@ -71,7 +71,7 @@ var isUserAdded:Boolean= false
 
 
    
-    rootView.bt_add_dialog_frag.setOnClickListener(){
+    rootView.bt_add_dialog_frag.setOnClickListener {
 
         hideInfoMessage()
         var dialog=UtillFunctions.setProgressDialog(requireContext(),"Searching Users..Please Wait!")
@@ -81,7 +81,7 @@ var isUserAdded:Boolean= false
         if (!email.isEmpty()){
             db.getUser(email,object : FetchUsers{
                 override fun OnAllUsersFetched(users: ArrayList<String>?) {
-                    ;//nothing to do here for now
+                    //nothing to do here for now
                 }
 
                 override fun OnSingleUserFetched(user: String?, userEmail: String?, userName: String?) {
@@ -128,7 +128,7 @@ var isUserAdded:Boolean= false
             {
 
                 for (i in User.getUserSingleLedgers()!!){
-                    if (user!!.equals(i.friend_userID)){
+                    if (user.equals(i.friend_userID)){
 
                         exist=true
                     }
@@ -162,11 +162,11 @@ var isUserAdded:Boolean= false
 
     private fun hideInfoMessage() {
 
-        infoTextView.visibility=View.INVISIBLE;
+        infoTextView.visibility=View.INVISIBLE
     }
 
     private fun showInfoMessage(message:String) {
 
       infoTextView.text=message
-infoTextView.visibility=View.VISIBLE;
+infoTextView.visibility=View.VISIBLE
     }}

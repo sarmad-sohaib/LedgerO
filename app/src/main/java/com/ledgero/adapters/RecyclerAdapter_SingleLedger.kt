@@ -82,7 +82,7 @@ class RecyclerAdapter_SingleLedger (context: Context, entires: ArrayList<Entries
             modeFlag= itemView.findViewById(R.id.entry_modeFlag_tv_individualLedger)
 
 
-        itemView.setOnClickListener(){
+        itemView.setOnClickListener {
 
             Toast.makeText(context, "${title.text} : ${amount.text}", Toast.LENGTH_SHORT).show()
 

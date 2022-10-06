@@ -75,7 +75,7 @@ class CanceledEntriesDAO(private val ledgerUID: String) {
     private fun deleteVoiceFromFirebaseStorage(entry: Entries,key:String) {
         var file = Uri.fromFile(File(entry.voiceNote!!.localPath))
         storage_reference.child("voiceNotes").child(ledgerUID).child(entry.entryUID.toString())
-            .child("${file.lastPathSegment}").delete().addOnCompleteListener(){
+            .child("${file.lastPathSegment}").delete().addOnCompleteListener {
                 if (it.isSuccessful){
                     Log.d(TAG, "deleteVoiceFromFirebaseStorage: Voice Deleted From Firebase Storage")
 
@@ -108,7 +108,7 @@ class CanceledEntriesDAO(private val ledgerUID: String) {
     private fun addEntryInUnApproved(entryKey: String, entry: Entries) {
 
         db_reference.child("entriesRequests").child(ledgerUID).child(entryKey).setValue(entry)
-            .addOnCompleteListener() {
+            .addOnCompleteListener {
                 updateEntryRequestModeInLedger(entryKey,entry)
                 deleteEntryFromCanceled(entryKey)
             }
@@ -117,7 +117,7 @@ class CanceledEntriesDAO(private val ledgerUID: String) {
     private fun updateEntryRequestModeInLedger(entryKey: String, entry: Entries) {
 
         db_reference.child("ledgerEntries").child(ledgerUID).child(entry.entryUID.toString())
-            .setValue(entry).addOnCompleteListener(){
+            .setValue(entry).addOnCompleteListener {
                 if (it.isSuccessful){
                     Log.d(TAG, "UpdateEntryRequest: Entry Updated in Ledger")
                     deleteEntryFromCanceled(entryKey)
@@ -129,7 +129,7 @@ class CanceledEntriesDAO(private val ledgerUID: String) {
     private fun deleteEntryFromCanceled(entryKey: String) {
         db_reference.child("canceledEntries").child(ledgerUID).child(entryKey)
             .removeValue()
-            .addOnCompleteListener() {
+            .addOnCompleteListener {
                 Log.d(TAG,
                     "deleteEntryFromCanceled: Entery deleted from canceled")
             }

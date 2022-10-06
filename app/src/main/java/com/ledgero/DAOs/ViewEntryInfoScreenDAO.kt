@@ -38,7 +38,7 @@ class ViewEntryInfoScreenDAO(private val ledgerUID: String) {
            bytesTransferred= taskSnapshot.bytesTransferred
             dataDownload!!.value= ((bytesTransferred/totalFileSize)*100).toInt()
 
-        }.addOnCompleteListener(){
+        }.addOnCompleteListener {
             if (it.isSuccessful){
                 dataDownload!!.value=100
             }

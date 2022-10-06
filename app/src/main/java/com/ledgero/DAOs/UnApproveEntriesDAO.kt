@@ -73,7 +73,7 @@ class UnApproveEntriesDAO(private val ledgerUID: String) {
     private fun updateEntryInLedger(entry: Entries) {
         entry.requestMode=0
         db_reference.child("ledgerEntries").child(ledgerUID).child(entry.entryUID.toString())
-            .setValue(entry).addOnCompleteListener(){
+            .setValue(entry).addOnCompleteListener {
                 if (it.isSuccessful){
                     Log.d(TAG, "DelteEntry: Deleted Successfully From Ledger!!")
                   entry.requestMode=2
@@ -117,7 +117,7 @@ class UnApproveEntriesDAO(private val ledgerUID: String) {
     private fun addEntryInLedger(entryKey:String, entry: Entries){
 
         db_reference.child("ledgerEntries").child(ledgerUID).child(entryKey).setValue(entry)
-            .addOnCompleteListener(){
+            .addOnCompleteListener {
                 deleteEntryFromUnApproved(entryKey)
             }
     }
@@ -125,7 +125,7 @@ class UnApproveEntriesDAO(private val ledgerUID: String) {
     private fun checkAndDeleteFromCanceledEntries(entryKey: String) {
         db_reference.child("canceledEntries").child(ledgerUID).child(entryKey)
             .removeValue()
-            .addOnCompleteListener() {
+            .addOnCompleteListener {
                 Log.d(TAG, "checkAndDeleteFromCanceledEntries: Delete From Canceled")
             }
 
@@ -133,7 +133,7 @@ class UnApproveEntriesDAO(private val ledgerUID: String) {
     private fun deleteEntryFromUnApproved(entryKey: String){
         db_reference.child("entriesRequests").child(ledgerUID).child(entryKey)
             .removeValue()
-            .addOnCompleteListener(){
+            .addOnCompleteListener {
                 Log.d(TAG, "deleteEntryFromUnApproved: Entery Added in ledger and deleted from UnApproved")
 
             }
@@ -150,7 +150,7 @@ class UnApproveEntriesDAO(private val ledgerUID: String) {
     private fun addEntryInRejectEntries(entryKey:String, entry: Entries){
 
         db_reference.child("canceledEntries").child(ledgerUID).child(entryKey).setValue(entry)
-            .addOnCompleteListener(){
+            .addOnCompleteListener {
                 deleteEntryFromUnApproved(entryKey)
             }
     }
@@ -164,7 +164,7 @@ class UnApproveEntriesDAO(private val ledgerUID: String) {
 
     private fun updateEntryInLedgerEntries(entry: Entries){
         db_reference.child("ledgerEntries").child(ledgerUID).child(entry.entryUID.toString())
-            .setValue(entry).addOnCompleteListener(){
+            .setValue(entry).addOnCompleteListener {
                 if (it.isSuccessful){
                     Log.d(TAG, "updateEntryInLedgerEntries: Entry Updated!!")
 
@@ -214,7 +214,7 @@ class UnApproveEntriesDAO(private val ledgerUID: String) {
 
         var file = Uri.fromFile(File(entry.voiceNote!!.localPath))
         storage_reference.child("voiceNotes").child(ledgerUID).child(entry.entryUID.toString())
-            .child("${file.lastPathSegment}").delete().addOnCompleteListener(){
+            .child("${file.lastPathSegment}").delete().addOnCompleteListener {
                 if (it.isSuccessful){
                     Log.d(TAG, "deleteVoiceFromFirebaseStorage: Voice Deleted From Firebase Storage")
                     //step 2
@@ -229,7 +229,7 @@ class UnApproveEntriesDAO(private val ledgerUID: String) {
     fun acceptDeleteEntryRequestFromApprovedEntries_withVoice(entry:Entries) {
         var file = Uri.fromFile(File(entry.voiceNote!!.localPath))
         storage_reference.child("voiceNotes").child(ledgerUID).child(entry.entryUID.toString())
-            .child("${file.lastPathSegment}").delete().addOnCompleteListener(){
+            .child("${file.lastPathSegment}").delete().addOnCompleteListener {
                 if (it.isSuccessful){
                     Log.d(TAG, "deleteVoiceFromFirebaseStorage: Voice Deleted From Firebase Storage")
                    //so now we have deleted voice from device and firestorage too

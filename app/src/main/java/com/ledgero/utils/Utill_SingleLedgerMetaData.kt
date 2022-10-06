@@ -16,7 +16,7 @@ class Utill_SingleLedgerMetaData(var ledgerUID:String) {
     fun updateTotalAmount_approvedEntryDeleted(entry: Entries){
         currentEntry=entry
 
-        db_reference.child("ledgerInfo").child(ledgerUID).get().addOnCompleteListener() {
+        db_reference.child("ledgerInfo").child(ledgerUID).get().addOnCompleteListener {
             if (it.isSuccessful) {
                 if (it.result.exists()) {
 
@@ -184,7 +184,7 @@ class Utill_SingleLedgerMetaData(var ledgerUID:String) {
     fun updateTotalAmount_newEntryAdded(entry: Entries) {
 
         currentEntry = entry
-        db_reference.child("ledgerInfo").child(ledgerUID).get().addOnCompleteListener() {
+        db_reference.child("ledgerInfo").child(ledgerUID).get().addOnCompleteListener {
             if (it.isSuccessful) {
                 if (it.result.exists()) {
 
@@ -385,7 +385,7 @@ class Utill_SingleLedgerMetaData(var ledgerUID:String) {
         }
 
 
-        db_reference.child("ledgerInfo").child(ledgerUID).updateChildren(map).addOnCompleteListener(){
+        db_reference.child("ledgerInfo").child(ledgerUID).updateChildren(map).addOnCompleteListener {
             if (it.isSuccessful){
                 Log.d(TAG, "updateLedgerMetaDataOnFireBase: Ledger Meta Data Updated")
             }

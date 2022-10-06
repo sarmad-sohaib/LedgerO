@@ -113,7 +113,7 @@ class UtillFunctions {
 
          User.removeLedgerFromList(user_single_Ledgers)
 
-            LedgersFragment.adapter!!!!.notifyDataSetChanged()
+            LedgersFragment.adapter!!.notifyDataSetChanged()
 
             User.total_single_ledgers= User.getUserSingleLedgers()!!.size
 
@@ -170,11 +170,11 @@ class UtillFunctions {
 
 
         fun showProgressDialog(dialog: AlertDialog){
-            dialog.show();
+            dialog.show()
         }
 
         fun hideProgressDialog(dialog: AlertDialog){
-            dialog.dismiss();
+            dialog.dismiss()
         }
         fun setProgressDialog(context: Context, text:String):AlertDialog {
             val llPadding = 30
@@ -208,13 +208,13 @@ class UtillFunctions {
             builder.setCancelable(false)
             builder.setView(ll)
             val dialog: AlertDialog = builder.create()
-            val window: Window? = dialog.getWindow()
+            val window: Window? = dialog.window
             if (window != null) {
                 val layoutParams = WindowManager.LayoutParams()
-                layoutParams.copyFrom(dialog.getWindow()!!.getAttributes())
+                layoutParams.copyFrom(dialog.window!!.attributes)
                 layoutParams.width = LinearLayout.LayoutParams.WRAP_CONTENT
                 layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT
-                dialog.getWindow()!!.setAttributes(layoutParams)
+                dialog.window!!.attributes = layoutParams
             }
         return dialog
         }

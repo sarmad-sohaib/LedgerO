@@ -31,7 +31,7 @@ class ViewEntryInfoScreenViewModel(private val viewEntryInfoScreenRepo: ViewEntr
     var mediaPlayer:MediaPlayer?=null
     var isAudioPlaying:Boolean=false
     lateinit var handler:Handler
-    lateinit var currentEntry: Entries;
+    lateinit var currentEntry: Entries
 
 
     fun getVoiceNote(entry: Entries): LiveData<Int>? {
@@ -67,7 +67,7 @@ return false
 
         mediaPlayer= MediaPlayer()
 
-        mediaPlayer!!.setOnCompletionListener(){
+        mediaPlayer!!.setOnCompletionListener {
             view!!.voicePlayButton.foreground= ContextCompat.getDrawable(view!!.requireContext(), R.drawable.ic_play_button)
             isAudioPlaying=false
             stopPlayingAudio() }
@@ -115,7 +115,7 @@ try {
 
     }
     fun setUpSeekBar(mSeekBar: SeekBar){
-        mSeekBar.setMax(mediaPlayer!!.duration)
+        mSeekBar.max = mediaPlayer!!.duration
         mSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onStopTrackingTouch(seekBar: SeekBar) {}
             override fun onStartTrackingTouch(seekBar: SeekBar) {}
@@ -136,7 +136,7 @@ try {
                 if (mediaPlayer != null) {
                     Log.d("ViewEntryInfoScreen", "run: runnable for seekbar")
                     val mCurrentPosition: Int = mediaPlayer!!.currentPosition
-                    mSeekBar.setProgress(mCurrentPosition)
+                    mSeekBar.progress = mCurrentPosition
                     handler.postDelayed(this, 100)
                 }
             }

@@ -23,7 +23,7 @@ class MoneyFragment : Fragment() {
         val buttonCashRegister = view.findViewById<Button>(R.id.bt_cash_register_group_ledgers_frag)
         val buttonReminders = view.findViewById<View >(R.id.button_reminders)
 
-        buttonCashRegister.setOnClickListener() {
+        buttonCashRegister.setOnClickListener {
             startActivity(Intent(requireContext(), CashRegisterMainActivity::class.java))
         }
 

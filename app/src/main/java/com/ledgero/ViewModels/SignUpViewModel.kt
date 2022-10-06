@@ -75,7 +75,7 @@ class SignUpViewModel: ViewModel() {
         var dialog= UtillFunctions.setProgressDialog(context,"Creating Account...")
         UtillFunctions.showProgressDialog(dialog)
         auth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener() { task ->
+            .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "createUserAccount:success")
@@ -193,7 +193,7 @@ class SignUpViewModel: ViewModel() {
 
         fun userDetailCheck(): Boolean {
 
-            var uPhone: String = tf_user_phone_signUp.text.toString();
+            var uPhone: String = tf_user_phone_signUp.text.toString()
             var temp: String = ""
             if (tf_user_phone_signUp.text.isNullOrBlank() || tf_user_phone_signUp.length() != 11) {
 
@@ -214,7 +214,7 @@ class SignUpViewModel: ViewModel() {
 
 
             }
-            userPhone = "+92" + temp;
+            userPhone = "+92" + temp
 
             // TODO: Remove Test Toast
             Toast.makeText(context, "Usernumber : $userPhone", Toast.LENGTH_LONG).show()
@@ -229,7 +229,7 @@ class SignUpViewModel: ViewModel() {
 
         fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
             auth.signInWithCredential(credential)
-                .addOnCompleteListener() { task ->
+                .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d(TAG, "signInWithCredential:success")
@@ -270,7 +270,7 @@ class SignUpViewModel: ViewModel() {
 //            here User is created. User is Singleton class
             User.userEmail=tf_user_email_signUp.text.toString()
             User.userID= user?.uid
-            User.total_single_ledgers=0;
+            User.total_single_ledgers=0
             User.userName="New User"
             User.userPhone="00000"
             User.user_group_Ledgers=null
@@ -290,9 +290,9 @@ class SignUpViewModel: ViewModel() {
         fun isUserExist(phone: String): Boolean {
 
             Log.d(TAG, "isUserExist: called")
-            val db = FirebaseDatabase.getInstance().getReference()
+            val db = FirebaseDatabase.getInstance().reference
             // db_reference.child()
-            Log.d(TAG, "isUserExist: ${db.child("/users").get().result.toString()}")
+            Log.d(TAG, "isUserExist: ${db.child("/users").get().result}")
             var result = db.child("users").get().result
             Log.d(TAG, "isUserExist: result fetched")
             if (result.value != null) {
@@ -370,7 +370,7 @@ class SignUpViewModel: ViewModel() {
 // Set up the input
             val input = EditText(context)
 // Specify the number as type of input
-            input.setHint("Enter Text")
+            input.hint = "Enter Text"
             input.inputType = InputType.TYPE_CLASS_NUMBER
             builder.setView(input)
 
@@ -384,7 +384,7 @@ class SignUpViewModel: ViewModel() {
 
                     Log.d("Sign UP Activity", "showdialog: Creating User Credentials...")
                     val credential = PhoneAuthProvider.getCredential(
-                        storedVerificationId!!,
+                        storedVerificationId,
                         input.text.toString()
                     )
                     Log.d("Sign UP Activity", "showdialog: Calling SignInWithPhoneAuth")

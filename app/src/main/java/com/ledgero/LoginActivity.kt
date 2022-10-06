@@ -62,7 +62,7 @@ class LoginActivity : AppCompatActivity() {
 
 
 
-tv_signup_login.setOnClickListener(){
+tv_signup_login.setOnClickListener {
 
 
     intent = Intent(this, SignUpActivity::class.java)
@@ -71,7 +71,7 @@ tv_signup_login.setOnClickListener(){
 
 
         //onClick of Login Button
-        bt_login_login.setOnClickListener(){
+        bt_login_login.setOnClickListener {
 
             loginViewModel.userEmail=tf_phone_login.text.toString()
             loginViewModel.userPassword= tf_password_login.text.toString()

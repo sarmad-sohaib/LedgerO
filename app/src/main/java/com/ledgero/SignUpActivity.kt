@@ -25,7 +25,7 @@ class SignUpActivity : AppCompatActivity() {
             this
         )
         //sign Up OnClick Listener
-        bt_signup_signUp.setOnClickListener() {
+        bt_signup_signUp.setOnClickListener {
             signUpViewModel.initializeFields(tf_user_phone_signUp, tf_password_signUp, tf_reenter_password_signUp, this)
 
 
@@ -81,7 +81,7 @@ class SignUpActivity : AppCompatActivity() {
 
 
         //already have an acoount, Login
-        tv_login_signUp.setOnClickListener() {
+        tv_login_signUp.setOnClickListener {
 
             intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)

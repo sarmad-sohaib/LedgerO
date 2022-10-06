@@ -47,10 +47,10 @@ class LedgersFragment : Fragment() {
         rv.adapter = adapter
         var bt_cash_register= view.findViewById<MaterialButton>(R.id.bt_cash_register_group_ledgers_frag)
 
-        bt_cash_register.setOnClickListener(){
+        bt_cash_register.setOnClickListener {
             startActivity(Intent(context, CashRegisterMainActivity::class.java))
         }
-        bt.setOnClickListener(){
+        bt.setOnClickListener {
 
             Toast.makeText(context, "Add New Clicked", Toast.LENGTH_SHORT).show()
             var dialog= CustomDialogFragment(rv.adapter)
@@ -64,12 +64,6 @@ class LedgersFragment : Fragment() {
         return view
     }
 
-
-
-    override fun onStart() {
-        super.onStart()
-
-    }
 
     override fun onDestroy() {
         DatabaseUtill().RemoveUserLedgerListner()

@@ -126,7 +126,7 @@ private    var listener= object: ValueEventListener{
             .addOnCompleteListener()
         {
             if (it.isSuccessful){
-                db_reference.child("entriesRequests").child(ledgerUID).child(key!!).
+                db_reference.child("entriesRequests").child(ledgerUID).child(key).
                     updateChildren(mapOf("entry_timeStamp" to ServerValue.TIMESTAMP))
 
                 Log.d(TAG, "addNewEntry: Updated Successfully!!")
@@ -148,7 +148,7 @@ private    var listener= object: ValueEventListener{
             Log.d(TAG, "uploadVoiceNoteThenAddNewEntry: Voice Note Uploaded. -- ${it.metadata.toString()} ")
 
             //getDownloadURL
-            ref.downloadUrl.addOnCompleteListener(){
+            ref.downloadUrl.addOnCompleteListener {
                 if (it.isSuccessful){
                     entry.voiceNote!!.firebaseDownloadURI=it.result.toString()
                     addNewEntryWithVoiceRecord(entry)
@@ -202,7 +202,6 @@ private    var listener= object: ValueEventListener{
         }
 
         override fun onCancelled(error: DatabaseError) {
-          ;
         }
 
     }
@@ -225,7 +224,7 @@ private    var listener= object: ValueEventListener{
         override fun onDataChange(snapshot: DataSnapshot) {
             if (snapshot.exists()){
 
-                var count=0L;
+                var count=0L
                 for (i in snapshot.children) {
                     var entry: Entries = i.getValue<Entries>()!!
                     if(entry.entryMadeBy_userID.equals(User.userID)){
@@ -240,7 +239,6 @@ private    var listener= object: ValueEventListener{
         }
 
         override fun onCancelled(error: DatabaseError) {
-            ;
         }}
 
 
@@ -280,7 +278,6 @@ private    var listener= object: ValueEventListener{
         }
 
         override fun onCancelled(error: DatabaseError) {
-            ;
         }
 
     }

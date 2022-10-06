@@ -206,7 +206,7 @@ class RemindersFragment : Fragment(), OnItemClick {
 
         val alarmManager = activity?.getSystemService(Context.ALARM_SERVICE) as AlarmManager?
         val intent = Intent(requireContext(), AlertReceiver::class.java)
-        val pendingIntent = reminder.id?.take(5)
+        val pendingIntent = reminder.id.take(5)
             ?.let { PendingIntent.getBroadcast(requireContext(), it.toInt(), intent, PendingIntent.FLAG_IMMUTABLE) }
 
         if (alarmManager != null) {
