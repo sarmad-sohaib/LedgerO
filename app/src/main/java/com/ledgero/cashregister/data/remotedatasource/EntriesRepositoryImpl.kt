@@ -65,8 +65,7 @@ class EntriesRepositoryImpl @Inject constructor(): EntryRepository {
 
     override suspend fun updateEntry(uId: String, id: String, entry: Entry) {
         collectionReference = db.collection(uId)
-
-            collectionReference
+        collectionReference
                 .whereEqualTo("id", id)
                 .get()
                 .addOnSuccessListener {

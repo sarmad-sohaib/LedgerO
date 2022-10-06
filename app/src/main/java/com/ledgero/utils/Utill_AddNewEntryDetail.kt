@@ -1,4 +1,4 @@
-package com.ledgero.UtillClasses
+package com.ledgero.utils
 
 import android.Manifest
 import android.content.ContextWrapper
@@ -16,7 +16,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
-import androidx.core.os.postDelayed
 import com.ledgero.MainActivity
 import com.ledgero.fragments.AddNewEntryDetail
 import kotlinx.android.synthetic.main.calculator_layout.view.*

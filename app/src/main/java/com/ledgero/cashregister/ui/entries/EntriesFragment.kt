@@ -1,14 +1,11 @@
 package com.ledgero.cashregister.ui.entries
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -22,10 +19,10 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.ledgero.R
 import com.ledgero.cashregister.CashRegisterEvents
-import com.ledgero.cashregister.ui.entries.adapter.EntriesListAdapter
 import com.ledgero.cashregister.EntriesViewModel
 import com.ledgero.cashregister.MyCallback
 import com.ledgero.cashregister.data.Entry
+import com.ledgero.cashregister.ui.entries.adapter.EntriesListAdapter
 import com.ledgero.databinding.FragmentEntriesBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch

@@ -19,13 +19,12 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat.getDrawable
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
-import com.google.firebase.database.ServerValue
 import com.ledgero.DataClasses.Entries
 import com.ledgero.DataClasses.SingleLedgers
 import com.ledgero.DataClasses.User
 import com.ledgero.DataClasses.VoiceNote
 import com.ledgero.R
-import com.ledgero.UtillClasses.Utill_AddNewEntryDetail
+import com.ledgero.utils.Utill_AddNewEntryDetail
 import kotlinx.android.synthetic.main.fragment_add_new_entry_detail.view.*
 
 

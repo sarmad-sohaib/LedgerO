@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import com.ledgero.R
 import com.ledgero.cashregister.CashRegisterMainActivity
+import com.ledgero.reminders.RemindersMainActivity
 
 class MoneyFragment : Fragment() {
 
@@ -19,10 +20,15 @@ class MoneyFragment : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_money, container, false)
 
-        val button = view.findViewById<Button>(R.id.bt_cash_register_group_ledgers_frag)
+        val buttonCashRegister = view.findViewById<Button>(R.id.bt_cash_register_group_ledgers_frag)
+        val buttonReminders = view.findViewById<View >(R.id.button_reminders)
 
-        button.setOnClickListener() {
+        buttonCashRegister.setOnClickListener() {
             startActivity(Intent(requireContext(), CashRegisterMainActivity::class.java))
+        }
+
+        buttonReminders.setOnClickListener {
+            startActivity(Intent(requireContext(), RemindersMainActivity::class.java))
         }
         // Inflate the layout for this fragment
         return view

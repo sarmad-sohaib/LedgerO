@@ -59,4 +59,14 @@
     <string name="timestamp">Timestamp</string>
     <string name="in">In</string>
     <string name="save_entry">Save Entry</string>
+    <string name="give_to">Give to:</string>
+    <string name="take_from">Take from:</string>
+    <string name="get">get</string>
+    <string name="amount">Amount</string>
+    <string name="recipient">Recipient</string>
+    <string name="save_reminder">Save reminder</string>
+    <string name="take">Take</string>
+    <string name="on">On:</string>
+    <string name="give">Give</string>
+    <string name="no_reminders">No Reminders :)</string>
 </resources>
