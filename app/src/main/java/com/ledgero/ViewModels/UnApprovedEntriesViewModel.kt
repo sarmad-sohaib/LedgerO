@@ -3,9 +3,8 @@ package com.ledgero.ViewModels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.ledgero.DataClasses.Entries
-import com.ledgero.Repositories.IndividualScreenRepo
 import com.ledgero.Repositories.UnApprovedEntriesRepo
-import com.ledgero.UtillClasses.Utill_SingleLedgerMetaData
+import com.ledgero.utils.Utill_SingleLedgerMetaData
 
 class UnApprovedEntriesViewModel(private val unApprovedEntriesRepo: UnApprovedEntriesRepo,ledgerUID:String) : ViewModel() {
 

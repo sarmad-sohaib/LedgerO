@@ -25,7 +25,6 @@ import com.ledgero.DataClasses.SingleLedgers
 import com.ledgero.DataClasses.User
 import com.ledgero.R
 import com.ledgero.Repositories.IndividualScreenRepo
-import com.ledgero.UtillClasses.Utill_SingleLedgerMetaData
 import com.ledgero.ViewModelFactories.IndividualScreenViewModeFactory
 import com.ledgero.ViewModels.IndividualScreenViewModel
 import com.ledgero.adapters.RecyclerAdapter_SingleLedger

@@ -41,7 +41,7 @@
         <entry key="..\:/LedgerO/LedgerO/app/src/main/res/layout/fragment_group_ledgers.xml" value="0.20416666666666666" />
         <entry key="..\:/LedgerO/LedgerO/app/src/main/res/layout/fragment_home.xml" value="0.15806159420289856" />
         <entry key="..\:/LedgerO/LedgerO/app/src/main/res/layout/fragment_individual_ledger__screen.xml" value="0.19010416666666666" />
-        <entry key="..\:/LedgerO/LedgerO/app/src/main/res/layout/fragment_individual_ledger_screen.xml" value="0.5" />
+        <entry key="..\:/LedgerO/LedgerO/app/src/main/res/layout/fragment_individual_ledger_screen.xml" value="0.22" />
         <entry key="..\:/LedgerO/LedgerO/app/src/main/res/layout/fragment_ledgers.xml" value="0.25" />
         <entry key="..\:/LedgerO/LedgerO/app/src/main/res/layout/fragment_un_approved_entries_screen.xml" value="0.20416666666666666" />
         <entry key="..\:/LedgerO/LedgerO/app/src/main/res/layout/fragment_view_entry_info_screen.xml" value="0.20416666666666666" />
@@ -71,6 +71,21 @@
         <entry key="..\:/LedgrO/LedgerO/app/src/main/res/layout/fragment_more.xml" value="0.30625" />
         <entry key="..\:/LedgrO/LedgerO/app/src/main/res/layout/recycler_view_model.xml" value="0.33" />
         <entry key="..\:/LedgrO/LedgerO/app/src/main/res/layout/user_found_layout.xml" value="0.5" />
+        <entry key="app/src/main/res/drawable/button_shape.xml" value="0.199" />
+        <entry key="app/src/main/res/drawable/round_black_corner_bg_inputfield.xml" value="0.286" />
+        <entry key="app/src/main/res/drawable/round_corner_background.xml" value="0.199" />
+        <entry key="app/src/main/res/layout/activity_cash_register_main.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.2543822146216332" />
+        <entry key="app/src/main/res/layout/activity_reminders_main.xml" value="0.2543822146216332" />
+        <entry key="app/src/main/res/layout/fragment_add_edit_entry.xml" value="0.273972602739726" />
+        <entry key="app/src/main/res/layout/fragment_entries.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_group_ledgers.xml" value="0.2419837537409149" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.2419837537409149" />
+        <entry key="app/src/main/res/layout/fragment_ledgers.xml" value="0.2419837537409149" />
+        <entry key="app/src/main/res/layout/fragment_money.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/fragment_reminders.xml" value="0.2543822146216332" />
+        <entry key="app/src/main/res/layout/item_cash_register_entry.xml" value="0.375" />
+        <entry key="app/src/main/res/layout/item_reminder.xml" value="0.2535271483539974" />
       </map>
     </option>
   </component>

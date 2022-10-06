@@ -4,8 +4,6 @@ import android.content.ContextWrapper
 import android.net.Uri
 import android.os.Environment
 import android.util.Log
-import android.view.View
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.database.DataSnapshot
@@ -15,9 +13,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.storage.FirebaseStorage
 import com.ledgero.DataClasses.Entries
-import com.ledgero.DataClasses.User
 import com.ledgero.MainActivity
-import com.ledgero.UtillClasses.Utill_SingleLedgerMetaData
 import java.io.File
 
 class UnApproveEntriesDAO(private val ledgerUID: String) {
