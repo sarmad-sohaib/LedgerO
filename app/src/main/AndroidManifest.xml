@@ -36,7 +36,7 @@
             android:exported="true"
             android:windowSoftInputMode="adjustNothing" />
 
-        <receiver android:name=".reminders.AlertReceiver"/>
+        <receiver android:name=".reminders.reminderalert.AlertReceiver"/>
     </application>
 
 </manifest>

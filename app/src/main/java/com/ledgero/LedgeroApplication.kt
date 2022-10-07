@@ -5,7 +5,7 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
-import com.ledgero.reminders.ui.ReminderNotificationService
+import com.ledgero.reminders.reminderalert.ReminderNotificationService
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp

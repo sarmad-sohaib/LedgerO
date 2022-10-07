@@ -1,11 +1,11 @@
-package com.ledgero.reminders
+package com.ledgero.reminders.reminderalert
 
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.util.Log
 import com.ledgero.reminders.reminders.data.Reminder
-import com.ledgero.reminders.ui.ReminderNotificationService
+import com.ledgero.reminders.reminderalert.ReminderNotificationService
 
 private const val TAG = "AlertReceiver"
 
