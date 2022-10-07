@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/remindersFragment"
-        android:name="com.ledgero.reminders.reminders.ui.RemindersFragment"
+        android:name="com.ledgero.reminders.ui.reminders.RemindersFragment"
         android:label="fragment_reminders"
         tools:layout="@layout/fragment_reminders" >
         <action

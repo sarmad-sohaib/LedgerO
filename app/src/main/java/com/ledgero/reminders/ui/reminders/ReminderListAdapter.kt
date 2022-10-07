@@ -1,4 +1,4 @@
-package com.ledgero.reminders.ui
+package com.ledgero.reminders.ui.reminders
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

@@ -1,6 +1,5 @@
-package com.ledgero.reminders.ui
+package com.ledgero.reminders.ui.reminders
 
-import android.os.Bundle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
@@ -8,28 +7,29 @@ import com.ledgero.reminders.reminders.data.Reminder
 import com.ledgero.reminders.reminders.data.ReminderRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 sealed class RemindersUiState {
-    data class AllReminders(val list: List<Reminder?> = emptyList()): RemindersUiState()
-    data class Error(val msg: String): RemindersUiState()
-    object Loading: RemindersUiState()
-    object Empty: RemindersUiState()
+    data class AllReminders(val list: List<Reminder?> = emptyList()) : RemindersUiState()
+    data class Error(val msg: String) : RemindersUiState()
+    object Loading : RemindersUiState()
+    object Empty : RemindersUiState()
 }
 
 sealed class ReminderUiEvents {
-    object NavigateToAddReminderScreen: ReminderUiEvents()
-    data class NavigateToEditReminderScreen(val reminder: Reminder): ReminderUiEvents()
-    data class ShowSaveReminderResult(val result: String): ReminderUiEvents()
-    data class ShowUndoDeleteReminderMessage(val reminder: Reminder): ReminderUiEvents()
+    object NavigateToAddReminderScreen : ReminderUiEvents()
+    data class NavigateToEditReminderScreen(val reminder: Reminder) : ReminderUiEvents()
+    data class ShowSaveReminderResult(val result: String) : ReminderUiEvents()
+    data class ShowUndoDeleteReminderMessage(val reminder: Reminder) : ReminderUiEvents()
 }
 
 @HiltViewModel
 class RemindersViewModel @Inject constructor(
     private val reminderRepository: ReminderRepository
-): ViewModel() {
+) : ViewModel() {
 
     init {
         getAllReminders()
@@ -49,7 +49,7 @@ class RemindersViewModel @Inject constructor(
                     if (it.isEmpty()) {
                         _uiState.value = RemindersUiState.Empty
                     } else
-                    _uiState.value = RemindersUiState.AllReminders(it)
+                        _uiState.value = RemindersUiState.AllReminders(it)
                 }
         }
     }
@@ -63,7 +63,7 @@ class RemindersViewModel @Inject constructor(
     }
 
     fun onSaveReminderResult(result: String) = viewModelScope.launch {
-        when(result) {
+        when (result) {
             "Reminder Updated!!" -> _uiEvent.send(ReminderUiEvents.ShowSaveReminderResult(result))
             "Reminder Saved!!" -> _uiEvent.send(ReminderUiEvents.ShowSaveReminderResult(result))
         }
