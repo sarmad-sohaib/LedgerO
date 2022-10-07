@@ -77,59 +77,13 @@ class RemindersFragment : Fragment(), OnItemClick {
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 mViewModel.uiState.collect { event ->
-                    when (event) {
-                        is RemindersUiState.Loading -> {
-                            mBinding.apply {
-                                recyclerViewReminders.isVisible = false
-                                progressbarLoading.isVisible = true
-                                textViewNoReminders.isVisible = false
-                            }
-                        }
-
-                        is RemindersUiState.Error -> {
-
-                        }
-
-                        is RemindersUiState.AllReminders -> {
-
-                            mBinding.apply {
-                                progressbarLoading.isVisible = false
-                                recyclerViewReminders.isVisible = true
-                                textViewNoReminders.isVisible = false
-                                recyclerViewReminders.adapter = mAdapter
-
-                                mAdapter.submitList(event.list)
-
-                                for (result in event.list) {
-                                    if (result != null) {
-                                        cancelAlarm(result)
-                                    }
-                                }
-
-                                for (result in event.list) {
-
-                                    if (result != null) {
-                                        setAlarm(result)
-                                    }
-                                }
-                            }
-
-                        }
-                        is RemindersUiState.Empty -> {
-                            mBinding.apply {
-                                recyclerViewReminders.isVisible = false
-                                progressbarLoading.isVisible = false
-                                textViewNoReminders.isVisible = true
-                            }
-                        }
-                    }
+                    updateUiState(event)
                 }
             }
         }
 
         //getting reminder saves or updated result from AddEditReminderFragment
         setFragmentResultListener("save-result") { _, bundle ->
-
             bundle.getString("result")?.let { mViewModel.onSaveReminderResult(it) }
         }
 
@@ -137,32 +91,7 @@ class RemindersFragment : Fragment(), OnItemClick {
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 mViewModel.uiEvents.collect { event ->
-                    when (event) {
-                        is ReminderUiEvents.NavigateToAddReminderScreen -> {
-                            val action =
-                                RemindersFragmentDirections.actionRemindersFragmentToAddEditReminderFragment()
-                            findNavController().navigate(action)
-                        }
-                        is ReminderUiEvents.NavigateToEditReminderScreen -> {
-                            val action =
-                                RemindersFragmentDirections.actionRemindersFragmentToAddEditReminderFragment(
-                                    event.reminder
-                                )
-                            findNavController().navigate(action)
-                        }
-                        is ReminderUiEvents.ShowSaveReminderResult -> {
-                            view?.showSnackBar(event.result)
-//                            mViewModel.refreshReminders()
-                        }
-                        is ReminderUiEvents.ShowUndoDeleteReminderMessage -> {
-                            Snackbar.make(
-                                requireView(), "Reminder deleted successfully", Snackbar.LENGTH_LONG
-                            ).setAction("UNDO") {
-                                mViewModel.onUndoDeleteClicked(event.reminder)
-                            }.show()
-                            cancelAlarm(event.reminder)
-                        }
-                    }
+                    reactOnUiEvents(event)
                 }
             }
         }
@@ -172,14 +101,103 @@ class RemindersFragment : Fragment(), OnItemClick {
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
+    private fun reactOnUiEvents(event: ReminderUiEvents) {
+        when (event) {
+            is ReminderUiEvents.NavigateToAddReminderScreen -> navigateToAddReminderScreen()
+            is ReminderUiEvents.NavigateToEditReminderScreen -> navigateToEditReminderScreen(event.reminder)
+            is ReminderUiEvents.ShowSaveReminderResult -> showSaveReminderResult(event.result)
+            is ReminderUiEvents.ShowUndoDeleteReminderMessage -> showUndoDeleteReminderMessage(event.reminder)
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.M)
+    private fun showUndoDeleteReminderMessage(reminder: Reminder) {
+        Snackbar.make(
+            requireView(), "Reminder deleted successfully", Snackbar.LENGTH_LONG
+        ).setAction("UNDO") {
+            mViewModel.onUndoDeleteClicked(reminder)
+        }.show()
+        cancelAlarm(reminder)
+    }
+
+    private fun showSaveReminderResult(result: String) {
+        view?.showSnackBar(result)
+    }
+
+    private fun navigateToEditReminderScreen(reminder: Reminder) {
+        val action =
+            RemindersFragmentDirections.actionRemindersFragmentToAddEditReminderFragment(
+                reminder
+            )
+        findNavController().navigate(action)
+    }
+
+    private fun navigateToAddReminderScreen() {
+        val action =
+            RemindersFragmentDirections.actionRemindersFragmentToAddEditReminderFragment()
+        findNavController().navigate(action)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.M)
+    private fun updateUiState(event: RemindersUiState) {
+        when (event) {
+            is RemindersUiState.Loading -> loadingUiState()
+            is RemindersUiState.Error -> TODO("Not yet implemented")
+            is RemindersUiState.AllReminders -> allRemindersUiState(event.list)
+            is RemindersUiState.Empty -> noRemindersUiState()
+        }
+    }
+
+    private fun noRemindersUiState() {
+        mBinding.apply {
+            recyclerViewReminders.isVisible = false
+            progressbarLoading.isVisible = false
+            textViewNoReminders.isVisible = true
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.M)
+    private fun allRemindersUiState(remindersList: List<Reminder?>) {
+        mBinding.apply {
+            progressbarLoading.isVisible = false
+            recyclerViewReminders.isVisible = true
+            textViewNoReminders.isVisible = false
+            recyclerViewReminders.adapter = mAdapter
+
+            mAdapter.submitList(remindersList)
+
+            for (result in remindersList) {
+                if (result != null) {
+                    cancelAlarm(result)
+                }
+            }
+
+            for (result in remindersList) {
+
+                if (result != null) {
+                    setAlarm(result)
+                }
+            }
+        }
+    }
+
+    private fun loadingUiState() {
+        mBinding.apply {
+            recyclerViewReminders.isVisible = false
+            progressbarLoading.isVisible = true
+            textViewNoReminders.isVisible = false
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.M)
     private fun setAlarm(reminder: Reminder) {
         val intent = Intent(requireContext(), AlertReceiver::class.java)
         intent.putExtra("reminder", reminder)
         val pendingIntent = reminder.id.take(5).let {
-                PendingIntent.getBroadcast(
-                    requireContext(), it.toInt(), intent, PendingIntent.FLAG_IMMUTABLE
-                )
-            }
+            PendingIntent.getBroadcast(
+                requireContext(), it.toInt(), intent, PendingIntent.FLAG_IMMUTABLE
+            )
+        }
 
         reminder.timeStamp?.let {
             (activity?.getSystemService(Context.ALARM_SERVICE) as AlarmManager?)?.setExact(
@@ -194,10 +212,10 @@ class RemindersFragment : Fragment(), OnItemClick {
         val alarmManager = activity?.getSystemService(Context.ALARM_SERVICE) as AlarmManager?
         val intent = Intent(requireContext(), AlertReceiver::class.java)
         val pendingIntent = reminder.id.take(5).let {
-                PendingIntent.getBroadcast(
-                    requireContext(), it.toInt(), intent, PendingIntent.FLAG_IMMUTABLE
-                )
-            }
+            PendingIntent.getBroadcast(
+                requireContext(), it.toInt(), intent, PendingIntent.FLAG_IMMUTABLE
+            )
+        }
 
         if (alarmManager != null) {
             alarmManager.cancel(pendingIntent)
