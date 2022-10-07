@@ -28,6 +28,9 @@ import com.ledgero.reminders.reminders.data.Reminder
 import com.ledgero.utils.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import com.ledgero.reminders.ui.reminders.ReminderUiEvents.*
+import com.ledgero.reminders.ui.reminders.RemindersUiState.*
+import com.ledgero.reminders.ui.reminders.RemindersFragmentDirections as Nav
 
 
 private const val TAG = "ReminderFragment"
@@ -103,10 +106,11 @@ class RemindersFragment : Fragment(), OnItemClick {
     @RequiresApi(Build.VERSION_CODES.M)
     private fun reactOnUiEvents(event: ReminderUiEvents) {
         when (event) {
-            is ReminderUiEvents.NavigateToAddReminderScreen -> navigateToAddReminderScreen()
-            is ReminderUiEvents.NavigateToEditReminderScreen -> navigateToEditReminderScreen(event.reminder)
-            is ReminderUiEvents.ShowSaveReminderResult -> showSaveReminderResult(event.result)
-            is ReminderUiEvents.ShowUndoDeleteReminderMessage -> showUndoDeleteReminderMessage(event.reminder)
+            //ReminderUiEvents.kt has been statically imported
+            is NavigateToAddReminderScreen -> navigateToAddReminderScreen()
+            is NavigateToEditReminderScreen -> navigateToEditReminderScreen(event.reminder)
+            is ShowSaveReminderResult -> showSaveReminderResult(event.result)
+            is ShowUndoDeleteReminderMessage -> showUndoDeleteReminderMessage(event.reminder)
         }
     }
 
@@ -126,7 +130,7 @@ class RemindersFragment : Fragment(), OnItemClick {
 
     private fun navigateToEditReminderScreen(reminder: Reminder) {
         val action =
-            RemindersFragmentDirections.actionRemindersFragmentToAddEditReminderFragment(
+            Nav.actionRemindersFragmentToAddEditReminderFragment(
                 reminder
             )
         findNavController().navigate(action)
@@ -134,17 +138,18 @@ class RemindersFragment : Fragment(), OnItemClick {
 
     private fun navigateToAddReminderScreen() {
         val action =
-            RemindersFragmentDirections.actionRemindersFragmentToAddEditReminderFragment()
+            Nav.actionRemindersFragmentToAddEditReminderFragment()
         findNavController().navigate(action)
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
     private fun updateUiState(event: RemindersUiState) {
         when (event) {
-            is RemindersUiState.Loading -> loadingUiState()
-            is RemindersUiState.Error -> TODO("Not yet implemented")
-            is RemindersUiState.AllReminders -> allRemindersUiState(event.list)
-            is RemindersUiState.Empty -> noRemindersUiState()
+            //ReminderUiState.kt has been statically imported
+            is Loading -> loadingUiState()
+            is Error -> TODO("Not yet implemented")
+            is AllReminders -> allRemindersUiState(event.list)
+            is Empty -> noRemindersUiState()
         }
     }
 
