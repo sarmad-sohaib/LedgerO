@@ -1,20 +1,20 @@
-package com.ledgero.reminders.reminders.data
+package com.ledgero.reminders.data
 
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QuerySnapshot
+import com.ledgero.reminders.reminders.data.ReminderRepository
 import kotlinx.coroutines.channels.awaitClose
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.flow.emptyFlow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
-import javax.inject.Qualifier
 
 private const val TAG = "ReminderRepositoryImpl"
 
-interface ReminderListCallBack {
-    fun callBack(value: List<Reminder>)
-}
 class ReminderRepositoryImpl @Inject constructor() : ReminderRepository {
 
     private val db = FirebaseFirestore.getInstance()
@@ -57,16 +57,29 @@ class ReminderRepositoryImpl @Inject constructor() : ReminderRepository {
 
     override suspend fun getRemindersStream(collectionKey: String): Flow<List<Reminder?>> {
         return if (collectionKey != null) {
-            db.collection(collectionKey).snapshotFlow().map { snapshot ->
-                snapshot.documents.map {
-                    it.toObject(Reminder::class.java)
+            db.collection(collectionKey)
+                .whereEqualTo("complete", false)
+                .snapshotFlow()
+                .map { snapshot ->
+                    snapshot.documents.map {
+                        it.toObject(Reminder::class.java)
+                    }
                 }
-            }
         } else {
             emptyFlow()
         }
     }
 
+    override suspend fun getCompletedRemindersStream(): Flow<List<Reminder?>> {
+        return db.collection(collectionKey)
+            .whereEqualTo("complete", true)
+            .snapshotFlow()
+            .map { snapshot ->
+                snapshot.documents.map {
+                    it.toObject(Reminder::class.java)
+                }
+            }
+    }
 
 
     private fun Query.snapshotFlow(): Flow<QuerySnapshot> = callbackFlow {

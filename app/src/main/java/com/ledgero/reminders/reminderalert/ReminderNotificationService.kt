@@ -10,7 +10,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationCompat.BigTextStyle
 import com.ledgero.R
 import com.ledgero.reminders.RemindersMainActivity
-import com.ledgero.reminders.reminders.data.Reminder
+import com.ledgero.reminders.data.Reminder
 
 class ReminderNotificationService (
     private val context: Context

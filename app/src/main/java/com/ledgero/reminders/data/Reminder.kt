@@ -1,4 +1,4 @@
-package com.ledgero.reminders.reminders.data
+package com.ledgero.reminders.data
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
@@ -11,6 +11,7 @@ data class Reminder(
     val recipient: String? = null,
     val description: String? = null,
     val timeStamp: Long? = 0L,
+    val complete: Boolean? = false,
     val give: Boolean? = false,
     val id: String = String.format("%010d", BigInteger(UUID.randomUUID().toString().replace("-", ""), 16))
 ) : Parcelable

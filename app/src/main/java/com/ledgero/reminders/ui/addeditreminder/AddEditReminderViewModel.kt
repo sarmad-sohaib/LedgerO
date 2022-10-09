@@ -1,11 +1,10 @@
 package com.ledgero.reminders.ui.addeditreminder
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
-import com.ledgero.reminders.reminders.data.Reminder
+import com.ledgero.reminders.data.Reminder
 import com.ledgero.reminders.reminders.data.ReminderRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel

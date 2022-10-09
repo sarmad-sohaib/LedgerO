@@ -69,4 +69,5 @@
     <string name="on">On:</string>
     <string name="give">Give</string>
     <string name="no_reminders">No Reminders :)</string>
+    <string name="completed_reminders">Completed Reminders</string>
 </resources>

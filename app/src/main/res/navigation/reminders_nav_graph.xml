@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_remindersFragment_to_addEditReminderFragment"
             app:destination="@id/addEditReminderFragment" />
+        <action
+            android:id="@+id/action_remindersFragment_to_completedRemindersFragment"
+            app:destination="@id/completedRemindersFragment" />
     </fragment>
     <fragment
         android:id="@+id/addEditReminderFragment"
@@ -21,11 +24,13 @@
         tools:layout="@layout/fragment_add_edit_reminder" >
         <argument
             android:name="reminder"
-            app:argType="com.ledgero.reminders.reminders.data.Reminder"
+            app:argType="com.ledgero.reminders.data.Reminder"
             app:nullable="true"
             android:defaultValue="@null" />
-        <action
-            android:id="@+id/action_addEditReminderFragment_to_remindersFragment"
-            app:destination="@id/remindersFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/completedRemindersFragment"
+        android:name="com.ledgero.reminders.ui.completedreminders.CompletedRemindersFragment"
+        android:label="fragment_completed_reminders"
+        tools:layout="@layout/fragment_completed_reminders" />
 </navigation>

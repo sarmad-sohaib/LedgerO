@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_toEndOf="@id/checkBox_reminderIsComplete"
         android:fontFamily="@font/ropa_sans_regular"
         android:text="@string/description"
         android:textColor="@color/black"
@@ -20,6 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/on"
+        android:layout_toEndOf="@id/checkBox_reminderIsComplete"
         android:layout_marginStart="8dp"
         android:layout_below="@id/textView_reminderStatus"/>
 
@@ -52,6 +54,7 @@
         android:id="@+id/textView_reminderStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/checkBox_reminderIsComplete"
         android:layout_below="@id/textView_reminderDescription"
         android:layout_marginStart="8dp"
         android:gravity="end"
@@ -65,5 +68,13 @@
         android:layout_below="@id/textView_reminderDescription"
         android:layout_toEndOf="@id/textView_reminderStatus"
         android:layout_marginStart="2dp"/>
+
+    <CheckBox
+        android:id="@+id/checkBox_reminderIsComplete"
+        android:layout_width="wrap_content"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:layout_centerVertical="true"
+        android:layout_height="wrap_content"/>
 
 </RelativeLayout>

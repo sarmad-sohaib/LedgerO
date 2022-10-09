@@ -4,8 +4,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import com.ledgero.reminders.reminders.data.Reminder
-import com.ledgero.reminders.reminderalert.ReminderNotificationService
+import com.ledgero.reminders.data.Reminder
 
 private const val TAG = "AlertReceiver"
 

@@ -6,10 +6,11 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.util.Log
+import android.view.*
 import androidx.annotation.RequiresApi
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
@@ -22,15 +23,16 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
+import com.ledgero.R
 import com.ledgero.databinding.FragmentRemindersBinding
 import com.ledgero.reminders.reminderalert.AlertReceiver
-import com.ledgero.reminders.reminders.data.Reminder
+import com.ledgero.reminders.data.Reminder
 import com.ledgero.utils.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import com.ledgero.reminders.ui.reminders.ReminderUiEvents.*
 import com.ledgero.reminders.ui.reminders.RemindersUiState.*
-import com.ledgero.reminders.ui.reminders.RemindersFragmentDirections as Nav
+import com.ledgero.reminders.ui.reminders.RemindersFragmentDirections as RemindersNav
 
 
 private const val TAG = "ReminderFragment"
@@ -48,6 +50,7 @@ class RemindersFragment : Fragment(), OnItemClick {
     ): View {
 
         mBinding = FragmentRemindersBinding.inflate(layoutInflater)
+        val menuHost = requireActivity() as MenuHost
 
         mBinding.apply {
             recyclerViewReminders.adapter = mAdapter
@@ -57,6 +60,24 @@ class RemindersFragment : Fragment(), OnItemClick {
                 mViewModel.addNewReminderClicked()
             }
 
+            //inflating options menu
+            menuHost.addMenuProvider(object : MenuProvider {
+                override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                    menuInflater.inflate(R.menu.reminders_fragment_menu, menu)
+                }
+
+                override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                    return when (menuItem.itemId) {
+                        R.id.menuItem_completedReminders -> {
+                            mViewModel.showCompletedRemindersClicked()
+                            return true
+                        }
+                        else -> false
+                    }
+                }
+            }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+
+            //creating delete reminder on swipe
             ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
                 0, ItemTouchHelper.RIGHT or ItemTouchHelper.LEFT
             ) {
@@ -111,7 +132,19 @@ class RemindersFragment : Fragment(), OnItemClick {
             is NavigateToEditReminderScreen -> navigateToEditReminderScreen(event.reminder)
             is ShowSaveReminderResult -> showSaveReminderResult(event.result)
             is ShowUndoDeleteReminderMessage -> showUndoDeleteReminderMessage(event.reminder)
+            is CompleteReminder -> updateCompletedReminder(event.reminder, event.checkboxValue)
+            is NavigateToCompletedRemindersScreen -> navigateToCompletedRemindersScreen()
         }
+    }
+
+    private fun navigateToCompletedRemindersScreen() {
+        val action = RemindersNav.actionRemindersFragmentToCompletedRemindersFragment()
+        findNavController().navigate(action)
+    }
+
+    private fun updateCompletedReminder(reminder: Reminder, checkboxValue: Boolean) {
+        Log.i(TAG, "onReminderCompleteCheckBoxClick: $reminder")
+        mViewModel.updateReminder(reminder, checkboxValue)
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
@@ -130,7 +163,7 @@ class RemindersFragment : Fragment(), OnItemClick {
 
     private fun navigateToEditReminderScreen(reminder: Reminder) {
         val action =
-            Nav.actionRemindersFragmentToAddEditReminderFragment(
+            RemindersNav.actionRemindersFragmentToAddEditReminderFragment(
                 reminder
             )
         findNavController().navigate(action)
@@ -138,7 +171,7 @@ class RemindersFragment : Fragment(), OnItemClick {
 
     private fun navigateToAddReminderScreen() {
         val action =
-            Nav.actionRemindersFragmentToAddEditReminderFragment()
+            RemindersNav.actionRemindersFragmentToAddEditReminderFragment()
         findNavController().navigate(action)
     }
 
@@ -178,8 +211,7 @@ class RemindersFragment : Fragment(), OnItemClick {
             }
 
             for (result in remindersList) {
-
-                if (result != null) {
+                if (result != null && result.timeStamp!! > System.currentTimeMillis()) {
                     setAlarm(result)
                 }
             }
@@ -231,4 +263,10 @@ class RemindersFragment : Fragment(), OnItemClick {
     override fun onReminderClick(reminder: Reminder) {
         mViewModel.onReminderClicked(reminder)
     }
+
+    override fun onReminderCompleteCheckBoxClick(reminder: Reminder, checkboxValue: Boolean) {
+        mViewModel.checkBoxCompleteReminderChanged(reminder, checkboxValue)
+        Log.i(TAG, "onReminderCompleteCheckBoxClick: $checkboxValue")
+    }
+
 }
