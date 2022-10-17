@@ -2,6 +2,7 @@ package com.ledgero.DataClasses
 
 import android.os.Parcelable
 import com.google.firebase.database.ServerValue
+import com.ledgero.other.Constants.NO_REQUEST_REQUEST_MODE
 import kotlinx.android.parcel.Parcelize
 import kotlinx.android.parcel.RawValue
 import java.util.*
@@ -15,7 +16,7 @@ data class Entries(
     var isApproved: Boolean?=false,
     var entryMadeBy_userID: String?=null,
     var entryUID: String?=null,
-    var requestMode:Int?=0,  //1->addRequest , 2->deleteRequest ,3->editRequest 0=nothing
+    var requestMode:Int?=NO_REQUEST_REQUEST_MODE,  //1->addRequest , 2->deleteRequest ,3->editRequest 0=nothing
     var hasVoiceNote: Boolean?=false,
     var voiceNote: VoiceNote?=null,
     var originally_addedByUID:String?=null //we will use this to calculate amount when this entry has to be deleted from approved ledger

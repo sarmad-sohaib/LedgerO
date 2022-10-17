@@ -10,9 +10,11 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.ledgero.DataClasses.Entries
 import com.ledgero.DataClasses.SingleLedgers
+import com.ledgero.DataClasses.User
 import com.ledgero.MainActivity
 import com.ledgero.R
 import com.ledgero.fragments.ViewEntryInfoScreen
+import com.ledgero.other.Constants.GAVE_ENTRY_FLAG
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -44,15 +46,39 @@ class RecyclerAdapter_SingleLedger (context: Context, entires: ArrayList<Entries
         holder.timeStamp.text = date.toString()
 
         holder.amount.text= entries!!.get(position).amount.toString()
-        if (entries!!.get(position).give_take_flag!!){
-            holder.modeFlag.text= "You Get"
-            holder.amount.setTextColor(Color.parseColor("#166D0E"))
-        }else{
-            holder.modeFlag.text= "You Gave"
 
-            holder.amount.setTextColor(Color.parseColor("#FF1010"))
+        if (entries!!.get(position).originally_addedByUID.equals(User.userID)){
+            if (entries!!.get(position).give_take_flag!! == GAVE_ENTRY_FLAG){
+                holder.modeFlag.text= "You Gave"
+                holder.amount.setTextColor(Color.parseColor("#FF1010"))
+            }else{
+                holder.modeFlag.text= "You Got"
+
+                holder.amount.setTextColor(Color.parseColor("#166D0E"))
+
+            }
+
+
+        }else{
+
+            if (entries!!.get(position).give_take_flag!! == GAVE_ENTRY_FLAG){
+                holder.modeFlag.text= "You Got"
+
+                holder.amount.setTextColor(Color.parseColor("#166D0E"))
+
+            }else{
+                holder.modeFlag.text= "You Gave"
+                holder.amount.setTextColor(Color.parseColor("#FF1010"))
+
+
+
+            }
 
         }
+
+
+
+
     }
 
     override fun getItemCount(): Int {

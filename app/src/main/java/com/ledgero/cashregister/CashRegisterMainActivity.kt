@@ -10,7 +10,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.ledgero.R
 import dagger.hilt.android.AndroidEntryPoint
 
-const val ADD_ENTRY_RESULT = Activity.RESULT_FIRST_USER
+const val  ADD_ENTRY_RESULT = Activity.RESULT_FIRST_USER
 const val EDIT_ENTRY_RESULT = Activity.RESULT_FIRST_USER + 1
 
 @AndroidEntryPoint

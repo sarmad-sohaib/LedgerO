@@ -18,6 +18,7 @@ import com.ledgero.DataClasses.Entries
 import com.ledgero.DataClasses.User
 import com.ledgero.MainActivity
 import com.ledgero.UtillClasses.Utill_SingleLedgerMetaData
+import com.ledgero.other.Constants.NO_REQUEST_REQUEST_MODE
 import java.io.File
 
 class UnApproveEntriesDAO(private val ledgerUID: String) {
@@ -112,7 +113,7 @@ class UnApproveEntriesDAO(private val ledgerUID: String) {
 
         var entry = unApprovedentriesData.get(pos)
         entry.isApproved=true
-        entry.requestMode=0
+        entry.requestMode=NO_REQUEST_REQUEST_MODE
         var key= entry.entryUID.toString()
         addEntryInLedger(key,entry)
 

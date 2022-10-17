@@ -83,7 +83,14 @@ class ViewEntryInfoScreen(val entry:Entries,val ledgerUID:String) : Fragment() {
 
 
 
+        view.bt_edit_view_entry.setOnClickListener(){
 
+            var frag = EditEntrySingleScreen(ledgerUID,entry)
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fl_fragment_container_main,frag)
+                .addToBackStack(null)
+                .commit()
+        }
 
 
 

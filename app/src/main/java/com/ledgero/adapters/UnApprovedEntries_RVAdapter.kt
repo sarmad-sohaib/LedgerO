@@ -16,6 +16,10 @@ import com.ledgero.DataClasses.SingleLedgers
 import com.ledgero.DataClasses.User
 import com.ledgero.R
 import com.ledgero.ViewModels.UnApprovedEntriesViewModel
+import com.ledgero.other.Constants
+import com.ledgero.other.Constants.ADD_REQUEST_REQUEST_MODE
+import com.ledgero.other.Constants.DELETE_REQUEST_REQUEST_MODE
+import com.ledgero.other.Constants.EDIT_REQUEST_REQUEST_MODE
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -52,15 +56,35 @@ class UnApprovedEntries_RVAdapter(context: Context, entries: ArrayList<Entries>?
         holder.entryName.text= entry.entry_title
         holder.entryTimeStamp.text= Date( entry.entry_timeStamp!!).toString()
         holder.entryMoney.text= entry.amount.toString()
-        if (entry.give_take_flag!!){
-            holder.giveTaleFlag.text= "You Get"
-            holder.giveTaleFlag.setTextColor(Color.parseColor("#166D0E"))
-            holder.entryMoney.setTextColor(Color.parseColor("#166D0E"))
+        if (entry.originally_addedByUID.equals(User.userID)){
+            if (entry.give_take_flag!! == Constants.GAVE_ENTRY_FLAG){
+                holder.giveGetFlag.text= "You Gave"
+                holder.entryMoney.setTextColor(Color.parseColor("#FF1010"))
+            }else{
+                holder.giveGetFlag.text= "You Got"
+
+                holder.entryMoney.setTextColor(Color.parseColor("#166D0E"))
+
+            }
+
+
         }else{
-            holder.giveTaleFlag.text= "You Gave"
-            holder.giveTaleFlag.setTextColor(Color.parseColor("#FF1010"))
-            holder.entryMoney.setTextColor(Color.parseColor("#FF1010"))
+
+            if (entry.give_take_flag!! == Constants.GAVE_ENTRY_FLAG){
+                holder.giveGetFlag.text= "You Got"
+
+                holder.entryMoney.setTextColor(Color.parseColor("#166D0E"))
+
+            }else{
+                holder.giveGetFlag.text= "You Gave"
+                holder.entryMoney.setTextColor(Color.parseColor("#FF1010"))
+
+
+
+            }
+
         }
+
 
         if (entry.entryMadeBy_userID.equals(User.userID)){
           holder.requester_buttonLayout.visibility=View.VISIBLE
@@ -72,7 +96,7 @@ class UnApprovedEntries_RVAdapter(context: Context, entries: ArrayList<Entries>?
         }
 
 
-        if (entry.requestMode==2)//means user requested to add this entry
+        if (entry.requestMode== DELETE_REQUEST_REQUEST_MODE)//means user requested to delete this entry
         {
             holder.mainLayout.setBackgroundColor(Color.parseColor("#FFCCCB"))
         }
@@ -96,7 +120,7 @@ class UnApprovedEntries_RVAdapter(context: Context, entries: ArrayList<Entries>?
         var waitBtn_requester: Button
         var deleteBtn_requester: Button
 
-        var giveTaleFlag: TextView
+        var giveGetFlag: TextView
         var entryUID: String=""
         var mainLayout: ConstraintLayout
 
@@ -104,7 +128,7 @@ class UnApprovedEntries_RVAdapter(context: Context, entries: ArrayList<Entries>?
             entryName= itemView.findViewById(R.id.entry_title_tv_unApprovedEntries)
             entryTimeStamp= itemView.findViewById(R.id.entry_timeStamp_tv_unApprovedEntries)
             entryMoney= itemView.findViewById(R.id.entry_amount_tv_unApprovedEntries)
-            giveTaleFlag = itemView.findViewById(R.id.entry_modeFlag_tv_unApprovedEntries)
+            giveGetFlag = itemView.findViewById(R.id.entry_modeFlag_tv_unApprovedEntries)
             mainLayout= itemView.findViewById(R.id.main_layout_unapprovedEntries)
             receiver_buttonLayout= itemView.findViewById(R.id.buttons_layout_receiver_unapprovedEntries)
             acceptBtn_receiver= itemView.findViewById(R.id.bt_accept_receiver_unapprovedentries)
@@ -133,14 +157,18 @@ class UnApprovedEntries_RVAdapter(context: Context, entries: ArrayList<Entries>?
             acceptBtn_receiver.setOnClickListener(){
 
                 // means reciver has accepted the request made by requester
-                if (unApprovedEntries!!.get(adapterPosition).requestMode==1)//request to add entry
+                 if (unApprovedEntries!!.get(adapterPosition).requestMode==ADD_REQUEST_REQUEST_MODE)//request to add entry
                 {
                     viewModel.approveEntry(adapterPosition)
 
                 }
-                if (unApprovedEntries!!.get(adapterPosition).requestMode==2){//request to Delete entry
+                if (unApprovedEntries!!.get(adapterPosition).requestMode== DELETE_REQUEST_REQUEST_MODE){//request to Delete entry
                     //means reciever accepted to delete a entry from ledger
                     viewModel.deleteEntryFromLedgerRequest_accepted(adapterPosition)
+                }
+                if (unApprovedEntries!!.get(adapterPosition).requestMode== EDIT_REQUEST_REQUEST_MODE){
+
+                    viewModel.updateEntryApproved_withoutVoiceUpdate(adapterPosition)
                 }
             }
 

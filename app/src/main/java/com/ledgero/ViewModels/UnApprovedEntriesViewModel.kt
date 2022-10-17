@@ -2,10 +2,13 @@ package com.ledgero.ViewModels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.ledgero.DataClasses.Entries
 import com.ledgero.Repositories.IndividualScreenRepo
 import com.ledgero.Repositories.UnApprovedEntriesRepo
 import com.ledgero.UtillClasses.Utill_SingleLedgerMetaData
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class UnApprovedEntriesViewModel(private val unApprovedEntriesRepo: UnApprovedEntriesRepo,ledgerUID:String) : ViewModel() {
 
@@ -104,4 +107,25 @@ class UnApprovedEntriesViewModel(private val unApprovedEntriesRepo: UnApprovedEn
         ledgerMetaDataUtill.updateTotalAmount_approvedEntryDeleted(entry)
 
     }
+
+
+    // edit request functions
+ fun updateEntryApproved_withoutVoiceUpdate(pos:Int){
+        //1st- delete this entry from approved list
+        //2nd- Add this new entry as updated
+        //3rd- update ledger meta data
+
+     var job=   viewModelScope.launch(Dispatchers.IO) {
+            deleteEntryFromLedgerRequest_accepted(pos)
+        }
+
+viewModelScope.launch(Dispatchers.IO) {
+    job.join()
+
+    unApprovedEntriesRepo.approveEntry(pos)
+    updateLedgerMetaData(allUnApprovedEntries.value!!.get(pos))
+
+}
+
+ }
 }
