@@ -19,6 +19,7 @@ import com.ledgero.DataClasses.User
 import com.ledgero.MainActivity
 import com.ledgero.UtillClasses.Utill_SingleLedgerMetaData
 import com.ledgero.other.Constants.NO_REQUEST_REQUEST_MODE
+import kotlinx.coroutines.tasks.await
 import java.io.File
 
 class UnApproveEntriesDAO(private val ledgerUID: String) {
@@ -102,6 +103,23 @@ class UnApproveEntriesDAO(private val ledgerUID: String) {
             if (it.isSuccessful){
                 Log.d(TAG, "DelteEntry: Deleted Successfully From Ledger!!")
                 deleteEntryFromUnApproved(key)
+                checkAndDeleteFromCanceledEntries(key)
+            }
+        }
+    }
+    fun deleteEntry_Approved(entryToBeDeleted: Entries){
+        //first delete it from ledgers then from requestedEntries
+        //then check if its in canceled of any user
+        //delete it from there too
+        var entry= entryToBeDeleted
+        var key= entry.entryUID.toString()
+        entry.requestMode=0
+
+
+        db_reference.child("ledgerEntries").child(ledgerUID).child(key).removeValue().addOnCompleteListener()
+        {
+            if (it.isSuccessful){
+                Log.d(TAG, "DelteEntry: Deleted Successfully From Ledger!!")
                 checkAndDeleteFromCanceledEntries(key)
             }
         }
@@ -257,5 +275,28 @@ class UnApproveEntriesDAO(private val ledgerUID: String) {
 
     }
 
+   suspend fun DeleteEntry_EditEntry_withVoice(entry:Entries) {
+        var file = Uri.fromFile(File(entry.voiceNote!!.localPath))
+
+       var key=""
+        storage_reference.child("voiceNotes").child(ledgerUID).child(entry.entryUID.toString())
+            .child("${file.lastPathSegment}").delete().addOnCompleteListener(){
+                if (it.isSuccessful){
+                    Log.d(TAG, "deleteVoiceFromFirebaseStorage: Voice Deleted From Firebase Storage")
+                    //so now we have deleted voice from device and firestorage too
+                    //now we can delete the entry
+
+                 key  = entry.entryUID.toString()
+
+                }else{
+                    Log.d(TAG, "deleteVoiceFromFirebaseStorage: Cannot Delete Voice From Firebase Storage. ${it.exception.toString()}")
+                }
+            }.await()
+       db_reference.child("ledgerEntries").child(ledgerUID).child(key).removeValue().addOnCompleteListener()
+       { if (it.isSuccessful){   Log.d(TAG, "DelteEntry: Deleted Successfully From Ledger!!") } }.await()
+       checkAndDeleteFromCanceledEntries(key)
+
+
+   }
 
 }

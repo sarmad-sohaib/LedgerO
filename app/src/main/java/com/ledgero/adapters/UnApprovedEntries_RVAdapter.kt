@@ -20,6 +20,9 @@ import com.ledgero.other.Constants
 import com.ledgero.other.Constants.ADD_REQUEST_REQUEST_MODE
 import com.ledgero.other.Constants.DELETE_REQUEST_REQUEST_MODE
 import com.ledgero.other.Constants.EDIT_REQUEST_REQUEST_MODE
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -168,7 +171,28 @@ class UnApprovedEntries_RVAdapter(context: Context, entries: ArrayList<Entries>?
                 }
                 if (unApprovedEntries!!.get(adapterPosition).requestMode== EDIT_REQUEST_REQUEST_MODE){
 
-                    viewModel.updateEntryApproved_withoutVoiceUpdate(adapterPosition)
+                    var oldentry= Entries();
+
+                    for (i in User.getUserSingleLedgers()!!){
+                        if (i.ledgerUID!!.equals(viewModel.mledgerUID)){
+                            for (j in i.entries!!){
+                                if (unApprovedEntries!!.get(adapterPosition).entryUID!!.equals(j.entryUID)){
+                                    oldentry=j;
+                                }
+                            }
+                        }
+                    } // accessing entry to be deleted from ledger approved entries
+
+             var job=       GlobalScope.launch(Dispatchers.IO) {
+                        viewModel.deleteEntryFromLedgerRequest_EditEntryaccepted(oldentry)
+                    }
+                  GlobalScope.launch(Dispatchers.IO) {
+job.join()
+                      viewModel.approveEntry(adapterPosition)
+
+                  }
+
+                    //viewModel.updateEntryApproved_withoutVoiceUpdate(adapterPosition)
                 }
             }
 

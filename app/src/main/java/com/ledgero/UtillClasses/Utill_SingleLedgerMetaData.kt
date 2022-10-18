@@ -205,7 +205,7 @@ class Utill_SingleLedgerMetaData(var ledgerUID:String) {
                     calculateAmount(totalAmout,
                         giveTakeFlag,
                         totalEntreis,
-                        entry.entryMadeBy_userID,ledgerCreatedBy)
+                        entry.originally_addedByUID,ledgerCreatedBy)
 
                 }
             }

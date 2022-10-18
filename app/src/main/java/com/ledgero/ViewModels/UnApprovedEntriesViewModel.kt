@@ -10,9 +10,10 @@ import com.ledgero.UtillClasses.Utill_SingleLedgerMetaData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class UnApprovedEntriesViewModel(private val unApprovedEntriesRepo: UnApprovedEntriesRepo,ledgerUID:String) : ViewModel() {
+class UnApprovedEntriesViewModel( val unApprovedEntriesRepo: UnApprovedEntriesRepo,ledgerUID:String) : ViewModel() {
 
     var allUnApprovedEntries: LiveData<ArrayList<Entries>>
+    var mledgerUID=ledgerUID
 
     private var ledgerMetaDataUtill= Utill_SingleLedgerMetaData(ledgerUID)
 
@@ -47,9 +48,10 @@ class UnApprovedEntriesViewModel(private val unApprovedEntriesRepo: UnApprovedEn
         // we don't need to check if entry has voice not while approving the adding a new entry
         // because we will be downloading voice if not present in device when user
         // open each entry for edit/review
+        updateLedgerMetaData(allUnApprovedEntries.value!!.get(pos))
+
         unApprovedEntriesRepo.approveEntry(pos)
 
-        updateLedgerMetaData(allUnApprovedEntries.value!!.get(pos))
 
     }
 
@@ -61,12 +63,34 @@ class UnApprovedEntriesViewModel(private val unApprovedEntriesRepo: UnApprovedEn
         if(entry.hasVoiceNote!!){
             unApprovedEntriesRepo.acceptDeleteEntryRequestFromApprovedEntries_withVoice(entry)
         }else{
+
+
+            updateLedgerMetaDataAfterEntryDelete(allUnApprovedEntries.value!!.get(pos))
             unApprovedEntriesRepo.deleteEntry(pos)
         }
 
-        updateLedgerMetaDataAfterEntryDelete(allUnApprovedEntries.value!!.get(pos))
 
     }
+
+    //this function will be called when receiver has accepted the request to Edit a entry from ledger
+    //so first we need to delete the old entry
+    suspend fun deleteEntryFromLedgerRequest_EditEntryaccepted(oldentry: Entries){
+        //check if entry to be delete has voice not or not
+        var entry = oldentry
+
+        if(entry.hasVoiceNote!!){
+            unApprovedEntriesRepo.deleteEntry_EditEntry_withVoice(entry)
+        }else{
+
+
+            updateLedgerMetaDataAfterEntryDelete_EditEntry(oldentry)
+            unApprovedEntriesRepo.deleteEntryToReplaceNewEditiedEntry(oldentry)
+        }
+
+
+    }
+
+
 
     //this will be called when receiver has rejected the requester entry add/del request
     fun rejectEntry(pos:Int){
@@ -104,6 +128,10 @@ class UnApprovedEntriesViewModel(private val unApprovedEntriesRepo: UnApprovedEn
 
     }
     fun updateLedgerMetaDataAfterEntryDelete(entry: Entries){
+        ledgerMetaDataUtill.updateTotalAmount_approvedEntryDeleted(entry)
+
+    }
+  suspend  fun updateLedgerMetaDataAfterEntryDelete_EditEntry(entry: Entries){
         ledgerMetaDataUtill.updateTotalAmount_approvedEntryDeleted(entry)
 
     }
