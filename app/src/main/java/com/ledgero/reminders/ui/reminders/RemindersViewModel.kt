@@ -7,7 +7,6 @@ import com.ledgero.reminders.data.Reminder
 import com.ledgero.reminders.reminders.data.ReminderRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -28,6 +27,7 @@ sealed class ReminderUiEvents {
     data class ShowSaveReminderResult(val result: String) : ReminderUiEvents()
     data class ShowUndoDeleteReminderMessage(val reminder: Reminder) : ReminderUiEvents()
     data class CompleteReminder(val reminder: Reminder, val checkboxValue: Boolean) : ReminderUiEvents()
+    data class ShowReminderCompleteMessage(val msg: String) : ReminderUiEvents()
 }
 
 @HiltViewModel
@@ -101,5 +101,10 @@ class RemindersViewModel @Inject constructor(
 
     fun showCompletedRemindersClicked() = viewModelScope.launch {
         _uiEvent.send(ReminderUiEvents.NavigateToCompletedRemindersScreen)
+    }
+
+    fun completeReminderClicked() = viewModelScope.launch {
+        val msg = "Reminder is completed!!"
+        _uiEvent.send(ReminderUiEvents.ShowReminderCompleteMessage(msg))
     }
 }

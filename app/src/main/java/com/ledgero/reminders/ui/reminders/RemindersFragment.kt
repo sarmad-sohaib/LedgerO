@@ -50,6 +50,7 @@ class RemindersFragment : Fragment(), OnItemClick {
     ): View {
 
         mBinding = FragmentRemindersBinding.inflate(layoutInflater)
+
         val menuHost = requireActivity() as MenuHost
 
         mBinding.apply {
@@ -134,7 +135,12 @@ class RemindersFragment : Fragment(), OnItemClick {
             is ShowUndoDeleteReminderMessage -> showUndoDeleteReminderMessage(event.reminder)
             is CompleteReminder -> updateCompletedReminder(event.reminder, event.checkboxValue)
             is NavigateToCompletedRemindersScreen -> navigateToCompletedRemindersScreen()
+            is ShowReminderCompleteMessage -> showCompleteReminderMessage(event.msg)
         }
+    }
+
+    private fun showCompleteReminderMessage(msg: String) {
+        view?.showSnackBar(msg)
     }
 
     private fun navigateToCompletedRemindersScreen() {
@@ -145,6 +151,7 @@ class RemindersFragment : Fragment(), OnItemClick {
     private fun updateCompletedReminder(reminder: Reminder, checkboxValue: Boolean) {
         Log.i(TAG, "onReminderCompleteCheckBoxClick: $reminder")
         mViewModel.updateReminder(reminder, checkboxValue)
+        mViewModel.completeReminderClicked()
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
