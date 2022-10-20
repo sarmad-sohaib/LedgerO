@@ -1,7 +1,9 @@
 package com.ledgero.adapters
 
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +14,6 @@ import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.ledgero.DataClasses.Entries
-import com.ledgero.DataClasses.SingleLedgers
 import com.ledgero.DataClasses.User
 import com.ledgero.R
 import com.ledgero.ViewModels.UnApprovedEntriesViewModel
@@ -23,6 +24,7 @@ import com.ledgero.other.Constants.EDIT_REQUEST_REQUEST_MODE
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -33,6 +35,8 @@ class UnApprovedEntries_RVAdapter(context: Context, entries: ArrayList<Entries>?
     var context: Context
     var unApprovedEntries: ArrayList<Entries>?
     var viewModel=viewModel
+
+    var TAG = "UnApprovedEntries_RVAdapter"
 
     init {
         this.context= context
@@ -172,27 +176,20 @@ class UnApprovedEntries_RVAdapter(context: Context, entries: ArrayList<Entries>?
                 if (unApprovedEntries!!.get(adapterPosition).requestMode== EDIT_REQUEST_REQUEST_MODE){
 
                     var oldentry= Entries();
+                    var newEntry= unApprovedEntries!!.get(adapterPosition)
 
-                    for (i in User.getUserSingleLedgers()!!){
-                        if (i.ledgerUID!!.equals(viewModel.mledgerUID)){
-                            for (j in i.entries!!){
-                                if (unApprovedEntries!!.get(adapterPosition).entryUID!!.equals(j.entryUID)){
-                                    oldentry=j;
+                    for (currentLedger in User.getUserSingleLedgers()!!){
+                        if (currentLedger.ledgerUID!!.equals(viewModel.mledgerUID)){
+                            for (entry in currentLedger.entries!!){
+                                if (unApprovedEntries!!.get(adapterPosition).entryUID!!.equals(entry.entryUID)){
+                                    oldentry=entry;
                                 }
                             }
                         }
                     } // accessing entry to be deleted from ledger approved entries
 
-             var job=       GlobalScope.launch(Dispatchers.IO) {
-                        viewModel.deleteEntryFromLedgerRequest_EditEntryaccepted(oldentry)
-                    }
-                  GlobalScope.launch(Dispatchers.IO) {
-job.join()
-                      viewModel.approveEntry(adapterPosition)
+                    viewModel.EditEntryaccepted(oldentry,newEntry)
 
-                  }
-
-                    //viewModel.updateEntryApproved_withoutVoiceUpdate(adapterPosition)
                 }
             }
 

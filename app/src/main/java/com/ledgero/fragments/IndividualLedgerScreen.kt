@@ -380,7 +380,7 @@ return itemTouchHelper
                 var entry= entries.get(pos)
                 if (entry.requestMode==0){
                     viewModel.deleteEntry(pos)
-                    dialogInterface.dismiss()
+                    dialogInterface.cancel()
                     var frag = UnApprovedEntriesScreen(currentSelectedLedgerUID)
                     parentFragmentManager.beginTransaction()
                         .replace(R.id.fl_fragment_container_main,frag)
@@ -415,7 +415,7 @@ return itemTouchHelper
             .setPositiveButton("Yes Delete it"){dialogInterface,it->
                 //delete entry
 
-                dialogInterface.dismiss()
+
                 rv.adapter!!.notifyDataSetChanged()
             }
             .setNegativeButton("No"){dialogInterface,it->

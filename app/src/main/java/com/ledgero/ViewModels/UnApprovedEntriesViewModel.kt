@@ -1,13 +1,19 @@
 package com.ledgero.ViewModels
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ledgero.DataClasses.Entries
 import com.ledgero.Repositories.IndividualScreenRepo
 import com.ledgero.Repositories.UnApprovedEntriesRepo
+import com.ledgero.UtillClasses.AddEntry_EditEntry
+import com.ledgero.UtillClasses.DeleteEntry_EditEntry
+import com.ledgero.UtillClasses.Utill_LedgerCalculationsAfterEdit
 import com.ledgero.UtillClasses.Utill_SingleLedgerMetaData
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class UnApprovedEntriesViewModel( val unApprovedEntriesRepo: UnApprovedEntriesRepo,ledgerUID:String) : ViewModel() {
@@ -16,6 +22,7 @@ class UnApprovedEntriesViewModel( val unApprovedEntriesRepo: UnApprovedEntriesRe
     var mledgerUID=ledgerUID
 
     private var ledgerMetaDataUtill= Utill_SingleLedgerMetaData(ledgerUID)
+    private var TAG="UnApprovedEntriesViewModel"
 
     init {
         allUnApprovedEntries= getEntriesFromRepo()
@@ -74,21 +81,31 @@ class UnApprovedEntriesViewModel( val unApprovedEntriesRepo: UnApprovedEntriesRe
 
     //this function will be called when receiver has accepted the request to Edit a entry from ledger
     //so first we need to delete the old entry
-    suspend fun deleteEntryFromLedgerRequest_EditEntryaccepted(oldentry: Entries){
+   fun EditEntryaccepted(oldentry: Entries,newEntry: Entries){
         //check if entry to be delete has voice not or not
-        var entry = oldentry
 
-        if(entry.hasVoiceNote!!){
-            unApprovedEntriesRepo.deleteEntry_EditEntry_withVoice(entry)
+        if(oldentry.hasVoiceNote!!){
+            //     unApprovedEntriesRepo.deleteEntry_EditEntry_withVoice(entry)
         }else{
 
 
-            updateLedgerMetaDataAfterEntryDelete_EditEntry(oldentry)
-            unApprovedEntriesRepo.deleteEntryToReplaceNewEditiedEntry(oldentry)
+
+            var isEditied=   CoroutineScope(Dispatchers.Default).async{
+
+
+                  DeleteEntry_EditEntry(mledgerUID,oldentry,newEntry).deleteEntry(oldentry)
+                AddEntry_EditEntry(mledgerUID,oldentry,newEntry).addEditedEntryAsNewEntry(newEntry)
+
+
+
+
+            }
+
         }
 
 
     }
+
 
 
 
@@ -131,29 +148,9 @@ class UnApprovedEntriesViewModel( val unApprovedEntriesRepo: UnApprovedEntriesRe
         ledgerMetaDataUtill.updateTotalAmount_approvedEntryDeleted(entry)
 
     }
-  suspend  fun updateLedgerMetaDataAfterEntryDelete_EditEntry(entry: Entries){
-        ledgerMetaDataUtill.updateTotalAmount_approvedEntryDeleted(entry)
-
-    }
 
 
-    // edit request functions
- fun updateEntryApproved_withoutVoiceUpdate(pos:Int){
-        //1st- delete this entry from approved list
-        //2nd- Add this new entry as updated
-        //3rd- update ledger meta data
 
-     var job=   viewModelScope.launch(Dispatchers.IO) {
-            deleteEntryFromLedgerRequest_accepted(pos)
-        }
 
-viewModelScope.launch(Dispatchers.IO) {
-    job.join()
-
-    unApprovedEntriesRepo.approveEntry(pos)
-    updateLedgerMetaData(allUnApprovedEntries.value!!.get(pos))
-
-}
 
  }
-}
