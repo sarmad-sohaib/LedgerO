@@ -25,7 +25,6 @@ import com.ledgero.DataClasses.SingleLedgers
 import com.ledgero.DataClasses.User
 import com.ledgero.R
 import com.ledgero.Repositories.IndividualScreenRepo
-import com.ledgero.UtillClasses.Utill_SingleLedgerMetaData
 import com.ledgero.ViewModelFactories.IndividualScreenViewModeFactory
 import com.ledgero.ViewModels.IndividualScreenViewModel
 import com.ledgero.adapters.RecyclerAdapter_SingleLedger
@@ -63,7 +62,7 @@ lateinit var entries: ArrayList<Entries>
 
     companion object{
         var adapter: RecyclerView.Adapter<RecyclerAdapter_SingleLedger.MyViewHolder>? = null
-        var instanceObject: IndividualLedgerScreen? =null;
+        var instanceObject: IndividualLedgerScreen? =null
 
     }
     override fun onCreateView(
@@ -175,7 +174,7 @@ lateinit var entries: ArrayList<Entries>
             rv.adapter= adapter
             entries=it
         })
-        gotButton.setOnClickListener(){
+        gotButton.setOnClickListener {
             //1 will inidcate that user clicked got button
           setFragmentResult("addEntryBtn", bundleOf("mode" to GET_ENTRY_FLAG,"ledger" to currentSelectLedger))
            parentFragmentManager
@@ -185,7 +184,7 @@ lateinit var entries: ArrayList<Entries>
                .commit()
 
         }
-        gaveButton.setOnClickListener(){
+        gaveButton.setOnClickListener {
             //0 will indicate that user clicked gave button
             setFragmentResult("addEntryBtn", bundleOf("mode" to GAVE_ENTRY_FLAG,"ledger" to currentSelectLedger))
             parentFragmentManager
@@ -212,7 +211,7 @@ lateinit var entries: ArrayList<Entries>
         }
 
 
-        unApprovedBtn.setOnClickListener(){
+        unApprovedBtn.setOnClickListener {
 
             var frag= UnApprovedEntriesScreen(currentSelectedLedgerUID)
 

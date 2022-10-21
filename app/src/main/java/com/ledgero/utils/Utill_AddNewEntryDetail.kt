@@ -1,4 +1,4 @@
-package com.ledgero.UtillClasses
+package com.ledgero.utils
 
 import android.Manifest
 import android.content.ContextWrapper
@@ -134,7 +134,7 @@ class Utill_AddNewEntryDetail( var EntryDetail: EntryDetailInterface) {
 
             view.btnEquals.setOnClickListener {
          performEqualOperation(addNewEntryDetail)
-                addNewEntryDetail.amountTextTV.setText(addNewEntryDetail.totalAmount.text)
+                addNewEntryDetail.amountTextTV.text = addNewEntryDetail.totalAmount.text
 
             }
 
@@ -252,7 +252,7 @@ class Utill_AddNewEntryDetail( var EntryDetail: EntryDetailInterface) {
                 timer = object: CountDownTimer(60000, 1000) {
                     override fun onTick(millisUntilFinished: Long) {
                        var time= ((millisUntilFinished/1000)-60)* -1
-                        view.setText("$time/60")
+                        view.text = "$time/60"
                     }
 
                     override fun onFinish() {
@@ -293,7 +293,7 @@ class Utill_AddNewEntryDetail( var EntryDetail: EntryDetailInterface) {
 
             mediaPlayer= MediaPlayer()
 
-    mediaPlayer!!.setOnCompletionListener(){
+    mediaPlayer!!.setOnCompletionListener {
     audioPlayBtn.foreground=drawable
     isAudioPlaying=false
     stopPlayingAudio() }
@@ -405,7 +405,7 @@ class Utill_AddNewEntryDetail( var EntryDetail: EntryDetailInterface) {
             return dialog
         }
         fun setUpSeekBar(mSeekBar:SeekBar){
-            mSeekBar.setMax(mediaPlayer!!.duration)
+            mSeekBar.max = mediaPlayer!!.duration
             mSeekBar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
                 override fun onStopTrackingTouch(seekBar: SeekBar) {}
                 override fun onStartTrackingTouch(seekBar: SeekBar) {}
@@ -425,7 +425,7 @@ class Utill_AddNewEntryDetail( var EntryDetail: EntryDetailInterface) {
                     if (mediaPlayer != null) {
                         Log.d("Utill_AddNewEntry", "run: runnable for seekbar")
                         val mCurrentPosition: Int = mediaPlayer!!.currentPosition
-                        mSeekBar.setProgress(mCurrentPosition)
+                        mSeekBar.progress = mCurrentPosition
                         handler.postDelayed(this, 100)
                     }
                 }

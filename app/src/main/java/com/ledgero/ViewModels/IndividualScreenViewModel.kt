@@ -129,24 +129,24 @@ class IndividualScreenViewModel(private val individualScreenRepo: IndividualScre
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
 
                     // create vibrator effect with the constant EFFECT_TICK
-                    vibrationEffect = VibrationEffect.createPredefined(VibrationEffect.EFFECT_TICK);
+                    vibrationEffect = VibrationEffect.createPredefined(VibrationEffect.EFFECT_TICK)
 
                     // it is safe to cancel other vibrations currently taking place
                     vibrator.cancel()
 
-                    vibrator.vibrate(vibrationEffect);
-            }else{
+                    vibrator.vibrate(vibrationEffect)
+                }else{
                 // this type of vibration requires API 26
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O)
             {
 
 
                 // this effect creates the vibration of default amplitude for 1000ms(1 sec)
-                vibrationEffect = VibrationEffect.createOneShot(100, VibrationEffect.DEFAULT_AMPLITUDE);
+                vibrationEffect = VibrationEffect.createOneShot(100, VibrationEffect.DEFAULT_AMPLITUDE)
 
                 // it is safe to cancel other vibrations currently taking place
-                vibrator.cancel();
-                vibrator.vibrate(vibrationEffect);
+                vibrator.cancel()
+                vibrator.vibrate(vibrationEffect)
             }}}
             else -> {
                 // You can directly ask for the permission.

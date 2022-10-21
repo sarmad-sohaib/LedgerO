@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".reminders.ui.addeditreminder.AddEditReminderFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/editText_reminderDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/description"
+            android:autofillHints="no"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/editText_reminderAmount"
+            android:layout_width="match_parent"
+            android:hint="@string/amount"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/editText_reminderDescription"
+            android:autofillHints="no"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/editText_reminderRecipient"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="no"
+            android:inputType="text"
+            android:hint="@string/recipient"
+            android:layout_below="@id/editText_reminderAmount"/>
+
+        <EditText
+            android:id="@+id/editText_reminderTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:hint="Click to set reminder's time"
+            android:clickable="false"
+            android:inputType="datetime"
+            android:layout_below="@id/editText_reminderRecipient"
+            android:autofillHints="no" />
+
+        <RadioGroup
+            android:id="@+id/radioGroup_reminderIsGive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@+id/editText_reminderTime">
+
+            <RadioButton
+                android:id="@+id/radioButton_reminderIsGive"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/give"/>
+
+            <RadioButton
+                android:id="@+id/radioButton_reminderIsTake"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/take"/>
+
+        </RadioGroup>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_saveReminder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_shape"
+            android:backgroundTint="@color/puce"
+            android:textColor="@color/white"
+            android:layout_below="@id/radioGroup_reminderIsGive"
+            android:layout_margin="8dp"
+            android:text="@string/save_reminder"/>
+
+    </RelativeLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

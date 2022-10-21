@@ -29,22 +29,20 @@ class DatabaseUtill {
 
 
 
-    constructor() {
-
-    }
+    constructor()
 
     fun sendLedgerRequestToFriend(friendUID:String,ledger:SingleLedgers,callback: OnUserDetailUpdate){
 
       
       db_reference.child("users").child(friendUID).child("user_single_Ledgers")
-          .get().addOnCompleteListener(){
+          .get().addOnCompleteListener {
               var arrayList:ArrayList<SingleLedgers>
               
               if (it.result.exists()){
                   arrayList= it.result.getValue<ArrayList<SingleLedgers>>()!!
                   arrayList.add(ledger)
                   db_reference.child("users").child(friendUID).child("user_single_Ledgers").setValue(arrayList)
-                      .addOnCompleteListener(){
+                      .addOnCompleteListener {
                           if (it.isSuccessful){
                               Log.d(TAG, "sendLedgerRequestToFriend: accepted")
                               callback.onUserDetailsUpdated(true)
@@ -59,7 +57,7 @@ class DatabaseUtill {
                   var list= ArrayList<SingleLedgers>()
                   list.add(ledger)
                   db_reference.child("users").child(friendUID).child("user_single_Ledgers").setValue(list)
-                      .addOnCompleteListener(){
+                      .addOnCompleteListener {
                           if (it.isSuccessful){
                               Log.d(TAG, "sendLedgerRequestToFriend: Friend Request Accepted ")
 
@@ -90,7 +88,7 @@ class DatabaseUtill {
                         var userName:String="null"
                         var userEmail:String="null"
                         Log.d(TAG, "onDataChange: User with given email fetched")
-                        snapshot.children.forEach(){
+                        snapshot.children.forEach {
                            userUID=it.child("userID").value.toString()
                            userName=it.child("userName").value.toString()
                            userEmail=it.child("userEmail").value.toString()
@@ -195,7 +193,7 @@ var pos= position
             var i = ledgers.get(pos)
             db_reference.child("ledgerInfo")
                 .child(i.ledgerUID!!)
-                .get().addOnCompleteListener(){
+                .get().addOnCompleteListener {
                     if (it.isSuccessful){
                    //     i.ledger_Created_timeStamp= it.result.child("ledger_Created_timeStamp").getValue<Long>()
                         i.ledgerCreatedByUID= it.result.child("ledgerCreatedByUID").value.toString()
@@ -211,7 +209,6 @@ var pos= position
 
     fun updateuserSingleLedgersList(uid:String, callback:OnUpdateUserSingleLedger ){
 
-;
     }
     //when user add a new friend to start ledger, we will call this
     //function after initializing singleLedger object
@@ -235,7 +232,7 @@ var pos= position
 
         var map = getMetaDataMapForLedger(newLedger)
         db_reference.child("ledgerInfo").child(newLedger.ledgerUID.toString()).setValue(map)
-            .addOnCompleteListener() {
+            .addOnCompleteListener {
                 if (it.isSuccessful) {
 
                 // ---Step 2 ---
@@ -245,7 +242,7 @@ var pos= position
                 db_reference.child("ledgerInfo")
                     .child(newLedger.ledgerUID.toString())
                     .child("ledger_Created_timeStamp")
-                    .get().addOnCompleteListener() {
+                    .get().addOnCompleteListener {
 
                         if (it.isSuccessful) {
 
@@ -257,7 +254,7 @@ var pos= position
                         //create new entry field in /ledgersEntries/
                         db_reference.child("users").child(uid).child("user_single_Ledgers")
                             .setValue(newLedgerList)
-                            .addOnCompleteListener() {
+                            .addOnCompleteListener {
                                 if (it.isSuccessful) {
 
                                     //-- Step 4 -- Callback
@@ -310,7 +307,7 @@ var pos= position
         Log.d(TAG, "updateUserTotalLedgerCount: called")
 
         db_reference.child("users").child(uid).child("total_single_ledgers").setValue(User.getUserSingleLedgers()?.size)
-            .addOnCompleteListener(){
+            .addOnCompleteListener {
                 if (it.isSuccessful){
 
                     Log.d(TAG, "updateUserTotalLedgerCount: updated succesfully")
@@ -381,7 +378,7 @@ var pos= position
    }
 
     private fun removeLedgerFromFirebase(newledger: SingleLedgers) {
-        db_reference.child("ledgerEntries").child(newledger.ledgerUID.toString()).setValue(null).addOnCompleteListener(){
+        db_reference.child("ledgerEntries").child(newledger.ledgerUID.toString()).setValue(null).addOnCompleteListener {
             if (it.isSuccessful){
 
                 Log.d(TAG, "removeLedgerFromFirebase: Ledger Deleted")
@@ -396,7 +393,7 @@ var pos= position
     private fun removeLedgerFromFriend(newledger: SingleLedgers) {
 
         db_reference.child("users").child(newledger.friend_userID!!).child("user_single_Ledgers").get()
-            .addOnCompleteListener(){
+            .addOnCompleteListener {
                 if (it.result.exists()){
                     var arrayList= it.result.getValue<ArrayList<SingleLedgers>>()!!
                  for (i in 0 until arrayList.size){
@@ -406,7 +403,7 @@ var pos= position
                  }
 
                     db_reference.child("users").child(newledger.friend_userID!!).child("user_single_Ledgers").setValue(arrayList)
-                        .addOnCompleteListener(){
+                        .addOnCompleteListener {
                             if (it.isSuccessful){
                                 Log.d(TAG, "ledgerFromFriendDeleted: succesfully")
 

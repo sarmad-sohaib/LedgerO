@@ -21,7 +21,3 @@ data class Entries(
     var voiceNote: VoiceNote?=null,
     var originally_addedByUID:String?=null //we will use this to calculate amount when this entry has to be deleted from approved ledger
                    ): Parcelable
-{
-
-
-}

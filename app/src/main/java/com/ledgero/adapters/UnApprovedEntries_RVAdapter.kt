@@ -146,7 +146,7 @@ class UnApprovedEntries_RVAdapter(context: Context, entries: ArrayList<Entries>?
 
 
 
-            deleteBtn_requester.setOnClickListener(){
+            deleteBtn_requester.setOnClickListener {
                 if (unApprovedEntries!!.get(adapterPosition).requestMode==1){//addRequest
                     //means requester don't want receiver to see this entry Addition request in unapproved
                     // so delete the entry from unapproved
@@ -157,11 +157,11 @@ class UnApprovedEntries_RVAdapter(context: Context, entries: ArrayList<Entries>?
                     viewModel.deleteUnApprovedEntryThenUpdateLedgerEntry(adapterPosition)
                 }
             }
-            waitBtn_requester.setOnClickListener(){
+            waitBtn_requester.setOnClickListener {
                 Toast.makeText(context, "Waiting For Approval", Toast.LENGTH_SHORT).show()
             }
 
-            acceptBtn_receiver.setOnClickListener(){
+            acceptBtn_receiver.setOnClickListener {
 
                 // means reciver has accepted the request made by requester
                  if (unApprovedEntries!!.get(adapterPosition).requestMode==ADD_REQUEST_REQUEST_MODE)//request to add entry
@@ -193,7 +193,7 @@ class UnApprovedEntries_RVAdapter(context: Context, entries: ArrayList<Entries>?
                 }
             }
 
-            rejectBtn_receiver.setOnClickListener(){
+            rejectBtn_receiver.setOnClickListener {
                 //means reciver did not accept the entry add/del request made by requester
 
                 viewModel.rejectEntry(adapterPosition)

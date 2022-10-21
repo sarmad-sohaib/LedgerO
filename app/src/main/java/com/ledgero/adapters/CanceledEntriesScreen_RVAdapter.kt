@@ -114,11 +114,11 @@ class CanceledEntriesScreen_RVAdapter (context: Context, entries: ArrayList<Entr
             deleteEntry= itemView.findViewById(R.id.bt_delete_canceledEntries)
 
 
-            requestAgain.setOnClickListener(){
+            requestAgain.setOnClickListener {
                 viewModel.requestAgain(adapterPosition)
             }
 
-            deleteEntry.setOnClickListener(){
+            deleteEntry.setOnClickListener {
 
                 viewModel.deleteEntry(adapterPosition)
             }

@@ -84,7 +84,7 @@ private var TAG="LoginViewModel:"
         var dialog = UtillFunctions.setProgressDialog(context,"Checking Credentials...")
         UtillFunctions.showProgressDialog(dialog)
         auth.signInWithEmailAndPassword(userEmail, userPassword)
-            .addOnCompleteListener() { task ->
+            .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithEmail:success")

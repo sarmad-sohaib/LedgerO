@@ -24,22 +24,6 @@ init {
     this.newEntry=newEntry
 }
 
-//     fun editEntry(oldEntry:Entries,newEntry: Entries){
-//     this.oldEntry= oldEntry
-//        this.newEntry=newEntry
-//
-//     var isEditied=   CoroutineScope(Dispatchers.Default).async{
-//
-//
-//             var isEntryDeleted= async { deleteEntry.deleteEntry(oldEntry) }
-//             if (isEntryDeleted.await()) addEntry.addEditedEntryAsNewEntry(newEntry)
-//             else{ Log.d(TAG, "editEntry: Could Not update meta deta for deleted entry")
-//             false}
-//
-//
-//
-//         }
-//    }
 
 
    protected suspend fun fetchCurrentMetaDataFromFireBase(): DataSnapshot? {

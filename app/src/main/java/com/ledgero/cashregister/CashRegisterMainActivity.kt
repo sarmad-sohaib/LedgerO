@@ -34,5 +34,4 @@ class CashRegisterMainActivity : AppCompatActivity() {
 //                Log.e("Firestore error", exception.toString())
 //            }
     }
-
 }

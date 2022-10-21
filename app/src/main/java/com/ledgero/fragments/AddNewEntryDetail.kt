@@ -25,9 +25,10 @@ import com.ledgero.DataClasses.User
 import com.ledgero.DataClasses.VoiceNote
 import com.ledgero.Interfaces.EntryDetailInterface
 import com.ledgero.R
-import com.ledgero.UtillClasses.Utill_AddNewEntryDetail
 import com.ledgero.other.Constants.GAVE_ENTRY_FLAG
 import com.ledgero.other.Constants.GET_ENTRY_FLAG
+import com.ledgero.utils.Utill_AddNewEntryDetail
+
 import kotlinx.android.synthetic.main.fragment_add_new_entry_detail.view.*
 
 
@@ -88,7 +89,7 @@ import kotlinx.android.synthetic.main.fragment_add_new_entry_detail.view.*
         setCalculatorBtnListeners(view)
 
 
-        view.bt_add_new_entry.setOnClickListener(){
+        view.bt_add_new_entry.setOnClickListener {
 
 
             if(utill.audioRecordUtill.isAudioRecording){
@@ -107,6 +108,7 @@ import kotlinx.android.synthetic.main.fragment_add_new_entry_detail.view.*
                     var des= view.tv_description_view_entry.text.toString()
 
                     var title= if (des.length>16)des.subSequence(0,15).toString() else des.toString()
+
 
                     var flag = if (entryMode== GAVE_ENTRY_FLAG) GAVE_ENTRY_FLAG else GET_ENTRY_FLAG
 
@@ -147,7 +149,7 @@ import kotlinx.android.synthetic.main.fragment_add_new_entry_detail.view.*
 
 
 
-        amountTextTV.setInputType(InputType.TYPE_NULL) // disable soft input
+        amountTextTV.inputType = InputType.TYPE_NULL // disable soft input
 
 
 
@@ -181,11 +183,9 @@ return false
 
         amountTextTV.addTextChangedListener(object :TextWatcher{
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-             ;
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-              ;
             }
 
             override fun afterTextChanged(p0: Editable?) {
@@ -210,7 +210,7 @@ return false
         recordSeekBar= view.seekBar_addNewEntry
 
 
-        recordBtn.setOnClickListener(){
+        recordBtn.setOnClickListener {
             @RequiresApi(Build.VERSION_CODES.S)
             if (utill.audioRecordUtill.isAudioRecording){
 
@@ -259,7 +259,7 @@ return false
         })
 
 
-        audioPlayBtn.setOnClickListener(){
+        audioPlayBtn.setOnClickListener {
 
             if (utill.audioRecordUtill.isAudioPlaying){
                 utill.audioRecordUtill.stopPlayingAudio()
@@ -306,14 +306,9 @@ return false
         utill.audioRecordUtill.stopTimer()
         super.onPause()
     }
-    override fun onStop() {
-
-        super.onStop()
-
-    }
 
 
-    /*Function to calculate the expressions using expression builder library*/
+     /*Function to calculate the expressions using expression builder library*/
 
    override fun evaluateExpression(string: String, clear: Boolean) {
         if(clear) {
@@ -333,6 +328,6 @@ return false
         hintRecordText.visibility= View.GONE
 
         // set audioDuration
-        recordDuartionText.setText(utill.audioRecordUtill.getAudioDuration()+"s")
+        recordDuartionText.text = utill.audioRecordUtill.getAudioDuration()+"s"
     }
 }

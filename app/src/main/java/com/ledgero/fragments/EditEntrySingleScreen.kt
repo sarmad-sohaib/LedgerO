@@ -29,7 +29,7 @@ import com.ledgero.Interfaces.EntryDetailInterface
 import com.ledgero.R
 import com.ledgero.Repositories.EditSingleEntriesRepo
 import com.ledgero.Repositories.ViewEntryInfoScreenRepo
-import com.ledgero.UtillClasses.Utill_AddNewEntryDetail
+import com.ledgero.utils.Utill_AddNewEntryDetail
 import com.ledgero.ViewModelFactories.EditSingleEntriesViewModelFactory
 import com.ledgero.ViewModelFactories.ViewEntryInfoScreenViewModelFactory
 import com.ledgero.ViewModels.EditSingleEntriesViewModel

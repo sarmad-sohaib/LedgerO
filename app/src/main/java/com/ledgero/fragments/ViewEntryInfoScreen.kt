@@ -71,7 +71,7 @@ class ViewEntryInfoScreen(val entry:Entries,val ledgerUID:String) : Fragment() {
 
 
 
-                voicePlayButton.setOnClickListener(){
+                voicePlayButton.setOnClickListener {
                     if (viewModel.isAudioPlaying){
                         viewModel.stopPlayingAudio()
                     }else{
@@ -99,7 +99,7 @@ class ViewEntryInfoScreen(val entry:Entries,val ledgerUID:String) : Fragment() {
 
 fun observeDownload(dataDownload: LiveData<Int>) {
     hintVoiceNoteDownload.visibility=View.VISIBLE
-        dataDownload!!.observe(viewLifecycleOwner, Observer{
+        dataDownload.observe(viewLifecycleOwner, Observer{
 
             hintVoiceNoteDownload.text="Voice note is downloading: $it%"
 if (it>=100){

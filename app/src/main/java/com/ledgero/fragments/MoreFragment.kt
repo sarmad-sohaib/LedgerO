@@ -31,13 +31,6 @@ class MoreFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -48,7 +41,7 @@ class MoreFragment : Fragment() {
         var log = view.findViewById<Button>(R.id.logout)
         Log.d("more", "onCreateView: skskdsdksignout ")
 
-        log.setOnClickListener(){
+        log.setOnClickListener {
 
             Log.d("more", "onCreateView: signout ")
             var auth: FirebaseAuth = Firebase.auth

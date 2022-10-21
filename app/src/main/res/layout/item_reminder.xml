@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/textView_reminderDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_toEndOf="@id/checkBox_reminderIsComplete"
+        android:fontFamily="@font/ropa_sans_regular"
+        android:text="@string/description"
+        android:textColor="@color/black"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/textView_on"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/on"
+        android:layout_toEndOf="@id/checkBox_reminderIsComplete"
+        android:layout_marginStart="8dp"
+        android:layout_below="@id/textView_reminderStatus"/>
+
+    <TextView
+        android:id="@+id/textView_reminderTimeStamp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/timestamp"
+        android:layout_marginStart="2dp"
+        android:layout_toEndOf="@id/textView_on"
+        android:layout_below="@id/textView_reminderStatus"/>
+
+    <TextView
+        android:id="@+id/textView_reminderAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="8dp"
+        android:minWidth="100dp"
+        android:gravity="end"
+        android:fontFamily="@font/ropa_sans_regular"
+        android:layout_centerVertical="true"
+        android:textSize="20sp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/_00_00"
+        android:textColor="@color/black"
+        tools:ignore="RelativeOverlap" />
+
+    <TextView
+        android:id="@+id/textView_reminderStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/checkBox_reminderIsComplete"
+        android:layout_below="@id/textView_reminderDescription"
+        android:layout_marginStart="8dp"
+        android:gravity="end"
+        android:text="@string/give_to" />
+
+    <TextView
+        android:id="@+id/textView_reminderRecipient"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/recipient"
+        android:layout_below="@id/textView_reminderDescription"
+        android:layout_toEndOf="@id/textView_reminderStatus"
+        android:layout_marginStart="2dp"/>
+
+    <CheckBox
+        android:id="@+id/checkBox_reminderIsComplete"
+        android:layout_width="wrap_content"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:layout_centerVertical="true"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>
