@@ -28,6 +28,8 @@ import com.ledgero.Repositories.IndividualScreenRepo
 import com.ledgero.ViewModelFactories.IndividualScreenViewModeFactory
 import com.ledgero.ViewModels.IndividualScreenViewModel
 import com.ledgero.adapters.RecyclerAdapter_SingleLedger
+import com.ledgero.other.Constants.GAVE_ENTRY_FLAG
+import com.ledgero.other.Constants.GET_ENTRY_FLAG
 import kotlinx.android.synthetic.main.fragment_individual_ledger_screen.view.*
 
 class IndividualLedgerScreen(ledgerUID:String) : Fragment() {
@@ -104,7 +106,7 @@ lateinit var entries: ArrayList<Entries>
 
         //Check if give_take flag is null then it means ledger Amount is clear 00 for both give and take
         // if give_take flag is true then it means the user who created ledger will get money..means he will get
-        // if give_take flag is false then it means user who created ledfer will owe/give money..mean he will give
+        // if give_take flag is false then it means user who created ledger will owe/give money..mean he will give
         //now if current user is not the user who created ledger then we will reverse these give and gave
         //so each time we will check flag and we will check if this user is the one who created or the other one
         viewModel.getLedgerTotalAmount().observe(viewLifecycleOwner,Observer{
@@ -115,7 +117,7 @@ lateinit var entries: ArrayList<Entries>
                 currentSelectLedger!!.total_amount=it
 
             }
-            if(currentSelectLedger!!.give_take_flag==true){
+            if(currentSelectLedger!!.give_take_flag== GAVE_ENTRY_FLAG){
 
                 if(User.userID.equals(currentSelectLedger!!.ledgerCreatedByUID)){
                     //means we will set the amount to get (You'll Get) variable for this user
@@ -132,7 +134,7 @@ lateinit var entries: ArrayList<Entries>
                 currentSelectLedger!!.total_amount=it
 
             }
-            if(currentSelectLedger!!.give_take_flag==false){
+            if(currentSelectLedger!!.give_take_flag== GET_ENTRY_FLAG){
 
 
                 if(User.userID.equals(currentSelectLedger!!.ledgerCreatedByUID)){
@@ -174,7 +176,7 @@ lateinit var entries: ArrayList<Entries>
         })
         gotButton.setOnClickListener {
             //1 will inidcate that user clicked got button
-          setFragmentResult("addEntryBtn", bundleOf("mode" to 1,"ledger" to currentSelectLedger))
+          setFragmentResult("addEntryBtn", bundleOf("mode" to GET_ENTRY_FLAG,"ledger" to currentSelectLedger))
            parentFragmentManager
                .beginTransaction()
                .addToBackStack(null)
@@ -184,7 +186,7 @@ lateinit var entries: ArrayList<Entries>
         }
         gaveButton.setOnClickListener {
             //0 will indicate that user clicked gave button
-            setFragmentResult("addEntryBtn", bundleOf("mode" to 0,"ledger" to currentSelectLedger))
+            setFragmentResult("addEntryBtn", bundleOf("mode" to GAVE_ENTRY_FLAG,"ledger" to currentSelectLedger))
             parentFragmentManager
                 .beginTransaction()
                 .addToBackStack(null)
@@ -377,7 +379,7 @@ return itemTouchHelper
                 var entry= entries.get(pos)
                 if (entry.requestMode==0){
                     viewModel.deleteEntry(pos)
-                    dialogInterface.dismiss()
+                    dialogInterface.cancel()
                     var frag = UnApprovedEntriesScreen(currentSelectedLedgerUID)
                     parentFragmentManager.beginTransaction()
                         .replace(R.id.fl_fragment_container_main,frag)
@@ -412,7 +414,7 @@ return itemTouchHelper
             .setPositiveButton("Yes Delete it"){dialogInterface,it->
                 //delete entry
 
-                dialogInterface.dismiss()
+
                 rv.adapter!!.notifyDataSetChanged()
             }
             .setNegativeButton("No"){dialogInterface,it->

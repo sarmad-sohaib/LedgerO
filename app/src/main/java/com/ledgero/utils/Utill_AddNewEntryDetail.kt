@@ -16,6 +16,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
+import com.ledgero.Interfaces.EntryDetailInterface
 import com.ledgero.MainActivity
 import com.ledgero.fragments.AddNewEntryDetail
 import kotlinx.android.synthetic.main.calculator_layout.view.*
@@ -24,7 +25,8 @@ import java.io.File
 
 
 // we are not using ViewModel for AddNewEntryDetail that is why using Utill class
-class Utill_AddNewEntryDetail( var addNewEntryDetail: AddNewEntryDetail) {
+//we can use this same class for EditEntryDetail
+class Utill_AddNewEntryDetail( var EntryDetail: EntryDetailInterface) {
 
 
     var audioRecordUtill=AudioRecordUtill()
@@ -35,9 +37,11 @@ class Utill_AddNewEntryDetail( var addNewEntryDetail: AddNewEntryDetail) {
   inner class CalculatorUtills{
 
 
-        fun setClickListenersOnButtons(view: View, addNewEntryDetail: AddNewEntryDetail) {
+        fun setClickListenersOnButtons(view: View, addNewEntryDetail: EntryDetailInterface) {
 
+            // view is calculator layout
             /*Number Buttons*/
+
 
             view.btnDoubleZero.setOnClickListener {
                 addNewEntryDetail.evaluateExpression("00", clear = true)
@@ -154,7 +158,7 @@ class Utill_AddNewEntryDetail( var addNewEntryDetail: AddNewEntryDetail) {
         }
 
 
-        private  fun performEqualOperation(addNewEntryDetail:AddNewEntryDetail){
+        private  fun performEqualOperation(addNewEntryDetail:EntryDetailInterface){
             val text = addNewEntryDetail.amountTextTV.text.toString()
 
             if (!isExpressionCorrect(text)){
@@ -174,7 +178,7 @@ class Utill_AddNewEntryDetail( var addNewEntryDetail: AddNewEntryDetail) {
                     addNewEntryDetail.totalAmount.setText(result.toString())
                 }
             }catch (e:ArithmeticException){
-                Toast.makeText(addNewEntryDetail.context, "Wrong Expression! ${e.message}", Toast.LENGTH_LONG).show()
+                Toast.makeText(addNewEntryDetail.myContext, "Wrong Expression! ${e.message}", Toast.LENGTH_LONG).show()
             }
 
         }
@@ -200,6 +204,9 @@ class Utill_AddNewEntryDetail( var addNewEntryDetail: AddNewEntryDetail) {
         var hasVoiceNote=false
         var localPath:String?=null
         var VoicefileName:String?=null
+        var voiceNewVersionPath:String?=null
+        var isVoiceUpdated:Boolean=false
+        var isEditingVoiceNote:Boolean = false
 
 
 
@@ -218,7 +225,7 @@ class Utill_AddNewEntryDetail( var addNewEntryDetail: AddNewEntryDetail) {
            mediaRecorder = MediaRecorder()
             mediaRecorder!!.setAudioSource(MediaRecorder.AudioSource.MIC)
             mediaRecorder!!.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
-            mediaRecorder!!.setOutputFile(getPathForStoringFile())
+            mediaRecorder!!.setOutputFile(getPathForStoringFile(true))
             mediaRecorder!!.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB)
             mediaRecorder!!.setMaxDuration(60*1000)
             mediaRecorder!!.prepare()
@@ -228,7 +235,7 @@ class Utill_AddNewEntryDetail( var addNewEntryDetail: AddNewEntryDetail) {
                     if (p1==MediaRecorder.MEDIA_RECORDER_INFO_MAX_DURATION_REACHED){
                         isAudioRecording=false
                         stopAudioRecording()
-                        addNewEntryDetail.onMaxAudioRecordDuration()
+                        EntryDetail.onMaxAudioRecordDuration()
                     }
 
                 }
@@ -291,19 +298,24 @@ class Utill_AddNewEntryDetail( var addNewEntryDetail: AddNewEntryDetail) {
     isAudioPlaying=false
     stopPlayingAudio() }
 
-            mediaPlayer!!.setDataSource(getPathForStoringFile())
+        try {
+
+            mediaPlayer!!.setDataSource(getPathForStoringFile(false))
             mediaPlayer!!.prepare()
-            setUpSeekBar(addNewEntryDetail.recordSeekBar)
-            makeHandler(addNewEntryDetail.recordSeekBar)
+            setUpSeekBar(EntryDetail.recordSeekBar)
+            makeHandler(EntryDetail.recordSeekBar)
 
             mediaPlayer!!.start()
 
+        }catch (e:Exception){
+            Toast.makeText(context, "Can't Play Audio : ${e.message}", Toast.LENGTH_SHORT).show()
+        }
         }
         fun stopPlayingAudio(){
            if (mediaPlayer != null) {
 
                mediaPlayer!!.stop()
-                addNewEntryDetail.recordSeekBar.progress=0
+                EntryDetail.recordSeekBar.progress=0
                mediaPlayer!!.release()
                mediaPlayer=null
                 }
@@ -313,7 +325,7 @@ class Utill_AddNewEntryDetail( var addNewEntryDetail: AddNewEntryDetail) {
 
         fun getAudioDuration():String{
             mediaPlayer= MediaPlayer()
-            mediaPlayer!!.setDataSource(getPathForStoringFile())
+            mediaPlayer!!.setDataSource(getPathForStoringFile(false))
             mediaPlayer!!.prepare()
           var duartion=  (mediaPlayer!!.duration/1000).toString()
             return duartion
@@ -359,14 +371,14 @@ class Utill_AddNewEntryDetail( var addNewEntryDetail: AddNewEntryDetail) {
 
         fun getAlertDialogForDeletingVoice(): android.app.AlertDialog.Builder {
 
-            var dialog= android.app.AlertDialog.Builder(addNewEntryDetail.context)
+            var dialog= android.app.AlertDialog.Builder(EntryDetail.myContext)
 
             dialog.setTitle("Deleting Voice Note")
                 .setMessage("Are you sure to delete Voice Note!")
                 .setCancelable(true)
                 .setPositiveButton("Yes Delete it"){dialogInterface,it->
                     //delete voice
-                    val fdelete: File = File(getPathForStoringFile())
+                    val fdelete: File = File(getPathForStoringFile(false))
                     if (fdelete.exists()) {
                         if (fdelete.delete()) {
                             if (isAudioPlaying){
@@ -374,12 +386,12 @@ class Utill_AddNewEntryDetail( var addNewEntryDetail: AddNewEntryDetail) {
                             }
                             hasVoiceNote=false
                             localPath=null
-                            addNewEntryDetail.audioLayout.visibility=View.GONE
-                            addNewEntryDetail.hintRecordText.text="Tap mic button to start recording voice message for entry"
-                            addNewEntryDetail.hintRecordText.visibility= View.VISIBLE
+                            EntryDetail.audioLayout.visibility=View.GONE
+                            EntryDetail.hintRecordText.text="Tap mic button to start recording voice message for entry"
+                            EntryDetail.hintRecordText.visibility= View.VISIBLE
                         } else {
 
-                            Toast.makeText(addNewEntryDetail.context, "Sorry! Not Able To Delete Voice Note", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(EntryDetail.myContext, "Sorry! Not Able To Delete Voice Note", Toast.LENGTH_SHORT).show()
                         }
                     }
                     }
@@ -423,10 +435,36 @@ class Utill_AddNewEntryDetail( var addNewEntryDetail: AddNewEntryDetail) {
 
         }
 
-    private fun getPathForStoringFile():String{
+    private fun getPathForStoringFile(isRecordingNewAudio:Boolean):String{
+
+        if (hasVoiceNote && isRecordingNewAudio && isEditingVoiceNote){
+
+            var path:String= File(localPath!!).path
+           path= path.dropLast(4)
+            // it show us how many times audio has being edited..also we can use this to check if there is any older version of this entry audio and delete
+            //it . 1 means first/original version..if its not 1 then must check all the below versions in local file
+            //and delete it if any is present
+            var audioVersionNumber= path.last().toString().toInt()
+            audioVersionNumber++
+            path=path.dropLast(1)
+           var  newPath= path+audioVersionNumber+".mp3"
+            voiceNewVersionPath= newPath
+            isVoiceUpdated=true
+            return newPath
+        }else{
+            if (hasVoiceNote && isVoiceUpdated){
+                return voiceNewVersionPath!!
+            }
+            if (hasVoiceNote){
+                return File(localPath!!).path
+            }
+
+        }
+
        var contextWrapper= ContextWrapper(context.applicationContext)
+
         var voiceDirectory: File = contextWrapper.getExternalFilesDir(Environment.DIRECTORY_MUSIC)!!
-        var fileName= addNewEntryDetail.ledger.ledgerUID.toString()+addNewEntryDetail.ledger.entries!!.size+"$randomSuffixForAudioFilePath"+".mp3"
+        var fileName= EntryDetail.mLedger.ledgerUID.toString()+EntryDetail.mLedger.entries!!.size+"$randomSuffixForAudioFilePath"+"1.mp3"
         var file= File(voiceDirectory,fileName)
         hasVoiceNote=true
         localPath=file.path

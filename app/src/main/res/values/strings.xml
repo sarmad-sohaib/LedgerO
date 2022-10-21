@@ -51,6 +51,8 @@
     <string name="view_entry_edit_btn_text">Edit Entry</string>
     <string name="view_entry_total_amount_hint">You Gave</string>
 
+    <string name="edit_entry_detail_title">Update Entry Information</string>
+
     <string name="cash_out">Cash Out</string>
     <string name="cash_in">Cash In</string>
     <string name="available_cash">Available Cash</string>

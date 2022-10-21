@@ -23,25 +23,32 @@ import com.ledgero.DataClasses.Entries
 import com.ledgero.DataClasses.SingleLedgers
 import com.ledgero.DataClasses.User
 import com.ledgero.DataClasses.VoiceNote
+import com.ledgero.Interfaces.EntryDetailInterface
 import com.ledgero.R
+import com.ledgero.other.Constants.GAVE_ENTRY_FLAG
+import com.ledgero.other.Constants.GET_ENTRY_FLAG
 import com.ledgero.utils.Utill_AddNewEntryDetail
+
 import kotlinx.android.synthetic.main.fragment_add_new_entry_detail.view.*
 
 
- class AddNewEntryDetail(var ledger: SingleLedgers) : Fragment() {
+ class AddNewEntryDetail(var ledger: SingleLedgers) : Fragment() , EntryDetailInterface {
+     override lateinit var calculatorLayout: View
+     override lateinit var amountTextTV:EditText
+    override lateinit var totalAmount:EditText
+
+     override lateinit var myContext: Context
 
 
-    lateinit var amountTextTV:EditText
-    lateinit var totalAmount:EditText
-    lateinit var utill:Utill_AddNewEntryDetail
-
-    lateinit var audioLayout:ConstraintLayout
-    lateinit var audioPlayBtn: Button
-    lateinit var recordBtn : Button
-    lateinit var recordDuartionText: TextView
-    lateinit var recordMaxLimitText: TextView
-    lateinit var hintRecordText: TextView
-    lateinit var recordSeekBar: SeekBar
+     lateinit var utill:Utill_AddNewEntryDetail
+        override var mLedger:SingleLedgers=ledger
+     override  lateinit var audioLayout:ConstraintLayout
+     override lateinit var audioPlayBtn: Button
+     override lateinit var recordBtn : Button
+     override lateinit var recordDuartionText: TextView
+     override lateinit var recordMaxLimitText: TextView
+     override lateinit var hintRecordText: TextView
+    override lateinit var recordSeekBar: SeekBar
 
 
 
@@ -52,9 +59,10 @@ import kotlinx.android.synthetic.main.fragment_add_new_entry_detail.view.*
         savedInstanceState: Bundle?,
     ): View? {
 
+        myContext=requireContext()
 
        var view=inflater.inflate(R.layout.fragment_add_new_entry_detail, container, false)
-        var entryMode=-1  // mode tell if user pressed Got or Gave
+        var entryMode:Boolean?=null // mode tell if user pressed Got or Gave
 
         utill= Utill_AddNewEntryDetail(this)
         amountTextTV= view.tv_amount_add_new_entry
@@ -62,16 +70,16 @@ import kotlinx.android.synthetic.main.fragment_add_new_entry_detail.view.*
 
         setFragmentResultListener("addEntryBtn"){addEntryBtn,bundle ->
 
-            entryMode=bundle.getInt("mode")
+            entryMode=bundle.getBoolean("mode")
 
-            if (entryMode==1)//means user pressed GOT  represent false
+            if (entryMode==GET_ENTRY_FLAG)//means user pressed GOT  represent false
          {
-             view.view_entry_entry_title.setTextColor(Color.RED)
+             view.view_entry_entry_title.setTextColor(Color.GREEN)
 
          }
-            if (entryMode==0){ //represent true
+            if (entryMode== GAVE_ENTRY_FLAG){ //represent true
 
-                view.view_entry_entry_title.setTextColor(Color.GREEN)
+                view.view_entry_entry_title.setTextColor(Color.RED)
 
             }
 
@@ -101,7 +109,8 @@ import kotlinx.android.synthetic.main.fragment_add_new_entry_detail.view.*
 
                     var title= if (des.length>16)des.subSequence(0,15).toString() else des.toString()
 
-                    var flag = entryMode != 1
+
+                    var flag = if (entryMode== GAVE_ENTRY_FLAG) GAVE_ENTRY_FLAG else GET_ENTRY_FLAG
 
 
                     var entry = Entries(amount,flag,des,title,111111,false,User.userID,"",1,false
@@ -301,7 +310,7 @@ return false
 
      /*Function to calculate the expressions using expression builder library*/
 
-    fun evaluateExpression(string: String, clear: Boolean) {
+   override fun evaluateExpression(string: String, clear: Boolean) {
         if(clear) {
 
             amountTextTV.append(string)
@@ -313,7 +322,7 @@ return false
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
-    fun onMaxAudioRecordDuration(){
+    override fun onMaxAudioRecordDuration(){
         recordBtn.foreground= getDrawable(requireContext(),R.drawable.ic_microphone)
         audioLayout.visibility = View.VISIBLE
         hintRecordText.visibility= View.GONE

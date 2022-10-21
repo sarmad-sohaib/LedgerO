@@ -38,6 +38,7 @@
         <entry key="..\:/LedgerO/LedgerO/app/src/main/res/layout/fragment_add_new_entry_detail.xml" value="0.33" />
         <entry key="..\:/LedgerO/LedgerO/app/src/main/res/layout/fragment_canceled_entries_screen.xml" value="0.20416666666666666" />
         <entry key="..\:/LedgerO/LedgerO/app/src/main/res/layout/fragment_custom_dialog.xml" value="0.20416666666666666" />
+        <entry key="..\:/LedgerO/LedgerO/app/src/main/res/layout/fragment_edit_entry_single_screen.xml" value="0.25" />
         <entry key="..\:/LedgerO/LedgerO/app/src/main/res/layout/fragment_group_ledgers.xml" value="0.20416666666666666" />
         <entry key="..\:/LedgerO/LedgerO/app/src/main/res/layout/fragment_home.xml" value="0.15806159420289856" />
         <entry key="..\:/LedgerO/LedgerO/app/src/main/res/layout/fragment_individual_ledger__screen.xml" value="0.19010416666666666" />
