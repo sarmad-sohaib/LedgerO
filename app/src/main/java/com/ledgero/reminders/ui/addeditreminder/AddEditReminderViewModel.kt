@@ -89,11 +89,12 @@ class AddEditReminderViewModel @Inject constructor(
                 onUpdate(updatedReminder)
             } else {
                 val newReminder = Reminder(
-                    reminderAmount,
-                    reminderRecipient,
-                    reminderDescription,
-                    reminderTime,
-                    reminderIsGive
+                    amount = reminderAmount,
+                    recipient = reminderRecipient,
+                    description = reminderDescription,
+                    complete = false,
+                    timeStamp = reminderTime,
+                    give = reminderIsGive
                 )
                 reminderRepository.insertReminder(collectionKey, newReminder)
             }

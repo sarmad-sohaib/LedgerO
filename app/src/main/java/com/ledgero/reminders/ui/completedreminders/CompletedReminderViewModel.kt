@@ -13,6 +13,7 @@ import javax.inject.Inject
 sealed class CompletedReminderFragmentUiState {
     data class ShowAllCompletedReminders(val list: List<Reminder?>) : CompletedReminderFragmentUiState()
     object Empty : CompletedReminderFragmentUiState()
+    object Loading : CompletedReminderFragmentUiState()
 }
 
 @HiltViewModel
@@ -24,12 +25,18 @@ class CompletedReminderViewModel @Inject constructor(
         getAllCompletedReminders()
     }
 
-    private val _uiState = MutableStateFlow<CompletedReminderFragmentUiState>(CompletedReminderFragmentUiState.Empty)
+    private val _uiState = MutableStateFlow<CompletedReminderFragmentUiState>(CompletedReminderFragmentUiState.Loading)
     val uiState = _uiState.asStateFlow()
 
     private fun getAllCompletedReminders() = viewModelScope.launch {
-        reminderRepository.getCompletedRemindersStream().collect {
-            _uiState.value = CompletedReminderFragmentUiState.ShowAllCompletedReminders(it)
+        reminderRepository.getCompletedRemindersStream().collect { reminders ->
+            if(reminders.isNotEmpty()) {
+                _uiState.value =
+                    CompletedReminderFragmentUiState.ShowAllCompletedReminders(reminders)
+            }
+            else {
+                _uiState.value = CompletedReminderFragmentUiState.Empty
+            }
         }
     }
 }

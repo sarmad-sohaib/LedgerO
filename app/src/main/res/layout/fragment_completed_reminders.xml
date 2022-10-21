@@ -3,12 +3,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clickable="false"
     tools:context=".reminders.ui.completedreminders.CompletedRemindersFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView_completedReminders"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
-        />
+        android:clickable="false"/>
+
+    <ProgressBar
+        android:id="@+id/progressBar_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:id="@+id/textView_noReminders"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/no_reminders"/>
 
 </FrameLayout>
