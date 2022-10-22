@@ -12,12 +12,12 @@ import com.ledgero.R
 import com.ledgero.reminders.RemindersMainActivity
 import com.ledgero.reminders.data.Reminder
 
-class ReminderNotificationService (
+class ReminderNotificationService(
     private val context: Context
-        )
-{
+) {
 
-    private val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+    private val notificationManager =
+        context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
     companion object {
         const val REMINDERS_CHANNEL_ID = "reminder-channel"
@@ -25,14 +25,15 @@ class ReminderNotificationService (
 
     fun showRemindersNotification(reminder: Reminder) {
 
-        val text = "You have to" + if (reminder.give == true) " give " else " take " + reminder.amount + " " + "from" + " " + reminder.recipient
+        val text =
+            "You have to" + if (reminder.give == true) " give " else " take " + reminder.amount + " " + "from" + " " + reminder.recipient
 
         val activityIntent = Intent(context, RemindersMainActivity::class.java)
         val pendingIntent = PendingIntent.getActivity(
             context,
             0,
             activityIntent,
-            if(SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_IMMUTABLE else 0
+            if (SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_IMMUTABLE else 0
         )
         val reminderNotification = NotificationCompat.Builder(context, REMINDERS_CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_clock_wait)
@@ -43,6 +44,6 @@ class ReminderNotificationService (
             .setAutoCancel(true)
             .build()
 
-        notificationManager.notify(1, reminderNotification )
+        notificationManager.notify(1, reminderNotification)
     }
 }

@@ -11,9 +11,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.ledgero.R
 import com.ledgero.databinding.FragmentCompletedRemindersBinding
-import com.ledgero.databinding.ItemReminderBinding
 import com.ledgero.reminders.data.Reminder
 import com.ledgero.reminders.ui.reminders.OnItemClick
 import com.ledgero.reminders.ui.reminders.ReminderListAdapter
@@ -59,7 +57,7 @@ class CompletedRemindersFragment : Fragment(), OnItemClick {
             is CompletedReminderFragmentUiState.ShowAllCompletedReminders -> showAllCompletedReminders(
                 event.list
             )
-            CompletedReminderFragmentUiState.Loading -> remindersListLoading()
+            is CompletedReminderFragmentUiState.Loading -> remindersListLoading()
         }
     }
 

@@ -1,13 +1,10 @@
 package com.ledgero.reminders.ui.reminders
 
 import android.annotation.SuppressLint
-import android.content.Intent
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
 import com.ledgero.reminders.data.Reminder
-import com.ledgero.reminders.reminderalert.AlertReceiver
 import com.ledgero.reminders.reminders.data.ReminderRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel

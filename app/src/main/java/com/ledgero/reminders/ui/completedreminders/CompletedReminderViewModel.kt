@@ -11,7 +11,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 sealed class CompletedReminderFragmentUiState {
-    data class ShowAllCompletedReminders(val list: List<Reminder?>) : CompletedReminderFragmentUiState()
+    data class ShowAllCompletedReminders(val list: List<Reminder?>) :
+        CompletedReminderFragmentUiState()
+
     object Empty : CompletedReminderFragmentUiState()
     object Loading : CompletedReminderFragmentUiState()
 }
@@ -25,16 +27,16 @@ class CompletedReminderViewModel @Inject constructor(
         getAllCompletedReminders()
     }
 
-    private val _uiState = MutableStateFlow<CompletedReminderFragmentUiState>(CompletedReminderFragmentUiState.Loading)
+    private val _uiState =
+        MutableStateFlow<CompletedReminderFragmentUiState>(CompletedReminderFragmentUiState.Loading)
     val uiState = _uiState.asStateFlow()
 
     private fun getAllCompletedReminders() = viewModelScope.launch {
         reminderRepository.getCompletedRemindersStream().collect { reminders ->
-            if(reminders.isNotEmpty()) {
+            if (reminders.isNotEmpty()) {
                 _uiState.value =
                     CompletedReminderFragmentUiState.ShowAllCompletedReminders(reminders)
-            }
-            else {
+            } else {
                 _uiState.value = CompletedReminderFragmentUiState.Empty
             }
         }

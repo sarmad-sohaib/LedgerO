@@ -13,6 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.LedgerO">
+
         <activity
             android:name=".reminders.RemindersMainActivity"
             android:exported="false" />
@@ -36,7 +37,7 @@
             android:exported="true"
             android:windowSoftInputMode="adjustNothing" />
 
-        <receiver android:name=".reminders.reminderalert.AlertReceiver"/>
+        <receiver android:name=".reminders.reminderalert.AlertReceiver" />
     </application>
 
 </manifest>

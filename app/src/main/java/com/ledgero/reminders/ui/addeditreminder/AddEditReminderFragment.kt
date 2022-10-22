@@ -19,13 +19,13 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.ledgero.databinding.FragmentAddEditReminderBinding
-import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
-import java.util.*
 import com.ledgero.reminders.ui.addeditreminder.AddEditReminderFragmentEvents.*
 import com.ledgero.utils.showSnackBar
 import com.ledgero.utils.toDateTimeFormat
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import java.text.DateFormat
+import java.util.*
 
 @AndroidEntryPoint
 class AddEditReminderFragment : Fragment() {
@@ -59,39 +59,39 @@ class AddEditReminderFragment : Fragment() {
                 }
             }
 
-                editTextReminderTime.setOnClickListener {
-                    pickDateTime()
-                }
-
-                editTextReminderAmount.addTextChangedListener {
-                    mViewModel.reminderAmount = it.toString()
-                }
-
-                editTextReminderDescription.addTextChangedListener {
-                    mViewModel.reminderDescription = it.toString()
-                }
-
-                editTextReminderRecipient.addTextChangedListener {
-                    mViewModel.reminderRecipient = it.toString()
-                }
-
-                buttonSaveReminder.setOnClickListener {
-                    mViewModel.saveReminderButtonClicked()
-                }
-
-                radioButtonReminderIsGive.setOnClickListener {
-                    onRadioButtonClicked(radioButtonReminderIsGive)
-                }
-
-                radioButtonReminderIsTake.setOnClickListener {
-                    onRadioButtonClicked(radioButtonReminderIsTake)
-                }
+            editTextReminderTime.setOnClickListener {
+                pickDateTime()
             }
+
+            editTextReminderAmount.addTextChangedListener {
+                mViewModel.reminderAmount = it.toString()
+            }
+
+            editTextReminderDescription.addTextChangedListener {
+                mViewModel.reminderDescription = it.toString()
+            }
+
+            editTextReminderRecipient.addTextChangedListener {
+                mViewModel.reminderRecipient = it.toString()
+            }
+
+            buttonSaveReminder.setOnClickListener {
+                mViewModel.saveReminderButtonClicked()
+            }
+
+            radioButtonReminderIsGive.setOnClickListener {
+                onRadioButtonClicked(radioButtonReminderIsGive)
+            }
+
+            radioButtonReminderIsTake.setOnClickListener {
+                onRadioButtonClicked(radioButtonReminderIsTake)
+            }
+        }
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 mViewModel.uiEvent.collect { event ->
-                    when(event) {
+                    when (event) {
                         SaveReminderButtonClicked -> {
                             mViewModel.onSave()
                         }
@@ -143,7 +143,10 @@ class AddEditReminderFragment : Fragment() {
                             if (pickedDateTime.timeInMillis < System.currentTimeMillis()) {
                                 editTextReminderTime.setText("Invalid time seleted! Try again")
                             } else {
-                                editTextReminderTime.setText(DateFormat.getDateTimeInstance().format(pickedDateTime.timeInMillis))
+                                editTextReminderTime.setText(
+                                    DateFormat.getDateTimeInstance()
+                                        .format(pickedDateTime.timeInMillis)
+                                )
                                 mTimestamp = pickedDateTime.timeInMillis
 
                                 mViewModel.reminderTime = mTimestamp
@@ -165,7 +168,7 @@ class AddEditReminderFragment : Fragment() {
         if (view is RadioButton) {
             val checked = view.isChecked
 
-            when(view.id) {
+            when (view.id) {
                 mBinding.radioButtonReminderIsGive.id -> {
                     if (checked) {
                         mViewModel.reminderIsGive = true

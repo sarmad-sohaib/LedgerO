@@ -14,17 +14,17 @@ import javax.inject.Inject
 
 private const val TAG = "AddEditReminderViewModel"
 
-sealed class AddEditReminderFragmentEvents  {
-    object SaveReminderButtonClicked: AddEditReminderFragmentEvents()
-    data class ShowInvalidInputMessage(val msg: String): AddEditReminderFragmentEvents()
-    data class NavigateBackOnSaveWithResult(val result: String): AddEditReminderFragmentEvents()
+sealed class AddEditReminderFragmentEvents {
+    object SaveReminderButtonClicked : AddEditReminderFragmentEvents()
+    data class ShowInvalidInputMessage(val msg: String) : AddEditReminderFragmentEvents()
+    data class NavigateBackOnSaveWithResult(val result: String) : AddEditReminderFragmentEvents()
 }
 
 @HiltViewModel
 class AddEditReminderViewModel @Inject constructor(
     private val reminderRepository: ReminderRepository,
     private val state: SavedStateHandle
-): ViewModel() {
+) : ViewModel() {
 
     private val collectionKey = FirebaseAuth.getInstance().currentUser?.uid.toString() + "Reminders"
 
@@ -35,34 +35,35 @@ class AddEditReminderViewModel @Inject constructor(
     val reminder = state.get<Reminder>("reminder")
 
     var reminderAmount = state.get<String>("reminderAmount") ?: reminder?.amount ?: ""
-    set(value) {
-        field = value
-        state["reminderAmount"] = value
-    }
+        set(value) {
+            field = value
+            state["reminderAmount"] = value
+        }
 
-    var reminderDescription = state.get<String>("reminderDescription") ?: reminder?.description ?: ""
-    set(value) {
-        field = value
-        state["reminderDescription"] = value
-    }
+    var reminderDescription =
+        state.get<String>("reminderDescription") ?: reminder?.description ?: ""
+        set(value) {
+            field = value
+            state["reminderDescription"] = value
+        }
 
     var reminderRecipient = state.get<String>("reminderRecipient") ?: reminder?.recipient ?: ""
-    set(value) {
-        field = value
-        state["reminderRecipient"] = value
-    }
+        set(value) {
+            field = value
+            state["reminderRecipient"] = value
+        }
 
     var reminderTime = state.get<Long>("reminderTime") ?: reminder?.timeStamp ?: 0L
-    set(value) {
-        field = value
-        state["reminderTime"] = value
-    }
+        set(value) {
+            field = value
+            state["reminderTime"] = value
+        }
 
     var reminderIsGive = state.get<Boolean>("reminderIsGive") ?: reminder?.give ?: false
-    set(value) {
-        field = value
-        state["reminderIsGive"] = value
-    }
+        set(value) {
+            field = value
+            state["reminderIsGive"] = value
+        }
 
     fun saveReminderButtonClicked() = viewModelScope.launch {
         _uiEvents.send(AddEditReminderFragmentEvents.SaveReminderButtonClicked)
