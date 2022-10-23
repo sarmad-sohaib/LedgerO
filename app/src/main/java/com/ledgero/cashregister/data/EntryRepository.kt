@@ -1,6 +1,6 @@
 package com.ledgero.cashregister.data
 
-import com.ledgero.cashregister.MyCallback
+import com.ledgero.cashregister.data.remotedatasource.MyCallback
 
 interface EntryRepository {
 
@@ -14,3 +14,5 @@ interface EntryRepository {
 
     suspend fun getSumByProperty(uId: String, property: String)
 }
+
+// 👌🏼

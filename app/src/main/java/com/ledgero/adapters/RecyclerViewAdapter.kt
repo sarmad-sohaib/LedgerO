@@ -15,20 +15,21 @@ import com.ledgero.fragments.IndividualLedgerScreen
 import java.util.*
 import kotlin.collections.ArrayList
 
-class RecyclerViewAdapter(context: Context,singleLedgers: ArrayList<SingleLedgers>?):
+// Extra spaces
+class RecyclerViewAdapter(context: Context, singleLedgers: ArrayList<SingleLedgers>?) :
     RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
 
- var context: Context
- var singleLedgers: ArrayList<SingleLedgers>?
+    // Indented with tabs maybe, more like this in this class
+    var context: Context
+    var singleLedgers: ArrayList<SingleLedgers>?
 
-init {
-    this.context= context
-    this.singleLedgers= singleLedgers
+    init {
+        this.context = context
+        this.singleLedgers = singleLedgers
 
-}
+    }
 
-
-
+    // Too many blank lines
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -40,20 +41,20 @@ init {
     }
 
     override fun onBindViewHolder(holder: RecyclerViewAdapter.ViewHolder, position: Int) {
-        holder.ledgerName.text = singleLedgers?.get(position)?.friend_userName
-        holder.ledgerTimeStamp.text = Date(12324521).toString()
-        holder.ledgerMoney.text = singleLedgers?.get(position)?.total_amount.toString()
-        holder.ledgerUID=singleLedgers?.get(position)?.ledgerUID.toString()
+        holder.apply {
+            ledgerTimeStamp.text = Date(12324521).toString()
 
-    }
-
-    override fun getItemCount(): Int {
-        if (singleLedgers==null){
-            return 0
-        }else{
-            return singleLedgers!!.size
+            singleLedgers?.get(position)?.let { ledger ->
+                ledgerName.text = ledger.friend_userName
+                ledgerMoney.text = ledger.total_amount.toString()
+                ledgerUID = ledger.ledgerUID.toString()
+            }
         }
     }
+
+    // Don't use !! except in tests
+    // ?: is called elvis operator
+    override fun getItemCount(): Int = singleLedgers?.size ?: 0
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var ledgerName: TextView
@@ -61,7 +62,7 @@ init {
         var ledgerMoney: TextView
         var ledgerDetail: TextView
         var ledgerNotification: Button
-        var ledgerUID: String=""
+        var ledgerUID: String = ""
 
         init {
             ledgerName = itemView.findViewById(R.id.tv_ledger_name)
@@ -70,20 +71,25 @@ init {
             ledgerDetail = itemView.findViewById(R.id.tv_detail)
             ledgerNotification = itemView.findViewById(R.id.bt_notification_send)
 
-            itemView.setOnClickListener { v: View ->
-                Toast.makeText(itemView.context, ledgerName.text, Toast.LENGTH_SHORT)
-                    .show()
+            itemView.setOnClickListener {
+                Toast.makeText(
+                    itemView.context,
+                    ledgerName.text,
+                    Toast.LENGTH_SHORT
+                ).show()
 
-                var frag=IndividualLedgerScreen(ledgerUID)
+                // From name, not clear what frag is
+                val frag = IndividualLedgerScreen(ledgerUID)
 
+                // Good formatting
                 MainActivity.getMainActivityInstance().supportFragmentManager
                     .beginTransaction()
                     .replace(R.id.fl_fragment_container_main, frag)
                     .addToBackStack(null)
                     .commit()
-
             }
         }
     }
-
 }
+
+// Good simple class.

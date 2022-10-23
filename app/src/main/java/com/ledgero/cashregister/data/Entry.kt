@@ -6,15 +6,17 @@ import java.text.DateFormat
 import java.util.*
 
 @Parcelize
-data class Entry (
+data class Entry(
     val amount: String? = null,
     val description: String? = null,
     val out: Boolean? = null,
     var dateTimeStamp: Long? = null,
     var id: String? = UUID.randomUUID().toString() //creating unique id each time an entry is created
-): Parcelable {
+) : Parcelable {
 
     init {
         dateTimeStamp = System.currentTimeMillis()
     }
 }
+
+// Very good, short simple.

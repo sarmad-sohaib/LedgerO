@@ -10,6 +10,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.ledgero.R
 import dagger.hilt.android.AndroidEntryPoint
 
+// Move these to companion object. Files level consts are not good practice
 const val  ADD_ENTRY_RESULT = Activity.RESULT_FIRST_USER
 const val EDIT_ENTRY_RESULT = Activity.RESULT_FIRST_USER + 1
 
