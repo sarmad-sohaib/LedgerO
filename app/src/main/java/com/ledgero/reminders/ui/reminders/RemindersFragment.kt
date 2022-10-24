@@ -25,15 +25,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.ledgero.R
 import com.ledgero.databinding.FragmentRemindersBinding
-import com.ledgero.reminders.reminderalert.AlertReceiver
 import com.ledgero.reminders.data.Reminder
+import com.ledgero.reminders.reminderalert.AlertReceiver
+import com.ledgero.reminders.ui.reminders.ReminderUiEvents.*
+import com.ledgero.reminders.ui.reminders.RemindersUiState.*
 import com.ledgero.utils.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import com.ledgero.reminders.ui.reminders.ReminderUiEvents.*
-import com.ledgero.reminders.ui.reminders.RemindersUiState.*
 import com.ledgero.reminders.ui.reminders.RemindersFragmentDirections as RemindersNav
-
 
 private const val TAG = "ReminderFragment"
 
@@ -273,7 +272,5 @@ class RemindersFragment : Fragment(), OnItemClick {
 
     override fun onReminderCompleteCheckBoxClick(reminder: Reminder, checkboxValue: Boolean) {
         mViewModel.checkBoxCompleteReminderChanged(reminder, checkboxValue)
-        Log.i(TAG, "onReminderCompleteCheckBoxClick: $checkboxValue")
     }
-
 }

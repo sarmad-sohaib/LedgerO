@@ -1,5 +1,6 @@
 package com.ledgero.reminders.ui.reminders
 
+import android.annotation.SuppressLint
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
@@ -26,7 +27,9 @@ sealed class ReminderUiEvents {
     data class NavigateToEditReminderScreen(val reminder: Reminder) : ReminderUiEvents()
     data class ShowSaveReminderResult(val result: String) : ReminderUiEvents()
     data class ShowUndoDeleteReminderMessage(val reminder: Reminder) : ReminderUiEvents()
-    data class CompleteReminder(val reminder: Reminder, val checkboxValue: Boolean) : ReminderUiEvents()
+    data class CompleteReminder(val reminder: Reminder, val checkboxValue: Boolean) :
+        ReminderUiEvents()
+
     data class ShowReminderCompleteMessage(val msg: String) : ReminderUiEvents()
 }
 
@@ -46,6 +49,7 @@ class RemindersViewModel @Inject constructor(
 
     private val collectionKey = FirebaseAuth.getInstance().currentUser?.uid.toString() + "Reminders"
 
+    @SuppressLint("SuspiciousIndentation")
     private fun getAllReminders() = viewModelScope.launch {
         viewModelScope.launch {
             reminderRepository.getRemindersStream(collectionKey)
@@ -82,9 +86,10 @@ class RemindersViewModel @Inject constructor(
         reminderRepository.insertReminder(collectionKey, reminder)
     }
 
-    fun checkBoxCompleteReminderChanged(reminder: Reminder, checkboxValue: Boolean) = viewModelScope.launch {
-        _uiEvent.send(ReminderUiEvents.CompleteReminder(reminder, checkboxValue))
-    }
+    fun checkBoxCompleteReminderChanged(reminder: Reminder, checkboxValue: Boolean) =
+        viewModelScope.launch {
+            _uiEvent.send(ReminderUiEvents.CompleteReminder(reminder, checkboxValue))
+        }
 
     fun updateReminder(reminder: Reminder, checkboxValue: Boolean) = viewModelScope.launch {
         val completedReminder = reminder.copy(

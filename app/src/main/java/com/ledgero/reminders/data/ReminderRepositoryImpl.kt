@@ -27,7 +27,6 @@ class ReminderRepositoryImpl @Inject constructor() : ReminderRepository {
         collectionReference.document().set(reminder)
     }
 
-    
     override suspend fun updateReminder(reminder: Reminder) {
         val collectionReference = db.collection(collectionKey)
 
