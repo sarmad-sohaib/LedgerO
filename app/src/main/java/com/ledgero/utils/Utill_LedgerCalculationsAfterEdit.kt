@@ -1,20 +1,28 @@
 package com.ledgero.UtillClasses
 
+import android.content.ContextWrapper
+import android.net.Uri
+import android.os.Environment
 import android.util.Log
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.getValue
+import com.google.firebase.storage.FirebaseStorage
 import com.ledgero.DataClasses.Entries
+import com.ledgero.MainActivity
 import com.ledgero.other.Constants.GAVE_ENTRY_FLAG
 import com.ledgero.other.Constants.GET_ENTRY_FLAG
 import com.ledgero.other.Constants.NO_REQUEST_REQUEST_MODE
 import kotlinx.coroutines.*
 import kotlinx.coroutines.tasks.await
+import java.io.File
 import kotlin.math.log
 
 open class Utill_LedgerCalculationsAfterEdit(var ledgerUID:String,oldEntry: Entries,newEntry: Entries ) {
 
- var db_reference = FirebaseDatabase.getInstance().reference
+    protected var db_reference = FirebaseDatabase.getInstance().reference
+    protected var storage_reference= FirebaseStorage.getInstance().reference
+
 
     protected lateinit var oldEntry: Entries
     protected lateinit var newEntry: Entries
@@ -43,10 +51,10 @@ init {
 
 }
 
-     class DeleteEntry_EditEntry(ledgerUID: String,oldEntry: Entries,newEntry: Entries):Utill_LedgerCalculationsAfterEdit(ledgerUID,oldEntry,newEntry){
+   open  class DeleteEntry_EditEntry(ledgerUID: String,oldEntry: Entries,newEntry: Entries):Utill_LedgerCalculationsAfterEdit(ledgerUID,oldEntry,newEntry){
 
 
-        suspend fun deleteEntry(oldEntry: Entries):Boolean {
+    open suspend fun deleteEntry(oldEntry: Entries):Boolean {
 
 
             Log.d(TAG, "deleteEntry: Called")
@@ -303,9 +311,9 @@ if (currentData == null){
 
     }
 
-     class  AddEntry_EditEntry(ledgerUID: String,oldEntry: Entries,newEntry: Entries):Utill_LedgerCalculationsAfterEdit(ledgerUID,oldEntry,newEntry){
+   open  class  AddEntry_EditEntry(ledgerUID: String,oldEntry: Entries,newEntry: Entries):Utill_LedgerCalculationsAfterEdit(ledgerUID,oldEntry,newEntry){
 
-        suspend fun addEditedEntryAsNewEntry(newEntry:Entries):Boolean{
+     open   suspend fun addEditedEntryAsNewEntry(newEntry:Entries):Boolean{
             Log.d(TAG, "addEditedEntryAsNewEntry: called")
 
             var isUpdated= CoroutineScope(Dispatchers.Default).async {
@@ -566,6 +574,104 @@ if (currentData == null){
 
     }
 
+    open class DeleteEntryWithVoice_EditEntry(ledgerUID: String,oldEntry: Entries,newEntry: Entries):DeleteEntry_EditEntry(ledgerUID, oldEntry, newEntry)
+    {
+
+        override suspend fun deleteEntry(oldEntry: Entries): Boolean {
+                deleteVoiceFromFirebaseStorage(oldEntry)
+                deleteVoiceFromLocalDevice(oldEntry)
+
+            return super.deleteEntry(oldEntry)
+        }
+
+
+
+           private fun deleteVoiceFromLocalDevice(oldentry: Entries){
+            //delete voice from device
+
+              CoroutineScope(Dispatchers.IO).launch {
+                  var contextWrapper= ContextWrapper(MainActivity.getMainActivityInstance().applicationContext)
+
+
+                  val fdelete= File( contextWrapper.getExternalFilesDir(Environment.DIRECTORY_MUSIC)!!.toString()+"/"+oldentry.voiceNote!!.fileName
+                  )
+                  if (fdelete.exists()) {
+                      if (fdelete.delete()) {
+
+                          Log.d(TAG, "deleteVoiceFromDevice: Voice Deleted From Device")
+
+                      } else {
+
+                          Log.d(TAG, "deleteVoiceFromDevice: Voice Cannot Be Deleted From Device")
+                      }
+                  }
+              }
+
+         }
+
+        suspend private fun  deleteVoiceFromFirebaseStorage(entry: Entries) {
+
+            var file = Uri.fromFile(File(entry.voiceNote!!.localPath))
+            storage_reference.child("voiceNotes").child(ledgerUID).child(entry.entryUID.toString())
+                .child("${file.lastPathSegment}").delete().addOnCompleteListener {
+                    if (it.isSuccessful){
+                        Log.d(TAG, "deleteVoiceFromFirebaseStorage: Voice Deleted From Firebase Storage")
+
+                    }else{
+                        Log.d(TAG, "deleteVoiceFromFirebaseStorage: Cannot Delete Voice From Firebase Storage. ${it.exception.toString()}")
+                    }
+                }.await()
+
+        }
+
+
+
+
+    }
+
+    open class AddEntryWithVoice_EditEntry(ledgerUID: String,oldEntry: Entries,newEntry: Entries):AddEntry_EditEntry(ledgerUID, oldEntry, newEntry)
+    {
+
+        override suspend fun addEditedEntryAsNewEntry(newEntry: Entries): Boolean {
+            if (newEntry.hasVoiceNote!!){
+                uploadVoiceNoteThenAddNewEntry(newEntry)
+            }
+
+            return super.addEditedEntryAsNewEntry(newEntry)
+        }
+
+       private suspend fun uploadVoiceNoteThenAddNewEntry(newEntry: Entries) {
+            var file = Uri.fromFile(File(newEntry.voiceNote!!.localPath))
+
+            var ref= storage_reference.child("voiceNotes").child(ledgerUID).child(newEntry.entryUID.toString())
+                .child("${file.lastPathSegment}")
+
+            ref.putFile(file)
+                .addOnSuccessListener {
+                    // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
+                    Log.d(TAG, "uploadVoiceNoteThenAddNewEntry: Voice Note Uploaded. -- ${it.metadata.toString()} ")
+
+                    //getDownloadURL
+                    ref.downloadUrl.addOnCompleteListener {
+                        if (it.isSuccessful){
+                            newEntry.voiceNote!!.firebaseDownloadURI=it.result.toString()
+
+                        }
+                        else{
+                            Log.d(TAG, "uploadVoiceNoteThenAddNewEntry: Not Able To Fetch Download URI")
+                        }
+                    }
+
+                }.addOnFailureListener {
+                    Log.d(TAG, "uploadVoiceNoteThenAddNewEntry: Cannot Upload Voice Note")
+                }.await()
+
+
+        }
+
+
+
+    }
 
 
 

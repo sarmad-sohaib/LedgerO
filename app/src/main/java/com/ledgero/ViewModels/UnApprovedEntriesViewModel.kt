@@ -5,7 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.ledgero.DataClasses.Entries
 import com.ledgero.Repositories.UnApprovedEntriesRepo
+import com.ledgero.UtillClasses.AddEntryWithVoice_EditEntry
 import com.ledgero.UtillClasses.AddEntry_EditEntry
+import com.ledgero.UtillClasses.DeleteEntryWithVoice_EditEntry
 import com.ledgero.UtillClasses.DeleteEntry_EditEntry
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -82,7 +84,16 @@ class UnApprovedEntriesViewModel( val unApprovedEntriesRepo: UnApprovedEntriesRe
         //check if entry to be delete has voice not or not
 
         if(oldentry.hasVoiceNote!!){
-            //     unApprovedEntriesRepo.deleteEntry_EditEntry_withVoice(entry)
+            CoroutineScope(Dispatchers.Default).async{
+
+
+                DeleteEntryWithVoice_EditEntry(mledgerUID,oldentry,newEntry).deleteEntry(oldentry)
+                AddEntryWithVoice_EditEntry(mledgerUID,oldentry,newEntry).addEditedEntryAsNewEntry(newEntry)
+
+
+
+
+            }
         }else{
 
 

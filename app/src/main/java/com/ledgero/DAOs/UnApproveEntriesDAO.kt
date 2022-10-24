@@ -68,7 +68,7 @@ class UnApproveEntriesDAO(private val ledgerUID: String) {
     fun rejectDeleteRequestForApprovedEntry(pos:Int){
       //  We need to set its reqMode to 0 in ledger list, so another request can be performed on it
         //and save a copy in canceled with reqCode 2, so if requester press requestAgain button it will work
-    var entry= unApprovedentriesData.get(pos)
+     var entry= unApprovedentriesData.get(pos)
 
        updateEntryInLedger(entry) //updating in ledgersEntries
     }

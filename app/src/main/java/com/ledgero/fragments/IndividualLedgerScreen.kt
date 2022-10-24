@@ -28,8 +28,12 @@ import com.ledgero.Repositories.IndividualScreenRepo
 import com.ledgero.ViewModelFactories.IndividualScreenViewModeFactory
 import com.ledgero.ViewModels.IndividualScreenViewModel
 import com.ledgero.adapters.RecyclerAdapter_SingleLedger
+import com.ledgero.other.Constants.ADD_REQUEST_REQUEST_MODE
+import com.ledgero.other.Constants.DELETE_REQUEST_REQUEST_MODE
+import com.ledgero.other.Constants.EDIT_REQUEST_REQUEST_MODE
 import com.ledgero.other.Constants.GAVE_ENTRY_FLAG
 import com.ledgero.other.Constants.GET_ENTRY_FLAG
+import com.ledgero.other.Constants.NO_REQUEST_REQUEST_MODE
 import kotlinx.android.synthetic.main.fragment_individual_ledger_screen.view.*
 
 class IndividualLedgerScreen(ledgerUID:String) : Fragment() {
@@ -377,7 +381,7 @@ return itemTouchHelper
                 //delete entry
 
                 var entry= entries.get(pos)
-                if (entry.requestMode==0){
+                if (entry.requestMode== NO_REQUEST_REQUEST_MODE){
                     viewModel.deleteEntry(pos)
                     dialogInterface.cancel()
                     var frag = UnApprovedEntriesScreen(currentSelectedLedgerUID)
@@ -385,8 +389,11 @@ return itemTouchHelper
                         .replace(R.id.fl_fragment_container_main,frag)
                         .commit()
                 }else{
-                    if (entry.requestMode==2){
-                        Toast.makeText(context, "Already Requested For Deletion. Please Check Un-Approved Entries", Toast.LENGTH_SHORT).show()
+                    if (entry.requestMode==ADD_REQUEST_REQUEST_MODE
+                        ||entry.requestMode== DELETE_REQUEST_REQUEST_MODE
+                        ||entry.requestMode== EDIT_REQUEST_REQUEST_MODE
+                    ){
+                        Toast.makeText(context, "Already in request. Please Check Un-Approved Entries", Toast.LENGTH_SHORT).show()
                   rv.adapter!!.notifyDataSetChanged()
                     }
                 }

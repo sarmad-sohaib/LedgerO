@@ -109,13 +109,16 @@ hideProgressDialog()
             requestMode = EDIT_REQUEST_REQUEST_MODE,
             hasVoiceNote = true,
             entryMadeBy_userID = User.userID,
-        entry_title = desc.substring(4))
+        entry_title = desc)
+
         currentEntry.requestMode = EDIT_REQUEST_REQUEST_MODE
         newEntry.voiceNote!!.fileName = Uri.fromFile(newAudioFile).lastPathSegment
-        newEntry.voiceNote!!.localPath = newAudioFile.path
+         newEntry.voiceNote!!.localPath = newAudioFile.path
 
             viewModelScope.launch(Dispatchers.IO) {
             editSingleEntriesRepo.sendEntryForApproval(newEntry, newAudioFile)
+                editSingleEntriesRepo.updateCurrentEntryRequestModeInApprovedEntries(currentEntry,
+                    EDIT_REQUEST_REQUEST_MODE)
             hideProgressDialog()
         }
     }
