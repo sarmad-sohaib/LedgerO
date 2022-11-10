@@ -1,4 +1,4 @@
-package com.ledgero.DAOs
+package com.ledgero.daos
 
 import android.net.Uri
 import android.util.Log
@@ -12,12 +12,17 @@ import com.google.firebase.database.ktx.getValue
 import com.google.firebase.storage.FirebaseStorage
 import com.ledgero.DataClasses.Entries
 import com.ledgero.DataClasses.User
+import com.ledgero.other.Constants
+import com.ledgero.pushnotifications.PushNotification
 import java.io.File
 
 class CanceledEntriesDAO(private val ledgerUID: String) {
     private val TAG = "CanceledEntries"
     private var db_reference = FirebaseDatabase.getInstance().reference
     private var storage_reference= FirebaseStorage.getInstance().reference
+
+    private val pushNotificationInterface= PushNotification()
+
 
     private var canceledEntiresLiveData = MutableLiveData<ArrayList<Entries>>()
     private var canceledEntriesData = ArrayList<Entries>()
@@ -111,6 +116,8 @@ class CanceledEntriesDAO(private val ledgerUID: String) {
             .addOnCompleteListener {
                 updateEntryRequestModeInLedger(entryKey,entry)
                 deleteEntryFromCanceled(entryKey)
+                pushNotificationInterface.createAndSendNotification(ledgerUID,
+                    Constants.ENTRY_RESENT)
             }
     }
 

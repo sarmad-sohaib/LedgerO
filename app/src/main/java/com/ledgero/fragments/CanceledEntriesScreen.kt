@@ -9,19 +9,14 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.ledgero.DAOs.CanceledEntriesDAO
-import com.ledgero.DAOs.UnApproveEntriesDAO
+import com.ledgero.daos.CanceledEntriesDAO
 import com.ledgero.DataClasses.Entries
 import com.ledgero.DataClasses.SingleLedgers
 import com.ledgero.R
 import com.ledgero.Repositories.CanceledEntriesRepo
-import com.ledgero.Repositories.UnApprovedEntriesRepo
 import com.ledgero.ViewModelFactories.CanceledEntriesViewModelFactory
-import com.ledgero.ViewModelFactories.UnApprovedEntriesViewModelFactory
 import com.ledgero.ViewModels.CanceledEntriesViewModel
-import com.ledgero.ViewModels.UnApprovedEntriesViewModel
 import com.ledgero.adapters.CanceledEntriesScreen_RVAdapter
-import com.ledgero.adapters.UnApprovedEntries_RVAdapter
 
 class CanceledEntriesScreen(var ledgerUID: String) : Fragment() {
 

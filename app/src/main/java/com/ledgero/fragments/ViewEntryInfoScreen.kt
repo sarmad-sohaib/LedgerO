@@ -12,17 +12,12 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.ledgero.DAOs.UnApproveEntriesDAO
-import com.ledgero.DAOs.ViewEntryInfoScreenDAO
+import com.ledgero.daos.ViewEntryInfoScreenDAO
 import com.ledgero.DataClasses.Entries
 import com.ledgero.R
-import com.ledgero.Repositories.UnApprovedEntriesRepo
 import com.ledgero.Repositories.ViewEntryInfoScreenRepo
-import com.ledgero.ViewModelFactories.UnApprovedEntriesViewModelFactory
 import com.ledgero.ViewModelFactories.ViewEntryInfoScreenViewModelFactory
-import com.ledgero.ViewModels.UnApprovedEntriesViewModel
 import com.ledgero.ViewModels.ViewEntryInfoScreenViewModel
-import com.ledgero.adapters.RecyclerAdapter_SingleLedger
 import kotlinx.android.synthetic.main.fragment_view_entry_info_screen.view.*
 
 class ViewEntryInfoScreen(val entry:Entries,val ledgerUID:String) : Fragment() {

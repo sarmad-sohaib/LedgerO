@@ -2,15 +2,15 @@ package com.ledgero
 
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.ledgero.fragments.HomeFragment
-import com.ledgero.fragments.MoneyFragment
-import com.ledgero.fragments.MoreFragment
+import com.ledgero.fragments.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -32,16 +32,32 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
+
+
         mainActivity = this
 
-        main_frag_holder= findViewById(R.id.fl_fragment_container_main)
+        main_frag_holder = findViewById(R.id.fl_fragment_container_main)
 //         Restricting darkMode in this activity
 //        TODO: change this line when dark mode needed in the activity
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO) //disabling dark mode from this activity
 
+        val menuFragment = intent.getStringExtra("fragmentName")
+
+        //notification tap back
+        if (menuFragment != null) {
+            val mLedgerUID = intent.getStringExtra("ledgerUID")
+
+            Log.d("TapBack", "onCreate:  $mLedgerUID")
+            // Use the Kotlin extension in the fragment-ktx artifact
+            supportFragmentManager.setFragmentResult("fragmentName", bundleOf("ledgerUID" to mLedgerUID))
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fl_fragment_container_main, HomeFragment()).commit()
+        }else
+        {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fl_fragment_container_main, HomeFragment()).commit()
-
+    }
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
 
         val navLisner = BottomNavigationView.OnNavigationItemSelectedListener { item ->

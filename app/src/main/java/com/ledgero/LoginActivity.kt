@@ -40,7 +40,7 @@ class LoginActivity : AppCompatActivity() {
             object : BiometricPrompt.AuthenticationCallback() {
                 override fun onAuthenticationError(
                     errorCode: Int,
-                    errString: CharSequence
+                    errString: CharSequence,
                 ) {
                     super.onAuthenticationError(errorCode, errString)
                     Toast.makeText(
@@ -51,7 +51,7 @@ class LoginActivity : AppCompatActivity() {
                 }
 
                 override fun onAuthenticationSucceeded(
-                    result: BiometricPrompt.AuthenticationResult
+                    result: BiometricPrompt.AuthenticationResult,
                 ) {
                     super.onAuthenticationSucceeded(result)
                     Toast.makeText(
@@ -60,12 +60,17 @@ class LoginActivity : AppCompatActivity() {
                     )
                         .show()
 
-                    loginViewModel.context.startActivity(
-                        Intent(
-                            loginViewModel.context,
-                            MainActivity::class.java
-                        )
-                    )
+                    var fragmentName = intent.getStringExtra("fragmentName")
+                    var ledgerUID= intent.getStringExtra("ledgerUID")
+                    var intent= Intent(loginViewModel.context, MainActivity::class.java)
+                    if (fragmentName != null){
+                        intent.putExtra("fragmentName",fragmentName)
+                        intent.putExtra("ledgerUID",ledgerUID)
+                        Log.d("TapBack", "onAuthenticationSucceeded: ledgerUID: $ledgerUID")
+
+                    }
+                 loginViewModel.context.startActivity(intent)
+
                     val ac = loginViewModel.context as Activity
                     ac.finish()
 

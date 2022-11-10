@@ -1,7 +1,7 @@
 package com.ledgero.Repositories
 
 import androidx.lifecycle.LiveData
-import com.ledgero.DAOs.ViewEntryInfoScreenDAO
+import com.ledgero.daos.ViewEntryInfoScreenDAO
 import com.ledgero.DataClasses.Entries
 
 

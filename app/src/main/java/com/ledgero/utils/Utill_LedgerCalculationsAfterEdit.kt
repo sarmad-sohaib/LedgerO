@@ -10,9 +10,11 @@ import com.google.firebase.database.ktx.getValue
 import com.google.firebase.storage.FirebaseStorage
 import com.ledgero.DataClasses.Entries
 import com.ledgero.MainActivity
+import com.ledgero.other.Constants.ENTRY_APPROVED
 import com.ledgero.other.Constants.GAVE_ENTRY_FLAG
 import com.ledgero.other.Constants.GET_ENTRY_FLAG
 import com.ledgero.other.Constants.NO_REQUEST_REQUEST_MODE
+import com.ledgero.pushnotifications.PushNotification
 import kotlinx.coroutines.*
 import kotlinx.coroutines.tasks.await
 import java.io.File
@@ -23,9 +25,8 @@ open class Utill_LedgerCalculationsAfterEdit(var ledgerUID:String,oldEntry: Entr
     protected var db_reference = FirebaseDatabase.getInstance().reference
     protected var storage_reference= FirebaseStorage.getInstance().reference
 
-
-    protected lateinit var oldEntry: Entries
-    protected lateinit var newEntry: Entries
+    protected  var oldEntry: Entries
+    protected  var newEntry: Entries
     protected val TAG = "Utill_LedgerMetaData"
 init {
     this.oldEntry=oldEntry
@@ -349,6 +350,8 @@ if (currentData == null){
         private suspend fun deleteEntryFromUnApproved(entryKey: String){
             db_reference.child("entriesRequests").child(ledgerUID).child(entryKey)
                 .removeValue().await()
+
+
         }
         private fun calculateMetaDataAfterAddingEntryData(currentData: DataSnapshot?, newEntry: Entries): Map<String,Any>? {
 

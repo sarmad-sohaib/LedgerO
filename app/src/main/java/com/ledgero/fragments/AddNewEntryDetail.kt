@@ -32,25 +32,23 @@ import com.ledgero.utils.Utill_AddNewEntryDetail
 import kotlinx.android.synthetic.main.fragment_add_new_entry_detail.view.*
 
 
- class AddNewEntryDetail(var ledger: SingleLedgers) : Fragment() , EntryDetailInterface {
-     override lateinit var calculatorLayout: View
-     override lateinit var amountTextTV:EditText
-    override lateinit var totalAmount:EditText
+class AddNewEntryDetail(var ledger: SingleLedgers) : Fragment(), EntryDetailInterface {
+    override lateinit var calculatorLayout: View
+    override lateinit var amountTextTV: EditText
+    override lateinit var totalAmount: EditText
 
-     override lateinit var myContext: Context
+    override lateinit var myContext: Context
 
 
-     lateinit var utill:Utill_AddNewEntryDetail
-        override var mLedger:SingleLedgers=ledger
-     override  lateinit var audioLayout:ConstraintLayout
-     override lateinit var audioPlayBtn: Button
-     override lateinit var recordBtn : Button
-     override lateinit var recordDuartionText: TextView
-     override lateinit var recordMaxLimitText: TextView
-     override lateinit var hintRecordText: TextView
+    lateinit var utill: Utill_AddNewEntryDetail
+    override var mLedger: SingleLedgers = ledger
+    override lateinit var audioLayout: ConstraintLayout
+    override lateinit var audioPlayBtn: Button
+    override lateinit var recordBtn: Button
+    override lateinit var recordDuartionText: TextView
+    override lateinit var recordMaxLimitText: TextView
+    override lateinit var hintRecordText: TextView
     override lateinit var recordSeekBar: SeekBar
-
-
 
 
     @RequiresApi(Build.VERSION_CODES.M)
@@ -59,25 +57,25 @@ import kotlinx.android.synthetic.main.fragment_add_new_entry_detail.view.*
         savedInstanceState: Bundle?,
     ): View? {
 
-        myContext=requireContext()
+        myContext = requireContext()
 
-       var view=inflater.inflate(R.layout.fragment_add_new_entry_detail, container, false)
-        var entryMode:Boolean?=null // mode tell if user pressed Got or Gave
+        var view = inflater.inflate(R.layout.fragment_add_new_entry_detail, container, false)
+        var entryMode: Boolean? = null // mode tell if user pressed Got or Gave
 
-        utill= Utill_AddNewEntryDetail(this)
-        amountTextTV= view.tv_amount_add_new_entry
-        totalAmount= view.tv_Totalamount_view_entry
+        utill = Utill_AddNewEntryDetail(this)
+        amountTextTV = view.tv_amount_add_new_entry
+        totalAmount = view.tv_Totalamount_view_entry
 
-        setFragmentResultListener("addEntryBtn"){addEntryBtn,bundle ->
+        setFragmentResultListener("addEntryBtn") { addEntryBtn, bundle ->
 
-            entryMode=bundle.getBoolean("mode")
+            entryMode = bundle.getBoolean("mode")
 
-            if (entryMode==GET_ENTRY_FLAG)//means user pressed GOT  represent false
-         {
-             view.view_entry_entry_title.setTextColor(Color.GREEN)
+            if (entryMode == GET_ENTRY_FLAG)//means user pressed GOT  represent false
+            {
+                view.view_entry_entry_title.setTextColor(Color.GREEN)
 
-         }
-            if (entryMode== GAVE_ENTRY_FLAG){ //represent true
+            }
+            if (entryMode == GAVE_ENTRY_FLAG) { //represent true
 
                 view.view_entry_entry_title.setTextColor(Color.RED)
 
@@ -92,57 +90,69 @@ import kotlinx.android.synthetic.main.fragment_add_new_entry_detail.view.*
         view.bt_add_new_entry.setOnClickListener {
 
 
-            if(utill.audioRecordUtill.isAudioRecording){
-                Toast.makeText(context, "You Are Recording A Voice...Stop Recording to Save", Toast.LENGTH_SHORT).show()
+            if (utill.audioRecordUtill.isAudioRecording) {
+                Toast.makeText(context,
+                    "You Are Recording A Voice...Stop Recording to Save",
+                    Toast.LENGTH_SHORT).show()
 
-            }else{
+            } else {
 
-            if (!totalAmount.text.isNullOrBlank() && !totalAmount.text.toString().equals("Err")){
+                if (!totalAmount.text.isNullOrBlank() && !totalAmount.text.toString()
+                        .equals("Err")
+                ) {
 
-                if (!view.tv_description_view_entry.text.isNullOrBlank()){
+                    if (!view.tv_description_view_entry.text.isNullOrBlank()) {
 
-                    Toast.makeText(context, "Adding New Entry To Ledger", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "Adding New Entry To Ledger", Toast.LENGTH_SHORT)
+                            .show()
 
-                    val amount: Float = java.lang.Float.valueOf(totalAmount.text.toString())
+                        val amount: Float = java.lang.Float.valueOf(totalAmount.text.toString())
 
-                    var des= view.tv_description_view_entry.text.toString()
+                        var des = view.tv_description_view_entry.text.toString()
 
-                    var title= if (des.length>16)des.subSequence(0,15).toString() else des.toString()
-
-
-                    var flag = if (entryMode== GAVE_ENTRY_FLAG) GAVE_ENTRY_FLAG else GET_ENTRY_FLAG
+                        var title = if (des.length > 16) des.subSequence(0, 15)
+                            .toString() else des.toString()
 
 
-                    var entry = Entries(amount,flag,des,title,111111,false,User.userID,"",1,false
-                                ,null,User.userID)
+                        var flag =
+                            if (entryMode == GAVE_ENTRY_FLAG) GAVE_ENTRY_FLAG else GET_ENTRY_FLAG
 
-                        if (utill.audioRecordUtill.hasVoiceNote){
-                            var voiceNote=
-                                VoiceNote(utill.audioRecordUtill.localPath!!,utill.audioRecordUtill.VoicefileName,utill.audioRecordUtill.getAudioDuration().toInt(),null)
-                            entry.hasVoiceNote=true
-                            entry.voiceNote=voiceNote
+
+                        var entry = Entries(amount, flag, des,
+                            title, 111111, false,
+                            User.userID, "", 1,
+                            false, null, User.userID)
+
+                        if (utill.audioRecordUtill.hasVoiceNote) {
+                            var voiceNote =
+                                VoiceNote(utill.audioRecordUtill.localPath!!,
+                                    utill.audioRecordUtill.VoicefileName,
+                                    utill.audioRecordUtill.getAudioDuration().toInt(),
+                                    null)
+                            entry.hasVoiceNote = true
+                            entry.voiceNote = voiceNote
                         }
 
-                    IndividualLedgerScreen.instanceObject!!.viewModel.addNewEntry(entry)
-                   var frag = UnApprovedEntriesScreen(IndividualLedgerScreen.instanceObject!!.currentSelectedLedgerUID.toString())
+                        IndividualLedgerScreen.instanceObject!!.viewModel.addNewEntry(entry)
+                        var frag =
+                            UnApprovedEntriesScreen(IndividualLedgerScreen.instanceObject!!.currentSelectedLedgerUID.toString())
 
 
-                    parentFragmentManager.popBackStack()
-                    parentFragmentManager.beginTransaction()
-                        .addToBackStack(null)
-                        .replace(R.id.fl_fragment_container_main,frag)
-                        .commit()
+                        parentFragmentManager.popBackStack()
+                        parentFragmentManager.beginTransaction()
+                            .addToBackStack(null)
+                            .replace(R.id.fl_fragment_container_main, frag)
+                            .commit()
 
 
+                    } else {
+                        Toast.makeText(context, "No Description Added!!", Toast.LENGTH_SHORT).show()
 
-                }else{
-                    Toast.makeText(context, "No Description Added!!", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    Toast.makeText(context, "Please Enter Amount!!", Toast.LENGTH_SHORT).show()
 
                 }
-            }else{
-                Toast.makeText(context, "Please Enter Amount!!", Toast.LENGTH_SHORT).show()
-
-            }
             }
         }
 
@@ -152,36 +162,36 @@ import kotlinx.android.synthetic.main.fragment_add_new_entry_detail.view.*
         amountTextTV.inputType = InputType.TYPE_NULL // disable soft input
 
 
-
-        amountTextTV.tv_amount_add_new_entry.setOnTouchListener(object : View.OnTouchListener{
+        amountTextTV.tv_amount_add_new_entry.setOnTouchListener(object : View.OnTouchListener {
             override fun onTouch(p0: View?, p1: MotionEvent?): Boolean {
 
                 //this will close the soft keyboard if its open
                 // hide virtual keyboard
-                    hideKeyboard()
-                if (view.calculator_layout_add_new_entry_include.visibility==View.GONE){
-                    view.calculator_layout_add_new_entry_include.visibility=View.VISIBLE
+                hideKeyboard()
+                if (view.calculator_layout_add_new_entry_include.visibility == View.GONE) {
+                    view.calculator_layout_add_new_entry_include.visibility = View.VISIBLE
 
                 }
 
                 return false
-        }})
+            }
+        })
 
 
 
 
 
-        view.tv_description_view_entry.setOnTouchListener(object : View.OnTouchListener{
+        view.tv_description_view_entry.setOnTouchListener(object : View.OnTouchListener {
             override fun onTouch(p0: View?, p1: MotionEvent?): Boolean {
-                view.calculator_layout_add_new_entry_include.visibility=View.GONE
-return false
+                view.calculator_layout_add_new_entry_include.visibility = View.GONE
+                return false
 
             }
 
         })
 
 
-        amountTextTV.addTextChangedListener(object :TextWatcher{
+        amountTextTV.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
 
@@ -189,68 +199,74 @@ return false
             }
 
             override fun afterTextChanged(p0: Editable?) {
-               if (view.tv_amount_add_new_entry.text.isNullOrEmpty()){
-                   view.entryInfoScrollView_add_new_entry_screen.visibility=View.GONE
-               }else{
-                   view.entryInfoScrollView_add_new_entry_screen.visibility=View.VISIBLE
+                if (view.tv_amount_add_new_entry.text.isNullOrEmpty()) {
+                    view.entryInfoScrollView_add_new_entry_screen.visibility = View.GONE
+                } else {
+                    view.entryInfoScrollView_add_new_entry_screen.visibility = View.VISIBLE
 
-               }
+                }
             }
 
         })
 
 
         //record audio ui operations
-        audioLayout= view.audioPlay_layout_addNewEntry
+        audioLayout = view.audioPlay_layout_addNewEntry
         audioPlayBtn = view.btn_play_recordVoice_addNewEntryDetail
-        recordBtn= view.btn_recordVoice_addNewEntryDetail
-        recordDuartionText= view.audioRecordDuration_tv_addNewEntryDetail
-        recordMaxLimitText= view.audioMaxLimit_tv_addNewEntryDetail
-        hintRecordText=view.hint_recordAudio_addNewEntry
-        recordSeekBar= view.seekBar_addNewEntry
+        recordBtn = view.btn_recordVoice_addNewEntryDetail
+        recordDuartionText = view.audioRecordDuration_tv_addNewEntryDetail
+        recordMaxLimitText = view.audioMaxLimit_tv_addNewEntryDetail
+        hintRecordText = view.hint_recordAudio_addNewEntry
+        recordSeekBar = view.seekBar_addNewEntry
 
 
         recordBtn.setOnClickListener {
             @RequiresApi(Build.VERSION_CODES.S)
-            if (utill.audioRecordUtill.isAudioRecording){
+            if (utill.audioRecordUtill.isAudioRecording) {
 
                 //stop audio Recording
                 utill.audioRecordUtill.stopAudioRecording()
                 utill.audioRecordUtill.stopTimer()
-                utill.audioRecordUtill.isAudioRecording=false
-                recordBtn.foreground= getDrawable(requireContext(),R.drawable.ic_microphone)
+                utill.audioRecordUtill.isAudioRecording = false
+                recordBtn.foreground = getDrawable(requireContext(), R.drawable.ic_microphone)
                 audioLayout.visibility = View.VISIBLE
-                hintRecordText.visibility=View.GONE
-                recordMaxLimitText.text="Max 60s"
+                hintRecordText.visibility = View.GONE
+                recordMaxLimitText.text = "Max 60s"
 
                 // set audioDuration
-                view.audioRecordDuration_tv_addNewEntryDetail.text=utill.audioRecordUtill.getAudioDuration()+"s"
-            }else
-            {
+                view.audioRecordDuration_tv_addNewEntryDetail.text =
+                    utill.audioRecordUtill.getAudioDuration() + "s"
+            } else {
                 //start audio Recording
                 if (utill.audioRecordUtill.isMicPresent()) {
-                if (!utill.audioRecordUtill.isMicPermission())
-         {Toast.makeText(context,"Please Allow Us To Use Your Device Mice", Toast.LENGTH_SHORT).show()
-                }else{
-                utill.audioRecordUtill.startAudioRecording()
-                    utill.audioRecordUtill.startTimer(recordMaxLimitText)
-                    utill.audioRecordUtill.isAudioRecording=true
-                    audioLayout.visibility=View.GONE
-                    hintRecordText.text= "Your voice note is recording. Tap recording button to stop"
-                    hintRecordText.visibility=View.VISIBLE
+                    if (!utill.audioRecordUtill.isMicPermission()) {
+                        Toast.makeText(context,
+                            "Please Allow Us To Use Your Device Mice",
+                            Toast.LENGTH_SHORT).show()
+                    } else {
+                        utill.audioRecordUtill.startAudioRecording()
+                        utill.audioRecordUtill.startTimer(recordMaxLimitText)
+                        utill.audioRecordUtill.isAudioRecording = true
+                        audioLayout.visibility = View.GONE
+                        hintRecordText.text =
+                            "Your voice note is recording. Tap recording button to stop"
+                        hintRecordText.visibility = View.VISIBLE
 
-                  recordBtn.foreground= getDrawable(requireContext(),R.drawable.ic_sound_waveform)
-                } } else {
-                Toast.makeText(context, "Sorry! No Working Mic Found", Toast.LENGTH_SHORT)
-                    .show() }
+                        recordBtn.foreground =
+                            getDrawable(requireContext(), R.drawable.ic_sound_waveform)
+                    }
+                } else {
+                    Toast.makeText(context, "Sorry! No Working Mic Found", Toast.LENGTH_SHORT)
+                        .show()
+                }
             }
         }
 
 
-        audioLayout.setOnLongClickListener(object : View.OnLongClickListener{
+        audioLayout.setOnLongClickListener(object : View.OnLongClickListener {
             override fun onLongClick(p0: View?): Boolean {
 
-                var alertDialog= utill.audioRecordUtill.getAlertDialogForDeletingVoice()
+                var alertDialog = utill.audioRecordUtill.getAlertDialogForDeletingVoice()
                 alertDialog.show()
 
                 return true
@@ -261,14 +277,15 @@ return false
 
         audioPlayBtn.setOnClickListener {
 
-            if (utill.audioRecordUtill.isAudioPlaying){
+            if (utill.audioRecordUtill.isAudioPlaying) {
                 utill.audioRecordUtill.stopPlayingAudio()
-                audioPlayBtn.foreground=getDrawable(requireContext(),R.drawable.ic_play_button)
-                utill.audioRecordUtill.isAudioPlaying=false
-            }else{
-                utill.audioRecordUtill.startPlayingAudio(audioPlayBtn,getDrawable(requireContext(),R.drawable.ic_play_button))
-                audioPlayBtn.foreground= getDrawable(requireContext(),R.drawable.ic_pause)
-                utill.audioRecordUtill.isAudioPlaying=true
+                audioPlayBtn.foreground = getDrawable(requireContext(), R.drawable.ic_play_button)
+                utill.audioRecordUtill.isAudioPlaying = false
+            } else {
+                utill.audioRecordUtill.startPlayingAudio(audioPlayBtn,
+                    getDrawable(requireContext(), R.drawable.ic_play_button))
+                audioPlayBtn.foreground = getDrawable(requireContext(), R.drawable.ic_pause)
+                utill.audioRecordUtill.isAudioPlaying = true
             }
         }
 
@@ -280,7 +297,7 @@ return false
     private fun setCalculatorBtnListeners(view: View) {
 
 
-       utill.CalculatorUtills().setClickListenersOnButtons(view,this)
+        utill.CalculatorUtills().setClickListenersOnButtons(view, this)
 
     }
 
@@ -294,7 +311,8 @@ return false
     }
 
     fun Context.hideKeyboard(view: View) {
-        val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        val inputMethodManager =
+            getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
@@ -308,10 +326,10 @@ return false
     }
 
 
-     /*Function to calculate the expressions using expression builder library*/
+    /*Function to calculate the expressions using expression builder library*/
 
-   override fun evaluateExpression(string: String, clear: Boolean) {
-        if(clear) {
+    override fun evaluateExpression(string: String, clear: Boolean) {
+        if (clear) {
 
             amountTextTV.append(string)
         } else {
@@ -322,12 +340,12 @@ return false
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
-    override fun onMaxAudioRecordDuration(){
-        recordBtn.foreground= getDrawable(requireContext(),R.drawable.ic_microphone)
+    override fun onMaxAudioRecordDuration() {
+        recordBtn.foreground = getDrawable(requireContext(), R.drawable.ic_microphone)
         audioLayout.visibility = View.VISIBLE
-        hintRecordText.visibility= View.GONE
+        hintRecordText.visibility = View.GONE
 
         // set audioDuration
-        recordDuartionText.text = utill.audioRecordUtill.getAudioDuration()+"s"
+        recordDuartionText.text = utill.audioRecordUtill.getAudioDuration() + "s"
     }
 }

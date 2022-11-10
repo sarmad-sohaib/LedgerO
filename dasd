@@ -1,0 +1,705 @@
+[33mcommit 1f0eb518351dc40dd516f058c6ab44f8d4794a94[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Merge: 7223f50 dda2c19
+Author: unknown <rdxat47@gmail.com>
+Date:   Mon Oct 24 17:53:00 2022 +0500
+
+    Merge branch 'master' of https://github.com/sarmad-sohaib/LedgerO
+
+[33mcommit 7223f50f497bb831eed1cc1da8e86be776485496[m
+Author: unknown <rdxat47@gmail.com>
+Date:   Mon Oct 24 17:52:48 2022 +0500
+
+    Edit Entry With Voice Implemented
+
+[33mcommit dda2c191f4d5b9f1bc441ce0826b31613d507b6f[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Sarmad Sohaib <62813277+sarmad-sohaib@users.noreply.github.com>
+Date:   Sat Oct 22 16:57:53 2022 +0500
+
+    bio-metric login feature has been implemented
+
+[33mcommit eeec2e9d1ed46a16522b56dcabccf2ae781485c8[m
+Merge: 57916b5 4f8d97c
+Author: Sarmad Sohaib <62813277+sarmad-sohaib@users.noreply.github.com>
+Date:   Fri Oct 21 21:41:44 2022 +0500
+
+    Merge remote-tracking branch 'origin/master'
+
+[33mcommit 57916b53c3c8bcf7c09d864ff4f3215e050e081f[m
+Author: Sarmad Sohaib <62813277+sarmad-sohaib@users.noreply.github.com>
+Date:   Fri Oct 21 21:41:36 2022 +0500
+
+    Auto-complete reminders after they received feature has been implemented
+
+[33mcommit 4f8d97c480bddbdaabc45ac304d9057bd0910018[m
+Merge: 7a5f8f6 7aa91fc
+Author: unknown <rdxat47@gmail.com>
+Date:   Fri Oct 21 11:24:51 2022 +0500
+
+    pulled and merged.
+
+[33mcommit 7a5f8f6c3fc48fd4f453c251b730e42ec9c981c4[m
+Author: unknown <rdxat47@gmail.com>
+Date:   Fri Oct 21 01:52:54 2022 +0500
+
+    Single Entry without voice Edit Feature added
+
+[33mcommit 7aa91fcf3b63b7d0d393c0ef72eaf4130b1eb47d[m
+Author: Sarmad Sohaib <62813277+sarmad-sohaib@users.noreply.github.com>
+Date:   Wed Oct 19 21:25:22 2022 +0500
+
+    Snackbar shoiwng "reminder complete" message has been implemented
+
+[33mcommit f75d1633038397ac2320ef8a096482e4bcff9da7[m
+Author: unknown <rdxat47@gmail.com>
+Date:   Wed Oct 19 00:54:33 2022 +0500
+
+    Single Add/Delete entry working
+
+[33mcommit 428017307aa6feb18074c3abbad1c60febca9073[m
+Author: unknown <rdxat47@gmail.com>
+Date:   Mon Oct 17 15:03:40 2022 +0500
+
+    Give/Take flags for single entry fixed
+
+[33mcommit 4c8771bce08f68cac020e08edb0d10ab4d156862[m
+Merge: 94c4ecd eb85e80
+Author: Sarmad Sohaib <62813277+sarmad-sohaib@users.noreply.github.com>
+Date:   Sun Oct 9 23:35:24 2022 +0500
+
+    Merge branch 'reminders'
+
+[33mcommit eb85e801a8eb58a8de779e37eca9c08895f22993[m
+Author: Sarmad Sohaib <62813277+sarmad-sohaib@users.noreply.github.com>
+Date:   Sun Oct 9 23:35:07 2022 +0500
+
+    testing slack notification
+
+[33mcommit 94c4ecdef1c0264681d6d56c082dd8d59c61d4ef[m
+Author: sarmad-sohaib <sarmadsohaib.00@gmail.com>
+Date:   Sun Oct 9 22:18:34 2022 +0500
+
+    Complete reminders feature has been implemented
+
+[33mcommit 124fc58531e15ec23538a45ae80f5b2ed12313c0[m
+Merge: 5f07d7f 81283a1
+Author: Sarmad Sohaib <62813277+sarmad-sohaib@users.noreply.github.com>
+Date:   Fri Oct 7 19:24:24 2022 +0500
+
+    Merge branch 'reminders-refactoring'
+
+[33mcommit 81283a17dcd6096e4a185010f2adc7f0db825152[m
+Author: Sarmad Sohaib <62813277+sarmad-sohaib@users.noreply.github.com>
+Date:   Fri Oct 7 18:55:34 2022 +0500
+
+    Code reformat 2
+
+[33mcommit 7c8148b346cdd1010d988dab10478b8868651cd9[m
+Author: Sarmad Sohaib <62813277+sarmad-sohaib@users.noreply.github.com>
+Date:   Fri Oct 7 18:55:05 2022 +0500
+
+    Code has been reformated
+
+[33mcommit 3fd3330c1a421307f88c98f44b525d7e626a869e[m
+Author: Sarmad Sohaib <62813277+sarmad-sohaib@users.noreply.github.com>
+Date:   Fri Oct 7 18:13:09 2022 +0500
+
+    Package structure has been refactored
+
+[33mcommit 5f07d7f1c38ab70d464b6f23cdbf797ceeea5467[m
+Author: Sarmad Sohaib <62813277+sarmad-sohaib@users.noreply.github.com>
+Date:   Thu Oct 6 10:52:24 2022 +0500
+
+    Code cleanup and gradel.builds redundancy removal
+
+[33mcommit 2e42c3e4070577d6c0566b6689ed076dbefde026[m
+Merge: e39548d 3eaf768
+Author: Sarmad Sohaib <62813277+sarmad-sohaib@users.noreply.github.com>
+Date:   Thu Oct 6 10:43:35 2022 +0500
+
+    Merge branch 'reminders'
+
+[33mcommit e39548dd3fd4ac1e4b6c8365a538c75c52e569c6[m
+Author: Sarmad Sohaib <62813277+sarmad-sohaib@users.noreply.github.com>
+Date:   Thu Oct 6 10:36:46 2022 +0500
+
+    Update misc.xml
+
+[33mcommit 3eaf7682de10a2733c9782a6bdd79ee549c6675b[m
+Author: Sarmad Sohaib <62813277+sarmad-sohaib@users.noreply.github.com>
+Date:   Thu Oct 6 10:35:39 2022 +0500
+
+    Reminders features has been implemented
+    
+    @ranahamza4
+
+[33mcommit 251929869c025de7711773d094582f78161011c9[m
+Author: unknown <rdxat47@gmail.com>
+Date:   Sat Sep 17 13:15:12 2022 +0500
+
+    pulled Cash Register Featured
+
+[33mcommit 1e0be36957f69de83cd4fa167ba0f044bd12aa5a[m
+Merge: f770899 fba760e
+Author: unknown <rdxat47@gmail.com>
+Date:   Sat Sep 17 12:40:05 2022 +0500
+
+    Merge branch 'master' of https://github.com/sarmad-sohaib/LedgerO
+
+[33mcommit f770899f46ede2c6b47db84071d1bd8045ae6f37[m
+Author: unknown <rdxat47@gmail.com>
+Date:   Sat Sep 17 12:36:44 2022 +0500
+
+    Single Ledger will show new/cancel entry request notification
+
+[33mcommit fba760e0f98194f5f5c9080be2999742443723a2[m
+Merge: 5dc1f55 a251606
+Author: Sarmad Sohaib <62813277+sarmad-sohaib@users.noreply.github.com>
+Date:   Thu Sep 15 23:39:02 2022 +0500
+
+    Pulling Origin
+
+[33mcommit 5dc1f55a2d6b8df11b80153085297384af6973a3[m
+Merge: 5885ba2 8490a62
+Author: Sarmad Sohaib <62813277+sarmad-sohaib@users.noreply.github.com>
+Date:   Thu Sep 15 23:32:44 2022 +0500
+
+    Merge branch 'master' of https://github.com/sarmad-sohaib/LedgerO
+
+[33mcommit a25160651a4d32ebc73c85e651310df0a4dae736[m
+Author: Sarmad Sohaib <62813277+sarmad-sohaib@users.noreply.github.com>
+Date:   Thu Sep 15 23:30:53 2022 +0500
+
+    CashRegister feature is implemented
+    
+    Cash register feature is fully implemented using MVVM, dependency injection using Hilt, and navigation components + Safe args.
+    
+    All button leading to Cash Register are working.
+    
+    From Sarmad
+    
+    To @ranahamza4
+
+[33mcommit 8490a622a9e4a17dd8566b20457a3cedc37f0417[m
+Author: unknown <rdxat47@gmail.com>
+Date:   Thu Sep 15 07:17:36 2022 +0500
+
+    Voice Download Issue Solved
+
+[33mcommit 713e7a4efeec1b3ee9da3423219a7ffce1dc60d3[m
+Author: unknown <rdxat47@gmail.com>
+Date:   Thu Sep 15 06:42:50 2022 +0500
+
+    Entries will have timestamps now
+
+[33mcommit cf89bb9f1f513e9fc6b4c1a14161d095e6d92213[m
+Author: unknown <rdxat47@gmail.com>
+Date:   Thu Sep 15 06:21:22 2022 +0500
+
+    Total Amount Will be Calculated on each entry add/del
+
+[33mcommit a5b4fd1c1bd27585eee66c783b1548e29e78718c[m
+Author: unknown <rdxat47@gmail.com>
+Date:   Sun Sep 11 20:18:49 2022 +0500
+
+    user can view entry in single ledger and voice notes will downloaded if not already
+
+[33mcommit d0feb843a81f5f7de2cccdb516407fa637ca01f3[m
+Author: unknown <rdxat47@gmail.com>
+Date:   Sat Sep 10 22:17:31 2022 +0500
+
+    voice notes of each entry will be saved locally and online
+
+[33mcommit b223165603250cad8d41f47a5f12594d18beb888[m
+Author: unknown <rdxat47@gmail.com>
+Date:   Fri Sep 9 12:25:07 2022 +0500
+
+    voicenote UI added in addNewEntryDetailScreen
+
+[33mcommit 16cfa0e1869a9625d31c0f597614a19b275b880c[m
+Author: unknown <rdxat47@gmail.com>
+Date:   Thu Sep 8 02:15:58 2022 +0500
+
+    calculator added in AddNewEntryDetailScreen
+
+[33mcommit 83086d885d5228f947f8bd24aaa26292a223dcfb[m
+Author: unknown <rdxat47@gmail.com>
+Date:   Tue Sep 6 18:16:01 2022 +0500
+
+    Canceled Entries are showing. User can add/delete entries now
+
+[33mcommit 02e2dcb9df289a109c0b7eae8db3456d812200b4[m
+Author: unknown <rdxat47@gmail.com>
+Date:   Mon Sep 5 00:13:53 2022 +0500
+
+    entries add/delete will be verified by both parties now
+
+[33mcommit 7be25cfdc08a788803839fa15ac85e59dc6d39c4[m
+Author: unknown <rdxat47@gmail.com>
+Date:   Sun Sep 4 21:41:07 2022 +0500
+
+    user can see un-approved entries/new entries will be staged as un-approved
+
+[33mcommit 20fca8271df0ce0c1955f8485c42826bd4a07f27[m
+Author: unknown <rdxat47@gmail.com>
+Date:   Sat Sep 3 17:59:46 2022 +0500
+
+    user can delete a single entry by swiping left
+
+[33mcommit 3eb7360436d61b241f41450e0bed93c2ac48aabb[m
+Author: unknown <rdxat47@gmail.com>
+Date:   Sat Sep 3 15:38:46 2022 +0500
+
+    Re-Arranged Project File Structure + User new Entries will be stored in firebase
+
+[33mcommit 66b646554cab41ed9f38496fecadc065e157d6fe[m
+Author: Sarmad Sohaib <62813277+sarmad-sohaib@users.noreply.github.com>
+Date:   Fri Sep 2 13:24:58 2022 +0500
+
+    Cash Register feature (innit)
+
+[33mcommit babceda402ce65dd12fe952931849587cb8bee0e[m
+Author: unknown <rdxat47@gmail.com>
+Date:   Fri Sep 2 13:24:47 2022 +0500
+
+    fragments backstack implemented- Back Button working
+
+[33mcommit 5885ba29b41d547aafad93e27fb78f2af7de06cd[m
+Merge: 1c0900e 0253336
+Author: Sarmad Sohaib <62813277+sarmad-sohaib@users.noreply.github.com>
+Date:   Wed Aug 31 13:47:59 2022 +0500
+
+    Merge branch 'master' of https://github.com/sarmad-sohaib/LedgerO
+
+[33mcommit 1c0900e1084684f693c248b75d40e11b93e23be9[m
+Author: Sarmad Sohaib <62813277+sarmad-sohaib@users.noreply.github.com>
+Date:   Wed Aug 31 13:47:45 2022 +0500
+
+    Initialising  project on my local
+
+[33mcommit 02533363faae30721cc6a8eb6176a6a363e4484f[m
+Author: unknown <rdxat47@gmail.com>
+Date:   Wed Aug 31 13:27:29 2022 +0500
+
+    User can add entry locally
+
+[33mcommit 0dc1bfaeb0e46ca81c73121078bb509c90c5123e[m
+Author: unknown <rdxat47@gmail.com>
+Date:   Thu Aug 18 19:45:48 2022 +0500
+
+    User can add new ledger now
+
+[33mcommit e23b50832492e4429c3defeb1933546ef6204772[m
+Author: unknown <rdxat47@gmail.com>
+Date:   Wed Aug 10 19:25:38 2022 +0500
+
+    Friend User Search And Start Ledger - Added
+
+[33mcommit 2fbb7bc0ffb4ea0a6ee60a0fee68df6eaab26490[m
+Author: Rana Hamza <rdxat47@gmail.com>
+Date:   Sun Aug 7 16:42:44 2022 +0500
+
+    Added Progress Dialog on Sign Up Activity
+
+[33mcommit 263abe75f5e669fdf7382e00d90c57d81c2415d4[m
+Author: Rana Hamza <rdxat47@gmail.com>
+Date:   Sat Aug 6 23:51:58 2022 +0500
+
+    Added Progress Dialog on Login Screen
+
+[33mcommit db524c2910706207a3c42d3b10ea3c882b249ff3[m
+Author: Rana Hamza <rdxat47@gmail.com>
+Date:   Tue Aug 2 15:31:37 2022 +0500
+
+    updated newLedger fragment
+
+[33mcommit 2d707e29066093ab7d809d3f694aaf0ebe2c1f8e[m
+Author: Rana Hamza <rdxat47@gmail.com>
+Date:   Mon Aug 1 08:25:53 2022 +0500
+
+    Added Utill Functions
+
+[33mcommit dc9318eb671a27c906ce53c0e929ed3228de76af[m
+Author: rana hamza <73963657+ranahamza4@users.noreply.github.com>
+Date:   Thu Jul 21 14:31:08 2022 +0500
+
+     add new ledger dialog feature added.
+
+[33mcommit b7b4ccef67142f0921eb8023fd31ff54e0bbe496[m
+Author: rana hamza <73963657+ranahamza4@users.noreply.github.com>
+Date:   Wed Jul 20 03:07:54 2022 +0500
+
+     Added some new classes. Project is running fine.
+
+[33mcommit 5b20f22eaa1cbe6c31a3fd1791737c2f721c7d3f[m[33m ([m[1;31morigin/master_copy[m[33m)[m
+Author: rana hamza <73963657+ranahamza4@users.noreply.github.com>
+Date:   Sun Apr 10 23:35:19 2022 +0500
+
+    Added Data Classes
+
+[33mcommit a083d101811d8a4f6bc0f081a0752cbdd69d382f[m
+Merge: c4da4cd 7e340a4
+Author: Sarmad Sohaib <62813277+sarmad-sohaib@users.noreply.github.com>
+Date:   Wed Mar 30 10:57:42 2022 +0500
+
+    Merge pull request #4 from sarmad-sohaib/master_copy
+    
+    Master copy
+
+[33mcommit 7e340a473ae4db6ad0e0c4a4f70a6437f278f05d[m
+Merge: 5c23175 c4da4cd
+Author: rana hamza <73963657+ranahamza4@users.noreply.github.com>
+Date:   Wed Mar 30 10:54:26 2022 +0500
+
+    Repo Pulled
+
+[33mcommit 5c231751d8adecb913a3f8eaa7a09b790a216a56[m
+Author: rana hamza <73963657+ranahamza4@users.noreply.github.com>
+Date:   Wed Mar 30 10:38:31 2022 +0500
+
+    Added DataClassed
+
+[33mcommit c4da4cdcde71d54a59f7933dabee170717956d92[m
+Merge: ea6d1e1 be031cd
+Author: Sarmad Sohaib <62813277+sarmad-sohaib@users.noreply.github.com>
+Date:   Wed Mar 30 10:35:37 2022 +0500
+
+    Merge pull request #3 from sarmad-sohaib/master_copy
+    
+    Master copy
+
+[33mcommit be031cdf42d309ce574dca7832decbc2874f26a3[m
+Author: Sarmad Sohaib <62813277+sarmad-sohaib@users.noreply.github.com>
+Date:   Thu Mar 24 21:28:16 2022 +0500
+
+    prevent soft keyboard from altering view's position
+
+[33mcommit 899f3b79e1c2d81d60057f0ac9c0e54af986127d[m
+Author: Sarmad Sohaib <62813277+sarmad-sohaib@users.noreply.github.com>
+Date:   Thu Mar 24 20:09:27 2022 +0500
+
+    Added item click listener in the ledgerFragment's recyclerView
+
+[33mcommit c5ad1ff4c69266e457d1421f8a6eb10ba38d79fa[m
+Author: Sarmad Sohaib <62813277+sarmad-sohaib@users.noreply.github.com>
+Date:   Wed Mar 23 10:54:31 2022 +0500
+
+    Added recycler view in ledger fragment
+
+[33mcommit d877afe8d85f46ef790b8717965f2aa88bc8b08a[m
+Author: Sarmad Sohaib <62813277+sarmad-sohaib@users.noreply.github.com>
+Date:   Sun Mar 20 20:47:37 2022 +0500
+
+    added search bar in ledger, and group ledger fragments along with some theme changes
+
+[33mcommit 13332c78791e963b18e44e9e751cfe4aa5beb65a[m
+Author: Sarmad Sohaib <62813277+sarmad-sohaib@users.noreply.github.com>
+Date:   Sun Mar 20 13:49:15 2022 +0500
+
+    ignore this commit
+
+[33mcommit 88d9948aedf4c635cf55f545abc87bdd6df169b6[m
+Author: Sarmad Sohaib <62813277+sarmad-sohaib@users.noreply.github.com>
+Date:   Sun Mar 20 13:38:21 2022 +0500
+
+    usuall refactoring
+
+[33mcommit ea6d1e1ee7f1760ea9f1646f4e7d28429eb6234a[m
+Merge: 758bb13 8064d3a
+Author: Sarmad Sohaib <62813277+sarmad-sohaib@users.noreply.github.com>
+Date:   Sun Mar 20 13:36:14 2022 +0500
+
+    Merge pull request #2 from sarmad-sohaib/master_copy
+    
+    Master copy
+
+[33mcommit 8064d3a443266380694bfb80a58bb0c74f664c07[m
+Author: Sarmad Sohaib <62813277+sarmad-sohaib@users.noreply.github.com>
+Date:   Sat Mar 19 00:06:24 2022 +0500
+
+    desinged dialog fragment for adding new ledger
+
+[33mcommit 6d598ebf52c6be965a1399204e8a625cb2def440[m
+Author: rana hamza <73963657+ranahamza4@users.noreply.github.com>
+Date:   Fri Mar 18 17:51:03 2022 +0500
+
+    Commit Before Push - Refactor
+
+[33mcommit ac845fe6498e2ba01210127a76cb2e0bc1fbb232[m
+Author: rana hamza <73963657+ranahamza4@users.noreply.github.com>
+Date:   Fri Mar 18 17:13:07 2022 +0500
+
+    gradle sync - Refactoring
+
+[33mcommit 239dcee8f04adf8528a74d247ea4073c3e3e3d76[m
+Merge: 96d9e97 758bb13
+Author: rana hamza <73963657+ranahamza4@users.noreply.github.com>
+Date:   Fri Mar 18 17:10:31 2022 +0500
+
+    Merging Master Copy - Refactoring Code
+
+[33mcommit 758bb13e2ba58febda5fae1484622c5c12202000[m
+Author: Sarmad Sohaib <62813277+sarmad-sohaib@users.noreply.github.com>
+Date:   Fri Mar 18 16:36:45 2022 +0500
+
+    created dialog box for adding new ledger, working on it!
+
+[33mcommit 96d9e97b3ce79d568cff039486783ca760c32d6b[m
+Author: rana hamza <73963657+ranahamza4@users.noreply.github.com>
+Date:   Fri Mar 18 16:29:13 2022 +0500
+
+    User Auth With Email And Password Added
+
+[33mcommit c267308ff5cc21211eb33e1871f281d0c139ca09[m[33m ([m[1;31morigin/main_activity[m[33m)[m
+Author: Sarmad Sohaib <62813277+sarmad-sohaib@users.noreply.github.com>
+Date:   Fri Mar 18 15:29:37 2022 +0500
+
+    IGNORE
+
+[33mcommit 246f6e8b59a5dabd41a373dcb1f506c09658d805[m
+Author: Sarmad Sohaib <62813277+sarmad-sohaib@users.noreply.github.com>
+Date:   Fri Mar 18 15:20:03 2022 +0500
+
+    refactoring string resources
+
+[33mcommit 410b8fe68392a7cf5680ef47b160b18d4d2f0880[m
+Merge: 5d77dfb 2961aae
+Author: Sarmad Sohaib <62813277+sarmad-sohaib@users.noreply.github.com>
+Date:   Fri Mar 18 15:11:08 2022 +0500
+
+    for local merge
+
+[33mcommit 5d77dfba8c52fd85327f94e8ddb7afe2bec9cc23[m
+Author: Sarmad Sohaib <62813277+sarmad-sohaib@users.noreply.github.com>
+Date:   Fri Mar 18 14:57:48 2022 +0500
+
+    test IGNORE IT
+
+[33mcommit 373c10099caf248f5f265d27a4ee08e59f3e9e3c[m[33m ([m[1;31morigin/signUpScreen[m[33m)[m
+Author: rana hamza <73963657+ranahamza4@users.noreply.github.com>
+Date:   Fri Mar 18 01:15:30 2022 +0500
+
+    Sign Up With PhoneAuth Implemented
+
+[33mcommit 2961aaea687e862c65a9df705033c461ffb0c2b0[m
+Author: Sarmad Sohaib <62813277+sarmad-sohaib@users.noreply.github.com>
+Date:   Fri Mar 18 00:31:38 2022 +0500
+
+    removed redundency in local string resources
+
+[33mcommit ef4a7efba08202937b6b68fa5d8b80374fb34fb8[m
+Author: Sarmad Sohaib <62813277+sarmad-sohaib@users.noreply.github.com>
+Date:   Thu Mar 17 17:17:16 2022 +0500
+
+    refactoring string resources
+
+[33mcommit bac49d7a8b54e413f8ed0dba505611ee49b2688f[m
+Author: Sarmad Sohaib <62813277+sarmad-sohaib@users.noreply.github.com>
+Date:   Wed Mar 16 21:34:34 2022 +0500
+
+    Designed fragment_money from MainActivity
+
+[33mcommit 7427e934a0a97b414928946ddb42fcb733cc0000[m
+Author: Sarmad Sohaib <62813277+sarmad-sohaib@users.noreply.github.com>
+Date:   Tue Mar 15 17:17:48 2022 +0500
+
+    designed ledger fragment in main activity
+
+[33mcommit 2698e520c0cb041c2ffd563d27116f0c90b7408d[m
+Author: Sarmad Sohaib <62813277+sarmad-sohaib@users.noreply.github.com>
+Date:   Thu Mar 10 16:42:53 2022 +0500
+
+    Code cleaing and optimizing
+
+[33mcommit 65a924eaf83d183a29c4d404a5e56346e0dcce08[m
+Author: Sarmad Sohaib <62813277+sarmad-sohaib@users.noreply.github.com>
+Date:   Thu Mar 10 16:34:18 2022 +0500
+
+    Added ledgers, group ledgers fragments and their styles
+
+[33mcommit b039f7a0a3e24f018516c4d774ce3b26b67679ff[m
+Author: Sarmad Sohaib <62813277+sarmad-sohaib@users.noreply.github.com>
+Date:   Wed Mar 9 01:15:39 2022 +0500
+
+    addded home, money, and more fragments
+
+[33mcommit 2a76057dd24271dda532b34bb437f98a381f3e8d[m
+Author: rana hamza <73963657+ranahamza4@users.noreply.github.com>
+Date:   Wed Mar 9 00:24:49 2022 +0500
+
+    Integrate Firebase and added Phone Verification feature
+
+[33mcommit c4bfd2e1e0de812ffe26626a848b2ff8f80db3bb[m
+Author: Sarmad Sohaib <62813277+sarmad-sohaib@users.noreply.github.com>
+Date:   Wed Mar 9 00:23:25 2022 +0500
+
+    added bottommnac bar in mainActivity
+
+[33mcommit 9f7cfc5945fb090a6a38f3bf3d4f6cf8fefd5a18[m
+Author: Sarmad Sohaib <62813277+sarmad-sohaib@users.noreply.github.com>
+Date:   Tue Mar 8 21:52:24 2022 +0500
+
+    usual commit
+
+[33mcommit 74a5bedcb956ee2563657d24a8589ddbaa946cb5[m
+Merge: 1bdbe5a b3d319e
+Author: rana hamza <73963657+ranahamza4@users.noreply.github.com>
+Date:   Tue Mar 8 18:12:34 2022 +0500
+
+    Merge branch 'pull' into signUpScreen
+
+[33mcommit 1bdbe5a1c878785fcfaa5251073f659510b12342[m
+Author: rana hamza <73963657+ranahamza4@users.noreply.github.com>
+Date:   Tue Mar 8 18:02:53 2022 +0500
+
+    commit before merging login_activity
+
+[33mcommit ef340c45a2a032164f2c89fad6797f2c4a69aa1d[m
+Author: rana hamza <73963657+ranahamza4@users.noreply.github.com>
+Date:   Tue Mar 8 17:54:59 2022 +0500
+
+     did some adjustments
+
+[33mcommit b3d319e856adfc36b5abfa20f9f9259982023b10[m[33m ([m[1;31morigin/login_activity[m[33m)[m
+Author: Sarmad Sohaib <62813277+sarmad-sohaib@users.noreply.github.com>
+Date:   Mon Mar 7 00:13:25 2022 +0500
+
+    automatic android studio changes in misc.xml
+
+[33mcommit 83149113e50abd64c4b1de8f039b264444037c56[m
+Author: Sarmad Sohaib <62813277+sarmad-sohaib@users.noreply.github.com>
+Date:   Mon Mar 7 00:12:36 2022 +0500
+
+    created loginActivity, icons(phone, google, and password)
+
+[33mcommit ba3a7e3e48492f62267a67e1e9238a3fc1add7d6[m
+Merge: a189e63 25d6a14
+Author: Sarmad Sohaib <62813277+sarmad-sohaib@users.noreply.github.com>
+Date:   Wed Mar 2 09:21:31 2022 +0500
+
+    merging signupscreen with loginactivity
+
+[33mcommit 25d6a1439b87d82767a2e1b96b4807bbee4d1f12[m
+Author: rana hamza <73963657+ranahamza4@users.noreply.github.com>
+Date:   Wed Mar 2 09:04:01 2022 +0500
+
+    added icons , password hide/show in sign up activity
+
+[33mcommit a189e631a2929024eff19b76f913dddc39c8c717[m
+Author: Sarmad Sohaib <62813277+sarmad-sohaib@users.noreply.github.com>
+Date:   Wed Mar 2 00:41:15 2022 +0500
+
+    finishing login activity
+
+[33mcommit b233ce7a07c683b2a4b68b886795d05d83a12bc8[m
+Merge: 44285d4 e2d9491
+Author: rana hamza <73963657+ranahamza4@users.noreply.github.com>
+Date:   Tue Mar 1 23:11:40 2022 +0500
+
+    LoginActivity merged with signUpScreen
+
+[33mcommit e2d94910c9e51924f704026f1f709d136f28040f[m
+Author: rana hamza <73963657+ranahamza4@users.noreply.github.com>
+Date:   Tue Mar 1 23:06:10 2022 +0500
+
+    login activity branch pulled from origion
+
+[33mcommit 44285d42fa7ff13f8c716d03b433221f73db4fda[m
+Author: rana hamza <73963657+ranahamza4@users.noreply.github.com>
+Date:   Tue Mar 1 23:01:53 2022 +0500
+
+     UI changes
+
+[33mcommit 334ac5509d3520a4e888a6559c92df3d6dcb5c91[m
+Author: Sarmad Sohaib <62813277+sarmad-sohaib@users.noreply.github.com>
+Date:   Tue Mar 1 22:57:42 2022 +0500
+
+    added rounded button shape, white bordered textfields and loginActivity
+
+[33mcommit 7403adc27ec45628f7e6eb01ebd1617d94156bd7[m
+Merge: 87b6744 6c25a49
+Author: Sarmad Sohaib <62813277+sarmad-sohaib@users.noreply.github.com>
+Date:   Tue Mar 1 16:11:03 2022 +0500
+
+    Merge pull request #1 from sarmad-sohaib/signUpScreen
+    
+    added gradient background and sign up acrtivity
+
+[33mcommit 6c25a496abe4d1a2bc22b55510333a7bf707c766[m
+Author: rana hamza <73963657+ranahamza4@users.noreply.github.com>
+Date:   Tue Mar 1 16:09:37 2022 +0500
+
+    added gradient background and sign up acrtivity
+
+[33mcommit 87b6744756caef34603b4adde8e308efcec05f1b[m
+Author: Sarmad Sohaib <62813277+sarmad-sohaib@users.noreply.github.com>
+Date:   Mon Feb 28 11:09:40 2022 +0500
+
+    Automatic changes in gadele by android studio
+
+[33mcommit 3ec9cadbb4abcf8b5b3c87ac34d15fc11434dcaa[m
+Author: rana hamza <73963657+ranahamza4@users.noreply.github.com>
+Date:   Mon Feb 28 10:56:51 2022 +0500
+
+    added view binding plugin
+
+[33mcommit f2e8258d33aeed170282f621eeeb0f57b3409ca5[m
+Author: Sarmad Sohaib <62813277+sarmad-sohaib@users.noreply.github.com>
+Date:   Sun Feb 27 23:38:24 2022 +0500
+
+    Added material design 1.5.0 support
+
+[33mcommit 573b7126a12bdbaebc5a09baee894415ee007aac[m
+Author: Sarmad Sohaib <62813277+sarmad-sohaib@users.noreply.github.com>
+Date:   Sun Feb 27 22:43:59 2022 +0500
+
+    added 'ropa sans' font in drawable/font
+
+[33mcommit 7a2bec232262e8598658d4b09ee66c42e2a76076[m
+Author: Sarmad Sohaib <62813277+sarmad-sohaib@users.noreply.github.com>
+Date:   Sun Feb 27 22:24:20 2022 +0500
+
+    added more colors in colors.xml
+
+[33mcommit 6fce972baf9329330eef82b79eb5fbff4027a28a[m
+Author: Sarmad Sohaib <62813277+sarmad-sohaib@users.noreply.github.com>
+Date:   Sun Feb 27 21:21:54 2022 +0500
+
+    ignore
+
+[33mcommit 2cd790b9416dc97e0ee7a95080e02fb9b8785fc4[m
+Author: Sarmad Sohaib <62813277+sarmad-sohaib@users.noreply.github.com>
+Date:   Sun Feb 27 21:16:17 2022 +0500
+
+    ignore
+
+[33mcommit bab6ea430aa0beabfd91be75a16bab8f59bfa5af[m
+Author: Sarmad Sohaib <62813277+sarmad-sohaib@users.noreply.github.com>
+Date:   Sun Feb 27 21:12:47 2022 +0500
+
+    ignore
+
+[33mcommit dce5e407a8983cf2d216d12076f328ae2e73fb63[m
+Author: Sarmad Sohaib <62813277+sarmad-sohaib@users.noreply.github.com>
+Date:   Sun Feb 27 21:10:49 2022 +0500
+
+    Revert "initial commit"
+    
+    This reverts commit 5e5d5acc4ce08de1e2735fc974e7133473e5a517.
+
+[33mcommit 5e5d5acc4ce08de1e2735fc974e7133473e5a517[m
+Author: Sarmad Sohaib <62813277+sarmad-sohaib@users.noreply.github.com>
+Date:   Sun Feb 27 21:07:49 2022 +0500
+
+    initial commit
+
+[33mcommit c7869e9f96c618b7d99c2b2f6b81d8b2864ff95c[m
+Author: Sarmad Sohaib <62813277+sarmad-sohaib@users.noreply.github.com>
+Date:   Sun Feb 27 20:59:43 2022 +0500
+
+    test commit
+
+[33mcommit a845ef4956aa6502738a4441432943fd5423d33d[m
+Author: Sarmad Sohaib <62813277+sarmad-sohaib@users.noreply.github.com>
+Date:   Sun Feb 27 20:56:02 2022 +0500
+
+    initial commit

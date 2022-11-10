@@ -2,7 +2,7 @@ package com.ledgero.Repositories
 
 import android.util.Log
 import androidx.lifecycle.LiveData
-import com.ledgero.DAOs.CanceledEntriesDAO
+import com.ledgero.daos.CanceledEntriesDAO
 import com.ledgero.DataClasses.Entries
 import java.io.File
 

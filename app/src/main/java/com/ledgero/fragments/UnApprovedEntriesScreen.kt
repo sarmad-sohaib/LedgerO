@@ -9,20 +9,14 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.database.FirebaseDatabase
-import com.ledgero.DAOs.IndividualScreenDAO
-import com.ledgero.DAOs.UnApproveEntriesDAO
+import com.ledgero.daos.UnApproveEntriesDAO
 import com.ledgero.DataClasses.Entries
 import com.ledgero.DataClasses.SingleLedgers
 import com.ledgero.R
-import com.ledgero.Repositories.IndividualScreenRepo
 import com.ledgero.Repositories.UnApprovedEntriesRepo
-import com.ledgero.ViewModelFactories.IndividualScreenViewModeFactory
 import com.ledgero.ViewModelFactories.UnApprovedEntriesViewModelFactory
-import com.ledgero.ViewModels.IndividualScreenViewModel
 import com.ledgero.ViewModels.UnApprovedEntriesViewModel
-import com.ledgero.adapters.RecyclerAdapter_SingleLedger
-import com.ledgero.adapters.UnApprovedEntries_RVAdapter
+import com.ledgero.adapters.UnApprovedEntriesRvAdapter
 
 class UnApprovedEntriesScreen(var ledgerUID: String) : Fragment() {
     var currentSelectedLedgerUID:String=ledgerUID
@@ -51,13 +45,13 @@ class UnApprovedEntriesScreen(var ledgerUID: String) : Fragment() {
 
         layoutManager = LinearLayoutManager(context)
         rv.layoutManager = layoutManager
-        var adapter: RecyclerView.Adapter<UnApprovedEntries_RVAdapter.UnApprovedEntries_ViewHolder>? = null
+        var adapter: RecyclerView.Adapter<UnApprovedEntriesRvAdapter.UnApprovedEntriesViewHolder>? = null
 
-       adapter = UnApprovedEntries_RVAdapter(requireContext(), ArrayList<Entries>(),viewModel)
+       adapter = UnApprovedEntriesRvAdapter(requireContext(), ArrayList<Entries>(),viewModel)
         rv.adapter= adapter
 
         viewModel.getEntries().observe(viewLifecycleOwner, Observer{
-            adapter = UnApprovedEntries_RVAdapter(requireContext(), it,viewModel)
+            adapter = UnApprovedEntriesRvAdapter(requireContext(), it,viewModel)
             rv.adapter=adapter
 
         })

@@ -4,10 +4,10 @@ import android.app.AlertDialog
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.TextView
 import android.widget.Toast
@@ -19,7 +19,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.ledgero.DAOs.IndividualScreenDAO
+import com.ledgero.daos.IndividualScreenDAO
 import com.ledgero.DataClasses.Entries
 import com.ledgero.DataClasses.SingleLedgers
 import com.ledgero.DataClasses.User
@@ -38,7 +38,7 @@ import kotlinx.android.synthetic.main.fragment_individual_ledger_screen.view.*
 
 class IndividualLedgerScreen(ledgerUID:String) : Fragment() {
 
-     var currentSelectedLedgerUID:String
+     var currentSelectedLedgerUID:String =""
     var currentSelectLedger: SingleLedgers? =null
 lateinit     var viewModel: IndividualScreenViewModel
 lateinit var entries: ArrayList<Entries>
@@ -48,7 +48,7 @@ lateinit var entries: ArrayList<Entries>
 
 
     init {
-        currentSelectedLedgerUID=ledgerUID
+        currentSelectedLedgerUID=ledgerUID+""
 
 
 
@@ -167,16 +167,24 @@ lateinit var entries: ArrayList<Entries>
         var rv = view.findViewById<RecyclerView>(R.id.rv_ledgers_individualScreen)
         layoutManager = LinearLayoutManager(context)
         rv.layoutManager = layoutManager
-        adapter= RecyclerAdapter_SingleLedger(requireContext(),currentSelectLedger!!.entries, currentSelectedLedgerUID)
-        rv.adapter= adapter
+     try {
+         adapter= RecyclerAdapter_SingleLedger(requireContext(),currentSelectLedger!!.entries, currentSelectedLedgerUID)
+         rv.adapter= adapter
+     }catch (e:Exception){
+         Log.d("IndividualLedger", "onCreateView: ${e.message}")
+     }
+
 
         getTouchHelper(rv).attachToRecyclerView(rv)
         viewModel.getEntries().observe(viewLifecycleOwner, Observer{
 
-            currentSelectLedger!!.entries=it /* = java.util.ArrayList<com.ledgero.DataClasses.Entries> */
-            adapter= RecyclerAdapter_SingleLedger(requireContext(),currentSelectLedger!!.entries,currentSelectedLedgerUID)
-            rv.adapter= adapter
-            entries=it
+            try{
+                currentSelectLedger!!.entries=it /* = java.util.ArrayList<com.ledgero.DataClasses.Entries> */
+                adapter= RecyclerAdapter_SingleLedger(requireContext(),currentSelectLedger!!.entries,currentSelectedLedgerUID)
+                rv.adapter= adapter
+                entries=it}catch (e:Exception){
+                Log.d("IndividualLedger", "onCreateView: ${e.message}")
+                }
         })
         gotButton.setOnClickListener {
             //1 will inidcate that user clicked got button

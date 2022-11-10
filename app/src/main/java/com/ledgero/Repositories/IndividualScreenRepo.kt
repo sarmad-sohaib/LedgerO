@@ -1,7 +1,7 @@
 package com.ledgero.Repositories
 
 import androidx.lifecycle.LiveData
-import com.ledgero.DAOs.IndividualScreenDAO
+import com.ledgero.daos.IndividualScreenDAO
 import com.ledgero.DataClasses.Entries
 
 class IndividualScreenRepo(private val individualScreenDAO: IndividualScreenDAO) {

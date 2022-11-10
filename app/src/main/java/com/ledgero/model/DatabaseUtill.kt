@@ -216,7 +216,7 @@ var pos= position
  fun createNewSingleLedger(uid: String,newLedger:SingleLedgers,newLedgerList: ArrayList<SingleLedgers>,
                            callback: OnUpdateUserSingleLedger) {
 
-        Log.d(TAG, "createNewSingleLedger: " + uid)
+        Log.d(TAG, "createNewSingleLedger:" +uid)
 
 
         //TODO: Need To clean this up, make DAOs for different task

@@ -3,6 +3,11 @@
     <string name="money">Money</string>
     <string name="more">More</string>
     <!-- TODO: Remove or change this placeholder text -->
+    <!--Firebase Push Notification Channel ID-->
+    <string name="push_notification_channel_id">LedgerO_Entries_Notifications</string>
+
+
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="wednesday_march_16_2022">Wednesday, March 16, 2022</string>
     <string name="rs_0000_pending">Rs 0000 pending</string>

@@ -1,9 +1,8 @@
 package com.ledgero.adapters
 
-import android.content.ContentValues.TAG
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,22 +20,20 @@ import com.ledgero.other.Constants
 import com.ledgero.other.Constants.ADD_REQUEST_REQUEST_MODE
 import com.ledgero.other.Constants.DELETE_REQUEST_REQUEST_MODE
 import com.ledgero.other.Constants.EDIT_REQUEST_REQUEST_MODE
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import com.ledgero.pushnotifications.PushNotification
 import java.util.*
 import kotlin.collections.ArrayList
 
-class UnApprovedEntries_RVAdapter(context: Context, entries: ArrayList<Entries>?,viewModel: UnApprovedEntriesViewModel)
-    :  RecyclerView.Adapter<UnApprovedEntries_RVAdapter.UnApprovedEntries_ViewHolder>()  {
+
+const val TAG = "UnApprovedEntries_RVAdapter"
+class UnApprovedEntriesRvAdapter(context: Context, entries: ArrayList<Entries>?, val viewModel: UnApprovedEntriesViewModel)
+    :  RecyclerView.Adapter<UnApprovedEntriesRvAdapter.UnApprovedEntriesViewHolder>()  {
 
 
     var context: Context
     var unApprovedEntries: ArrayList<Entries>?
-    var viewModel=viewModel
+    private val pushNotificationInterface= PushNotification()
 
-    var TAG = "UnApprovedEntries_RVAdapter"
 
     init {
         this.context= context
@@ -48,17 +45,18 @@ class UnApprovedEntries_RVAdapter(context: Context, entries: ArrayList<Entries>?
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int,
-    ): UnApprovedEntries_ViewHolder {
+    ): UnApprovedEntriesViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.unapproved_entries_rv_layout, parent, false)
 
-        return UnApprovedEntries_ViewHolder(view)
+        return UnApprovedEntriesViewHolder(view)
 
     }
 
-    override fun onBindViewHolder(holder: UnApprovedEntries_ViewHolder, position: Int) {
+    @SuppressLint("SetTextI18n")
+    override fun onBindViewHolder(holder: UnApprovedEntriesViewHolder, position: Int) {
 
-    var entry=unApprovedEntries!!.get(position)
+    val entry= unApprovedEntries!![position]
 
         holder.entryName.text= entry.entry_title
         holder.entryTimeStamp.text= Date( entry.entry_timeStamp!!).toString()
@@ -94,11 +92,11 @@ class UnApprovedEntries_RVAdapter(context: Context, entries: ArrayList<Entries>?
 
 
         if (entry.entryMadeBy_userID.equals(User.userID)){
-          holder.requester_buttonLayout.visibility=View.VISIBLE
-            holder.receiver_buttonLayout.visibility=View.GONE
+          holder.requesterButtonLayout.visibility=View.VISIBLE
+            holder.receiverButtonLayout.visibility=View.GONE
         }else{
-            holder.requester_buttonLayout.visibility=View.GONE
-            holder.receiver_buttonLayout.visibility=View.VISIBLE
+            holder.requesterButtonLayout.visibility=View.GONE
+            holder.receiverButtonLayout.visibility=View.VISIBLE
 
         }
 
@@ -115,17 +113,17 @@ class UnApprovedEntries_RVAdapter(context: Context, entries: ArrayList<Entries>?
         return unApprovedEntries!!.size
     }
 
-    inner class UnApprovedEntries_ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class UnApprovedEntriesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         var entryName: TextView
         var entryTimeStamp: TextView
         var entryMoney: TextView
-        var receiver_buttonLayout: LinearLayout
-        var acceptBtn_receiver: Button
-        var rejectBtn_receiver: Button
-        var requester_buttonLayout: LinearLayout
-        var waitBtn_requester: Button
-        var deleteBtn_requester: Button
+        var receiverButtonLayout: LinearLayout
+        private var acceptBtnReceiver: Button
+        private var rejectBtnReceiver: Button
+        var requesterButtonLayout: LinearLayout
+        private var waitBtnRequester: Button
+        private var deleteBtnRequester: Button
 
         var giveGetFlag: TextView
         var entryUID: String=""
@@ -137,66 +135,73 @@ class UnApprovedEntries_RVAdapter(context: Context, entries: ArrayList<Entries>?
             entryMoney= itemView.findViewById(R.id.entry_amount_tv_unApprovedEntries)
             giveGetFlag = itemView.findViewById(R.id.entry_modeFlag_tv_unApprovedEntries)
             mainLayout= itemView.findViewById(R.id.main_layout_unapprovedEntries)
-            receiver_buttonLayout= itemView.findViewById(R.id.buttons_layout_receiver_unapprovedEntries)
-            acceptBtn_receiver= itemView.findViewById(R.id.bt_accept_receiver_unapprovedentries)
-            rejectBtn_receiver= itemView.findViewById(R.id.bt_reject_receiver_unapprovedentries)
-            requester_buttonLayout= itemView.findViewById(R.id.buttons_layout_requester_unapprovedEntries)
-            waitBtn_requester=itemView.findViewById(R.id.bt_wait_requester_unapprovedentries)
-            deleteBtn_requester= itemView.findViewById(R.id.bt_delete_requester_unapprovedentries)
+            receiverButtonLayout= itemView.findViewById(R.id.buttons_layout_receiver_unapprovedEntries)
+            acceptBtnReceiver= itemView.findViewById(R.id.bt_accept_receiver_unapprovedentries)
+            rejectBtnReceiver= itemView.findViewById(R.id.bt_reject_receiver_unapprovedentries)
+            requesterButtonLayout= itemView.findViewById(R.id.buttons_layout_requester_unapprovedEntries)
+            waitBtnRequester=itemView.findViewById(R.id.bt_wait_requester_unapprovedentries)
+            deleteBtnRequester= itemView.findViewById(R.id.bt_delete_requester_unapprovedentries)
 
 
 
-            deleteBtn_requester.setOnClickListener {
-                if (unApprovedEntries!!.get(adapterPosition).requestMode==1){//addRequest
+            deleteBtnRequester.setOnClickListener {
+                if (unApprovedEntries!![adapterPosition].requestMode==1){//addRequest
                     //means requester don't want receiver to see this entry Addition request in unapproved
                     // so delete the entry from unapproved
                     viewModel.deleteEntry(adapterPosition)
                 }
-                if (unApprovedEntries!!.get(adapterPosition).requestMode==2){
+                if (unApprovedEntries!![adapterPosition].requestMode==2){
 
                     viewModel.deleteUnApprovedEntryThenUpdateLedgerEntry(adapterPosition)
                 }
             }
-            waitBtn_requester.setOnClickListener {
+            waitBtnRequester.setOnClickListener {
                 Toast.makeText(context, "Waiting For Approval", Toast.LENGTH_SHORT).show()
             }
 
-            acceptBtn_receiver.setOnClickListener {
+            acceptBtnReceiver.setOnClickListener {
 
-                // means reciver has accepted the request made by requester
-                 if (unApprovedEntries!!.get(adapterPosition).requestMode==ADD_REQUEST_REQUEST_MODE)//request to add entry
+                // means receiver has accepted the request made by requester
+                 if (unApprovedEntries!![adapterPosition].requestMode==ADD_REQUEST_REQUEST_MODE)//request to add entry
                 {
                     viewModel.approveEntry(adapterPosition)
 
                 }
-                if (unApprovedEntries!!.get(adapterPosition).requestMode== DELETE_REQUEST_REQUEST_MODE){//request to Delete entry
-                    //means reciever accepted to delete a entry from ledger
+                if (unApprovedEntries!![adapterPosition].requestMode== DELETE_REQUEST_REQUEST_MODE){//request to Delete entry
+                    //means receiver accepted to delete a entry from ledger
                     viewModel.deleteEntryFromLedgerRequest_accepted(adapterPosition)
                 }
-                if (unApprovedEntries!!.get(adapterPosition).requestMode== EDIT_REQUEST_REQUEST_MODE){
+                if (unApprovedEntries!![adapterPosition].requestMode== EDIT_REQUEST_REQUEST_MODE){
 
-                    var oldentry= Entries();
-                    var newEntry= unApprovedEntries!!.get(adapterPosition)
+                    var oldEntry= Entries()
+                    val newEntry= unApprovedEntries!![adapterPosition]
 
                     for (currentLedger in User.getUserSingleLedgers()!!){
-                        if (currentLedger.ledgerUID!!.equals(viewModel.mledgerUID)){
+                        if (currentLedger.ledgerUID!! == viewModel.mledgerUID){
                             for (entry in currentLedger.entries!!){
-                                if (unApprovedEntries!!.get(adapterPosition).entryUID!!.equals(entry.entryUID)){
-                                    oldentry=entry;
+                                if (unApprovedEntries!![adapterPosition].entryUID!! == entry.entryUID){
+                                    oldEntry=entry
                                 }
                             }
                         }
                     } // accessing entry to be deleted from ledger approved entries
 
-                    viewModel.EditEntryaccepted(oldentry,newEntry)
+                    viewModel.EditEntryaccepted(oldEntry,newEntry)
 
                 }
+
+
+                pushNotificationInterface.createAndSendNotification(viewModel.mledgerUID,
+                    Constants.ENTRY_APPROVED)
+
             }
 
-            rejectBtn_receiver.setOnClickListener {
-                //means reciver did not accept the entry add/del request made by requester
+            rejectBtnReceiver.setOnClickListener {
+                //means receiver did not accept the entry add/del request made by requester
 
                 viewModel.rejectEntry(adapterPosition)
+                pushNotificationInterface.createAndSendNotification(viewModel.mledgerUID,
+                    Constants.ENTRY_REJECTED)
             }
         }
 

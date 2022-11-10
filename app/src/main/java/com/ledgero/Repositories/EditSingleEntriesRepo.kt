@@ -1,10 +1,7 @@
 package com.ledgero.Repositories
 
-import com.ledgero.DAOs.EditSingleEntriesDAO
+import com.ledgero.daos.EditSingleEntriesDAO
 import com.ledgero.DataClasses.Entries
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import java.io.File
 
 class EditSingleEntriesRepo(private val editSingleEntriesDAO: EditSingleEntriesDAO) {

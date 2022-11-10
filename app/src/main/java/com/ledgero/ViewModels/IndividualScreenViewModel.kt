@@ -84,7 +84,7 @@ class IndividualScreenViewModel(private val individualScreenRepo: IndividualScre
     fun deleteEntry(pos : Int){
 
         //check if entry has voice note, if yes then delete it from requester user local device
-        var entry= allEntries.value!!.get(pos)
+        var entry= allEntries.value!![pos]
 
         if (entry.hasVoiceNote!!){
             deleteVoiceFromLocalDevice(entry)

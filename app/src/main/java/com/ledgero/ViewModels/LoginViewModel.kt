@@ -14,6 +14,7 @@ import com.google.firebase.ktx.Firebase
 import com.ledgero.DataClasses.User
 import com.ledgero.Interfaces.OnUserDetailUpdate
 import com.ledgero.MainActivity
+import com.ledgero.firebasetokens.FirebaseTokenManager
 import com.ledgero.model.DatabaseUtill
 import com.ledgero.model.UtillFunctions
 
@@ -89,7 +90,8 @@ private var TAG="LoginViewModel:"
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithEmail:success")
                     val user = auth.currentUser
-
+                    User.userID= user?.uid
+                    FirebaseTokenManager.registerUserFirebaseToken(User.userID!!)
 //                    //call this function to update current user data
 //                    //so whenever user login its data will be fetched from
 //                    //firebase and be updated

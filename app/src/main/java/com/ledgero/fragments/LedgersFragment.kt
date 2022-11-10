@@ -8,10 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 import com.ledgero.DataClasses.User
+import com.ledgero.MainActivity
 import com.ledgero.R
 import com.ledgero.adapters.RecyclerViewAdapter
 import com.ledgero.cashregister.CashRegisterMainActivity
@@ -60,6 +62,32 @@ class LedgersFragment : Fragment() {
 
 
         }
+
+        Toast.makeText(context, "Going to start Fragment Listening", Toast.LENGTH_SHORT).show()
+        setFragmentResultListener("fragmentName") { fragmentName, bundle ->
+         try {
+             val passedLedgerUID = bundle.getString("ledgerUID")
+             Log.d("TapBack", "onCreateView: $passedLedgerUID ")
+             if (passedLedgerUID !=  null){
+
+                 Toast.makeText(context, "Ledger UID : $passedLedgerUID", Toast.LENGTH_SHORT).show()
+                 var frag=IndividualLedgerScreen(passedLedgerUID)
+                 Log.d("TapBack", "onCreateView: $passedLedgerUID ")
+
+                 MainActivity.getMainActivityInstance().supportFragmentManager
+                     .beginTransaction()
+                     .replace(R.id.fl_fragment_container_main, frag)
+                     .addToBackStack(null)
+                     .commit()
+
+             } 
+         }catch (e: Exception){
+             Log.d(TAG, "onCreateView: ${e.message}")
+         }
+           
+
+        }
+
 
         return view
     }

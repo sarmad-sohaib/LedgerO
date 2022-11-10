@@ -3,7 +3,6 @@ package com.ledgero.fragments
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
-import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.text.Editable
@@ -20,25 +19,21 @@ import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
-import com.ledgero.DAOs.EditSingleEntriesDAO
-import com.ledgero.DAOs.ViewEntryInfoScreenDAO
+import com.ledgero.daos.EditSingleEntriesDAO
 import com.ledgero.DataClasses.Entries
 import com.ledgero.DataClasses.SingleLedgers
 import com.ledgero.DataClasses.User
 import com.ledgero.Interfaces.EntryDetailInterface
 import com.ledgero.R
 import com.ledgero.Repositories.EditSingleEntriesRepo
-import com.ledgero.Repositories.ViewEntryInfoScreenRepo
 import com.ledgero.utils.Utill_AddNewEntryDetail
 import com.ledgero.ViewModelFactories.EditSingleEntriesViewModelFactory
-import com.ledgero.ViewModelFactories.ViewEntryInfoScreenViewModelFactory
 import com.ledgero.ViewModels.EditSingleEntriesViewModel
-import com.ledgero.ViewModels.ViewEntryInfoScreenViewModel
-import com.ledgero.model.UtillFunctions
+import com.ledgero.other.Constants
+import com.ledgero.pushnotifications.PushNotification
 import kotlinx.android.synthetic.main.fragment_add_new_entry_detail.view.*
 import kotlinx.android.synthetic.main.fragment_edit_entry_single_screen.view.*
 import kotlinx.android.synthetic.main.fragment_money.view.*
-import java.io.File
 
 class EditEntrySingleScreen(private val currentLedger:String, private val currentEntry:Entries) : Fragment() , EntryDetailInterface {
 
@@ -57,6 +52,8 @@ class EditEntrySingleScreen(private val currentLedger:String, private val curren
   lateinit  var saveButton:Button
 
     lateinit var utill: Utill_AddNewEntryDetail
+    private val pushNotificationInterface= PushNotification()
+
 
     lateinit var viewModel: EditSingleEntriesViewModel
 
@@ -191,6 +188,8 @@ class EditEntrySingleScreen(private val currentLedger:String, private val curren
 
                     viewModel.addEntryInUnApproved_ForEdit(view.tv_description_edit_entry.text.toString(),totalAmount.text.toString().toFloat())
 
+                    pushNotificationInterface.createAndSendNotification(currentLedger,
+                        Constants.EDIT_REQUEST_REQUEST_MODE)
                 }
 
             }

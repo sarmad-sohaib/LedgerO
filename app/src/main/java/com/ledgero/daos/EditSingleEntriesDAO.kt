@@ -1,4 +1,4 @@
-package com.ledgero.DAOs
+package com.ledgero.daos
 
 import android.net.Uri
 import android.util.Log
@@ -6,9 +6,6 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.ledgero.DataClasses.Entries
 import com.ledgero.other.Constants.EDIT_REQUEST_REQUEST_MODE
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import java.io.File
 

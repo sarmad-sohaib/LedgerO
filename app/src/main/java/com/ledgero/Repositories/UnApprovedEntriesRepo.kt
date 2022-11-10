@@ -4,8 +4,7 @@ import android.content.ContextWrapper
 import android.os.Environment
 import android.util.Log
 import androidx.lifecycle.LiveData
-import com.ledgero.DAOs.IndividualScreenDAO
-import com.ledgero.DAOs.UnApproveEntriesDAO
+import com.ledgero.daos.UnApproveEntriesDAO
 import com.ledgero.DataClasses.Entries
 import com.ledgero.MainActivity
 import java.io.File
@@ -26,7 +25,7 @@ class UnApprovedEntriesRepo(private val unApproveEntriesDAO: UnApproveEntriesDAO
     fun rejectNewAddedEntry(entry: Entries){
 
 
-        unApproveEntriesDAO.enteryRejected(entry)
+        unApproveEntriesDAO.entryRejected(entry)
     }
 
     fun rejectDeleteRequestForApprovedEntry(pos:Int){
@@ -35,23 +34,23 @@ class UnApprovedEntriesRepo(private val unApproveEntriesDAO: UnApproveEntriesDAO
 
 
     fun deleteEntry(entry: Entries){
-        unApproveEntriesDAO.delete_NewEntryAddRequestFromUnApproved_withVoice(entry)
+        unApproveEntriesDAO.deleteNewEntryAddRequestFromUnApprovedWithVoice(entry)
     }
 
     //this function is called when receiver accept the request to delete a entry from approved ledger entries
     fun deleteEntry(pos: Int){
-        unApproveEntriesDAO.deleteEntry_Approved(pos)
+        unApproveEntriesDAO.deleteEntryApproved(pos)
     }
     //this function is called when receiver accept the request to Edit a entry from approved ledger entries
     fun deleteEntryToReplaceNewEditiedEntry(entry: Entries){
-        unApproveEntriesDAO.deleteEntry_Approved(entry)
+        unApproveEntriesDAO.deleteEntryApproved(entry)
     }
 
     fun approveEntry(pos:Int){
         unApproveEntriesDAO.entryApprove(pos)
     }
     fun rejectedEntry(entry:Entries){
-        unApproveEntriesDAO.enteryRejected(entry)
+        unApproveEntriesDAO.entryRejected(entry)
     }
 
     fun deleteUnApprovedEntryThenUpdateLedgerEntry(pos: Int) {
@@ -74,12 +73,12 @@ unApproveEntriesDAO.deleteUnApprovedEntryThenUpdateLedgerEntry(pos)
 
                 Log.d("unApprovedEntriesRepo", "deleteVoiceFromDevice: Voice Deleted From Device")
 
-                unApproveEntriesDAO.acceptDeleteEntryRequestFromApprovedEntries_withVoice(entry)
+                unApproveEntriesDAO.acceptDeleteEntryRequestFromApprovedEntriesWithVoice(entry)
             } else {
 
                 Log.d("unApprovedEntriesRepo", "deleteVoiceFromDevice: Voice Cannot Be Deleted From Device")
             }
-        }else{                unApproveEntriesDAO.acceptDeleteEntryRequestFromApprovedEntries_withVoice(entry)
+        }else{                unApproveEntriesDAO.acceptDeleteEntryRequestFromApprovedEntriesWithVoice(entry)
         }
 
     }
@@ -101,12 +100,12 @@ unApproveEntriesDAO.deleteUnApprovedEntryThenUpdateLedgerEntry(pos)
 
                 Log.d("unApprovedEntriesRepo", "deleteVoiceFromDevice: Voice Deleted From Device")
 
-                unApproveEntriesDAO.DeleteEntry_EditEntry_withVoice(entry)
+                unApproveEntriesDAO.deleteEntryEditEntryWithVoice(entry)
             } else {
 
                 Log.d("unApprovedEntriesRepo", "deleteVoiceFromDevice: Voice Cannot Be Deleted From Device")
             }
-        }else{                unApproveEntriesDAO.acceptDeleteEntryRequestFromApprovedEntries_withVoice(entry)
+        }else{                unApproveEntriesDAO.acceptDeleteEntryRequestFromApprovedEntriesWithVoice(entry)
         }
 
     }
