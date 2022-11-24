@@ -141,6 +141,17 @@ class UnApproveEntriesDAO(private val ledgerUID: String) {
 
 
     }
+    fun entryApprove(entryToBeApproved: Entries) {
+        //add entry into ledgers then delete it from request
+
+        val entry = entryToBeApproved
+        entry.isApproved = true
+        entry.requestMode = NO_REQUEST_REQUEST_MODE
+        val key = entry.entryUID.toString()
+        addEntryInLedger(key, entry)
+
+
+    }
 
     private fun addEntryInLedger(entryKey: String, entry: Entries) {
 

@@ -1,17 +1,20 @@
 package com.ledgero.adapters
 
 import android.content.Context
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.ledgero.DataClasses.SingleLedgers
 import com.ledgero.MainActivity
 import com.ledgero.R
 import com.ledgero.fragments.IndividualLedgerScreen
+import com.ledgero.utils.TimeFormatter
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -39,12 +42,19 @@ init {
         return ViewHolder(view)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: RecyclerViewAdapter.ViewHolder, position: Int) {
-        holder.ledgerName.text = singleLedgers?.get(position)?.friend_userName
-        holder.ledgerTimeStamp.text = Date(12324521).toString()
-        holder.ledgerMoney.text = singleLedgers?.get(position)?.total_amount.toString()
-        holder.ledgerUID=singleLedgers?.get(position)?.ledgerUID.toString()
+       try {
 
+           holder.ledgerName.text = singleLedgers?.get(position)?.friend_userName
+           val date= Date(singleLedgers?.get(position)?.ledger_Created_timeStamp!!)
+           holder.ledgerTimeStamp.text = TimeFormatter.getFormattedTime(date.toString(),date)
+           holder.ledgerMoney.text = singleLedgers?.get(position)?.total_amount.toString()
+           holder.ledgerUID=singleLedgers?.get(position)?.ledgerUID.toString()
+
+       }catch (e:Exception){
+           Toast.makeText(context, "${e.localizedMessage}", Toast.LENGTH_SHORT).show()
+       }
     }
 
     override fun getItemCount(): Int {

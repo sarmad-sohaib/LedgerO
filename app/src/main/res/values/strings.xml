@@ -77,4 +77,8 @@
     <string name="give">Give</string>
     <string name="no_reminders">No Reminders :)</string>
     <string name="completed_reminders">Completed Reminders</string>
+
+
+
+    <string name="view_unapproved_entry">Approve Entry</string>
 </resources>

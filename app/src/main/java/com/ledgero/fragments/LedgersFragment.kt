@@ -17,28 +17,34 @@ import com.ledgero.MainActivity
 import com.ledgero.R
 import com.ledgero.adapters.RecyclerViewAdapter
 import com.ledgero.cashregister.CashRegisterMainActivity
+import com.ledgero.databinding.FragmentLedgersBinding
 import com.ledgero.model.DatabaseUtill
+import com.ledgero.other.Constants.GAVE_ENTRY_FLAG
+import com.ledgero.other.Constants.GET_ENTRY_FLAG
 
+
+private const val  TAG= "LedgerFragment"
 class LedgersFragment : Fragment() {
 
     private var layoutManager: RecyclerView.LayoutManager? = null
+    private lateinit var _bindig: FragmentLedgersBinding
+    private val binding:FragmentLedgersBinding get() = _bindig!!
 
     companion object{
         var adapter: RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>? = null
 
 
     }
-    private var TAG= "LedgerFragment"
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
+        _bindig = FragmentLedgersBinding.inflate(inflater,container,false)
 
         DatabaseUtill().UserLedgerListner()
-        var view = inflater.inflate(R.layout.fragment_ledgers, container, false)
-        var bt = view.findViewById<MaterialButton>(R.id.bt_add_new_ledger)
-        var rv = view.findViewById<RecyclerView>(R.id.rv_ledgers)
+        val bt = binding.btAddNewLedger
+        val rv = binding.rvLedgers
 
         Toast.makeText(context, "${User.userName}", Toast.LENGTH_SHORT).show()
         Log.d(TAG, "onCreateView: User Name ${User.userName}")
@@ -47,15 +53,14 @@ class LedgersFragment : Fragment() {
 
         adapter = RecyclerViewAdapter(requireContext(),User.getUserSingleLedgers())
         rv.adapter = adapter
-        var bt_cash_register= view.findViewById<MaterialButton>(R.id.bt_cash_register_group_ledgers_frag)
-
-        bt_cash_register.setOnClickListener {
+        val btCashRegister= binding.btCashRegisterGroupLedgersFrag
+        btCashRegister.setOnClickListener {
             startActivity(Intent(context, CashRegisterMainActivity::class.java))
         }
         bt.setOnClickListener {
 
             Toast.makeText(context, "Add New Clicked", Toast.LENGTH_SHORT).show()
-            var dialog= CustomDialogFragment(rv.adapter)
+            val dialog= CustomDialogFragment(rv.adapter)
             dialog.show(childFragmentManager,"customDialog")
 
             Toast.makeText(context, "Show Dialog Called", Toast.LENGTH_SHORT).show()
@@ -64,14 +69,14 @@ class LedgersFragment : Fragment() {
         }
 
         Toast.makeText(context, "Going to start Fragment Listening", Toast.LENGTH_SHORT).show()
-        setFragmentResultListener("fragmentName") { fragmentName, bundle ->
+        setFragmentResultListener("fragmentName") { _, bundle ->
          try {
              val passedLedgerUID = bundle.getString("ledgerUID")
              Log.d("TapBack", "onCreateView: $passedLedgerUID ")
              if (passedLedgerUID !=  null){
 
                  Toast.makeText(context, "Ledger UID : $passedLedgerUID", Toast.LENGTH_SHORT).show()
-                 var frag=IndividualLedgerScreen(passedLedgerUID)
+                 val frag=IndividualLedgerScreen(passedLedgerUID)
                  Log.d("TapBack", "onCreateView: $passedLedgerUID ")
 
                  MainActivity.getMainActivityInstance().supportFragmentManager
@@ -88,8 +93,17 @@ class LedgersFragment : Fragment() {
 
         }
 
+        var totalAmountAndFlag= DatabaseUtill().singleLedgersTotalMetaData()
 
-        return view
+        val amount= totalAmountAndFlag.first
+        val flag= totalAmountAndFlag.second
+
+        if (amount>0){
+            if (flag == GAVE_ENTRY_FLAG) binding.tvGetMoneyFrag.text = amount.toString()
+            if (flag == GET_ENTRY_FLAG) binding.tvGiveMoneyFrag.text = amount.toString()
+        }
+
+        return binding.root
     }
 
 

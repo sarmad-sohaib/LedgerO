@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.AddNewEntryDetail">
+
+
+
+    <TextView
+        android:id="@+id/view_entry_entry_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/view_entry_detail_title"
+        android:lineHeight="2dp"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:layout_marginVertical="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></TextView>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/add_new_entry_Totalamount_filledTextField"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="15dp"
+        android:enabled="false"
+        android:hint="@string/view_entry_total_amount_hint"
+        android:maxWidth="150dp"
+        android:minWidth="100dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_entry_entry_title"
+        app:layout_goneMarginLeft="150dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tv_Totalamount_view_entry"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+
+            android:background="@drawable/total_amount_bg_view_entry_detail"
+            android:clipToOutline="true"
+            android:enabled="false"
+            android:gravity="center_horizontal"
+            android:inputType="numberDecimal" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <ScrollView
+        android:id="@+id/entryInfoScrollView_view_entry"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/add_new_entry_Totalamount_filledTextField"
+        app:layout_goneMarginTop="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/view_entry_description_filledTextField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+
+
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:hint="@string/add_new_entry_description_hint"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/add_new_entry_amount_filledTextField">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tv_description_view_entry"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/round_black_corner_bg_inputfield"
+                    android:enabled="false"
+                    android:clipToOutline="true"
+                    android:gravity="top"
+                    android:inputType="textMultiLine"
+                    android:lines="3" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/voiceLayout"
+                android:paddingVertical="5dp">
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/audioPlay_layout_view_entry"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:paddingVertical="10dp"
+                    android:visibility="gone"
+                    android:weightSum="5"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <Button
+                        android:id="@+id/btn_play_recordVoice_view_entry"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/circular_bg_voice_play_record_btn"
+                        android:foreground="@drawable/ic_play_button"
+                        android:foregroundGravity="center_horizontal|center_vertical"
+                        android:foregroundTint="@color/violent_vixen"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"></Button>
+
+                    <SeekBar
+                        android:id="@+id/seekBar_view_entry"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="fill"
+                        android:layout_weight="3"
+                        android:minWidth="200dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.203"
+                        app:layout_constraintStart_toEndOf="@+id/btn_play_recordVoice_view_entry"
+                        app:layout_constraintTop_toTopOf="parent"></SeekBar>
+
+                    <TextView
+                        android:id="@+id/audioRecordDuration_tv_view_entry"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="15dp"
+                        android:text="00:00"
+                        app:layout_constraintEnd_toEndOf="@+id/seekBar_view_entry"
+                        app:layout_constraintTop_toTopOf="parent"></TextView>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/hint_downloadingAudio_view_entry"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:gravity="center_horizontal"
+                android:maxWidth="300dp"
+
+                android:text="Voice note is downloading:"
+                android:visibility="gone"></TextView>
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
+
+    <include
+        android:id="@+id/calculator_layout_view_entry_include"
+        layout="@layout/calculator_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_gravity="bottom"
+
+        android:layout_marginBottom="15dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/bt_edit_view_entry"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/bt_edit_view_entry"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="68dp"
+        android:background="@drawable/button_shape"
+        android:fontFamily="@font/ropa_sans_regular"
+        android:text="@string/view_unapproved_entry"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textFontWeight="400"
+        app:backgroundTint="@color/puce"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

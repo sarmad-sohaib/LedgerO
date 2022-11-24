@@ -17,6 +17,7 @@ import com.ledgero.Repositories.CanceledEntriesRepo
 import com.ledgero.ViewModelFactories.CanceledEntriesViewModelFactory
 import com.ledgero.ViewModels.CanceledEntriesViewModel
 import com.ledgero.adapters.CanceledEntriesScreen_RVAdapter
+import kotlinx.android.synthetic.main.fragment_canceled_entries_screen.view.*
 
 class CanceledEntriesScreen(var ledgerUID: String) : Fragment() {
 
@@ -47,15 +48,23 @@ class CanceledEntriesScreen(var ledgerUID: String) : Fragment() {
         rv.layoutManager = layoutManager
         var adapter: RecyclerView.Adapter<CanceledEntriesScreen_RVAdapter.CanceledEntries_ViewHolder>? = null
 
-        adapter = CanceledEntriesScreen_RVAdapter(requireContext(), ArrayList<Entries>(),viewModel)
+        adapter = CanceledEntriesScreen_RVAdapter(requireContext(), ArrayList<Entries>(),viewModel,entryClick,ledgerUID)
         rv.adapter= adapter
 
 
         viewModel.getCanceledEntries().observe(viewLifecycleOwner, Observer{
-            adapter = CanceledEntriesScreen_RVAdapter(requireContext(), it,viewModel)
+            adapter = CanceledEntriesScreen_RVAdapter(requireContext(), it,viewModel,entryClick,ledgerUID)
             rv.adapter=adapter
 
         })
+
+
+
+        view.deleteAll_btn_canceledScreen.setOnClickListener {
+
+            (adapter as CanceledEntriesScreen_RVAdapter).deleteAll()
+
+        }
 
         return view
     }
@@ -63,5 +72,13 @@ class CanceledEntriesScreen(var ledgerUID: String) : Fragment() {
     override fun onDestroy() {
         viewModel.removeListener()
         super.onDestroy()
+    }
+
+    private val entryClick= fun ( frag:Fragment){
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fl_fragment_container_main,frag)
+            .addToBackStack(null)
+            .commit()
+
     }
 }

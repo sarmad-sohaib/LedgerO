@@ -17,6 +17,7 @@ import com.ledgero.Repositories.UnApprovedEntriesRepo
 import com.ledgero.ViewModelFactories.UnApprovedEntriesViewModelFactory
 import com.ledgero.ViewModels.UnApprovedEntriesViewModel
 import com.ledgero.adapters.UnApprovedEntriesRvAdapter
+import kotlinx.android.synthetic.main.fragment_un_approved_entries_screen.view.*
 
 class UnApprovedEntriesScreen(var ledgerUID: String) : Fragment() {
     var currentSelectedLedgerUID:String=ledgerUID
@@ -47,14 +48,20 @@ class UnApprovedEntriesScreen(var ledgerUID: String) : Fragment() {
         rv.layoutManager = layoutManager
         var adapter: RecyclerView.Adapter<UnApprovedEntriesRvAdapter.UnApprovedEntriesViewHolder>? = null
 
-       adapter = UnApprovedEntriesRvAdapter(requireContext(), ArrayList<Entries>(),viewModel)
+       adapter = UnApprovedEntriesRvAdapter(requireContext(), ArrayList<Entries>(),viewModel,entryClick,ledgerUID)
         rv.adapter= adapter
 
         viewModel.getEntries().observe(viewLifecycleOwner, Observer{
-            adapter = UnApprovedEntriesRvAdapter(requireContext(), it,viewModel)
+            adapter = UnApprovedEntriesRvAdapter(requireContext(), it,viewModel,entryClick,ledgerUID)
             rv.adapter=adapter
 
         })
+
+
+
+        view.approveAll_btn_UnAprrovedScreen.setOnClickListener {
+            viewModel.approveAll()
+        }
 
 
     return view
@@ -63,5 +70,14 @@ class UnApprovedEntriesScreen(var ledgerUID: String) : Fragment() {
     override fun onDestroy() {
         viewModel.removeListener()
         super.onDestroy()
+    }
+
+
+   private val entryClick= fun ( frag:Fragment){
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fl_fragment_container_main,frag)
+            .addToBackStack(null)
+            .commit()
+
     }
 }

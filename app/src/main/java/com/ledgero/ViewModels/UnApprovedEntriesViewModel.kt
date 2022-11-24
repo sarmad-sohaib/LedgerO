@@ -1,14 +1,18 @@
 package com.ledgero.ViewModels
 
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.ledgero.DataClasses.Entries
+import com.ledgero.DataClasses.User
 import com.ledgero.Repositories.UnApprovedEntriesRepo
 import com.ledgero.UtillClasses.AddEntryWithVoice_EditEntry
 import com.ledgero.UtillClasses.AddEntry_EditEntry
 import com.ledgero.UtillClasses.DeleteEntryWithVoice_EditEntry
 import com.ledgero.UtillClasses.DeleteEntry_EditEntry
+import com.ledgero.other.Constants
+import com.ledgero.pushnotifications.PushNotification
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -19,6 +23,8 @@ class UnApprovedEntriesViewModel( val unApprovedEntriesRepo: UnApprovedEntriesRe
 
     var allUnApprovedEntries: LiveData<ArrayList<Entries>>
     var mledgerUID=ledgerUID
+    private val pushNotificationInterface = PushNotification()
+
 
     private var ledgerMetaDataUtill= Utill_SingleLedgerMetaData(ledgerUID)
     private var TAG="UnApprovedEntriesViewModel"
@@ -159,6 +165,60 @@ class UnApprovedEntriesViewModel( val unApprovedEntriesRepo: UnApprovedEntriesRe
 
 
 
+fun approveAll(){
 
+    allUnApprovedEntries.let {
+        if (allUnApprovedEntries.value != null){
+
+
+
+
+            var size= allUnApprovedEntries.value!!.size
+            var index=0;
+            while (index<size){
+
+                if (allUnApprovedEntries.value!![index].entryMadeBy_userID.equals(User.userID)) {
+                    Log.d(TAG, "approveAll: waiitng for approval")
+                }else{
+
+                // means receiver has accepted the request made by requester
+                if (allUnApprovedEntries.value!![index].requestMode == Constants.ADD_REQUEST_REQUEST_MODE)//request to add entry
+                {
+                    approveEntry(index)
+
+                }
+                if (allUnApprovedEntries.value!![index].requestMode == Constants.DELETE_REQUEST_REQUEST_MODE) {//request to Delete entry
+                    //means receiver accepted to delete a entry from ledger
+                    deleteEntryFromLedgerRequest_accepted(index)
+                }
+                if (allUnApprovedEntries.value!![index].requestMode == Constants.EDIT_REQUEST_REQUEST_MODE) {
+
+                    var oldEntry = Entries()
+                    val newEntry =allUnApprovedEntries.value!![index]
+
+                    for (currentLedger in User.getUserSingleLedgers()!!) {
+                        if (currentLedger.ledgerUID!! == mledgerUID) {
+                            for (entry in currentLedger.entries!!) {
+                                if (allUnApprovedEntries.value!![index].entryUID!! == entry.entryUID) {
+                                    oldEntry = entry
+                                }
+                            }
+                        }
+                    } // accessing entry to be deleted from ledger approved entries
+
+               EditEntryaccepted(oldEntry, newEntry)
+
+                }
+
+
+                pushNotificationInterface.createAndSendNotification(mledgerUID,
+                    Constants.ENTRY_APPROVED)
+                }
+                index++
+            }  
+
+        }
+    }
+}
 
  }

@@ -1,15 +1,9 @@
 package com.ledgero.DataClasses
 
-import android.util.Log
-import com.ledgero.Interfaces.OnUpdateUserSingleLedger
-import com.ledgero.Interfaces.OnUserDetailUpdate
-import com.ledgero.model.DatabaseUtill
+
 
 object User{
-
-
-
-        var userPhone:String?=""
+  var userPhone:String?=""
         var userID:String?=""
         var userEmail:String?=""
         var userName:String?=""
@@ -37,7 +31,7 @@ object User{
         this.user_single_Ledgers!!.add(ledgers)
     }
     fun removeLedgerFromList(ledgers: SingleLedgers){
-        if (user_single_Ledgers!=null)
+        if (user_single_Ledgers!=null )
         user_single_Ledgers!!.remove(ledgers)
     }
 

@@ -1,5 +1,6 @@
 package com.ledgero.fragments
 
+import android.opengl.Visibility
 import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -20,7 +21,7 @@ import com.ledgero.ViewModelFactories.ViewEntryInfoScreenViewModelFactory
 import com.ledgero.ViewModels.ViewEntryInfoScreenViewModel
 import kotlinx.android.synthetic.main.fragment_view_entry_info_screen.view.*
 
-class ViewEntryInfoScreen(val entry:Entries,val ledgerUID:String) : Fragment() {
+class ViewEntryInfoScreen(val entry:Entries,val ledgerUID:String,var isUnapproved:Boolean=false) : Fragment() {
 
         lateinit var viewModel: ViewEntryInfoScreenViewModel
     lateinit var totalAmount: EditText
@@ -31,6 +32,7 @@ class ViewEntryInfoScreen(val entry:Entries,val ledgerUID:String) : Fragment() {
     lateinit var voiceRecordButton: Button
     lateinit var voiceDuration: TextView
     lateinit var hintVoiceNoteDownload:TextView
+
         @RequiresApi(Build.VERSION_CODES.M)
         override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -80,20 +82,27 @@ class ViewEntryInfoScreen(val entry:Entries,val ledgerUID:String) : Fragment() {
 
         view.bt_edit_view_entry.setOnClickListener(){
 
+
             var frag = EditEntrySingleScreen(ledgerUID,entry)
             parentFragmentManager.beginTransaction()
                 .replace(R.id.fl_fragment_container_main,frag)
                 .addToBackStack(null)
                 .commit()
-        }
 
+            }
+
+
+            //approve entry
+            if (isUnapproved){
+                view.bt_edit_view_entry.visibility= View.GONE
+            }
 
 
         return view
     }
 
 fun observeDownload(dataDownload: LiveData<Int>) {
-    hintVoiceNoteDownload.visibility=View.VISIBLE
+      hintVoiceNoteDownload.visibility=View.VISIBLE
         dataDownload.observe(viewLifecycleOwner, Observer{
 
             hintVoiceNoteDownload.text="Voice note is downloading: $it%"

@@ -15,6 +15,7 @@ import com.ledgero.MainActivity
 import com.ledgero.R
 import com.ledgero.fragments.ViewEntryInfoScreen
 import com.ledgero.other.Constants.GAVE_ENTRY_FLAG
+import com.ledgero.utils.TimeFormatter
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -43,7 +44,7 @@ class RecyclerAdapter_SingleLedger (context: Context, entires: ArrayList<Entries
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
       holder.title.text= entries!!.get(position).entry_title
         var date = Date( entries!!.get(position).entry_timeStamp!!)
-        holder.timeStamp.text = date.toString()
+        holder.timeStamp.text = TimeFormatter.getFormattedTime(date.toString(),date)
 
         holder.amount.text= entries!!.get(position).amount.toString()
 

@@ -5,16 +5,17 @@ buildscript {
         // Check that you have the following line (if not, add it):
         google()  // Google's Maven repository
 
+
     }
     dependencies {
 
-        classpath 'com.google.gms:google-services:4.3.10'
+        classpath 'com.google.gms:google-services:4.3.14'
 
         //hilt
-        classpath("com.google.dagger:hilt-android-gradle-plugin:2.43.1")
+        classpath("com.google.dagger:hilt-android-gradle-plugin:2.44")
 
         //safe args for navigation components
-        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.5.1")
+        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.5.3")
 
     }
 }

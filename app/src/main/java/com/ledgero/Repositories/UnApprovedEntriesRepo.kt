@@ -49,6 +49,7 @@ class UnApprovedEntriesRepo(private val unApproveEntriesDAO: UnApproveEntriesDAO
     fun approveEntry(pos:Int){
         unApproveEntriesDAO.entryApprove(pos)
     }
+
     fun rejectedEntry(entry:Entries){
         unApproveEntriesDAO.entryRejected(entry)
     }
