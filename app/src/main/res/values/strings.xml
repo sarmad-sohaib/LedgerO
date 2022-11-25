@@ -7,7 +7,6 @@
     <string name="push_notification_channel_id">LedgerO_Entries_Notifications</string>
 
 
-
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="wednesday_march_16_2022">Wednesday, March 16, 2022</string>
     <string name="rs_0000_pending">Rs 0000 pending</string>
@@ -79,6 +78,15 @@
     <string name="completed_reminders">Completed Reminders</string>
 
 
-
     <string name="view_unapproved_entry">Approve Entry</string>
+    <string name="search">Search</string>
+    <string name="cancel">Cancel</string>
+    <string name="finding_users">Finding Users...</string>
+    <string name="name_of_group_member">Name Of Group Member</string>
+    <string name="remove_selected_member">Remove Selected Member</string>
+    <string name="user_name">User Name</string>
+    <string name="userEmail_gmail_com">useremail@gmail.com</string>
+    <string name="add_friend">Add Friend</string>
+    <string name="create_group">Create Group</string>
+    <string name="select_two_members_to_start_a_group">Select At-least Two Members To Start A Group</string>
 </resources>

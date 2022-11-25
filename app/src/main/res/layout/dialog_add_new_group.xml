@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minWidth="300dp"
+    android:minHeight="300dp"
+    android:background="@drawable/layout_bg"
+    android:padding="8dp"
+    tools:context=".fragments.CustomDialogFragment">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/filledTextField"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/email"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tv_email_dialog_frag"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/bt_add_dialog_frag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="32dp"
+        android:text="@string/search"
+        android:minWidth="100dp"
+        app:cornerRadius="100dp"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toStartOf="@+id/bt_cancel_dialog_frag"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/filledTextField" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/bt_cancel_dialog_frag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="32dp"
+        android:text="@string/cancel"
+        style="?attr/materialButtonOutlinedStyle"
+        app:cornerRadius="100dp"
+        app:strokeColor="@color/blackcurrant"
+        android:minWidth="100dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/bt_add_dialog_frag"
+        app:layout_constraintTop_toBottomOf="@+id/filledTextField" />
+
+    <TextView
+        android:id="@+id/info_tv_dialog_frag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="@string/select_two_members_to_start_a_group"
+        android:textColor="@color/blackcurrant"
+        android:textSize="12sp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/bt_make_group"
+        app:layout_constraintEnd_toEndOf="@+id/bt_make_group"
+        app:layout_constraintHorizontal_bias="0.436"
+        app:layout_constraintStart_toStartOf="@+id/bt_make_group" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/membersAddedLayout"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bt_add_dialog_frag">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/selectedMemberLayout1"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_corner_background"
+            android:backgroundTint="@color/puce"
+            android:padding="7dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/selectedMemberName1_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/ropa_sans_regular"
+                android:paddingHorizontal="5dp"
+                android:text="@string/name_of_group_member"
+                android:textColor="@color/white"
+                android:textFontWeight="200"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:targetApi="p" />
+
+            <ImageButton
+                android:id="@+id/selectedMemberCancelBtn1"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:background="@color/puce"
+                android:backgroundTint="@color/puce"
+                android:foregroundTint="@color/white"
+                android:src="@drawable/ic_cancel_cross"
+                app:layout_constraintBottom_toBottomOf="@+id/selectedMemberName1_tv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/selectedMemberName1_tv"
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="@string/remove_selected_member" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/selectedMemberLayout2"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_corner_background"
+            android:backgroundTint="@color/puce"
+            android:padding="7dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/selectedMemberLayout1"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/selectedMemberName2_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/ropa_sans_regular"
+                android:paddingHorizontal="5dp"
+                android:text="@string/name_of_group_member"
+                android:textColor="@color/white"
+                android:textFontWeight="200"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:targetApi="p" />
+
+            <ImageButton
+                android:id="@+id/selectedMemberCancelBtn2"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:background="@color/puce"
+                android:backgroundTint="@color/puce"
+                android:foregroundTint="@color/white"
+                android:src="@drawable/ic_cancel_cross"
+                app:layout_constraintBottom_toBottomOf="@+id/selectedMemberName2_tv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/selectedMemberName2_tv"
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="@string/remove_selected_member"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/selectedMemberLayout3"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_corner_background"
+            android:backgroundTint="@color/puce"
+            android:padding="7dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/selectedMemberLayout1">
+
+            <TextView
+                android:id="@+id/selectedMemberName3_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/ropa_sans_regular"
+                android:paddingHorizontal="5dp"
+                android:text="@string/name_of_group_member"
+                android:textColor="@color/white"
+                android:textFontWeight="200"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:targetApi="p" />
+
+            <ImageButton
+                android:id="@+id/selectedMemberCancelBtn3"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:background="@color/puce"
+                android:backgroundTint="@color/puce"
+                android:contentDescription="@string/remove_selected_member"
+                android:foregroundTint="@color/white"
+                android:src="@drawable/ic_cancel_cross"
+                app:layout_constraintBottom_toBottomOf="@+id/selectedMemberName3_tv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/selectedMemberName3_tv"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/selectedMemberLayout4"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_corner_background"
+            android:backgroundTint="@color/puce"
+            android:padding="7dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/selectedMemberLayout3"
+            app:layout_constraintTop_toBottomOf="@+id/selectedMemberLayout2">
+
+            <TextView
+                android:id="@+id/selectedMemberName4_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/ropa_sans_regular"
+                android:paddingHorizontal="5dp"
+                android:text="@string/name_of_group_member"
+                android:textColor="@color/white"
+                android:textFontWeight="200"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:targetApi="p" />
+
+            <ImageButton
+                android:id="@+id/selectedMemberCancelBtn4"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:background="@color/puce"
+                android:backgroundTint="@color/puce"
+                android:contentDescription="@string/remove_selected_member"
+                android:foregroundTint="@color/white"
+                android:src="@drawable/ic_cancel_cross"
+                app:layout_constraintBottom_toBottomOf="@+id/selectedMemberName4_tv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/selectedMemberName4_tv"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/gray"
+        android:visibility="gone"
+        android:id="@+id/userFound_Container_dialog_frag"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/membersAddedLayout">
+
+        <TextView
+            android:id="@+id/userName_user_found_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/user_name"
+            android:textSize="18sp"
+            tools:ignore="RelativeOverlap" />
+
+        <TextView
+            android:id="@+id/userEmail_user_found_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/userName_user_found_layout"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="7dp"
+            android:visibility="visible"
+            android:layout_marginBottom="16dp"
+            android:text="@string/userEmail_gmail_com"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/add_friend_btn_user_found_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            android:fontFamily="@font/ropa_sans_regular"
+            android:text="@string/add_friend"
+            android:layout_centerVertical="true"
+            android:textSize="12sp"
+            tools:ignore="RelativeOverlap" />
+
+    </RelativeLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/bt_make_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="32dp"
+        android:minWidth="100dp"
+        android:text="@string/create_group"
+        app:cornerRadius="100dp"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/filledTextField" />
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bt_make_group"
+        app:layout_constraintVertical_bias="0.207"></ProgressBar>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
