@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.GroupLedgersFragment">
+    tools:context=".groupLedger.GroupLedgersFragment">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/shape_bg_group_frag"
@@ -152,17 +152,30 @@
 
     <!--Search bar-->
     <EditText
+        android:id="@+id/editText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:drawablePadding="8dp"
-        android:paddingHorizontal="8dp"
-        android:focusedByDefault="false"
-        android:textColor="@color/blackcurrant"
-        android:hint="@string/_00_ledgers"
         android:drawableStart="@drawable/ic_outline_person_search_24"
         android:drawableEnd="@drawable/ic_outline_as_pdf_24"
+        android:drawablePadding="8dp"
+        android:focusedByDefault="false"
+        android:hint="@string/_00_ledgers"
+        android:paddingHorizontal="8dp"
+        android:textColor="@color/blackcurrant"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/shape_bg_group_frag" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/groupRV"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/bt_add_new_group"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+
+        app:layout_constraintTop_toBottomOf="@+id/editText"
+
+        tools:listitem="@layout/recycler_layout_group_ledger_fragment" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

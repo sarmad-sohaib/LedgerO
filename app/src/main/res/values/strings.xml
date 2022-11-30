@@ -82,11 +82,15 @@
     <string name="search">Search</string>
     <string name="cancel">Cancel</string>
     <string name="finding_users">Finding Users...</string>
-    <string name="name_of_group_member">Name Of Group Member</string>
+    <string name="name_of_group_member">Name of Member</string>
     <string name="remove_selected_member">Remove Selected Member</string>
     <string name="user_name">User Name</string>
     <string name="userEmail_gmail_com">useremail@gmail.com</string>
     <string name="add_friend">Add Friend</string>
     <string name="create_group">Create Group</string>
     <string name="select_two_members_to_start_a_group">Select At-least Two Members To Start A Group</string>
+    <string name="search_users_to_add_in_you_new_group">Search users to add in you new group</string>
+    <string name="selected_group_members">Selected Group Members</string>
+    <string name="group_name">Group Name</string>
+    <string name="email_of_group_member">Email of group member</string>
 </resources>

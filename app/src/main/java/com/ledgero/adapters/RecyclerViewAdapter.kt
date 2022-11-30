@@ -74,7 +74,7 @@ init {
         var ledgerUID: String=""
 
         init {
-            ledgerName = itemView.findViewById(R.id.tv_ledger_name)
+            ledgerName = itemView.findViewById(R.id.ledgerName)
             ledgerTimeStamp = itemView.findViewById(R.id.tv_time_stamp)
             ledgerMoney = itemView.findViewById(R.id.tv_money)
             ledgerDetail = itemView.findViewById(R.id.tv_detail)

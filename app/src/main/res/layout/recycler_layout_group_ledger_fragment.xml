@@ -1,38 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/ledgerName"
+        android:id="@+id/groupName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/ropa_sans_regular"
         android:paddingHorizontal="8dp"
         android:paddingTop="8dp"
-        android:text="Ledger 01"
+        android:text="Group Name"
         android:textColor="@color/blackcurrant"
         android:textSize="15sp"
-        app:layout_constraintEnd_toStartOf="@id/bt_notification_send"
+        app:layout_constraintEnd_toStartOf="@id/group_bt_notification_send"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tv_time_stamp"
+        android:id="@+id/group_tv_time_stamp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/ropa_sans_regular"
         android:paddingHorizontal="8dp"
         android:text="Thu, 20 Jan | 12:37 AM"
         android:textSize="13sp"
-        app:layout_constraintEnd_toStartOf="@+id/bt_notification_send"
-        app:layout_constraintStart_toStartOf="@+id/ledgerName"
-        app:layout_constraintTop_toBottomOf="@+id/ledgerName" />
+        app:layout_constraintEnd_toStartOf="@+id/group_bt_notification_send"
+        app:layout_constraintStart_toStartOf="@+id/groupName"
+        app:layout_constraintTop_toBottomOf="@+id/groupName" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/bt_notification_send"
+        android:id="@+id/group_bt_notification_send"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_margin="16dp"
@@ -44,23 +43,23 @@
         app:iconGravity="textStart"
         app:iconPadding="0dp"
         app:layout_constraintBottom_toTopOf="@+id/view2"
-        app:layout_constraintEnd_toStartOf="@+id/tv_detail"
-        app:layout_constraintTop_toTopOf="@+id/ledgerName" />
+        app:layout_constraintEnd_toStartOf="@+id/group_tv_detail"
+        app:layout_constraintTop_toTopOf="@+id/groupName" />
 
     <TextView
-        android:id="@+id/tv_money"
+        android:id="@+id/group_tv_money"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/ropa_sans_regular"
         android:text="Rs. 00"
         android:textColor="@color/red"
-        app:layout_constraintEnd_toEndOf="@id/tv_detail"
-        app:layout_constraintStart_toStartOf="@+id/tv_detail"
+        app:layout_constraintEnd_toEndOf="@id/group_tv_detail"
+        app:layout_constraintStart_toStartOf="@+id/group_tv_detail"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tv_detail"
+        android:id="@+id/group_tv_detail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -70,7 +69,7 @@
         android:textSize="11sp"
         app:layout_constraintBottom_toTopOf="@+id/view2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_money" />
+        app:layout_constraintTop_toBottomOf="@+id/group_tv_money" />
 
     <View
         android:id="@+id/view2"
@@ -80,6 +79,6 @@
         android:background="@color/gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_time_stamp" />
+        app:layout_constraintTop_toBottomOf="@+id/group_tv_time_stamp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

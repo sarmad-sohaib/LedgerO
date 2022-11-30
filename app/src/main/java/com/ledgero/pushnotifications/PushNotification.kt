@@ -62,7 +62,7 @@ class PushNotification {
 
             val notificationMessage = getNotificationMessage(type)
 
-            val notification = NotificationData("${notificationMessage.first}",
+            val notification = NotificationData(notificationMessage.first,
                 " ${notificationMessage.second}",
                 ledgerUID,
                 "nothing for now")
@@ -85,7 +85,7 @@ class PushNotification {
           if (type == ENTRY_REJECTED) return Pair("Entry Rejected","${User.userName} rejected your entry request.\n Looks like you guys having a conflict")
           if (type == ENTRY_RESENT) return Pair("Entry Resent.","${User.userName} resent the entry.\n This needs your attention")
 
-        return Pair("Action Performedl","${User.userName} resent the entry.\n This needs your attention")
+        return Pair("Action Performed","${User.userName} resent the entry.\n This needs your attention")
 
 
 

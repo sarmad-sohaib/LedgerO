@@ -12,10 +12,10 @@ class FirebaseTokenManager {
     companion object {
         private var dbReference = FirebaseDatabase.getInstance().reference
 
-        suspend fun getNotificationTokenOfRecipient(recipientUserID: String): String? {
+        suspend fun getNotificationTokenOfRecipient(recipientUserID: String): String {
 
 
-            var data = dbReference
+            val data = dbReference
                 .child("tokens")
                 .child(recipientUserID)
                 .child("firebaseToken")
@@ -41,12 +41,10 @@ class FirebaseTokenManager {
 
         fun updateUserFirebaseToken(userID: String, token: String) {
             CoroutineScope(Dispatchers.IO).launch {
-                if (token != null) {
-                    dbReference.child("tokens")
-                        .child(userID)
-                        .child("firebaseToken")
-                        .setValue(token)
-                }
+                dbReference.child("tokens")
+                    .child(userID)
+                    .child("firebaseToken")
+                    .setValue(token)
             }
         }
 

@@ -4,37 +4,78 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:minWidth="300dp"
-    android:minHeight="300dp"
     android:background="@drawable/layout_bg"
-    android:padding="8dp"
+    android:minWidth="300dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="20dp"
     tools:context=".fragments.CustomDialogFragment">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/groupNameFilledTextField"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/group_name"
+        android:textColorHint="@color/white"
+        android:layout_marginHorizontal="7dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/groupName_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/puce"
+        android:maxLength="24"
+        android:maxLines="1"
+        android:lines="1"
+        android:fontFamily="@font/ropa_sans_regular"
+        />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/filledTextField"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="@string/email"
+        android:layout_marginTop="20dp"
+        android:hint="@string/email_of_group_member"
+        android:layout_marginHorizontal="7dp"
+        app:layout_constraintTop_toBottomOf="@id/groupNameFilledTextField"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        tools:layout_editor_absoluteY="8dp">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tv_email_dialog_frag"
+            android:id="@+id/userEmailSearchField_tv"
             android:layout_width="match_parent"
+            android:maxLength="40"
+            android:maxLines="1"
+            android:lines="1"
             android:layout_height="wrap_content" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <TextView
+        android:id="@+id/userSearchInfo_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/search_users_to_add_in_you_new_group"
+        android:textColor="@color/blackcurrant"
+        android:textSize="12sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/filledTextField"
+        app:layout_constraintStart_toStartOf="@+id/filledTextField"
+        app:layout_constraintTop_toBottomOf="@+id/filledTextField" />
+
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/bt_add_dialog_frag"
+        android:id="@+id/searchUserBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginVertical="32dp"
-        android:text="@string/search"
         android:minWidth="100dp"
-        app:cornerRadius="100dp"
+        android:text="@string/search"
         android:textColor="@color/white"
+        app:cornerRadius="100dp"
         app:layout_constraintEnd_toStartOf="@+id/bt_cancel_dialog_frag"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -42,65 +83,85 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/bt_cancel_dialog_frag"
+        style="?attr/materialButtonOutlinedStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginVertical="32dp"
-        android:text="@string/cancel"
-        style="?attr/materialButtonOutlinedStyle"
-        app:cornerRadius="100dp"
-        app:strokeColor="@color/blackcurrant"
         android:minWidth="100dp"
+        android:text="@string/cancel"
+        app:cornerRadius="100dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/bt_add_dialog_frag"
-        app:layout_constraintTop_toBottomOf="@+id/filledTextField" />
+        app:layout_constraintStart_toEndOf="@+id/searchUserBtn"
+        app:layout_constraintTop_toBottomOf="@+id/filledTextField"
+        app:strokeColor="@color/blackcurrant" />
 
     <TextView
         android:id="@+id/info_tv_dialog_frag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
         android:text="@string/select_two_members_to_start_a_group"
         android:textColor="@color/blackcurrant"
         android:textSize="12sp"
         android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/bt_make_group"
         app:layout_constraintEnd_toEndOf="@+id/bt_make_group"
         app:layout_constraintHorizontal_bias="0.436"
-        app:layout_constraintStart_toStartOf="@+id/bt_make_group" />
+        app:layout_constraintStart_toStartOf="@+id/bt_make_group"
+        app:layout_constraintTop_toBottomOf="@+id/bt_make_group" />
 
+    <!--  Members Layout Start  -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/membersAddedLayout"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
+        android:paddingVertical="10dp"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bt_add_dialog_frag">
+        app:layout_constraintTop_toBottomOf="@+id/searchUserBtn">
+
+        <TextView
+            android:id="@+id/selectedGroupMemberTitle_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/selected_group_members"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/selectedMemberLayout1"
-            android:visibility="gone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="130dp"
+            android:layout_height="30dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="12dp"
             android:background="@drawable/round_corner_background"
+
             android:backgroundTint="@color/puce"
+            android:minWidth="130dp"
             android:padding="7dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toStartOf="@+id/selectedMemberLayout2"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/selectedGroupMemberTitle_tv">
 
             <TextView
                 android:id="@+id/selectedMemberName1_tv"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="7dp"
                 android:fontFamily="@font/ropa_sans_regular"
-                android:paddingHorizontal="5dp"
+                android:maxWidth="120dp"
+
+                android:minWidth="80dp"
                 android:text="@string/name_of_group_member"
                 android:textColor="@color/white"
                 android:textFontWeight="200"
-                android:textSize="15sp"
+                android:textSize="13sp"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/selectedMemberCancelBtn1"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:targetApi="p" />
@@ -109,41 +170,50 @@
                 android:id="@+id/selectedMemberCancelBtn1"
                 android:layout_width="12dp"
                 android:layout_height="12dp"
+                android:layout_marginEnd="3dp"
                 android:background="@color/puce"
                 android:backgroundTint="@color/puce"
+                android:contentDescription="@string/remove_selected_member"
                 android:foregroundTint="@color/white"
                 android:src="@drawable/ic_cancel_cross"
                 app:layout_constraintBottom_toBottomOf="@+id/selectedMemberName1_tv"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/selectedMemberName1_tv"
-                app:layout_constraintTop_toTopOf="parent"
-                android:contentDescription="@string/remove_selected_member" />
+                app:layout_constraintTop_toTopOf="@+id/selectedMemberName1_tv" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/selectedMemberLayout2"
-            android:visibility="gone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="130dp"
+            android:layout_height="30dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="12dp"
+
             android:background="@drawable/round_corner_background"
             android:backgroundTint="@color/puce"
+            android:minWidth="130dp"
             android:padding="7dp"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/selectedMemberLayout1"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/selectedGroupMemberTitle_tv">
 
             <TextView
                 android:id="@+id/selectedMemberName2_tv"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="7dp"
                 android:fontFamily="@font/ropa_sans_regular"
-                android:paddingHorizontal="5dp"
+                android:maxWidth="120dp"
+
+                android:minWidth="80dp"
                 android:text="@string/name_of_group_member"
                 android:textColor="@color/white"
                 android:textFontWeight="200"
-                android:textSize="15sp"
+                android:textSize="13sp"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/selectedMemberCancelBtn2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:targetApi="p" />
@@ -152,43 +222,53 @@
                 android:id="@+id/selectedMemberCancelBtn2"
                 android:layout_width="12dp"
                 android:layout_height="12dp"
+                android:layout_marginEnd="3dp"
+
                 android:background="@color/puce"
                 android:backgroundTint="@color/puce"
+                android:contentDescription="@string/remove_selected_member"
                 android:foregroundTint="@color/white"
                 android:src="@drawable/ic_cancel_cross"
                 app:layout_constraintBottom_toBottomOf="@+id/selectedMemberName2_tv"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/selectedMemberName2_tv"
-                app:layout_constraintTop_toTopOf="parent"
-                android:contentDescription="@string/remove_selected_member"
-                />
+                app:layout_constraintTop_toTopOf="@+id/selectedMemberName2_tv" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/selectedMemberLayout3"
-            android:visibility="gone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="130dp"
+            android:layout_height="30dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="12dp"
             android:background="@drawable/round_corner_background"
+
             android:backgroundTint="@color/puce"
+            android:minWidth="130dp"
             android:padding="7dp"
-            android:layout_marginTop="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="gone"
+            app:layout_constraintEnd_toStartOf="@+id/selectedMemberLayout4"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/selectedMemberLayout1">
+            app:layout_constraintTop_toBottomOf="@id/selectedMemberLayout1">
 
             <TextView
                 android:id="@+id/selectedMemberName3_tv"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="7dp"
                 android:fontFamily="@font/ropa_sans_regular"
-                android:paddingHorizontal="5dp"
+                android:maxWidth="120dp"
+
+                android:minWidth="80dp"
                 android:text="@string/name_of_group_member"
                 android:textColor="@color/white"
                 android:textFontWeight="200"
-                android:textSize="15sp"
+                android:textSize="13sp"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/selectedMemberCancelBtn3"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:targetApi="p" />
@@ -197,6 +277,8 @@
                 android:id="@+id/selectedMemberCancelBtn3"
                 android:layout_width="12dp"
                 android:layout_height="12dp"
+                android:layout_marginEnd="3dp"
+
                 android:background="@color/puce"
                 android:backgroundTint="@color/puce"
                 android:contentDescription="@string/remove_selected_member"
@@ -204,36 +286,42 @@
                 android:src="@drawable/ic_cancel_cross"
                 app:layout_constraintBottom_toBottomOf="@+id/selectedMemberName3_tv"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/selectedMemberName3_tv"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="@+id/selectedMemberName3_tv" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/selectedMemberLayout4"
-            android:visibility="gone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="130dp"
+            android:layout_height="30dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="12dp"
+
             android:background="@drawable/round_corner_background"
             android:backgroundTint="@color/puce"
+            android:minWidth="130dp"
             android:padding="7dp"
-            android:layout_marginTop="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/selectedMemberLayout3"
             app:layout_constraintTop_toBottomOf="@+id/selectedMemberLayout2">
 
             <TextView
                 android:id="@+id/selectedMemberName4_tv"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="7dp"
                 android:fontFamily="@font/ropa_sans_regular"
-                android:paddingHorizontal="5dp"
+                android:maxWidth="120dp"
+
+                android:minWidth="80dp"
                 android:text="@string/name_of_group_member"
                 android:textColor="@color/white"
                 android:textFontWeight="200"
-                android:textSize="15sp"
+                android:textSize="13sp"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/selectedMemberCancelBtn4"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:targetApi="p" />
@@ -242,6 +330,8 @@
                 android:id="@+id/selectedMemberCancelBtn4"
                 android:layout_width="12dp"
                 android:layout_height="12dp"
+                android:layout_marginEnd="3dp"
+
                 android:background="@color/puce"
                 android:backgroundTint="@color/puce"
                 android:contentDescription="@string/remove_selected_member"
@@ -249,20 +339,21 @@
                 android:src="@drawable/ic_cancel_cross"
                 app:layout_constraintBottom_toBottomOf="@+id/selectedMemberName4_tv"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/selectedMemberName4_tv"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="@+id/selectedMemberName4_tv" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+    <!--Members Layout End-->
 
+    <!--  User Found Layout Start-->
     <RelativeLayout
+        android:id="@+id/userFound_Container_dialog_frag"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/gray"
         android:visibility="gone"
-        android:id="@+id/userFound_Container_dialog_frag"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/membersAddedLayout">
@@ -285,40 +376,42 @@
             android:layout_below="@+id/userName_user_found_layout"
             android:layout_marginStart="5dp"
             android:layout_marginTop="7dp"
-            android:visibility="visible"
             android:layout_marginBottom="16dp"
             android:text="@string/userEmail_gmail_com"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:visibility="visible" />
 
         <Button
             android:id="@+id/add_friend_btn_user_found_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
             android:layout_marginEnd="10dp"
             android:fontFamily="@font/ropa_sans_regular"
             android:text="@string/add_friend"
-            android:layout_centerVertical="true"
             android:textSize="12sp"
             tools:ignore="RelativeOverlap" />
 
     </RelativeLayout>
+    <!-- User Found Layout End -->
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/bt_make_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="32dp"
+        android:layout_marginTop="284dp"
         android:minWidth="100dp"
         android:text="@string/create_group"
-        app:cornerRadius="100dp"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:cornerRadius="100dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/filledTextField" />
 
     <ProgressBar
+        android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
@@ -327,6 +420,6 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bt_make_group"
-        app:layout_constraintVertical_bias="0.207"></ProgressBar>
+        app:layout_constraintVertical_bias="0.207" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

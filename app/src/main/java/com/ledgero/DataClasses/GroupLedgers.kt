@@ -1,3 +1,7 @@
 package com.ledgero.DataClasses
 
-class GroupLedgers
+data class GroupLedgers(
+    var groupName:String="",
+    var groupUID:String="",
+    var createdTimeStamp:String=""
+)

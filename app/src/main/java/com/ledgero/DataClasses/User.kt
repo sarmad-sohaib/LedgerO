@@ -1,5 +1,6 @@
 package com.ledgero.DataClasses
 
+import com.ledgero.groupLedger.data.GroupInfo
 
 
 object User{
