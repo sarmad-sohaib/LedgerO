@@ -96,7 +96,7 @@ getAllGroups()
                     when(it){
                         is AllGroupsStateFlow.AllGroupsFetched -> {
                             Log.d(TAG, "allGroupsObserver: All Groups Fetched")
-                            Toast.makeText(context, "Total ${it.groups.size} fetched", Toast.LENGTH_SHORT).show()
+                          //  Toast.makeText(context, "Total ${it.groups.size} fetched", Toast.LENGTH_SHORT).show()
                             viewModel.allGroups=it.groups
                             viewModel.allGroups.addAll(it.groups)
                             adapter.notifyDataSetChanged()

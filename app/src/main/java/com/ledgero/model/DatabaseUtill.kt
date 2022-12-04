@@ -162,7 +162,7 @@ class DatabaseUtill {
                         //now call the function so all ledgers get latest meta-data
                         if (user.getUserSingleLedgers() != null) {
                             if (user.getUserSingleLedgers()!!.size > 0) {
-                                //  updateAllLedgerMetaData(User.getUserSingleLedgers()!!,0,callback)
+                                updateAllLedgerMetaData(User.getUserSingleLedgers()!!,0,callback)
 
                             }
                         }
@@ -365,13 +365,10 @@ class DatabaseUtill {
                 }
             }
 
-            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
-                TODO("Not yet implemented")
-            }
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?)= Unit
 
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
+
+            override fun onCancelled(error: DatabaseError)=Unit
 
         }
 

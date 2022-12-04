@@ -327,7 +327,7 @@ class Utill_AddNewEntryDetail( var EntryDetail: EntryDetailInterface) {
             mediaPlayer= MediaPlayer()
             mediaPlayer!!.setDataSource(getPathForStoringFile(false))
             mediaPlayer!!.prepare()
-          var duartion=  (mediaPlayer!!.duration/1000).toString()
+          var duartion=   (mediaPlayer!!.duration/1000).toString()
             return duartion
         }
 

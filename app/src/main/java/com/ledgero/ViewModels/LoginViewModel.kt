@@ -34,13 +34,14 @@ private var TAG="LoginViewModel:"
     fun isUserLogin():Boolean{
 
         val currentUser= auth.currentUser
-        if (currentUser != null){
+        return if (currentUser != null){
             Log.d(TAG, "isUserLogin: true ")
             User.userID=currentUser.uid
-            return true
+            true
         }else {
             Log.d(TAG, "isUserLogin: false")
-            return false}
+            false
+        }
     }
 
     fun validateUserInfo(): Boolean {

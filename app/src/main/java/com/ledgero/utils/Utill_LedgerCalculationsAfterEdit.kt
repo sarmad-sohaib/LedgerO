@@ -10,15 +10,15 @@ import com.google.firebase.database.ktx.getValue
 import com.google.firebase.storage.FirebaseStorage
 import com.ledgero.DataClasses.Entries
 import com.ledgero.MainActivity
-import com.ledgero.other.Constants.ENTRY_APPROVED
 import com.ledgero.other.Constants.GAVE_ENTRY_FLAG
 import com.ledgero.other.Constants.GET_ENTRY_FLAG
 import com.ledgero.other.Constants.NO_REQUEST_REQUEST_MODE
-import com.ledgero.pushnotifications.PushNotification
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import java.io.File
-import kotlin.math.log
 
 open class Utill_LedgerCalculationsAfterEdit(var ledgerUID:String,oldEntry: Entries,newEntry: Entries ) {
 
@@ -38,14 +38,14 @@ init {
    protected suspend fun fetchCurrentMetaDataFromFireBase(): DataSnapshot? {
 
        Log.d(TAG, "fetchCurrentMetaDataFromFireBase: called")
-        var data=       db_reference.child("ledgerInfo").child(ledgerUID).get()
+        val data=       db_reference.child("ledgerInfo").child(ledgerUID).get()
         return data.await()
     }
     protected suspend fun updateMetaDataInFireBase(updateData: Map<String, Any>?): Boolean {
 
         Log.d(TAG, "updateMetaDataInFireBase: called")
         if (updateData==null) return false
-        var isUpdated= CoroutineScope(Dispatchers.IO).async {db_reference.child("ledgerInfo").child(ledgerUID).updateChildren(updateData)}
+        val isUpdated= CoroutineScope(Dispatchers.IO).async {db_reference.child("ledgerInfo").child(ledgerUID).updateChildren(updateData)}
         return isUpdated.await().isSuccessful
 
     }
@@ -59,13 +59,13 @@ init {
 
 
             Log.d(TAG, "deleteEntry: Called")
-          var isDeleted= CoroutineScope(Dispatchers.Default).async{
+          val isDeleted= CoroutineScope(Dispatchers.Default).async{
 
 
-              var current_Data =      fetchCurrentMetaDataFromFireBase()
-              var update_Data=   calculateMetaDataAfterDeletingEntryData(current_Data,oldEntry)
+              val current_Data =      fetchCurrentMetaDataFromFireBase()
+              val update_Data=   calculateMetaDataAfterDeletingEntryData(current_Data,oldEntry)
               var isMetaDataUpdated=    updateMetaDataInFireBase(update_Data)
-              var entryDeleted=  deleteOldEntryFromApprovedEntries(oldEntry)
+              val entryDeleted=  deleteOldEntryFromApprovedEntries(oldEntry)
 
 
 
@@ -83,13 +83,13 @@ init {
                 //first delete it from ledgers then from requestedEntries
                 //then check if its in canceled of any user
                 //delete it from there too
-                var entry= entryToBeDeleted
-                var key= entry.entryUID.toString()
+                val entry= entryToBeDeleted
+                val key= entry.entryUID.toString()
                 entry.requestMode=0
 
-            var isEntryDeleted=    CoroutineScope(Dispatchers.IO).async {
+            val isEntryDeleted=    CoroutineScope(Dispatchers.IO).async {
 
-                   var deleteFromApproved= async {   db_reference.child("ledgerEntries").child(ledgerUID).child(key).removeValue()}
+                   val deleteFromApproved= async {   db_reference.child("ledgerEntries").child(ledgerUID).child(key).removeValue()}
                     if (deleteFromApproved.await().isSuccessful) {
                         checkAndDeleteFromCanceledEntries(key)
                         true

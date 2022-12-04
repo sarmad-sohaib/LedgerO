@@ -13,6 +13,7 @@ class TimeFormatter {
 
             val format = "dd MMM yyyy hh:mm a"
 
+
             val sdf = SimpleDateFormat(format)
             // default system timezone if passed null or empty
             // default system timezone if passed null or empty

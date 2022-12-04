@@ -28,7 +28,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-const val TAG = "UnApprovedEntries_RVAdapter"
+const val TAG = "UnApprovedEntRVAdapter"
 
 class UnApprovedEntriesRvAdapter(
     context: Context,

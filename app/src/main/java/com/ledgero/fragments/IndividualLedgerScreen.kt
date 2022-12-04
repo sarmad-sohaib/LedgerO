@@ -52,7 +52,6 @@ lateinit var entries: ArrayList<Entries>
 
 
 
-
         for (i in User.getUserSingleLedgers()!!){
 
             if (i.ledgerUID.equals(ledgerUID)){

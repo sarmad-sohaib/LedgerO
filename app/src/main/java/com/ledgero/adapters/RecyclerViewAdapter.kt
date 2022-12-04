@@ -2,6 +2,7 @@ package com.ledgero.adapters
 
 import android.content.Context
 import android.os.Build
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,16 +45,19 @@ init {
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: RecyclerViewAdapter.ViewHolder, position: Int) {
-       try {
+        holder.ledgerName.text = singleLedgers?.get(position)?.friend_userName
+        holder.ledgerMoney.text = singleLedgers?.get(position)?.total_amount.toString()
+        holder.ledgerUID=singleLedgers?.get(position)?.ledgerUID.toString()
+        try {
 
-           holder.ledgerName.text = singleLedgers?.get(position)?.friend_userName
            val date= Date(singleLedgers?.get(position)?.ledger_Created_timeStamp!!)
            holder.ledgerTimeStamp.text = TimeFormatter.getFormattedTime(date.toString(),date)
-           holder.ledgerMoney.text = singleLedgers?.get(position)?.total_amount.toString()
-           holder.ledgerUID=singleLedgers?.get(position)?.ledgerUID.toString()
 
        }catch (e:Exception){
-           Toast.makeText(context, "${e.localizedMessage}", Toast.LENGTH_SHORT).show()
+           //Toast.makeText(context, "Can't Load Single Ledgers${e.localizedMessage}", Toast.LENGTH_SHORT).show()
+
+            Log.d(TAG, "onBindViewHolder: Can't Fetch Ledger Timestamp")
+            holder.ledgerTimeStamp.text="DD/MM/YYYY"
        }
     }
 

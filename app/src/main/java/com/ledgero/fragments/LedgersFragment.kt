@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.button.MaterialButton
 import com.ledgero.DataClasses.User
 import com.ledgero.MainActivity
 import com.ledgero.R
@@ -27,31 +26,31 @@ private const val  TAG= "LedgerFragment"
 class LedgersFragment : Fragment() {
 
     private var layoutManager: RecyclerView.LayoutManager? = null
-    private lateinit var _bindig: FragmentLedgersBinding
-    private val binding:FragmentLedgersBinding get() = _bindig!!
+    private lateinit var _binding: FragmentLedgersBinding
+    private val binding:FragmentLedgersBinding get() = _binding!!
 
     companion object{
         var adapter: RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>? = null
-
-
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        _bindig = FragmentLedgersBinding.inflate(inflater,container,false)
+        _binding = FragmentLedgersBinding.inflate(inflater,container,false)
 
         DatabaseUtill().UserLedgerListner()
         val bt = binding.btAddNewLedger
         val rv = binding.rvLedgers
 
-        Toast.makeText(context, "${User.userName}", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, "Username:  ${User.userName}", Toast.LENGTH_SHORT).show()
         Log.d(TAG, "onCreateView: User Name ${User.userName}")
         layoutManager = LinearLayoutManager(context)
         rv.layoutManager = layoutManager
 
-        adapter = RecyclerViewAdapter(requireContext(),User.getUserSingleLedgers())
+        val userLedgers= User.getUserSingleLedgers()
+
+        adapter = RecyclerViewAdapter(requireContext(),userLedgers)
         rv.adapter = adapter
         val btCashRegister= binding.btCashRegisterGroupLedgersFrag
         btCashRegister.setOnClickListener {
@@ -68,7 +67,7 @@ class LedgersFragment : Fragment() {
 
         }
 
-        Toast.makeText(context, "Going to start Fragment Listening", Toast.LENGTH_SHORT).show()
+       // Toast.makeText(context, "Going to start Fragment Listening", Toast.LENGTH_SHORT).show()
         setFragmentResultListener("fragmentName") { _, bundle ->
          try {
              val passedLedgerUID = bundle.getString("ledgerUID")

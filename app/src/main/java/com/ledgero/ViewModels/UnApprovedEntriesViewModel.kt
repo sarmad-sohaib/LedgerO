@@ -140,7 +140,7 @@ class UnApprovedEntriesViewModel( val unApprovedEntriesRepo: UnApprovedEntriesRe
         }
 
 
-       // unApprovedEntriesRepo.rejectedEntry(entry)
+        unApprovedEntriesRepo.rejectedEntry(entry)
     }
 
     fun deleteUnApprovedEntryThenUpdateLedgerEntry(pos: Int) {
