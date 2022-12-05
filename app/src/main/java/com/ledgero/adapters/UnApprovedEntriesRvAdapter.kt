@@ -172,6 +172,11 @@ class UnApprovedEntriesRvAdapter(
 
                     viewModel.deleteUnApprovedEntryThenUpdateLedgerEntry(adapterPosition)
                 }
+                if (unApprovedEntries!![adapterPosition].requestMode == 3) {
+                    //means requester don't want receiver to see this entry Addition request in unapproved
+                    // so delete the entry from unapproved
+                    viewModel.deleteEntry(adapterPosition)
+                }
             }
             waitBtnRequester.setOnClickListener {
                 Toast.makeText(context, "Waiting For Approval", Toast.LENGTH_SHORT).show()

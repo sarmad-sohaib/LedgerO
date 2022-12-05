@@ -74,6 +74,8 @@ class UnApprovedEntriesViewModel( val unApprovedEntriesRepo: UnApprovedEntriesRe
 
         if(entry.hasVoiceNote!!){
             unApprovedEntriesRepo.acceptDeleteEntryRequestFromApprovedEntries_withVoice(entry)
+            updateLedgerMetaDataAfterEntryDelete(allUnApprovedEntries.value!!.get(pos))
+
         }else{
 
 
