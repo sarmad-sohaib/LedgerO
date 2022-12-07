@@ -1,5 +1,6 @@
 package com.ledgero.firebasetokens
 
+import android.util.Log
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.coroutines.CoroutineScope
@@ -29,13 +30,20 @@ class FirebaseTokenManager {
 
             CoroutineScope(Dispatchers.IO).launch {
                 val result = async { FirebaseMessaging.getInstance().token }
-                val token = result.await().result
-                if (token != null) {
-                    dbReference.child("tokens")
-                        .child(userID)
-                        .child("firebaseToken")
-                        .setValue(token)
-                }
+try {
+
+    val response= result.await()
+    val token = response.result
+    if (token != null) {
+        dbReference.child("tokens")
+            .child(userID)
+            .child("firebaseToken")
+            .setValue(token)
+    }
+}catch (e:Exception){
+    Log.d("FirebaseTokenMan", "registerUserFirebaseToken: ${e.localizedMessage} ")
+}
+
             }
         }
 

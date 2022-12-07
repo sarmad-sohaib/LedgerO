@@ -17,16 +17,23 @@ class SignUpActivity : AppCompatActivity() {
         setContentView(R.layout.activity_sign_up)
 
 
-        signUpViewModel = ViewModelProvider(this).get(SignUpViewModel::class.java)
+        signUpViewModel = ViewModelProvider(this)[SignUpViewModel::class.java]
         signUpViewModel.initializeFields(
             tf_user_phone_signUp,
             tf_password_signUp,
             tf_reenter_password_signUp,
+            userName_tv,
             this
         )
         //sign Up OnClick Listener
         bt_signup_signUp.setOnClickListener {
-            signUpViewModel.initializeFields(tf_user_phone_signUp, tf_password_signUp, tf_reenter_password_signUp, this)
+            signUpViewModel.initializeFields(
+                tf_user_phone_signUp,
+                tf_password_signUp,
+                tf_reenter_password_signUp,
+                userName_tv,
+                this
+            )
 
 
 //            Email Auth Start

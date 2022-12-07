@@ -44,15 +44,39 @@
 
         app:layout_constraintTop_toBottomOf="@+id/textView2">
 
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/userNameInputLayout"
+            style="@style/TextInputLayoutStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:hint="Username"
+            app:hintTextColor="@color/white"
+            app:startIconDrawable="@drawable/ic_baseline_person_24"
+            app:startIconTint="@color/white"
+
+            >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/userName_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:textColor="@color/white"
+            android:inputType="text"
+            android:textCursorDrawable="@drawable/text_cursor" />
+        </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tflayout_username_signUp"
             style="@style/TextInputLayoutStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/signup_login_userdetail_fields_margin_top"
 
-            android:hint="@string/phone_no"
+            android:hint="@string/email"
             app:hintTextColor="@color/white"
-            app:startIconDrawable="@drawable/ic_outline_phone_24"
+            app:startIconDrawable="@drawable/email_icon"
             app:startIconTint="@color/white"
 
             >

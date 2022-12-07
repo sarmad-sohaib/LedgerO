@@ -1,6 +1,5 @@
 package com.ledgero.ViewModels
 
-import android.app.Activity
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
@@ -18,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
+import com.google.firebase.auth.ktx.actionCodeSettings
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
@@ -35,6 +35,7 @@ class SignUpViewModel: ViewModel() {
     lateinit var tf_password_signUp: TextInputEditText
     lateinit var tf_reenter_password_signUp: TextInputEditText
     lateinit var tf_user_email_signUp: TextInputEditText
+    lateinit var tf_user_name_signUp: TextInputEditText
     lateinit var context: Context
     var auth = Firebase.auth
     lateinit var storedVerificationId: String
@@ -50,6 +51,11 @@ class SignUpViewModel: ViewModel() {
 
     fun signUpWithemail(){
 
+        if (tf_user_name_signUp.text.toString().length<5){
+            Log.d(TAG, "signUpWithemail: username empty")
+            Toast.makeText(context,"Username must be 5 characters long",Toast.LENGTH_LONG).show()
+            return
+        }
         if (!isValidEmail(tf_user_email_signUp.text.toString())){
             Log.d(TAG, "signUpWithemail: Email Not Valid")
             Toast.makeText(context,"Please Enter Valid Email Address",Toast.LENGTH_LONG).show()
@@ -69,6 +75,36 @@ class SignUpViewModel: ViewModel() {
 
     }
 
+    private fun sendVerificationEmail(email: String,password: String){
+
+
+        val actionCodeSettings = actionCodeSettings {
+            // URL you want to redirect back to. The domain (www.example.com) for this
+            // URL must be whitelisted in the Firebase Console.
+            url = "https://www.google.com/page"
+            // This must be true
+            handleCodeInApp = true
+            setAndroidPackageName(
+                "${context.packageName}",
+                false, /* installIfNotAvailable */
+                "8" /* minimumVersion */)
+        }
+
+        auth.sendSignInLinkToEmail(email, actionCodeSettings)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Log.d(TAG, "Email sent.")
+                    Toast.makeText(context, "Verification Email Link Send", Toast.LENGTH_SHORT).show()
+                    auth.signOut()
+                }
+                if (task.isCanceled){
+                    Log.d(TAG, "Email Not sent.")
+                    Toast.makeText(context, "Could not send Verification Email Link ", Toast.LENGTH_SHORT).show()
+                }
+            }
+    }
+
+
     private fun createUserAccount(email: String, password: String): Boolean {
 
 
@@ -81,18 +117,30 @@ class SignUpViewModel: ViewModel() {
                     Log.d(TAG, "createUserAccount:success")
                    mUser = auth.currentUser!!
 
-                    Toast.makeText(context, "Account Created Successfully!, Saving User in DB", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Account Created Successfully!, Sending Verification Link", Toast.LENGTH_SHORT).show()
+                    auth.currentUser?.sendEmailVerification()?.addOnCompleteListener { 
+                        
+                        if (it.isSuccessful){
+                            Toast.makeText(context, "Verification Link Sent. Please check your email", Toast.LENGTH_SHORT).show()
+                            auth.signOut()
+                        }
+                        if (it.isCanceled){
+                            Toast.makeText(context, "Could not send verification email. Please enter valid email address", Toast.LENGTH_SHORT).show()
+                            Log.d(TAG, "createUserAccount: ${it.exception}")
+                        }
+                    }
 
 
-                    saveuserinDB(mUser)
+
+                    saveuserinDB(tf_user_name_signUp.text.toString(),mUser)
                     DatabaseUtill().updateCurrentUser(mUser.uid,object :OnUserDetailUpdate{
                         override fun onUserDetailsUpdated(boolean: Boolean) {
                             UtillFunctions.hideProgressDialog(dialog)
 
 
-                            context.startActivity(Intent(context, MainActivity::class.java))
-                            val ac = context as Activity
-                            ac.finish()
+//                            context.startActivity(Intent(context, LoginActivity::class.java))
+//                            val ac = context as Activity
+//                            ac.finish()
                         }
 
 
@@ -102,9 +150,18 @@ class SignUpViewModel: ViewModel() {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "createUserWithEmail:failure", task.exception)
                     UtillFunctions.hideProgressDialog(dialog)
-                    Toast.makeText(context, "Not Able To Sign Up: "+ task.exception,
+                    Toast.makeText(context, "Not Able To Sign Up ",
                         Toast.LENGTH_SHORT).show()
                    isUserCreated=false
+                    auth.fetchSignInMethodsForEmail(email).addOnCompleteListener{
+                        if(it.isSuccessful){
+
+                            Toast.makeText(context, "User Already Exist", Toast.LENGTH_SHORT).show()
+
+                        }
+                    }
+
+
                 }
             }
         return isUserCreated
@@ -180,15 +237,16 @@ class SignUpViewModel: ViewModel() {
             phone: TextInputEditText,
             password: TextInputEditText,
             reenterPass: TextInputEditText,
+            userName_tv: TextInputEditText,
             dcontext: Context,
 
-        ) {
+            ) {
             this.tf_user_phone_signUp = phone
             this.tf_password_signUp = password
             this.tf_reenter_password_signUp = reenterPass
             this.context = dcontext
             this.tf_user_email_signUp=phone
-
+            this.tf_user_name_signUp=userName_tv
         }
 
         fun userDetailCheck(): Boolean {
@@ -263,7 +321,7 @@ class SignUpViewModel: ViewModel() {
                 }
         }
 
-        fun saveuserinDB(user: FirebaseUser?) {
+        fun saveuserinDB(username:String,user: FirebaseUser?) {
 
 
 
@@ -271,7 +329,7 @@ class SignUpViewModel: ViewModel() {
             User.userEmail=tf_user_email_signUp.text.toString()
             User.userID= user?.uid
             User.total_single_ledgers=0
-            User.userName="New User"
+            User.userName=username
             User.userPhone="00000"
             User.user_group_Ledgers=null
             User.setUserSingleLedger(ArrayList())
@@ -279,7 +337,8 @@ class SignUpViewModel: ViewModel() {
             User.user_total_take=0
 
 
-            Toast.makeText(context, "User Created...Uploading", Toast.LENGTH_SHORT).show()
+            Log.d(TAG, "saveuserinDB: User created...Uploading")
+          //  Toast.makeText(context, "User Created...Uploading", Toast.LENGTH_SHORT).show()
 
             var db= FirebaseDatabase.getInstance().reference
 
