@@ -25,7 +25,7 @@ class LoginActivity : AppCompatActivity() {
 
     lateinit var loginViewModel: LoginViewModel
 
-    private lateinit var executor: Executor
+            private lateinit var executor: Executor
     private lateinit var biometricPrompt: BiometricPrompt
     private lateinit var promptInfo: BiometricPrompt.PromptInfo
     private lateinit var resendVerification: TextView

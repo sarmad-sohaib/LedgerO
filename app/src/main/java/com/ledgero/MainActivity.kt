@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.ledgero.fragments.*
+import com.ledgero.more.ui.MoreFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

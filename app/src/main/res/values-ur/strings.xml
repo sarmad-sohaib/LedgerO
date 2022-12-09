@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">LedgerO</string>
+    <string name="home">ہوم</string>
+    <string name="money">رقم</string>
+    <string name="more">اور</string>
+    <string name="reminders">یادہانی</string>
+    <string name="add_new_reminder" translatable="false">یادہانی بنائیں</string>
+    <string name="you_ll_get">"آپ کو میلیں  گے "</string>
+    <string name="you_ll_give">"آپ  دیں گے  "</string>
+    <string name="payment_history">"ادائیگی کی تاریخ "</string>
+    <string name="cash_register">"نقدی کا کھاتا "</string>
+    <string name="add_new_group" translatable="false">نیا گروپ بنائیں</string>
+    <string name="add_new_ledger">نیا کھاتا بنائیں</string>
+    <string name="log_in">داخل ہوں</string>
+    <string name="password">شناختی لفظ</string>
+    <string name="login">"داخل ہوں "</string>
+    <string name="forgot_password">شناختی لفظ بھول گے</string>
+    <string name="or">یا</string>
+    <string name="don_t_have_an_account">اکاؤنٹ نہیں ہے</string>
+    <string name="username">نام</string>
+    <string name="re_enter_passsword" translatable="false">شناختی لفظ دوبارہ داخل کریں</string>
+    <string name="email">ای میل</string>
+    <string name="un_approved_Btn_individual">غیر منظور شدہ اندراج</string>
+    <string name="canceled_entries_Btn_individual">منسوخ شدہ اندراج</string>
+    <string name="bt_got_individScreen">ملے تھے</string>
+    <string name="bt_gave_individScreen">دیئے تھے</string>
+    <string name="new_entry_detail_title">معلومات اندراج</string>
+    <string name="add_new_total_amount_hint">قل</string>
+    <string name="add_new_entry_description_hint">بیان</string>
+    <string name="add_new_entry_additionalInfo_hint">اور معلومات</string>
+    <string name="add_new_entry_btn_text">محفوظ کریں</string>
+    <string name="unapproved_screen_approveall_btn" translatable="false">سب کو منظور کریں</string>
+    <string name="unapproved_screen_waitingtext" translatable="false">منظوری کا انتظار</string>
+    <string name="canceled_screen_deleteall_btn">سب کو ختم کریں</string>
+    <string name="view_entry_detail_title" translatable="false">اندراج کی معلومات</string>
+    <string name="view_entry_edit_btn_text">اندراج تبدیل کریں</string>
+    <string name="cash_out" translatable="false">نقدی گئ</string>
+    <string name="edit_entry_detail_title" translatable="false">اندراج تبدیل کریں</string>
+    <string name="view_entry_total_amount_hint">دیئے تھے</string>
+    <string name="cash_in">نقدی ائ</string>
+    <string name="available_cash" translatable="false">موجودہ نقدی</string>
+    <string name="description">بیان</string>
+    <string name="timestamp">وقت</string>
+    <string name="in">آیا</string>
+    <string name="give_to">کو دینے ہیں</string>
+    <string name="save_entry">محفوظ کریں</string>
+    <string name="take_from" translatable="false">سے لینے ہیں</string>
+    <string name="get">حاصل ہوئے</string>
+    <string name="amount">رقم</string>
+    <string name="recipient">وصول کنندہ</string>
+    <string name="save_reminder">یاددہانی محفوظ کریں</string>
+    <string name="take">لو</string>
+    <string name="on">پر</string>
+    <string name="give">دو</string>
+    <string name="no_reminders">کوئ یاددہانی نہیں</string>
+    <string name="completed_reminders">"مکمل شدہ یاددہانی "</string>
+    <string name="cancel" translatable="false">ختم کریں</string>
+    <string name="finding_users" translatable="false">استعمال کنندہ کی تلاش جاری ہے</string>
+    <string name="name_of_group_member">رکن کا نام</string>
+    <string name="remove_selected_member">منتخب رکن کو ختم کریں</string>
+    <string name="add_friend">دوست بنایئں</string>
+    <string name="email_of_group_member" translatable="false">گروپ رکن کا ای میل</string>
+    <string name="choose_language_below" translatable="false">زبان کا انتخاب</string>
+    <string name="logout" translatable="false">باہر جایئں</string>
+    <string name="create_group">گروپ بنایئں</string>
+    <string name="user_name">نام</string>
+    <string name="canceled_screen_title">ختم شدہ اندراج</string>
+    <string name="add_new_entry_amount_hint">روپے</string>
+</resources>
