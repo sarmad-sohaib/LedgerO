@@ -2,39 +2,40 @@
     <string name="home">Home</string>
     <string name="money">Money</string>
     <string name="more">More</string>
+    <string name="view_report" translatable="false">View Report</string>
     <!-- TODO: Remove or change this placeholder text -->
     <!--Firebase Push Notification Channel ID-->
-    <string name="push_notification_channel_id">LedgerO_Entries_Notifications</string>
+    <string name="push_notification_channel_id" translatable="false">LedgerO_Entries_Notifications</string>
 
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="wednesday_march_16_2022">Wednesday, March 16, 2022</string>
-    <string name="rs_0000_pending">Rs 0000 pending</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="wednesday_march_16_2022" translatable="false">Wednesday, March 16, 2022</string>
+    <string name="rs_0000_pending" translatable="false">Rs 0000 pending</string>
     <string name="reminders">Reminders</string>
     <string name="add_new_reminder">Add new reminder</string>
     <string name="you_ll_get">You\'ll get</string>
     <string name="you_ll_give">You\'ll give</string>
-    <string name="rs_00">Rs. 00</string>
+    <string name="rs_00" translatable="false">Rs. 00</string>
     <string name="payment_history">Payment History</string>
-    <string name="cash_register">Cash Register</string>ing>
-    <string name="view_report">View Report</string>
+    <string name="cash_register">Cash Register</string><![CDATA[ing>
+    ]]>
     <string name="add_new_group">Add new group</string>
     <string name="add_new_ledger">Add new ledger</string>
     <string name="log_in">Login</string>
-    <string name="phone_no">Phone No.</string>
+    <string name="phone_no" translatable="false">Phone No.</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
     <string name="forgot_password">Forgot password?</string>
     <string name="or">Or</string>
-    <string name="via_google">Via Google</string>
+    <string name="via_google" translatable="false">Via Google</string>
     <string name="don_t_have_an_account">Don\'t have an account?</string>
     <string name="username">Username</string>
-    <string name="signup">Signup</string>
-    <string name="already_have_an_account">Already have an account?</string>
+    <string name="signup" translatable="false">Signup</string>
+    <string name="already_have_an_account" translatable="false">Already have an account?</string>
     <string name="re_enter_passsword">Re-enter passsword</string>
     <string name="app_name">LedgerO</string>
     <string name="email">Email</string>
-    <string name="_00_ledgers">00 ledgers</string>
+    <string name="_00_ledgers" translatable="false">00 ledgers</string>
     <string name="un_approved_Btn_individual">Un-Approved Entries</string>
     <string name="canceled_entries_Btn_individual">Canceled Entries</string>
     <string name="bt_got_individScreen">Got</string>
@@ -46,7 +47,7 @@
     <string name="add_new_entry_additionalInfo_hint">Additional Info</string>
     <string name="add_new_entry_btn_text">Save</string>
 
-    <string name="unapproved_screen_title">Un-Approved Entried</string>
+    <string name="unapproved_screen_title" translatable="false">Un-Approved Entried</string>
     <string name="unapproved_screen_approveall_btn">Approve All</string>
     <string name="unapproved_screen_waitingtext">Waiting For Approval</string>
     <string name="canceled_screen_title">Canceled Entries</string>
@@ -60,7 +61,7 @@
     <string name="cash_out">Cash Out</string>
     <string name="cash_in">Cash In</string>
     <string name="available_cash">Available Cash</string>
-    <string name="_00_00">00.00</string>
+    <string name="_00_00" translatable="false">00.00</string>
     <string name="description">Description</string>
     <string name="timestamp">Timestamp</string>
     <string name="in">In</string>
@@ -78,19 +79,30 @@
     <string name="completed_reminders">Completed Reminders</string>
 
 
-    <string name="view_unapproved_entry">Approve Entry</string>
-    <string name="search">Search</string>
+    <string name="view_unapproved_entry" translatable="false">Approve Entry</string>
+    <string name="search" translatable="false">Search</string>
     <string name="cancel">Cancel</string>
     <string name="finding_users">Finding Users...</string>
     <string name="name_of_group_member">Name of Member</string>
     <string name="remove_selected_member">Remove Selected Member</string>
     <string name="user_name">User Name</string>
-    <string name="userEmail_gmail_com">useremail@gmail.com</string>
+    <string name="userEmail_gmail_com" translatable="false">useremail@gmail.com</string>
     <string name="add_friend">Add Friend</string>
     <string name="create_group">Create Group</string>
-    <string name="select_two_members_to_start_a_group">Select At-least Two Members To Start A Group</string>
-    <string name="search_users_to_add_in_you_new_group">Search users to add in you new group</string>
-    <string name="selected_group_members">Selected Group Members</string>
-    <string name="group_name">Group Name</string>
+    <string name="select_two_members_to_start_a_group" translatable="false">Select At-least Two Members To Start A Group</string>
+    <string name="search_users_to_add_in_you_new_group" translatable="false">Search users to add in you new group</string>
+    <string name="selected_group_members" translatable="false">Selected Group Members</string>
+    <string name="group_name" translatable="false">Group Name</string>
     <string name="email_of_group_member">Email of group member</string>
+    <string name="darkMode" translatable="false">Darkmode</string>
+    <string name="choose_language_below">Choose language</string>
+    <string name="spinner_language_description" translatable="false">This is a option menu which allow users to choose between English and Urdu.</string>
+    <string name="logout">Logout</string>
+    <string name="edit_user_profile" translatable="false">edit user profile</string>
+
+    <string-array name="languages">
+        <item>English</item>
+        <item>Urdu</item>
+    </string-array>
+
 </resources>

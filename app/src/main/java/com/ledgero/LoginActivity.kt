@@ -8,24 +8,32 @@ import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.google.firebase.auth.FirebaseAuth
 import com.ledgero.DataClasses.User
 import com.ledgero.Interfaces.OnUserDetailUpdate
 import com.ledgero.ViewModels.LoginViewModel
 import com.ledgero.model.DatabaseUtill
 import com.ledgero.model.UtillFunctions
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.coroutines.launch
 import java.util.concurrent.Executor
 
+@AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
 
-    lateinit var loginViewModel: LoginViewModel
-
-    private lateinit var executor: Executor
+//    val loginViewModel: LoginViewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
+    val loginViewModel: LoginViewModel by viewModels()
+            private lateinit var executor: Executor
     private lateinit var biometricPrompt: BiometricPrompt
     private lateinit var promptInfo: BiometricPrompt.PromptInfo
     private lateinit var resendVerification: TextView
@@ -35,10 +43,27 @@ class LoginActivity : AppCompatActivity() {
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        supportActionBar?.hide()
+        lifecycleScope.launch{
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                loginViewModel.prefFlow.collect { key ->
+                    when(key) {
+                        0 -> {
+                            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+                        }
+                        1 -> {
+                            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                        }
+                        2 -> {
+                            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                        }
+                    }
+                }
+            }
+        }
+
         setContentView(R.layout.activity_login)
-
-
-        loginViewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
 
         var dialog = UtillFunctions.setProgressDialog(this, "Checking Credentials...")
 

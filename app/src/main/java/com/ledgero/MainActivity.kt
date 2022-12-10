@@ -3,6 +3,7 @@ package com.ledgero
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -11,7 +12,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.ledgero.fragments.*
+import com.ledgero.more.ui.MoreFragment
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.Locale
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -31,6 +34,13 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        if (Locale.getDefault().language == "ur") {
+            window.decorView.layoutDirection = View.LAYOUT_DIRECTION_RTL
+        }
+        else {
+            window.decorView.layoutDirection = View.LAYOUT_DIRECTION_LTR
+        }
         setContentView(R.layout.activity_main)
 
 
@@ -39,9 +49,6 @@ class MainActivity : AppCompatActivity() {
         mainActivity = this
 
         main_frag_holder = findViewById(R.id.fl_fragment_container_main)
-//         Restricting darkMode in this activity
-//        TODO: change this line when dark mode needed in the activity
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO) //disabling dark mode from this activity
 
         val menuFragment = intent.getStringExtra("fragmentName")
 
