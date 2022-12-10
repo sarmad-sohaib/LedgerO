@@ -274,21 +274,22 @@ class UnApproveEntriesDAO(private val ledgerUID: String) {
         storageReference.child("voiceNotes").child(ledgerUID).child(entry.entryUID.toString())
             .child("${file.lastPathSegment}").delete().addOnCompleteListener { it ->
                 if (it.isSuccessful) {
-                    Log.d(TAG,
-                        "deleteVoiceFromFirebaseStorage: Voice Deleted From Firebase Storage")
-                    //so now we have deleted voice from device and fireStorage too
-                    //now we can delete the entry
-
-                    val key = entry.entryUID.toString()
-                    dbReference.child("ledgerEntries").child(ledgerUID).child(key).removeValue()
-                        .addOnCompleteListener {
-                            if (it.isSuccessful) {
-                                Log.d(TAG, "DeleteEntry: Deleted Successfully From Ledger!!")
-
-                                deleteEntryFromUnApproved(key)
-                                checkAndDeleteFromCanceledEntries(key)
-                            }
-                        }
+                    Log.d(TAG, "acceptDeleteEntryRequestFromApprovedEntriesWithVoice: Voide deleted from firebase")
+//                    Log.d(TAG,
+//                        "deleteVoiceFromFirebaseStorage: Voice Deleted From Firebase Storage")
+//                    //so now we have deleted voice from device and fireStorage too
+//                    //now we can delete the entry
+//
+//                    val key = entry.entryUID.toString()
+//                    dbReference.child("ledgerEntries").child(ledgerUID).child(key).removeValue()
+//                        .addOnCompleteListener {
+//                            if (it.isSuccessful) {
+//                                Log.d(TAG, "DeleteEntry: Deleted Successfully From Ledger!!")
+//
+////                                deleteEntryFromUnApproved(key)
+////                                checkAndDeleteFromCanceledEntries(key)
+//                            }
+//                        }
                 } else {
                     Log.d(TAG,
                         "deleteVoiceFromFirebaseStorage: Cannot Delete Voice From Firebase Storage. ${it.exception.toString()}")

@@ -61,10 +61,10 @@ init {
             Log.d(TAG, "deleteEntry: Called")
           val isDeleted= CoroutineScope(Dispatchers.Default).async{
 
-
-              val current_Data =      fetchCurrentMetaDataFromFireBase()
-              val update_Data=   calculateMetaDataAfterDeletingEntryData(current_Data,oldEntry)
-              var isMetaDataUpdated=    updateMetaDataInFireBase(update_Data)
+//
+//              val current_Data =      fetchCurrentMetaDataFromFireBase()
+//              val update_Data=   calculateMetaDataAfterDeletingEntryData(current_Data,oldEntry)
+//              var isMetaDataUpdated=    updateMetaDataInFireBase(update_Data)
               val entryDeleted=  deleteOldEntryFromApprovedEntries(oldEntry)
 
 
@@ -91,6 +91,7 @@ init {
 
                    val deleteFromApproved= async {   db_reference.child("ledgerEntries").child(ledgerUID).child(key).removeValue()}
                     if (deleteFromApproved.await().isSuccessful) {
+
                         checkAndDeleteFromCanceledEntries(key)
                         true
                     }else{

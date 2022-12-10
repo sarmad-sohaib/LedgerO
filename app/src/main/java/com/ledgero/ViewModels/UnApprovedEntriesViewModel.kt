@@ -71,17 +71,20 @@ class UnApprovedEntriesViewModel( val unApprovedEntriesRepo: UnApprovedEntriesRe
     fun deleteEntryFromLedgerRequest_accepted(pos: Int){
         //check if entry to be delete has voice not or not
         var entry = allUnApprovedEntries.value!!.get(pos)
+        unApprovedEntriesRepo.deleteEntry(pos)
 
-        if(entry.hasVoiceNote!!){
-            unApprovedEntriesRepo.acceptDeleteEntryRequestFromApprovedEntries_withVoice(entry)
-            updateLedgerMetaDataAfterEntryDelete(allUnApprovedEntries.value!!.get(pos))
+            if (entry.hasVoiceNote!!)
 
-        }else{
-
-
-            updateLedgerMetaDataAfterEntryDelete(allUnApprovedEntries.value!!.get(pos))
-            unApprovedEntriesRepo.deleteEntry(pos)
-        }
+//        if(entry.hasVoiceNote!!){
+          unApprovedEntriesRepo.acceptDeleteEntryRequestFromApprovedEntries_withVoice(entry)
+//            updateLedgerMetaDataAfterEntryDelete(allUnApprovedEntries.value!!.get(pos))
+//
+//        }else{
+//
+//
+//         //   updateLedgerMetaDataAfterEntryDelete(allUnApprovedEntries.value!!.get(pos))
+//
+//        }
 
 
     }
@@ -94,9 +97,18 @@ class UnApprovedEntriesViewModel( val unApprovedEntriesRepo: UnApprovedEntriesRe
         if(oldentry.hasVoiceNote!!){
             CoroutineScope(Dispatchers.Default).async{
 
+//
+//                DeleteEntryWithVoice_EditEntry(mledgerUID,oldentry,newEntry).deleteEntry(oldentry)
+//                AddEntryWithVoice_EditEntry(mledgerUID,oldentry,newEntry).addEditedEntryAsNewEntry(newEntry)
+//
 
-                DeleteEntryWithVoice_EditEntry(mledgerUID,oldentry,newEntry).deleteEntry(oldentry)
-                AddEntryWithVoice_EditEntry(mledgerUID,oldentry,newEntry).addEditedEntryAsNewEntry(newEntry)
+
+
+                    DeleteEntry_EditEntry(mledgerUID,oldentry,newEntry).deleteEntry(oldentry)
+                    AddEntry_EditEntry(mledgerUID,oldentry,newEntry).addEditedEntryAsNewEntry(newEntry)
+
+
+
 
 
 

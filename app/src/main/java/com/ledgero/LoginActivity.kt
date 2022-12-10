@@ -70,15 +70,9 @@ class LoginActivity : AppCompatActivity() {
                     )
                         .show()
 
-                    var fragmentName = intent.getStringExtra("fragmentName")
-                    var ledgerUID = intent.getStringExtra("ledgerUID")
-                    var intent = Intent(loginViewModel.context, MainActivity::class.java)
-                    if (fragmentName != null) {
-                        intent.putExtra("fragmentName", fragmentName)
-                        intent.putExtra("ledgerUID", ledgerUID)
-                        Log.d("TapBack", "onAuthenticationSucceeded: ledgerUID: $ledgerUID")
 
-                    }
+                    val intent = Intent(loginViewModel.context, MainActivity::class.java)
+
                     loginViewModel.context.startActivity(intent)
 
                     val ac = loginViewModel.context as Activity

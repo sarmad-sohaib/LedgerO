@@ -19,6 +19,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.database.*
 import com.ledgero.daos.IndividualScreenDAO
 import com.ledgero.DataClasses.Entries
 import com.ledgero.DataClasses.SingleLedgers
@@ -35,13 +36,18 @@ import com.ledgero.other.Constants.GAVE_ENTRY_FLAG
 import com.ledgero.other.Constants.GET_ENTRY_FLAG
 import com.ledgero.other.Constants.NO_REQUEST_REQUEST_MODE
 import kotlinx.android.synthetic.main.fragment_individual_ledger_screen.view.*
+import okhttp3.EventListener
 
-class IndividualLedgerScreen(ledgerUID:String) : Fragment() {
+
+private const val TAG= "IndividLedgerScreen"
+class IndividualLedgerScreen(val ledgerUID:String) : Fragment() {
 
      var currentSelectedLedgerUID:String =""
     var currentSelectLedger: SingleLedgers? =null
 lateinit     var viewModel: IndividualScreenViewModel
 lateinit var entries: ArrayList<Entries>
+lateinit var gaveText : TextView
+lateinit var getText : TextView
 
     private var layoutManager: RecyclerView.LayoutManager? = null
 
@@ -73,13 +79,13 @@ lateinit var entries: ArrayList<Entries>
         savedInstanceState: Bundle?,
     ): View? {
         // Inflate the layout for this fragment
-        var view= inflater.inflate(R.layout.fragment_individual_ledger_screen, container, false)
+        val  view= inflater.inflate(R.layout.fragment_individual_ledger_screen, container, false)
 
 
         //View Model Init
 
-        var dao= IndividualScreenDAO(currentSelectedLedgerUID)
-        var repo = IndividualScreenRepo(dao)
+        val dao= IndividualScreenDAO(currentSelectedLedgerUID)
+        val repo = IndividualScreenRepo(dao)
         viewModel= ViewModelProvider(this, IndividualScreenViewModeFactory(repo))
             .get(IndividualScreenViewModel::class.java)
 
@@ -89,8 +95,8 @@ lateinit var entries: ArrayList<Entries>
 
 
 
-        var gaveText = view.findViewById<TextView>(R.id.tv_give_money_individScreen)
-        var getText = view.findViewById<TextView>(R.id.tv_get_money_individScreen)
+         gaveText = view.findViewById<TextView>(R.id.tv_give_money_individScreen)
+        getText = view.findViewById<TextView>(R.id.tv_get_money_individScreen)
 
 
         viewModel.getLedgerGiveTakeFlag().observe(viewLifecycleOwner,Observer{
@@ -161,9 +167,9 @@ lateinit var entries: ArrayList<Entries>
 
 
 
-        var gotButton= view.bt_got_individScreen
-        var gaveButton= view.bt_gave_individScreen
-        var rv = view.findViewById<RecyclerView>(R.id.rv_ledgers_individualScreen)
+        val gotButton= view.bt_got_individScreen
+        val gaveButton= view.bt_gave_individScreen
+        val rv = view.findViewById<RecyclerView>(R.id.rv_ledgers_individualScreen)
         layoutManager = LinearLayoutManager(context)
         rv.layoutManager = layoutManager
      try {
@@ -209,11 +215,11 @@ lateinit var entries: ArrayList<Entries>
 
 
 
-        var unApprovedBtn=view.bt_unapproved_entriest_individScreen
-        var canceledEntries=view.bt_canceled_entries_individScreen
+        val unApprovedBtn=view.bt_unapproved_entriest_individScreen
+        val canceledEntries=view.bt_canceled_entries_individScreen
 
         canceledEntries.setOnClickListener {
-            var frag = CanceledEntriesScreen(currentSelectedLedgerUID)
+            val frag = CanceledEntriesScreen(currentSelectedLedgerUID)
             parentFragmentManager
                 .beginTransaction()
                 .replace(R.id.fl_fragment_container_main,frag)
@@ -224,7 +230,7 @@ lateinit var entries: ArrayList<Entries>
 
         unApprovedBtn.setOnClickListener {
 
-            var frag= UnApprovedEntriesScreen(currentSelectedLedgerUID)
+            val frag= UnApprovedEntriesScreen(currentSelectedLedgerUID)
 
             parentFragmentManager
                 .beginTransaction()
@@ -237,7 +243,7 @@ lateinit var entries: ArrayList<Entries>
         viewModel.stopListeningForUnApprovedEntriesCount()
         viewModel.stopListeningForCancelledEntries()
 
-            var unApprovedNotifyIcon= view.findViewById<TextView>(R.id.unApprovedEntriesNotify_TV_individScreen)
+            val unApprovedNotifyIcon= view.findViewById<TextView>(R.id.unApprovedEntriesNotify_TV_individScreen)
 
             viewModel.startListeningForUnApprovedEntriesCount().observe(viewLifecycleOwner, Observer {
                 if (it!=null){
@@ -272,7 +278,7 @@ lateinit var entries: ArrayList<Entries>
 
 
 
-        var canceledNotifyIcon= view.findViewById<TextView>(R.id.cacneledEntriesNotify_TV_individScreen)
+        val canceledNotifyIcon= view.findViewById<TextView>(R.id.cacneledEntriesNotify_TV_individScreen)
 
         viewModel.startListeningForCancelledEntries().observe(viewLifecycleOwner, Observer {
             if (it!=null){
@@ -313,6 +319,9 @@ lateinit var entries: ArrayList<Entries>
 
     override fun onPause() {
 
+
+        removeTotalAmountListener()
+
         viewModel.stopListeningForUnApprovedEntriesCount()
         viewModel.stopListeningForCancelledEntries()
         super.onPause()
@@ -332,6 +341,7 @@ lateinit var entries: ArrayList<Entries>
 
 
     override fun onResume() {
+        setTotalAmountListener()
         parentFragmentManager.clearBackStack("addEntry")
         super.onResume()
     }
@@ -340,7 +350,7 @@ lateinit var entries: ArrayList<Entries>
     //this will enable left/right swipes on RV
     fun getTouchHelper(rv: RecyclerView):ItemTouchHelper{
 
-        var callBack:ItemTouchHelper.SimpleCallback =object :ItemTouchHelper.
+        val callBack:ItemTouchHelper.SimpleCallback =object :ItemTouchHelper.
         SimpleCallback(0,ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT)
         {
             override fun onMove(
@@ -353,7 +363,7 @@ lateinit var entries: ArrayList<Entries>
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
 
-                var position= viewHolder.adapterPosition
+                val position= viewHolder.adapterPosition
 if (direction==ItemTouchHelper.LEFT){
 
     getDeleteDialougeBox(position,rv).show()
@@ -369,7 +379,7 @@ if (direction==ItemTouchHelper.LEFT){
 
         }
 
-var itemTouchHelper: ItemTouchHelper= ItemTouchHelper(callBack)
+val itemTouchHelper: ItemTouchHelper= ItemTouchHelper(callBack)
 
 
 return itemTouchHelper
@@ -379,7 +389,7 @@ return itemTouchHelper
 
     fun getDeleteDialougeBox(pos: Int, rv: RecyclerView): AlertDialog.Builder{
 
-       var dialog= AlertDialog.Builder(this.context)
+       val dialog= AlertDialog.Builder(this.context)
 
         dialog.setTitle("Deleting Ledger Entry")
             .setMessage("Are you sure to delete entry!")
@@ -387,11 +397,11 @@ return itemTouchHelper
             .setPositiveButton("Yes Delete it"){dialogInterface,it->
                 //delete entry
 
-                var entry= entries.get(pos)
+                val entry= entries.get(pos)
                 if (entry.requestMode== NO_REQUEST_REQUEST_MODE){
                     viewModel.deleteEntry(pos)
                     dialogInterface.cancel()
-                    var frag = UnApprovedEntriesScreen(currentSelectedLedgerUID)
+                    val frag = UnApprovedEntriesScreen(currentSelectedLedgerUID)
                     parentFragmentManager.beginTransaction()
                         .replace(R.id.fl_fragment_container_main,frag)
                         .commit()
@@ -420,7 +430,7 @@ return itemTouchHelper
 
     fun getEditDialougeBox(pos: Int, rv: RecyclerView): AlertDialog.Builder{
 
-        var dialog= AlertDialog.Builder(this.context)
+        val dialog= AlertDialog.Builder(this.context)
 
         dialog.setTitle("Edit Ledger Entry")
             .setMessage("Are you sure to Edit entry!")
@@ -438,6 +448,162 @@ return itemTouchHelper
 
             }
         return dialog
+    }
+
+
+
+    fun updateLedgerTotalAmount(){
+
+        Log.d(TAG, "updateLedgerTotalAmount: called")
+         var dbReference = FirebaseDatabase.getInstance().reference
+
+
+        dbReference.child("ledgerEntries").child(ledgerUID).get()
+            .addOnCompleteListener {
+
+
+                val entries= ArrayList<Entries>()
+                if (it.isSuccessful){
+                    if (it.result.exists()){
+                        it.result.children.forEach{ entry ->
+                            val e=  entry.getValue(Entries::class.java)
+                            entries.add(e!!)
+                        }
+                        calculateTotalAmount(entries)
+                    }else{
+                        calculateTotalAmount(entries)
+
+                    }
+                }else{
+                    calculateTotalAmount(entries)
+                }
+
+            }.addOnCanceledListener {
+                calculateTotalAmount(entries)
+            }.addOnFailureListener{
+                calculateTotalAmount(entries)
+            }
+
+
+    }
+
+    private fun calculateTotalAmount(entries: ArrayList<Entries>){
+        var dbReference = FirebaseDatabase.getInstance().reference
+        Log.d(TAG, "calculation: ")
+
+        if (entries.size<=0){
+            gaveText.setText("Rs. 00")
+            getText.setText("Rs. 00")
+            Log.d(TAG, "calculateTotalAmount: 00")
+            val map = mapOf("give_take_flag" to false, "total_amount" to 0 , "total_entries" to 0)
+            dbReference.child("ledgerInfo").child(ledgerUID).updateChildren(map)
+            return
+        }
+
+
+        dbReference.child("ledgerInfo").child(ledgerUID).child("ledgerCreatedByUID").get().addOnCompleteListener {
+            if (it.isSuccessful){
+
+                val ledgerCreatedBy= it.result.value.toString()
+
+                var totalGaveAmount= 0f
+                var totalGetAmount = 0f
+
+                entries.forEach{
+                    if (it.originally_addedByUID == ledgerCreatedBy){
+
+                        if (it.give_take_flag == GAVE_ENTRY_FLAG){
+
+                            totalGaveAmount += it.amount!!
+                        }
+                        if (it.give_take_flag == GET_ENTRY_FLAG){
+                            totalGetAmount+= it.amount!!
+                        }
+
+                    }
+
+                    if (it.originally_addedByUID != ledgerCreatedBy){
+
+                        if (it.give_take_flag == GAVE_ENTRY_FLAG){
+                            totalGetAmount+= it.amount!!
+
+                        }
+                        if (it.give_take_flag == GET_ENTRY_FLAG){
+                            totalGaveAmount += it.amount!!
+                        }
+                    }
+                }
+
+                var flag= false
+                var totalAmount =0f
+                if (totalGaveAmount>=totalGetAmount){
+                    flag= GAVE_ENTRY_FLAG
+                    totalAmount= totalGaveAmount- totalGetAmount
+                }
+                if (totalGetAmount>totalGaveAmount){
+                    flag= GET_ENTRY_FLAG
+                    totalAmount = totalGetAmount-totalGaveAmount
+                }
+
+                if (User.userID == ledgerCreatedBy){
+
+                    if (flag == GAVE_ENTRY_FLAG){
+                        gaveText.setText("Rs. 00")
+                        getText.setText("Rs. $totalAmount")
+
+                    }
+                    if (flag == GET_ENTRY_FLAG){
+                        gaveText.setText("Rs. $totalAmount")
+                        getText.setText("Rs. 00")
+                    }
+                }
+                else{
+                    if (flag == GAVE_ENTRY_FLAG){
+
+                        gaveText.setText("Rs. $totalAmount")
+                        getText.setText("Rs. 00")
+
+                    }
+                    if (flag == GET_ENTRY_FLAG){
+                        gaveText.setText("Rs. 00")
+                        getText.setText("Rs. $totalAmount")
+
+                    }
+                }
+
+
+                val map = mapOf("give_take_flag" to flag, "total_amount" to totalAmount , "total_entries" to entries.size)
+                dbReference.child("ledgerInfo").child(ledgerUID).updateChildren(map)
+            }
+        }
+
+
+
+    }
+
+    private val amountListener = object :ValueEventListener{
+        override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()){
+
+
+                    updateLedgerTotalAmount()
+                }
+        }
+
+        override fun onCancelled(error: DatabaseError) = Unit
+
+    }
+
+    private fun setTotalAmountListener() {
+        var dbReference = FirebaseDatabase.getInstance().reference
+
+        dbReference.child("ledgerInfo").child(ledgerUID).child("ledgerCreatedByUID")
+            .addValueEventListener(amountListener)
+    }
+    private fun removeTotalAmountListener(){
+        var dbReference = FirebaseDatabase.getInstance().reference
+
+        dbReference.child("ledgerInfo").child(ledgerUID).child("ledgerCreatedByUID").removeEventListener(amountListener)
     }
 
 

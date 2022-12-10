@@ -214,9 +214,9 @@ class UnApprovedEntriesRvAdapter(
                 }
 
 
+
                 pushNotificationInterface.createAndSendNotification(viewModel.mledgerUID,
                     Constants.ENTRY_APPROVED)
-
             }
 
             rejectBtnReceiver.setOnClickListener {

@@ -5,6 +5,8 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import com.ledgero.reminders.reminderalert.ReminderNotificationService
 import dagger.hilt.android.HiltAndroidApp
 
@@ -14,6 +16,7 @@ class LedgeroApplication: Application() {
     override fun onCreate() {
         super.onCreate()
         createReminderNotificationChannel()
+        Firebase.database.setPersistenceEnabled(true)
     }
 
     private fun createReminderNotificationChannel() {
