@@ -19,11 +19,17 @@ import com.ledgero.Interfaces.OnUserDetailUpdate
 import com.ledgero.LoginActivity
 import com.ledgero.MainActivity
 import com.ledgero.R
+import com.ledgero.data.preferences.PreferenceManager
 import com.ledgero.firebasetokens.FirebaseTokenManager
 import com.ledgero.model.DatabaseUtill
 import com.ledgero.model.UtillFunctions
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class LoginViewModel : ViewModel() {
+@HiltViewModel
+class LoginViewModel @Inject constructor(
+    private val preferenceManager: PreferenceManager
+) : ViewModel() {
 
 
     var auth: FirebaseAuth = Firebase.auth
@@ -32,6 +38,8 @@ class LoginViewModel : ViewModel() {
     var userPassword = ""
     lateinit var context: Context
     lateinit var loginActivity: LoginActivity
+
+    val prefFlow = preferenceManager.prefFlow
 
 
 

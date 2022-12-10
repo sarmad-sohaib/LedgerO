@@ -12,10 +12,6 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
 
-enum class Language {
-    ENGLISH,
-    URDU
-}
 
 @Singleton
 class PreferenceManager @Inject constructor(
@@ -29,13 +25,13 @@ class PreferenceManager @Inject constructor(
         pref[PreferencesKey.LANGUAGE] ?: 0
     }
 
-    suspend fun updateLanguage(language: Language) {
+    suspend fun updateTheme(key: Int) {
         context.dataStore.edit { pref ->
-            pref[PreferencesKey.LANGUAGE] = language.ordinal
+            pref[PreferencesKey.LANGUAGE] = key
         }
     }
 
     private object PreferencesKey {
-        val LANGUAGE = intPreferencesKey("language")
+        val LANGUAGE = intPreferencesKey("theme")
     }
 }

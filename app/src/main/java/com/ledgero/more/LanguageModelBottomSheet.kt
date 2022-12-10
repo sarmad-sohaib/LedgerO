@@ -10,8 +10,6 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.ledgero.databinding.LanguageBottomSheetContentBinding
-import java.util.*
-import kotlin.collections.ArrayList
 
 class LanguageModelBottomSheet : BottomSheetDialogFragment() {
 
@@ -45,7 +43,6 @@ class LanguageModelBottomSheet : BottomSheetDialogFragment() {
                     Log.i(TAG, "onCreateView: eng")
                     val appLocale: LocaleListCompat = LocaleListCompat.forLanguageTags("en-EN")
                     AppCompatDelegate.setApplicationLocales(appLocale)
-
                     this.dismiss()
                 }
 
@@ -53,7 +50,6 @@ class LanguageModelBottomSheet : BottomSheetDialogFragment() {
                     Log.i(TAG, "onCreateView: urdu")
                     val appLocale: LocaleListCompat = LocaleListCompat.forLanguageTags("ur-UR")
                     AppCompatDelegate.setApplicationLocales(appLocale)
-
                     this.dismiss()
                 }
             }

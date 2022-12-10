@@ -49,9 +49,6 @@ class MainActivity : AppCompatActivity() {
         mainActivity = this
 
         main_frag_holder = findViewById(R.id.fl_fragment_container_main)
-//         Restricting darkMode in this activity
-//        TODO: change this line when dark mode needed in the activity
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO) //disabling dark mode from this activity
 
         val menuFragment = intent.getStringExtra("fragmentName")
 

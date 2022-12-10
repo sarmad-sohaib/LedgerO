@@ -22,9 +22,8 @@
         android:id="@+id/textView_userName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:layout_marginStart="8dp"
-        android:text="tttt"
+        android:layout_marginTop="16dp"
         android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -34,7 +33,6 @@
         android:id="@+id/textView_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="tttt"
         app:layout_constraintEnd_toEndOf="@+id/textView_userName"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/textView_userName"
@@ -51,7 +49,6 @@
         android:src="@drawable/ic_edit"
         app:layout_constraintBottom_toBottomOf="@+id/textView_userName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/switch_language"
         app:layout_constraintTop_toTopOf="@+id/textView_userName" />
 
     <View
@@ -65,23 +62,19 @@
         app:layout_constraintTop_toBottomOf="@+id/textView_email" />
 
     <TextView
-        android:id="@+id/darkMode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/textView_darkMode"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:text="@string/darkMode"
         android:textColor="@color/black"
         android:textSize="15sp"
-        app:layout_constraintBottom_toTopOf="@+id/view2"
-        app:layout_constraintStart_toStartOf="@+id/textView_email"
-        app:layout_constraintTop_toBottomOf="@+id/view" />
-
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/switch_language"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center|start"
         android:layout_marginEnd="8dp"
         app:layout_constraintBottom_toTopOf="@+id/view2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textView_email"
         app:layout_constraintTop_toBottomOf="@+id/view" />
 
     <View
@@ -106,16 +99,16 @@
         android:textColor="@color/black"
         android:textSize="15sp"
         app:layout_constraintEnd_toStartOf="@+id/textView_currentLanguage"
-        app:layout_constraintStart_toStartOf="@+id/darkMode"
+        app:layout_constraintStart_toStartOf="@+id/textView_darkMode"
         app:layout_constraintTop_toBottomOf="@+id/view2" />
 
     <TextView
         android:id="@+id/textView_currentLanguage"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
-        tools:text="English"
-        app:layout_constraintEnd_toEndOf="@+id/switch_language"
-        app:layout_constraintTop_toBottomOf="@+id/view2" />
+        app:layout_constraintBottom_toBottomOf="@+id/textView_chooseLanguage"
+        app:layout_constraintEnd_toEndOf="@+id/textView_darkMode"
+        app:layout_constraintTop_toTopOf="@+id/textView_chooseLanguage"
+        tools:text="English" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
