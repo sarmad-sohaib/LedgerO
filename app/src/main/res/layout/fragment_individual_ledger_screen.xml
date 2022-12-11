@@ -48,7 +48,7 @@
                 android:id="@+id/bt_unapproved_entriest_individScreen"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginRight="10dp"
+                android:layout_marginEnd="10dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:backgroundTint="@color/white"
@@ -88,16 +88,17 @@
             android:minWidth="16dp"
             android:minHeight="16dp"
             android:layout_marginTop="7dp"
-            android:layout_marginRight="35dp"
-            android:text="0"
+            android:layout_marginEnd="35dp"
+            android:text="@string/_0"
             android:visibility="gone"
             android:textColor="@color/white"
-            android:textSize="8sp"
+            android:textSize="11sp"
             android:gravity="center"
             android:background="@drawable/circular_bg_voice_record_btn"
             app:layout_constraintEnd_toEndOf="@+id/buttonDiv"
             app:layout_constraintStart_toStartOf="@+id/buttonDiv"
-            app:layout_constraintTop_toBottomOf="@+id/shape_bg_white_money_frag"></TextView>
+            app:layout_constraintTop_toBottomOf="@+id/shape_bg_white_money_frag" />
+
         <TextView
             android:id="@+id/cacneledEntriesNotify_TV_individScreen"
             android:layout_width="wrap_content"
@@ -105,16 +106,16 @@
             android:minWidth="16dp"
             android:minHeight="16dp"
             android:layout_marginTop="7dp"
-            android:layout_marginLeft="35dp"
-            android:text="0"
+            android:layout_marginStart="35dp"
+            android:text="@string/_0"
             android:visibility="gone"
             android:textColor="@color/white"
-            android:textSize="8sp"
+            android:textSize="11sp"
             android:gravity="center"
             android:background="@drawable/circular_bg_voice_record_btn"
             app:layout_constraintEnd_toEndOf="@+id/buttonDiv"
             app:layout_constraintStart_toStartOf="@+id/buttonDiv"
-            app:layout_constraintTop_toBottomOf="@+id/shape_bg_white_money_frag"></TextView>
+            app:layout_constraintTop_toBottomOf="@+id/shape_bg_white_money_frag" />
         <View
             android:id="@+id/line_horizontal_money_frag"
             android:layout_width="1dp"
@@ -246,8 +247,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/shape_bg_ledger_frag"
-            tools:listitem="@layout/individual_ledger_recycler_view" />
+            app:layout_constraintTop_toBottomOf="@+id/shape_bg_ledger_frag" />
 
 
 

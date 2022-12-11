@@ -4,8 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
 
 
-    android:layout_width="match_parent"
     android:id="@+id/main_layout_canceledEntries"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
 
@@ -28,10 +28,9 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="15dp"
 
-            android:text="Title"
-            android:textColor="@color/black"
-            android:textFontWeight="400"
-            android:textSize="18sp"></TextView>
+            android:text="@string/title"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/entry_timeStamp_tv_canceledEntries"
@@ -39,15 +38,13 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
             android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp"
             android:layout_marginTop="3dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
             android:fontFamily="@font/ropa_sans_regular"
-            android:text="Thu,20 Jan | 12:37 AM"
-            android:textColor="#50222121"
-            android:textFontWeight="400"
-            android:textSize="18sp"></TextView>
+            android:text="@string/thu_20_jan_12_37_am"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="18sp" />
 
     </LinearLayout>
 
@@ -99,6 +96,7 @@
                 app:iconPadding="0dp"
                 app:iconTint="@color/white" />
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/buttons_layout_receiver_canceledEntries"
             android:layout_width="wrap_content"
@@ -154,33 +152,27 @@
             android:id="@+id/entry_amount_tv_canceledEntries"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
             android:layout_marginHorizontal="10dp"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/ropa_sans_regular"
-            android:text="Rs. 00"
+            android:text="@string/rs_00"
             android:textColor="@color/red"
-            android:textFontWeight="400"
-            android:textSize="14sp"></TextView>
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/entry_modeFlag_tv_canceledEntries"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/entry_title_tv_indvidualLedger"
-            android:layout_alignParentRight="true"
             android:layout_marginHorizontal="10dp"
             android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp"
             android:layout_marginTop="3dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
             android:fontFamily="@font/ropa_sans_regular"
 
-            android:text="You gave"
-            android:textColor="#50222121"
-            android:textFontWeight="400"
-            android:textSize="10sp"></TextView>
+            android:text="@string/you_gave"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="11sp" />
     </LinearLayout>
 
 

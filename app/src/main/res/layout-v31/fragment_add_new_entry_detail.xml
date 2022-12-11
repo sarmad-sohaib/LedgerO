@@ -52,7 +52,7 @@
         android:maxWidth="150dp"
         android:layout_height="wrap_content"
         android:layout_marginVertical="15dp"
-        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
 
 
         android:hint="@string/add_new_total_amount_hint"
@@ -86,7 +86,7 @@ android:enabled="false"
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <com.google.android.material.textfield.TextInputLayout
@@ -135,7 +135,7 @@ android:enabled="false"
                     android:layout_marginHorizontal="10dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"></Button>
 
                 <TextView
                     android:id="@+id/hint_recordAudio_addNewEntry"
@@ -144,11 +144,11 @@ android:enabled="false"
                     android:gravity="center_horizontal"
                     android:visibility="visible"
                     android:layout_height="wrap_content"
-                    android:text="@string/tap_mic_button_to_start_recording_voice_message_for_entry"
+                    android:text="Tap mic button to start recording voice message for entry"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/btn_recordVoice_addNewEntryDetail"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"></TextView>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/audioPlay_layout_addNewEntry"
@@ -167,7 +167,7 @@ android:enabled="false"
                         android:id="@+id/btn_play_recordVoice_addNewEntryDetail"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
-                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="10dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
                         android:layout_weight="1"
@@ -177,7 +177,7 @@ android:enabled="false"
                         android:foregroundTint="@color/violent_vixen"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"></Button>
 
                     <SeekBar
                         android:id="@+id/seekBar_addNewEntry"
@@ -190,36 +190,36 @@ android:enabled="false"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.203"
                         app:layout_constraintStart_toEndOf="@+id/btn_play_recordVoice_addNewEntryDetail"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"></SeekBar>
 
                     <TextView
                         android:id="@+id/audioRecordDuration_tv_addNewEntryDetail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="15dp"
-                        android:text="@string/_00_00"
+                        android:layout_marginRight="15dp"
+                        android:text="00:00"
                         app:layout_constraintEnd_toEndOf="@+id/seekBar_addNewEntry"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"></TextView>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/hold_to_delete_or_record_new_one"
-                        android:textSize="11sp"
+                        android:text="Hold To Delete Or Record New One"
+                        android:textSize="10sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@+id/seekBar_addNewEntry"
                         app:layout_constraintStart_toStartOf="@+id/seekBar_addNewEntry"
-                        app:layout_constraintTop_toBottomOf="@+id/seekBar_addNewEntry" />
+                        app:layout_constraintTop_toBottomOf="@+id/seekBar_addNewEntry"></TextView>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <TextView
                     android:id="@+id/audioMaxLimit_tv_addNewEntryDetail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/max_60s"
+                    android:text="Max 60s"
                     app:layout_constraintEnd_toEndOf="@+id/btn_recordVoice_addNewEntryDetail"
                     app:layout_constraintStart_toStartOf="@+id/btn_recordVoice_addNewEntryDetail"
-                    app:layout_constraintTop_toBottomOf="@+id/btn_recordVoice_addNewEntryDetail" />
+                    app:layout_constraintTop_toBottomOf="@+id/btn_recordVoice_addNewEntryDetail"></TextView>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
@@ -253,6 +253,7 @@ android:enabled="false"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="18sp"
+        android:textFontWeight="400"
         app:backgroundTint="@color/puce"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
