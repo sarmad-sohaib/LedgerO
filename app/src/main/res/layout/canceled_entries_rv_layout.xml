@@ -70,21 +70,7 @@
             android:orientation="horizontal"
             android:visibility="visible">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/bt_request_again_canceledEntries"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:layout_gravity="center"
-                android:visibility="gone"
-                android:layout_marginHorizontal="5dp"
 
-                android:background="@drawable/notification_view_background"
-                android:elevation="5dp"
-                app:backgroundTint="@color/puce"
-                app:icon="@drawable/ic_request_again"
-                app:iconGravity="textStart"
-                app:iconPadding="0dp"
-                app:iconTint="@color/white" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/bt_delete_canceledEntries"
@@ -130,6 +116,7 @@
                 android:layout_marginHorizontal="5dp"
                 android:background="@drawable/notification_view_background"
                 android:elevation="5dp"
+                android:visibility="gone"
                 app:backgroundTint="@color/blackcurrant"
                 app:icon="@drawable/ic_handshake_request_del"
                 app:iconGravity="textStart"

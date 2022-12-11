@@ -103,7 +103,7 @@ class CanceledEntriesScreen_RVAdapter(
 //        var acceptBtn: Button
 //        var handshake: Button
         var requester_buttonLayout: LinearLayout
-        var requestAgain: Button
+ //       var requestAgain: Button
         var deleteEntry: Button
         var giveTaleFlag: TextView
         var entryUID: String = ""
@@ -133,7 +133,7 @@ class CanceledEntriesScreen_RVAdapter(
 
             requester_buttonLayout =
                 itemView.findViewById(R.id.buttons_layout_requester_canceledEntries)
-            requestAgain = itemView.findViewById(R.id.bt_request_again_canceledEntries)
+         //   requestAgain = itemView.findViewById(R.id.bt_request_again_canceledEntries)
             deleteEntry = itemView.findViewById(R.id.bt_delete_canceledEntries)
 
 //
