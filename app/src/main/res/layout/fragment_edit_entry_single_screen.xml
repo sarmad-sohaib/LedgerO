@@ -1,30 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.EditEntrySingleScreen">
+
     <TextView
         android:id="@+id/edit_entry_entry_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/edit_entry_detail_title"
+        android:layout_marginVertical="10dp"
         android:lineHeight="2dp"
+        android:text="@string/edit_entry_detail_title"
         android:textAlignment="center"
         android:textSize="24sp"
-        android:layout_marginVertical="10dp"
         app:layout_constraintEnd_toEndOf="parent"
 
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></TextView>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/edit_entry_amount_filledTextField"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
         android:layout_marginVertical="15dp"
+        android:layout_marginLeft="10dp"
 
         android:hint="@string/add_new_entry_amount_hint"
         app:layout_constraintEnd_toStartOf="@+id/edit_entry_Totalamount_filledTextField"
@@ -35,26 +36,26 @@
             android:id="@+id/tv_amount_edit_entry"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLength="20"
-
-
             android:background="@drawable/left_side_corner_bg_for_calculator_input"
+
+
             android:clipToOutline="true"
-            android:inputType="numberDecimal" />
+            android:inputType="numberDecimal"
+            android:maxLength="20" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/edit_entry_Totalamount_filledTextField"
         android:layout_width="0dp"
-        android:minWidth="100dp"
-        android:maxWidth="150dp"
         android:layout_height="wrap_content"
         android:layout_marginVertical="15dp"
-        android:layout_marginRight="5dp"
-
-
+        android:layout_marginEnd="5dp"
         android:hint="@string/add_new_total_amount_hint"
+        android:maxWidth="150dp"
+
+
+        android:minWidth="100dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_entry_entry_title">
 
@@ -63,9 +64,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
-            android:enabled="false"
             android:background="@drawable/total_amount_bg_left_border_colored"
             android:clipToOutline="true"
+            android:enabled="false"
             android:inputType="numberDecimal" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -85,7 +86,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <com.google.android.material.textfield.TextInputLayout
@@ -119,35 +120,34 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingVertical="5dp"
-                >
+                android:paddingVertical="5dp">
 
                 <Button
                     android:id="@+id/btn_recordVoice_editEntry"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
 
+                    android:layout_marginHorizontal="10dp"
                     android:background="@drawable/circular_bg_voice_record_btn"
                     android:foreground="@drawable/ic_microphone"
                     android:foregroundGravity="center"
                     android:foregroundTint="@color/white"
-                    android:layout_marginHorizontal="10dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"></Button>
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/hint_recordAudio_editEntry"
                     android:layout_width="wrap_content"
-                    android:maxWidth="300dp"
-                    android:gravity="center_horizontal"
-                    android:visibility="visible"
                     android:layout_height="wrap_content"
-                    android:text="Tap mic button to start recording voice message for entry"
+                    android:gravity="center_horizontal"
+                    android:maxWidth="300dp"
+                    android:text="@string/tap_mic_button_to_start_recording_voice_message_for_entry"
+                    android:visibility="visible"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/btn_recordVoice_editEntry"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"></TextView>
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/audioPlay_layout_editEntry"
@@ -166,7 +166,7 @@
                         android:id="@+id/btn_play_recordVoice_editEntryDetail"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
                         android:layout_weight="1"
@@ -189,36 +189,36 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.203"
                         app:layout_constraintStart_toEndOf="@+id/btn_play_recordVoice_editEntryDetail"
-                        app:layout_constraintTop_toTopOf="parent"></SeekBar>
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/audioRecordDuration_tv_editEntryDetail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="15dp"
-                        android:text="00:00"
+                        android:layout_marginEnd="15dp"
+                        android:text="@string/_00_00"
                         app:layout_constraintEnd_toEndOf="@+id/seekBar_editEntry"
-                        app:layout_constraintTop_toTopOf="parent"></TextView>
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Hold To Delete Or Record New One"
-                        android:textSize="10sp"
+                        android:text="@string/hold_to_delete_or_record_new_one"
+                        android:textSize="11sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@+id/seekBar_editEntry"
                         app:layout_constraintStart_toStartOf="@+id/seekBar_editEntry"
-                        app:layout_constraintTop_toBottomOf="@+id/seekBar_editEntry"></TextView>
+                        app:layout_constraintTop_toBottomOf="@+id/seekBar_editEntry" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <TextView
                     android:id="@+id/audioMaxLimit_tv_editEntryDetail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Max 60s"
+                    android:text="@string/max_60s"
                     app:layout_constraintEnd_toEndOf="@+id/btn_recordVoice_editEntry"
                     app:layout_constraintStart_toStartOf="@+id/btn_recordVoice_editEntry"
-                    app:layout_constraintTop_toBottomOf="@+id/btn_recordVoice_editEntry"></TextView>
+                    app:layout_constraintTop_toBottomOf="@+id/btn_recordVoice_editEntry" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
@@ -250,8 +250,8 @@
         android:text="@string/add_new_entry_btn_text"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        android:textSize="18sp"
         android:textFontWeight="400"
+        android:textSize="18sp"
         app:backgroundTint="@color/puce"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

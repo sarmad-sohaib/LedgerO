@@ -14,8 +14,8 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="15dp"
 
-        android:text="@string/title"
-        android:textColor="?android:attr/textColorPrimary"
+        android:text="Title"
+        android:textColor="@color/black"
         android:textFontWeight="400"
         android:textSize="18sp" />
 
@@ -32,6 +32,7 @@
         android:layout_marginBottom="10dp"
         android:fontFamily="@font/ropa_sans_regular"
         android:text="@string/thu_20_jan_12_37_am"
+        android:textColor="#50222121"
         android:textFontWeight="400"
         android:textSize="18sp" />
 
@@ -63,6 +64,7 @@
         android:fontFamily="@font/ropa_sans_regular"
 
         android:text="@string/you_gave"
+        android:textColor="#50222121"
         android:textFontWeight="400"
         android:textSize="18sp" />
 

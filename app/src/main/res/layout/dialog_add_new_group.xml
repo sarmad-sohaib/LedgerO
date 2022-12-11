@@ -14,44 +14,43 @@
         android:id="@+id/groupNameFilledTextField"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="7dp"
         android:hint="@string/group_name"
         android:textColorHint="@color/white"
-        android:layout_marginHorizontal="7dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/groupName_tv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/puce"
-        android:maxLength="24"
-        android:maxLines="1"
-        android:lines="1"
-        android:fontFamily="@font/ropa_sans_regular"
-        />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/groupName_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/puce"
+            android:fontFamily="@font/ropa_sans_regular"
+            android:lines="1"
+            android:maxLength="24"
+            android:maxLines="1" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/filledTextField"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="7dp"
         android:layout_marginTop="20dp"
         android:hint="@string/email_of_group_member"
-        android:layout_marginHorizontal="7dp"
-        app:layout_constraintTop_toBottomOf="@id/groupNameFilledTextField"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/groupNameFilledTextField"
         tools:layout_editor_absoluteY="8dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/userEmailSearchField_tv"
             android:layout_width="match_parent"
-            android:maxLength="40"
-            android:maxLines="1"
+            android:layout_height="wrap_content"
             android:lines="1"
-            android:layout_height="wrap_content" />
+            android:maxLength="40"
+            android:maxLines="1" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -101,8 +100,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/select_two_members_to_start_a_group"
-        android:textColor="@color/blackcurrant"
-        android:textSize="12sp"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textSize="11sp"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="@+id/bt_make_group"
         app:layout_constraintHorizontal_bias="0.436"

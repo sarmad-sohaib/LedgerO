@@ -16,7 +16,7 @@ import kotlinx.coroutines.Job
 private const val TAG = "AppThemeDialog"
 
 @AndroidEntryPoint
-class AppThemeDialogFragment() : DialogFragment() {
+class AppThemeDialogFragment : DialogFragment() {
 
     private val job = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + job)

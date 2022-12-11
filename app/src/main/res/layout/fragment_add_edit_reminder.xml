@@ -57,13 +57,15 @@
                 android:id="@+id/radioButton_reminderIsGive"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/give"/>
+                android:text="@string/give"
+                android:textColor="?android:attr/textColorPrimary"/>
 
             <RadioButton
                 android:id="@+id/radioButton_reminderIsTake"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/take"/>
+                android:text="@string/take"
+                android:textColor="?android:attr/textColorPrimary"/>
 
         </RadioGroup>
 

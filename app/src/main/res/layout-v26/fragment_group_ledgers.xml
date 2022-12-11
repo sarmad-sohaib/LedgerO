@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.MoneyFragment">
+    tools:context=".groupLedger.GroupLedgersFragment">
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/shape_bg_money_frag"
+        android:id="@+id/shape_bg_group_frag"
         android:layout_width="0dp"
         android:layout_height="200dp"
         android:background="@drawable/main_gradient_background"
@@ -24,9 +24,9 @@
         android:background="@drawable/layout_bg"
         android:backgroundTint="@color/white"
         app:layout_constraintBottom_toTopOf="@id/bt_cash_register_group_ledgers_frag"
-        app:layout_constraintEnd_toEndOf="@id/shape_bg_money_frag"
-        app:layout_constraintStart_toStartOf="@id/shape_bg_money_frag"
-        app:layout_constraintTop_toTopOf="@id/shape_bg_money_frag" />
+        app:layout_constraintEnd_toEndOf="@id/shape_bg_group_frag"
+        app:layout_constraintStart_toStartOf="@id/shape_bg_group_frag"
+        app:layout_constraintTop_toTopOf="@id/shape_bg_group_frag" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/bt_cash_register_group_ledgers_frag"
@@ -40,7 +40,7 @@
         android:textColor="@color/violent_vixen"
         android:textSize="16sp"
         app:cornerRadius="10dp"
-        app:layout_constraintBottom_toBottomOf="@id/shape_bg_money_frag"
+        app:layout_constraintBottom_toBottomOf="@id/shape_bg_group_frag"
         app:layout_constraintEnd_toEndOf="@+id/shape_bg_white_money_frag"
         app:layout_constraintStart_toStartOf="@+id/shape_bg_white_money_frag"
         app:layout_constraintTop_toBottomOf="@id/shape_bg_white_money_frag" />
@@ -74,7 +74,7 @@
         android:focusable="true"
         android:fontFamily="@font/ropa_sans_regular"
         android:gravity="center"
-        android:text="@string/payment_history"
+        android:text="@string/view_report"
         android:textColor="@color/violent_vixen"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@id/shape_bg_white_money_frag"
@@ -102,7 +102,6 @@
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
         android:fontFamily="@font/ropa_sans_regular"
-
         android:text="@string/you_ll_give"
         app:layout_constraintBottom_toTopOf="@id/line_vertical_money_frag"
         app:layout_constraintEnd_toEndOf="@id/tv_give_money_frag"
@@ -133,57 +132,50 @@
         app:layout_constraintEnd_toEndOf="@+id/tv_get_money_frag"
         app:layout_constraintStart_toStartOf="@+id/tv_get_money_frag" />
 
-    <View
-        android:id="@+id/button_reminders"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/bt_add_new_group"
         android:layout_width="0dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/drop_shadow"
-        android:clickable="true"
-        android:elevation="2dp"
-        android:focusable="true"
-        app:layout_constraintEnd_toEndOf="@+id/bt_cash_register_group_ledgers_frag"
-        app:layout_constraintStart_toStartOf="@+id/bt_cash_register_group_ledgers_frag"
-        app:layout_constraintTop_toBottomOf="@+id/shape_bg_money_frag" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:elevation="20dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="64dp"
+        android:background="@drawable/button_shape"
         android:fontFamily="@font/ropa_sans_regular"
-        android:gravity="center"
-        android:text="@string/reminders"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/button_reminders"
-        app:layout_constraintEnd_toEndOf="@+id/button_reminders"
-        app:layout_constraintStart_toStartOf="@+id/button_reminders"
-        app:layout_constraintTop_toTopOf="@+id/button_reminders" />
+        android:text="@string/add_new_group"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:backgroundTint="@color/puce"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/line_horizontal_money_frag" />
 
-    <ImageView
+    <!--Search bar-->
+    <EditText
+        android:id="@+id/editText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="8dp"
-        android:contentDescription="@string/no"
-        android:elevation="10dp"
-        android:src="@drawable/ic_baseline_calendar_today_24"
-        app:layout_constraintBottom_toBottomOf="@+id/textView4"
-        app:layout_constraintStart_toStartOf="@+id/button_reminders"
-        app:layout_constraintTop_toTopOf="@+id/textView4" />
+        android:drawableStart="@drawable/ic_outline_person_search_24"
+        android:drawableEnd="@drawable/ic_outline_as_pdf_24"
+        android:drawablePadding="8dp"
+        android:focusedByDefault="false"
+        android:hint="@string/_00_ledgers"
+        android:paddingHorizontal="8dp"
+        android:textColor="@color/blackcurrant"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/shape_bg_group_frag" />
 
-    <TextView
-        android:id="@+id/tv_today_date_money_frag"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/groupRV"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="32dp"
-        android:fontFamily="@font/ropa_sans_regular"
-        android:gravity="center"
-        android:text="@string/wednesday_march_16_2022"
-        android:textColor="@color/gray"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="@+id/button_reminders"
-        app:layout_constraintStart_toStartOf="@+id/button_reminders"
-        app:layout_constraintTop_toBottomOf="@+id/button_reminders" />
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/bt_add_new_group"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+
+        app:layout_constraintTop_toBottomOf="@+id/editText"
+
+        tools:listitem="@layout/recycler_layout_group_ledger_fragment" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
