@@ -8,9 +8,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.appcompat.app.AppCompatDelegate.*
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -23,8 +23,6 @@ import com.ledgero.databinding.FragmentMoreBinding
 import com.ledgero.more.AppThemeDialogFragment
 import com.ledgero.more.LanguageModelBottomSheet
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -44,22 +42,23 @@ class MoreFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        
+
         lifecycleScope.launch{
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.prefFlow.collect { key ->
 
-                    Log.i(TAG, "onCreateView: $key")
-
                     when(key) {
                         0 -> {
-                            setDefaultNightMode(MODE_NIGHT_FOLLOW_SYSTEM)
+                            setFragmentResult("themeKey", bundleOf("prevKey" to key))
+                            Log.i(TAG, "onCreateView: $key")
                         }
                         1 -> {
-                            setDefaultNightMode(MODE_NIGHT_YES)
+                            setFragmentResult("themeKey", bundleOf("prevKey" to key))
+                            Log.i(TAG, "onCreateView: $key")
                         }
                         2 -> {
-                            setDefaultNightMode(MODE_NIGHT_NO)
+                            setFragmentResult("themeKey", bundleOf("prevKey" to key))
+                            Log.i(TAG, "onCreateView: $key")
                         }
                     }
 
