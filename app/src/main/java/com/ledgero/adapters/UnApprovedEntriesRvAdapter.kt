@@ -3,6 +3,7 @@ package com.ledgero.adapters
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -85,17 +86,24 @@ class UnApprovedEntriesRvAdapter(
 
         } else {
 
-            if (entry.give_take_flag!! == Constants.GAVE_ENTRY_FLAG) {
-                holder.giveGetFlag.text = "You Got"
+            try {
+                if (entry.give_take_flag!! == Constants.GAVE_ENTRY_FLAG) {
+                    holder.giveGetFlag.text = "You Got"
 
-                holder.entryMoney.setTextColor(Color.parseColor("#166D0E"))
+                    holder.entryMoney.setTextColor(Color.parseColor("#166D0E"))
 
-            } else {
-                holder.giveGetFlag.text = "You Gave"
-                holder.entryMoney.setTextColor(Color.parseColor("#FF1010"))
+                } else {
+                    holder.giveGetFlag.text = "You Gave"
+                    holder.entryMoney.setTextColor(Color.parseColor("#FF1010"))
 
 
+                }
+            }catch (e: Exception){
+
+                Log.d(TAG, "onBindViewHolder: ${e.message}")
             }
+            
+           
 
         }
 

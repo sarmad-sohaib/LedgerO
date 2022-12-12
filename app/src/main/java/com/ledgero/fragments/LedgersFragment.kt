@@ -1,5 +1,7 @@
 package com.ledgero.fragments
 
+import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -9,8 +11,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.database.FirebaseDatabase
 import com.ledgero.DataClasses.User
 import com.ledgero.MainActivity
 import com.ledgero.R
@@ -27,7 +31,7 @@ class LedgersFragment : Fragment() {
 
     private var layoutManager: RecyclerView.LayoutManager? = null
     private lateinit var _binding: FragmentLedgersBinding
-    private val binding:FragmentLedgersBinding get() = _binding!!
+    private val binding:FragmentLedgersBinding get() = _binding
 
     companion object{
         var adapter: RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>? = null
@@ -35,7 +39,7 @@ class LedgersFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         _binding = FragmentLedgersBinding.inflate(inflater,container,false)
 
@@ -52,6 +56,8 @@ class LedgersFragment : Fragment() {
 
         adapter = RecyclerViewAdapter(requireContext(),userLedgers)
         rv.adapter = adapter
+        getTouchHelper(rv).attachToRecyclerView(rv)
+
         val btCashRegister= binding.btCashRegisterGroupLedgersFrag
         btCashRegister.setOnClickListener {
             startActivity(Intent(context, CashRegisterMainActivity::class.java))
@@ -92,7 +98,7 @@ class LedgersFragment : Fragment() {
 
         }
 
-        var totalAmountAndFlag= DatabaseUtill().singleLedgersTotalMetaData()
+        val totalAmountAndFlag= DatabaseUtill().singleLedgersTotalMetaData()
 
         val amount= totalAmountAndFlag.first
         val flag= totalAmountAndFlag.second
@@ -103,6 +109,98 @@ class LedgersFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+
+    //this will enable left/right swipes on RV
+    private fun getTouchHelper(rv: RecyclerView): ItemTouchHelper {
+
+        val callBack: ItemTouchHelper.SimpleCallback = object : ItemTouchHelper.
+        SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder,
+            ): Boolean {
+                return false
+            }
+
+            @SuppressLint("NotifyDataSetChanged")
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+
+                val position = viewHolder.adapterPosition
+                if (direction == ItemTouchHelper.LEFT) {
+
+                    getDeleteDialogueBox(position, rv).show()
+                    rv.adapter!!.notifyDataSetChanged()
+
+
+                }
+                if (direction == ItemTouchHelper.RIGHT) {
+
+
+                    Toast.makeText(context, "Swipe Left to delete the LEdger", Toast.LENGTH_SHORT)
+                        .show()
+                    rv.adapter!!.notifyDataSetChanged()
+
+                }
+
+            }
+
+
+        }
+
+
+        return ItemTouchHelper(callBack)
+
+    }
+
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun getDeleteDialogueBox(pos: Int, rv: RecyclerView): AlertDialog.Builder{
+
+        val dialog= AlertDialog.Builder(this.context)
+
+        dialog.setTitle("Deleting Ledger ")
+            .setMessage("Are you sure to delete this ledger!")
+            .setCancelable(true)
+            .setPositiveButton("Yes Delete it"){ _, _ ->
+                //delete ledger
+
+                val ledgerUID=User.getUserSingleLedgers()
+                    ?.get(pos)!!.ledgerUID.toString()
+
+                FirebaseDatabase.getInstance().reference.child("deleteLedgerRequests").child(ledgerUID).get()
+                    .addOnCompleteListener {
+                        if (it.isSuccessful){
+                            if (it.result.exists()){
+                                Toast.makeText(context, "Already Requested for delete...Waiting for approval", Toast.LENGTH_SHORT).show()
+
+                            }else{
+                                FirebaseDatabase.getInstance().reference.child("deleteLedgerRequests").child(ledgerUID)
+                                    .setValue(mapOf("deleteRequestBy" to User.userID!! , "requesterName" to User.userName!!))
+
+                                Toast.makeText(context, "Request To Delete Ledger is Sent..Waiting For Approval", Toast.LENGTH_SHORT).show()
+
+                            }
+                        }else{
+                            FirebaseDatabase.getInstance().reference.child("deleteLedgerRequests").child(ledgerUID)
+                                .setValue(mapOf("deleteRequestBy" to User.userID!!))
+
+                            Toast.makeText(context, "Request To Delete Ledger is Sent..Waiting For Approval", Toast.LENGTH_SHORT).show()
+
+                        }
+                    }
+
+
+            }
+            .setNegativeButton("No"){ dialogInterface, _ ->
+                //cancel it
+                dialogInterface.cancel()
+                rv.adapter!!.notifyDataSetChanged()
+
+            }
+        return dialog
     }
 
 

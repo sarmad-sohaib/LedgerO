@@ -44,8 +44,13 @@ object User {
     }
 
     fun removeLedgerFromList(ledgers: SingleLedgers) {
-        if (user_single_Ledgers != null)
-            user_single_Ledgers!!.remove(ledgers)
+        if (user_single_Ledgers != null){
+            for (i in 0 until user_single_Ledgers!!.size){
+                if (user_single_Ledgers!![i].ledgerUID== ledgers.ledgerUID){
+                    user_single_Ledgers!!.removeAt(i)
+                }
+            }
+        }
     }
 
 

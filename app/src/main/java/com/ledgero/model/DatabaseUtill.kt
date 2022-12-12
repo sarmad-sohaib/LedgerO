@@ -18,7 +18,7 @@ import kotlin.collections.HashMap
 
 
 //all operations to do on server/db side
-class DatabaseUtill {
+class DatabaseUtill() {
 
     private val TAG = "DatabaseUtill"
     var db_reference = FirebaseDatabase.getInstance().reference
@@ -29,8 +29,6 @@ class DatabaseUtill {
 
     }
 
-
-    constructor()
 
     fun sendLedgerRequestToFriend(
         friendUID: String,
@@ -158,14 +156,14 @@ class DatabaseUtill {
                         Log.d(TAG, "onDataChange: Current User Data Fetched")
                         user = snapshot.getValue<User>()!!
                         callback.onUserDetailsUpdated(true)
-
-                        //now call the function so all ledgers get latest meta-data
-                        if (user.getUserSingleLedgers() != null) {
-                            if (user.getUserSingleLedgers()!!.size > 0) {
-                                updateAllLedgerMetaData(User.getUserSingleLedgers()!!,0,callback)
-
-                            }
-                        }
+//
+//                        //now call the function so all ledgers get latest meta-data
+//                        if (user.getUserSingleLedgers() != null) {
+//                            if (user.getUserSingleLedgers()!!.size > 0) {
+//                                updateAllLedgerMetaData(User.getUserSingleLedgers()!!,0,callback)
+//
+//                            }
+//                        }
 
 
                     }
@@ -183,31 +181,31 @@ class DatabaseUtill {
         return user
     }
 
-    private fun updateAllLedgerMetaData(
-        ledgers: ArrayList<SingleLedgers>,
-        position: Int,
-        callback: OnUserDetailUpdate,
-    ) {
-
-        var pos = position
-        if (ledgers.get(pos) == null) {
-            callback.onUserDetailsUpdated(true)
-        } else {
-            var i = ledgers.get(pos)
-            db_reference.child("ledgerInfo").child(i.ledgerUID!!).get().addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        //     i.ledger_Created_timeStamp= it.result.child("ledger_Created_timeStamp").getValue<Long>()
-                        i.ledgerCreatedByUID =
-                            it.result.child("ledgerCreatedByUID").value.toString()
-                        i.total_entries = it.result.child("total_entries").getValue<Int>()
-                        i.total_amount = it.result.child("total_amount").getValue<Float>()
-                        i.give_take_flag = it.result.child("give_take_flag").getValue<Boolean>()
-                    }
-                    updateAllLedgerMetaData(ledgers, pos++, callback)
-
-                }
-        }
-    }
+//    private fun updateAllLedgerMetaData(
+//        ledgers: ArrayList<SingleLedgers>,
+//        position: Int,
+//        callback: OnUserDetailUpdate,
+//    ) {
+//
+//        var pos = position
+//        if (ledgers.get(pos) == null) {
+//            callback.onUserDetailsUpdated(true)
+//        } else {
+//            var i = ledgers.get(pos)
+//            db_reference.child("ledgerInfo").child(i.ledgerUID!!).get().addOnCompleteListener {
+//                    if (it.isSuccessful) {
+//                        //     i.ledger_Created_timeStamp= it.result.child("ledger_Created_timeStamp").getValue<Long>()
+//                        i.ledgerCreatedByUID =
+//                            it.result.child("ledgerCreatedByUID").value.toString()
+//                        i.total_entries = it.result.child("total_entries").getValue<Int>()
+//                        i.total_amount = it.result.child("total_amount").getValue<Float>()
+//                        i.give_take_flag = it.result.child("give_take_flag").getValue<Boolean>()
+//                    }
+//                    updateAllLedgerMetaData(ledgers, pos++, callback)
+//
+//                }
+//        }
+//    }
 
     fun updateuserSingleLedgersList(uid: String, callback: OnUpdateUserSingleLedger) {
 
@@ -332,6 +330,7 @@ class DatabaseUtill {
         firebase_LedgersListener = object : ChildEventListener {
 
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                Log.d(TAG, "onChildAdded: ledger added")
                 if (snapshot.exists()) {
                     var newLedger = snapshot.getValue<SingleLedgers>()
 
@@ -346,6 +345,8 @@ class DatabaseUtill {
                     if (!ledgerAlreadyAdded) {
                         UtillFunctions.addNewSingleUserLedgers(newLedger!!)
                     }
+                }else{
+                    
                 }
             }
 
@@ -355,9 +356,10 @@ class DatabaseUtill {
             }
 
             override fun onChildRemoved(snapshot: DataSnapshot) {
-
+                Log.d(TAG, "onChildRemoved: ledger Removed")
                 if (snapshot.exists()) {
                     var newledger = snapshot.getValue<SingleLedgers>()
+                    Log.d(TAG, "onChildRemoved: ledger Removed")
                     var ledgerUID = newledger!!.ledgerUID
                     UtillFunctions.removeSingleUserLedgers(newledger)
                     removeLedgerFromFriend(newledger)

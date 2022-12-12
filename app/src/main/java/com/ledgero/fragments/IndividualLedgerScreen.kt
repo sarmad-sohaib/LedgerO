@@ -29,6 +29,7 @@ import com.ledgero.Repositories.IndividualScreenRepo
 import com.ledgero.ViewModelFactories.IndividualScreenViewModeFactory
 import com.ledgero.ViewModels.IndividualScreenViewModel
 import com.ledgero.adapters.RecyclerAdapter_SingleLedger
+import com.ledgero.customDialogs.DeleteLedgerCustomDialog
 import com.ledgero.other.Constants.ADD_REQUEST_REQUEST_MODE
 import com.ledgero.other.Constants.DELETE_REQUEST_REQUEST_MODE
 import com.ledgero.other.Constants.EDIT_REQUEST_REQUEST_MODE
@@ -36,7 +37,6 @@ import com.ledgero.other.Constants.GAVE_ENTRY_FLAG
 import com.ledgero.other.Constants.GET_ENTRY_FLAG
 import com.ledgero.other.Constants.NO_REQUEST_REQUEST_MODE
 import kotlinx.android.synthetic.main.fragment_individual_ledger_screen.view.*
-import okhttp3.EventListener
 
 
 private const val TAG= "IndividLedgerScreen"
@@ -48,6 +48,8 @@ lateinit     var viewModel: IndividualScreenViewModel
 lateinit var entries: ArrayList<Entries>
 lateinit var gaveText : TextView
 lateinit var getText : TextView
+    private var dbReference = FirebaseDatabase.getInstance().reference
+
 
     private var layoutManager: RecyclerView.LayoutManager? = null
 
@@ -90,10 +92,28 @@ lateinit var getText : TextView
             .get(IndividualScreenViewModel::class.java)
 
 
+//check if there is delete request
+        dbReference.child("deleteLedgerRequests").child(ledgerUID).get().addOnCompleteListener {
+            if (it.isSuccessful){
+                if (it.result.exists()){
+                    val friendName = it.result.child("requesterName").value.toString()
+                    val friendUID = it.result.child("deleteRequestBy").value.toString()
+
+                    if (friendUID != User.userID!!){
+                        val deleteDialog= DeleteLedgerCustomDialog(ledgerUID,friendName,friendUID, isLedgerDeleted,requireContext())
+                        deleteDialog.isCancelable=false
+                        deleteDialog.show(childFragmentManager,"deleteLedger")
+
+                    }
+
+
+                }
+            }
+        }
+
+
 
         //View Model Init ---Ends Here
-
-
 
          gaveText = view.findViewById<TextView>(R.id.tv_give_money_individScreen)
         getText = view.findViewById<TextView>(R.id.tv_get_money_individScreen)
@@ -371,7 +391,10 @@ if (direction==ItemTouchHelper.LEFT){
 }
                 if (direction==ItemTouchHelper.RIGHT){
 
-                    getEditDialougeBox(position,rv).show()
+//                    getEditDialougeBox(position,rv).show()
+
+                    Toast.makeText(context, "Swipe Left to delete the entry", Toast.LENGTH_SHORT).show()
+                    rv.adapter!!.notifyDataSetChanged()
                 }
 
             }
@@ -607,4 +630,9 @@ return itemTouchHelper
     }
 
 
+    val isLedgerDeleted= fun(flag:Boolean){
+        if (flag){
+            parentFragmentManager.popBackStack()
+        }
+    }
 }
