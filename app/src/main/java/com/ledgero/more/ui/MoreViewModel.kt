@@ -6,6 +6,7 @@ import com.ledgero.data.preferences.PreferenceManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,9 +20,17 @@ class MoreViewModel @Inject constructor(
     init {
     }
 
-    val prefFlow = preferenceManager.prefFlow.distinctUntilChanged()
+    val prefFlow = preferenceManager.prefFlow
 
-    val keyFlow = MutableStateFlow(0)
+    var key = 0
+
+    fun keyFlow() {
+        viewModelScope.launch {
+            prefFlow.collect {
+                key = it
+            }
+        }
+    }
 
     fun update(key: Int) {
         viewModelScope.launch {
