@@ -39,7 +39,7 @@ class MoreFragment : Fragment() {
             textViewCurrentLanguage.text = Locale.getDefault().getDisplayLanguage(local)
 
             textViewChooseLanguage.setOnClickListener {
-                showChooseThemeDialog()
+                showChooseLanguageBottomSheet()
             }
 
             logout.setOnClickListener {
