@@ -67,4 +67,9 @@
     <string name="user_name">نام</string>
     <string name="canceled_screen_title">ختم شدہ اندراج</string>
     <string name="add_new_entry_amount_hint">روپے</string>
+    <string name="app_theme">ایپ تھیم</string>
+    <string name="dark_mode">ڈارک</string>
+    <string name="light_mode">لائٹ</string>
+    <string name="system_default">سسٹم ڈیفالٹ</string>
+    <string name="voice_note_is_downloading">وائس نوٹ ڈاؤنلوڈ ہو رہا ہے</string>
 </resources>
