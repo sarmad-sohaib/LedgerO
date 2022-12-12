@@ -110,8 +110,8 @@
     <string name="voice_note_is_downloading">Voice note is downloading:</string>
     <string name="ledger_01">Ledger 01</string>
     <string name="friend_makes_a_request_to_delete_this_ledger"> makes a request to <html><h2 style="color: #000000">delete</h2></html> this ledger.</string>
-    <string name="reject_delete_request">Reject Delete Request</string>
-    <string name="accept_ledger_delete_request">Accept Ledger Delete Request</string>
+    <string name="reject_delete_request">Reject</string>
+    <string name="accept_ledger_delete_request">Accept</string>
 
     <string-array name="languages">
         <item>English</item>

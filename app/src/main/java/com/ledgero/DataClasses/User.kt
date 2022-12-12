@@ -67,6 +67,18 @@ object User {
         this.user_total_take = user.user_total_take
     }
 
+    fun signOut() {
+        userName=null
+        userID=null
+
+        userEmail= null
+        userName = null
+        user_total_give= 0
+        user_total_take=0
+        total_single_ledgers=0
+        user_single_Ledgers=null
+        user_group_Ledgers=null
+    }
 
 
 }

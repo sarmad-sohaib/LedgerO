@@ -89,7 +89,7 @@
         android:fontFamily="@font/ropa_sans_regular"
         android:gravity="center"
         android:text="@string/rs_00"
-        android:textColor="@color/red"
+        android:textColor="@color/green"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@id/tv_you_will_give_money_frag"
         app:layout_constraintEnd_toStartOf="@id/line_horizontal_money_frag"
@@ -115,7 +115,7 @@
         android:fontFamily="@font/ropa_sans_regular"
         android:gravity="center"
         android:text="@string/rs_00"
-        android:textColor="@color/green"
+        android:textColor="@color/red"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/tv_you_will_get_money_frag"
         app:layout_constraintEnd_toEndOf="@+id/shape_bg_white_money_frag"
@@ -163,5 +163,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/shape_bg_ledger_frag"
         tools:listitem="@layout/recycler_view_model" />
+
+    <ProgressBar
+        android:id="@+id/progressBar_ledgerFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/rv_ledgers"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bt_cash_register_group_ledgers_frag"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

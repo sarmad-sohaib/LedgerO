@@ -362,8 +362,8 @@ class DatabaseUtill() {
                     Log.d(TAG, "onChildRemoved: ledger Removed")
                     var ledgerUID = newledger!!.ledgerUID
                     UtillFunctions.removeSingleUserLedgers(newledger)
-                    removeLedgerFromFriend(newledger)
-                    removeLedgerFromFirebase(newledger)
+                 //   removeLedgerFromFriend(newledger)
+                  //  removeLedgerFromFirebase(newledger)
                 }
             }
 
@@ -396,7 +396,7 @@ class DatabaseUtill() {
             .get().addOnCompleteListener {
                 if (it.result.exists()) {
                     var arrayList = it.result.getValue<ArrayList<SingleLedgers>>()!!
-                    for (i in 0 until arrayList.size) {
+                    for (i in 0 until arrayList.size-1) {
                         if (arrayList.get(i).friend_userID.equals(User.userID)) {
                             arrayList.removeAt(i)
                         }

@@ -11,10 +11,15 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.FirebaseDatabase
+import com.ledgero.DataClasses.Entries
+import com.ledgero.DataClasses.SingleLedgers
 import com.ledgero.DataClasses.User
 import com.ledgero.MainActivity
 import com.ledgero.R
@@ -24,6 +29,10 @@ import com.ledgero.databinding.FragmentLedgersBinding
 import com.ledgero.model.DatabaseUtill
 import com.ledgero.other.Constants.GAVE_ENTRY_FLAG
 import com.ledgero.other.Constants.GET_ENTRY_FLAG
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 private const val  TAG= "LedgerFragment"
@@ -57,6 +66,51 @@ class LedgersFragment : Fragment() {
         adapter = RecyclerViewAdapter(requireContext(),userLedgers)
         rv.adapter = adapter
         getTouchHelper(rv).attachToRecyclerView(rv)
+
+
+            lifecycleScope.launch{
+                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
+                    withContext(Dispatchers.Main){
+                        binding.progressBarLedgerFragment.visibility= View.VISIBLE
+
+                        delay(1000)
+                        binding.progressBarLedgerFragment.visibility = View.GONE
+                        if (User.getUserSingleLedgers() != null){
+                            Log.d(TAG, "onCreateView: fetching ledgers MetaData")
+                            Log.d(TAG, "onCreateView:  before loopin : ${User.getUserSingleLedgers()!!.size}")
+
+
+                            for (i in 0 until User.getUserSingleLedgers()!!.size){
+                                Log.d(TAG, "onCreateView: loopin : ${User.getUserSingleLedgers()!!.size}")
+
+                                FirebaseDatabase.getInstance().reference.child("ledgerInfo")
+                                    .child(User.getUserSingleLedgers()!![i].ledgerUID!!).get().addOnCompleteListener {
+                                        if(it.isSuccessful){
+                                            if (it.result.exists()){
+                                                val giveTakeFlag = it.result.child("give_take_flag").value as Boolean
+
+                                                val timeStamp = it.result.child("ledger_Created_timeStamp").value as Long
+                                                val totalAmount = it.result.child("total_amount").value.toString().toFloat()
+
+                                                User.getUserSingleLedgers()!![i].give_take_flag=giveTakeFlag
+                                                User.getUserSingleLedgers()!![i].ledger_Created_timeStamp = timeStamp
+                                                User.getUserSingleLedgers()!![i].total_amount = totalAmount
+
+                                                if (i == User.getUserSingleLedgers()!!.size-1)
+                                                    rv.swapAdapter(RecyclerViewAdapter(requireContext(),userLedgers),false)
+                                                calculateTotalAmount(User.getUserSingleLedgers()!!)
+                                            }
+                                        }
+                                    }
+
+                            }
+
+                        }
+                    }
+                }
+            }
+
+
 
         val btCashRegister= binding.btCashRegisterGroupLedgersFrag
         btCashRegister.setOnClickListener {
@@ -208,4 +262,78 @@ class LedgersFragment : Fragment() {
         DatabaseUtill().RemoveUserLedgerListner()
         super.onDestroy()
     }
-}
+
+    private fun calculateTotalAmount(ledgers: ArrayList<SingleLedgers>){
+       Log.d(TAG, "calculation:  ${ledgers.size}")
+
+        if (ledgers.size<=0){
+            binding.tvGiveMoneyFrag.setText("Rs. 00")
+            binding.tvGetMoneyFrag.setText("Rs. 00")
+
+            return
+        }
+
+
+        var totalGaveAmount= 0f
+        var totalGetAmount = 0f
+
+
+                ledgers.forEach{
+
+
+
+                    if (it.ledgerCreatedByUID == User.userID){
+
+                        if (it.give_take_flag == GAVE_ENTRY_FLAG){
+
+                            totalGaveAmount += it.total_amount!!
+                        }
+                        if (it.give_take_flag == GET_ENTRY_FLAG){
+                            totalGetAmount+= it.total_amount!!
+                        }
+
+                    }
+
+                    if (it.ledgerCreatedByUID != User.userID){
+
+                        if (it.give_take_flag == GAVE_ENTRY_FLAG){
+                            totalGetAmount+= it.total_amount!!
+
+                        }
+                        if (it.give_take_flag == GET_ENTRY_FLAG){
+                            totalGaveAmount += it.total_amount!!
+                        }
+                    }
+                }
+
+                var flag= false
+                var totalAmount =0f
+                if (totalGaveAmount>=totalGetAmount){
+                    flag= GAVE_ENTRY_FLAG
+                    totalAmount= totalGaveAmount- totalGetAmount
+                }
+                if (totalGetAmount>totalGaveAmount){
+                    flag= GET_ENTRY_FLAG
+                    totalAmount = totalGetAmount-totalGaveAmount
+                }
+
+
+
+                    if (flag == GAVE_ENTRY_FLAG){
+                        binding.tvGiveMoneyFrag.setText("Rs. 00")
+                        binding.tvGetMoneyFrag.setText("Rs. $totalAmount")
+
+                    }
+                    if (flag == GET_ENTRY_FLAG){
+                        binding.tvGiveMoneyFrag.setText("Rs. $totalAmount")
+                        binding.tvGetMoneyFrag.setText("Rs. 00")
+                    }
+
+        Log.d(TAG, "calculateTotalAmount: $totalAmount")
+        adapter?.notifyDataSetChanged()
+            }
+
+
+
+
+    }
