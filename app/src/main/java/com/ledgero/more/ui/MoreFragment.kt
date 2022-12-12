@@ -13,6 +13,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.ledgero.DataClasses.User
 import com.ledgero.LoginActivity
 import com.ledgero.R
 import com.ledgero.databinding.FragmentMoreBinding
@@ -67,8 +68,12 @@ class MoreFragment : Fragment() {
             logout.setOnClickListener {
                 val auth: FirebaseAuth = Firebase.auth
                 auth.signOut()
+                User.signOut()
+                for (i in 0 until parentFragmentManager.backStackEntryCount){
+                    parentFragmentManager.popBackStack()
+                }
                 startActivity(Intent(requireContext(), LoginActivity::class.java))
-                activity?.finish()
+               // activity?.finish()
             }
 
             textViewDarkMode.setOnClickListener {

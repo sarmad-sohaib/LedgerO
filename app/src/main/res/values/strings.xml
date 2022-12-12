@@ -116,6 +116,10 @@
     <string name="dark_mode">Dark</string>
     <string name="light_mode">Light</string>
     <string name="app_theme">App theme</string>
+    <string name="ledger_01">Ledger 01</string>
+    <string name="friend_makes_a_request_to_delete_this_ledger"> makes a request to <html><h2 style="color: #000000">delete</h2></html> this ledger.</string>
+    <string name="reject_delete_request">Reject</string>
+    <string name="accept_ledger_delete_request">Accept</string>
 
     <string-array name="languages">
         <item>English</item>

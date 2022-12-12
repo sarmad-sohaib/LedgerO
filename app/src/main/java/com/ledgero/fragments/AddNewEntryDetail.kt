@@ -103,10 +103,15 @@ class AddNewEntryDetail(var ledger: SingleLedgers) : Fragment(), EntryDetailInte
 
                     if (!view.tv_description_view_entry.text.isNullOrBlank()) {
 
-                        Toast.makeText(context, "Adding New Entry To Ledger", Toast.LENGTH_SHORT)
-                            .show()
+//                        Toast.makeText(context, "Adding New Entry To Ledger", Toast.LENGTH_SHORT)
+//                            .show()
 
                         val amount: Float = java.lang.Float.valueOf(totalAmount.text.toString())
+                        if (amount<=0f){
+                            Toast.makeText(context, "Entry Amount cannot be 0", Toast.LENGTH_SHORT)
+                                .show()
+                            return@setOnClickListener
+                        }
 
                         var des = view.tv_description_view_entry.text.toString()
 

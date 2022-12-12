@@ -12,9 +12,13 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.ledgero.DataClasses.SingleLedgers
+import com.ledgero.DataClasses.User
 import com.ledgero.MainActivity
 import com.ledgero.R
 import com.ledgero.fragments.IndividualLedgerScreen
+import com.ledgero.other.Constants
+import com.ledgero.other.Constants.GAVE_ENTRY_FLAG
+import com.ledgero.other.Constants.GET_ENTRY_FLAG
 import com.ledgero.utils.TimeFormatter
 import java.util.*
 import kotlin.collections.ArrayList
@@ -59,6 +63,30 @@ init {
             Log.d(TAG, "onBindViewHolder: Can't Fetch Ledger Timestamp")
             holder.ledgerTimeStamp.text="DD/MM/YYYY"
        }
+
+        if (singleLedgers?.get(position)?.ledgerCreatedByUID == User.userID){
+            if (singleLedgers?.get(position)?.give_take_flag == GAVE_ENTRY_FLAG){
+
+                holder.ledgerMoney.setTextColor(context.resources.getColor( R.color.red,null))
+                holder.ledgerDetail.setText("You'll get")
+            }
+            if (singleLedgers?.get(position)?.give_take_flag== GET_ENTRY_FLAG){
+                holder.ledgerMoney.setTextColor(context.resources.getColor( R.color.green,null))
+                holder.ledgerDetail.setText("You'll give")
+            }
+        }
+        if (singleLedgers?.get(position)?.ledgerCreatedByUID != User.userID){
+            if (singleLedgers?.get(position)?.give_take_flag == GAVE_ENTRY_FLAG){
+                holder.ledgerMoney.setTextColor(context.resources.getColor( R.color.green,null))
+                holder.ledgerDetail.setText("You'll give")
+
+            }
+            if (singleLedgers?.get(position)?.give_take_flag== GET_ENTRY_FLAG){
+                holder.ledgerMoney.setTextColor(context.resources.getColor( R.color.red,null))
+                holder.ledgerDetail.setText("You'll get")
+            }
+        }
+
     }
 
     override fun getItemCount(): Int {
