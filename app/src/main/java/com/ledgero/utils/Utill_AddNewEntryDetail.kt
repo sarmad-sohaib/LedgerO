@@ -207,6 +207,7 @@ class Utill_AddNewEntryDetail( var EntryDetail: EntryDetailInterface) {
         var voiceNewVersionPath:String?=null
         var isVoiceUpdated:Boolean=false
         var isEditingVoiceNote:Boolean = false
+        var audioDuration =0
 
 
 
@@ -279,6 +280,7 @@ class Utill_AddNewEntryDetail( var EntryDetail: EntryDetailInterface) {
                 return
             }
             mediaRecorder!!.stop()
+              audioDuration= (mediaPlayer!!.duration/1000)
             mediaRecorder!!.release()
             mediaRecorder=null
             Toast.makeText(context, "Recording Stopped", Toast.LENGTH_SHORT).show()
@@ -327,7 +329,7 @@ class Utill_AddNewEntryDetail( var EntryDetail: EntryDetailInterface) {
             mediaPlayer= MediaPlayer()
             mediaPlayer!!.setDataSource(getPathForStoringFile(false))
             mediaPlayer!!.prepare()
-          var duartion=   (mediaPlayer!!.duration/1000).toString()
+           var duartion= (mediaPlayer!!.duration/1000).toString()
             return duartion
         }
 
@@ -435,7 +437,32 @@ class Utill_AddNewEntryDetail( var EntryDetail: EntryDetailInterface) {
 
         }
 
-    private fun getPathForStoringFile(isRecordingNewAudio:Boolean):String{
+     fun getPathForStoringFile(isRecordingNewAudio:Boolean):String{
+        var contextWrapper= ContextWrapper(context?.applicationContext)
+
+        var voiceDirectory: File = contextWrapper.getExternalFilesDir(Environment.DIRECTORY_MUSIC)!!
+
+        var fileName=""
+
+        if (EntryDetail.mGroupInfo!=null){
+
+            fileName = EntryDetail.mGroupInfo!!.groupUID!!.toString()+"$randomSuffixForAudioFilePath"+"1.mp3"
+
+        var file= File(voiceDirectory,fileName)
+        hasVoiceNote=true
+        localPath=file.path
+        VoicefileName=fileName
+
+
+            if(Build.VERSION.SDK_INT < 26) {
+                return file.absolutePath}
+            else{return file.path                }
+
+
+
+        }
+
+
 
         if (hasVoiceNote && isRecordingNewAudio && isEditingVoiceNote){
 
@@ -461,10 +488,13 @@ class Utill_AddNewEntryDetail( var EntryDetail: EntryDetailInterface) {
 
         }
 
-       var contextWrapper= ContextWrapper(context.applicationContext)
 
-        var voiceDirectory: File = contextWrapper.getExternalFilesDir(Environment.DIRECTORY_MUSIC)!!
-        var fileName= EntryDetail.mLedger.ledgerUID.toString()+EntryDetail.mLedger.entries!!.size+"$randomSuffixForAudioFilePath"+"1.mp3"
+     if (EntryDetail.mLedger != null){
+        fileName = EntryDetail.mLedger!!.ledgerUID.toString()+EntryDetail!!.mLedger!!.entries!!.size+"$randomSuffixForAudioFilePath"+"1.mp3"
+     }else{
+         fileName = EntryDetail.mGroupInfo!!.groupUID!!.toString()+"$randomSuffixForAudioFilePath"+"1.mp3"
+
+     }
         var file= File(voiceDirectory,fileName)
         hasVoiceNote=true
         localPath=file.path

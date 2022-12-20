@@ -41,10 +41,7 @@ class AddNewGroupDialog : DialogFragment() {
         _binding = DialogAddNewGroupBinding.inflate(inflater, container, false)
 
 
-        userSearchFlowObserver()
-        selectedMemberFlowObserver()
-        createGroupButtonObserver()
-        groupCreationObserver()
+        setObservers()
 
         binding.searchUserBtn.setOnClickListener {
             val email = binding.userEmailSearchFieldTv.text.toString() + ""
@@ -53,9 +50,11 @@ class AddNewGroupDialog : DialogFragment() {
                 viewModel.searchUser(email)
 
             } else {
-                Toast.makeText(context,
+                Toast.makeText(
+                    context,
                     "Please type correct user Email address",
-                    Toast.LENGTH_SHORT).show()
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
 
@@ -72,16 +71,16 @@ class AddNewGroupDialog : DialogFragment() {
 
         binding.selectedMemberCancelBtn1.setOnClickListener(removeSelectedMemberClick)
         binding.selectedMemberCancelBtn2.setOnClickListener(removeSelectedMemberClick)
-         binding.selectedMemberCancelBtn3.setOnClickListener(removeSelectedMemberClick)
+        binding.selectedMemberCancelBtn3.setOnClickListener(removeSelectedMemberClick)
         binding.selectedMemberCancelBtn4.setOnClickListener(removeSelectedMemberClick)
 
 
-        binding.btMakeGroup.setOnClickListener{
+        binding.btMakeGroup.setOnClickListener {
 
-            if (!binding.groupNameTv.text.isNullOrEmpty()){
-                val groupName= binding.groupNameTv.text.toString()
+            if (!binding.groupNameTv.text.isNullOrEmpty()) {
+                val groupName = binding.groupNameTv.text.toString()
                 viewModel.createGroup(groupName)
-            }else Toast.makeText(context, "Please type group name", Toast.LENGTH_SHORT).show()
+            } else Toast.makeText(context, "Please type group name", Toast.LENGTH_SHORT).show()
 
 
         }
@@ -89,25 +88,32 @@ class AddNewGroupDialog : DialogFragment() {
         return binding.root
     }
 
+    private fun setObservers() {
+        userSearchFlowObserver()
+        selectedMemberFlowObserver()
+        createGroupButtonObserver()
+        groupCreationObserver()
+    }
+
     private fun groupCreationObserver() {
         lifecycleScope.launchWhenStarted {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
 
-                viewModel.creatingNewGroupFlow.collect{
-                    when(it){
+                viewModel.creatingNewGroupFlow.collect {
+                    when (it) {
                         is CreatingGroupStates.Error -> Unit
                         CreatingGroupStates.Idle -> {
-                            binding.progressBar.visibility= View.GONE
+                            binding.progressBar.visibility = View.GONE
                         }
                         CreatingGroupStates.Success -> {
 
                             Toast.makeText(context, "Group Created!", Toast.LENGTH_SHORT).show()
-                            binding.progressBar.visibility= View.GONE
+                            binding.progressBar.visibility = View.GONE
                             dismiss()
 
                         }
                         CreatingGroupStates.Loading -> {
-                            binding.progressBar.visibility= View.VISIBLE
+                            binding.progressBar.visibility = View.VISIBLE
 
                         }
                     }
@@ -119,17 +125,21 @@ class AddNewGroupDialog : DialogFragment() {
     private fun createGroupButtonObserver() {
 
         lifecycleScope.launchWhenStarted {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
-                viewModel.createGroupBtnFlow.collect{
-                    when(it){
-                        CreateGroupButtonStates.Disabled -> {binding.btMakeGroup.apply {
-                            isClickable=false
-                            isEnabled=false
-                        }}
-                        CreateGroupButtonStates.Enabled -> {binding.btMakeGroup.apply {
-                            isClickable=true
-                            isEnabled=true
-                        }}
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.createGroupBtnFlow.collect {
+                    when (it) {
+                        CreateGroupButtonStates.Disabled -> {
+                            binding.btMakeGroup.apply {
+                                isClickable = false
+                                isEnabled = false
+                            }
+                        }
+                        CreateGroupButtonStates.Enabled -> {
+                            binding.btMakeGroup.apply {
+                                isClickable = true
+                                isEnabled = true
+                            }
+                        }
                     }
                 }
             }
@@ -166,16 +176,18 @@ class AddNewGroupDialog : DialogFragment() {
     }
 
     private fun removeAllSelectedMembers() {
-        binding.selectedMemberLayout1.visibility= View.GONE
-        binding.selectedMemberLayout2.visibility= View.GONE
-        binding.selectedMemberLayout3.visibility= View.GONE
-        binding.selectedMemberLayout4.visibility= View.GONE
+        binding.selectedMemberLayout1.visibility = View.GONE
+        binding.selectedMemberLayout2.visibility = View.GONE
+        binding.selectedMemberLayout3.visibility = View.GONE
+        binding.selectedMemberLayout4.visibility = View.GONE
     }
 
     private fun addSelectedMember() {
         if (viewModel.totalMembersSelected <= 0) {
-            Log.d(TAG,
-                "addSelectedMember: ${viewModel.totalMembersSelected}  No Selected Member Found, could not show anything ")
+            Log.d(
+                TAG,
+                "addSelectedMember: ${viewModel.totalMembersSelected}  No Selected Member Found, could not show anything "
+            )
             return
         }
         var index = 1

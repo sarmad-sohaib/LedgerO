@@ -21,6 +21,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.ledgero.DataClasses.User
 import com.ledgero.Interfaces.OnUserDetailUpdate
 import com.ledgero.ViewModels.LoginViewModel
+import com.ledgero.firebasetokens.FirebaseTokenManager
 import com.ledgero.model.DatabaseUtill
 import com.ledgero.model.UtillFunctions
 import dagger.hilt.android.AndroidEntryPoint
@@ -94,6 +95,7 @@ class LoginActivity : AppCompatActivity() {
                         "Authentication succeeded!", Toast.LENGTH_SHORT
                     )
                         .show()
+                    FirebaseTokenManager.registerUserFirebaseToken(User.userID!!)
 
 
                     val intent = Intent(loginViewModel.context, MainActivity::class.java)

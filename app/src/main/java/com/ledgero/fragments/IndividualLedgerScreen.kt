@@ -217,7 +217,7 @@ lateinit var getText : TextView
            parentFragmentManager
                .beginTransaction()
                .addToBackStack(null)
-               .replace(R.id.fl_fragment_container_main,AddNewEntryDetail(currentSelectLedger!!))
+               .replace(R.id.fl_fragment_container_main,AddNewEntryDetail(currentSelectLedger!!,false,null))
                .commit()
 
         }
@@ -227,7 +227,7 @@ lateinit var getText : TextView
             parentFragmentManager
                 .beginTransaction()
                 .addToBackStack(null)
-                .replace(R.id.fl_fragment_container_main,AddNewEntryDetail(currentSelectLedger!!))
+                .replace(R.id.fl_fragment_container_main,AddNewEntryDetail(currentSelectLedger!!,false,null))
                 .commit()
 
         }

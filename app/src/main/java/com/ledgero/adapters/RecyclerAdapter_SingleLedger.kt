@@ -113,7 +113,7 @@ class RecyclerAdapter_SingleLedger (context: Context, entires: ArrayList<Entries
 
             Toast.makeText(context, "${title.text} : ${amount.text}", Toast.LENGTH_SHORT).show()
 
-            var frag= ViewEntryInfoScreen(entries!!.get(adapterPosition),currentLedgerUID)
+            var frag= ViewEntryInfoScreen(entries!!.get(adapterPosition),currentLedgerUID,false,null)
 
 
             MainActivity.getMainActivityInstance().supportFragmentManager

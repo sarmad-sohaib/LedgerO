@@ -31,7 +31,7 @@ class ViewEntryInfoScreenDAO(private val ledgerUID: String) {
 
       checkAndDeleteOlderVersionOfVoice(entry.voiceNote!!.fileName!!,entry)
         //Creating a reference to the link
-    var httpsReference = FirebaseStorage.getInstance().getReferenceFromUrl(entry.voiceNote!!.firebaseDownloadURI!!)
+     var httpsReference = FirebaseStorage.getInstance().getReferenceFromUrl(entry.voiceNote!!.firebaseDownloadURI!!)
 
         //Getting the file from the server
         httpsReference.getFile(file).addOnProgressListener { taskSnapshot ->

@@ -11,4 +11,10 @@ object Constants {
     const val ENTRY_APPROVED:Int=4
     const val ENTRY_REJECTED:Int=5
     const val ENTRY_RESENT:Int=6
+    const val CASH_IN= true
+    const val CASH_OUT= false
+    const val ADDED_IN_GROUP= 7
+    const val REMOVED_FROM_GROUP= 8
+    const val ENTRY_ADDED_GROUP= 9
+    const val ENTRY_REMOVED_GROUP= 10
 }

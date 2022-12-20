@@ -4,8 +4,8 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
     <application
         android:name=".LedgeroApplication"
@@ -15,7 +15,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.LedgerO">
-
+        <activity
+            android:name=".ViewReportActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".reminders.RemindersMainActivity"
             android:exported="false" />
@@ -27,8 +33,8 @@
             android:exported="true" />
         <activity
             android:name=".LoginActivity"
-            android:exported="true"
-            android:configChanges="uiMode">
+            android:configChanges="uiMode"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -42,16 +48,15 @@
 
         <receiver android:name=".reminders.reminderalert.AlertReceiver" />
 
-         <service android:name=".pushnotifications.services.PushNotificationReceiveService"
-             android:permission="com.google.android.c2dm.permission.SEND"
-             android:exported="false">
-             <intent-filter>
-                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
-                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-             </intent-filter>
-
-         </service>
-
+        <service
+            android:name=".pushnotifications.services.PushNotificationReceiveService"
+            android:exported="false"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </service>
         <service
             android:name="androidx.appcompat.app.AppLocalesMetadataHolderService"
             android:enabled="false"
@@ -60,7 +65,6 @@
                 android:name="autoStoreLocales"
                 android:value="true" />
         </service>
-
     </application>
 
 </manifest>

@@ -8,6 +8,7 @@ import android.widget.SeekBar
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.ledgero.DataClasses.SingleLedgers
+import com.ledgero.groupLedger.data.GroupInfo
 
 interface EntryDetailInterface {
     var calculatorLayout: View
@@ -21,7 +22,9 @@ interface EntryDetailInterface {
     var recordDuartionText: TextView
     var recordMaxLimitText: TextView
     var hintRecordText: TextView
-    var mLedger: SingleLedgers
+    var mLedger: SingleLedgers?
+    var mGroupInfo: GroupInfo?
+
 
     fun onMaxAudioRecordDuration()
     fun evaluateExpression(string: String, clear: Boolean)

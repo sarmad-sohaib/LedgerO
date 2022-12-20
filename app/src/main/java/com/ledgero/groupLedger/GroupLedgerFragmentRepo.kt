@@ -5,14 +5,12 @@ import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
-import com.ledgero.DataClasses.GroupLedgers
+import com.ledgero.DataClasses.GroupLedgersInfo
 import com.ledgero.DataClasses.User
 import com.ledgero.groupLedger.flowStates.AllGroupsStateFlow
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.filter
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
@@ -36,10 +34,10 @@ class GroupLedgerFragmentRepo @Inject constructor() {
                     .get().await()
 
             if (allGroups.exists()) {
-                val groupsList = ArrayList<GroupLedgers>()
+                val groupsList = ArrayList<GroupLedgersInfo>()
                 Log.d(TAG, "getAllGroups: ${allGroups.value.toString()}")
                 allGroups.children.forEach {
-                    val g= it.getValue(GroupLedgers::class.java)!!
+                    val g= it.getValue(GroupLedgersInfo::class.java)!!
                     Log.d(TAG, "getAllGroups: ${g.groupName}")
                     groupsList.add(g)
                 }
@@ -62,7 +60,7 @@ class GroupLedgerFragmentRepo @Inject constructor() {
 
   private val allGroupsObserver= object : ChildEventListener {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                val group = snapshot.getValue(GroupLedgers::class.java)!!
+                val group = snapshot.getValue(GroupLedgersInfo::class.java)!!
 
                 CoroutineScope(dispatcherDefault).launch {
                     _userAllGroupsFlow.emit(AllGroupsStateFlow.NewGroupAdded(group))
@@ -71,7 +69,7 @@ class GroupLedgerFragmentRepo @Inject constructor() {
             }
 
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-                val group = snapshot.getValue(GroupLedgers::class.java)!!
+                val group = snapshot.getValue(GroupLedgersInfo::class.java)!!
 
                 CoroutineScope(dispatcherDefault).launch {
                     _userAllGroupsFlow.emit(AllGroupsStateFlow.GroupUpdated(group))
@@ -80,7 +78,7 @@ class GroupLedgerFragmentRepo @Inject constructor() {
             }
 
             override fun onChildRemoved(snapshot: DataSnapshot) {
-                val group = snapshot.getValue(GroupLedgers::class.java)!!
+                val group = snapshot.getValue(GroupLedgersInfo::class.java)!!
                 CoroutineScope(dispatcherDefault).launch {
                     _userAllGroupsFlow.emit(AllGroupsStateFlow.GroupRemoved(group))
                 }

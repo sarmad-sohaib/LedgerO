@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".groupLedger.singleGroup.SingleGroupScreen">
+
+
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/shape_bg_ledger_frag"
+        android:layout_width="0dp"
+        android:layout_height="140dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/main_gradient_background" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/shape_bg_white_money_frag"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/buttonDiv"
+        app:layout_constraintEnd_toEndOf="@id/shape_bg_ledger_frag"
+        app:layout_constraintStart_toStartOf="@id/shape_bg_ledger_frag"
+        app:layout_constraintTop_toTopOf="@id/shape_bg_ledger_frag"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/layout_bg"
+        android:backgroundTint="@color/white" />
+
+
+    <LinearLayout
+        android:id="@+id/buttonDiv"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        app:layout_constraintTop_toBottomOf="@id/shape_bg_white_money_frag"
+        app:layout_constraintBottom_toBottomOf="@id/shape_bg_ledger_frag"
+        app:layout_constraintEnd_toEndOf="@+id/shape_bg_white_money_frag"
+        app:layout_constraintStart_toStartOf="@+id/shape_bg_white_money_frag"
+        android:layout_marginHorizontal="8dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/groupInfoBtn_singleGroup"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="10dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:backgroundTint="@color/white"
+            app:cornerRadius="10dp"
+            android:fontFamily="@font/ropa_sans_regular"
+            android:text="Group Info"
+            android:textAllCaps="false"
+            android:textColor="@color/green"
+            android:textSize="16sp"
+
+            >
+
+        </com.google.android.material.button.MaterialButton>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/view_member_btn_singleGroup"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:backgroundTint="@color/white"
+            app:cornerRadius="10dp"
+            android:fontFamily="@font/ropa_sans_regular"
+            android:text="@string/view_all_members"
+            android:textAllCaps="false"
+            android:textColor="@color/red"
+            android:textSize="16sp"
+
+            />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/unApprovedEntriesNotify_TV_individScreen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="16dp"
+        android:minHeight="16dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="35dp"
+        android:text="@string/_0"
+        android:visibility="gone"
+        android:textColor="@color/white"
+        android:textSize="11sp"
+        android:gravity="center"
+        android:background="@drawable/circular_bg_voice_record_btn"
+        app:layout_constraintEnd_toEndOf="@+id/buttonDiv"
+        app:layout_constraintStart_toStartOf="@+id/buttonDiv"
+        app:layout_constraintTop_toBottomOf="@+id/shape_bg_white_money_frag" />
+
+    <TextView
+        android:id="@+id/cacneledEntriesNotify_TV_individScreen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="16dp"
+        android:minHeight="16dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginStart="35dp"
+        android:text="@string/_0"
+        android:visibility="gone"
+        android:textColor="@color/white"
+        android:textSize="11sp"
+        android:gravity="center"
+        android:background="@drawable/circular_bg_voice_record_btn"
+        app:layout_constraintEnd_toEndOf="@+id/buttonDiv"
+        app:layout_constraintStart_toStartOf="@+id/buttonDiv"
+        app:layout_constraintTop_toBottomOf="@+id/shape_bg_white_money_frag" />
+    <View
+        android:id="@+id/line_horizontal_money_frag"
+        android:layout_width="1dp"
+        android:layout_height="50dp"
+        app:layout_constraintEnd_toEndOf="@id/shape_bg_white_money_frag"
+        app:layout_constraintStart_toStartOf="@id/shape_bg_white_money_frag"
+        app:layout_constraintTop_toTopOf="@id/shape_bg_white_money_frag"
+        android:layout_marginTop="8dp"
+        android:background="@color/gray" />
+
+    <View
+        android:id="@+id/line_vertical_money_frag"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintTop_toBottomOf="@id/line_horizontal_money_frag"
+        app:layout_constraintEnd_toEndOf="@id/shape_bg_white_money_frag"
+        app:layout_constraintStart_toStartOf="@id/shape_bg_white_money_frag"
+        android:layout_margin="8dp"
+        android:background="@color/gray" />
+
+
+
+    <TextView
+        android:id="@+id/tv_cash_in_single_group"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/tv_you_will_give_money_frag"
+        app:layout_constraintEnd_toStartOf="@id/line_horizontal_money_frag"
+        app:layout_constraintStart_toStartOf="@id/shape_bg_white_money_frag"
+        app:layout_constraintTop_toTopOf="@id/line_horizontal_money_frag"
+        android:fontFamily="@font/ropa_sans_regular"
+        android:gravity="center"
+        android:text="@string/rs_00"
+        android:textColor="@color/green"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tv_you_will_give_money_frag"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/line_vertical_money_frag"
+        app:layout_constraintEnd_toEndOf="@id/tv_cash_in_single_group"
+
+        app:layout_constraintStart_toStartOf="@id/tv_cash_in_single_group"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/ropa_sans_regular"
+        android:text="@string/cash_in" />
+
+    <TextView
+        android:id="@+id/tv_cash_out_single_group"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_you_will_get_money_frag"
+        app:layout_constraintStart_toEndOf="@+id/line_horizontal_money_frag"
+        app:layout_constraintEnd_toEndOf="@+id/shape_bg_white_money_frag"
+        app:layout_constraintTop_toTopOf="@+id/shape_bg_white_money_frag"
+        android:fontFamily="@font/ropa_sans_regular"
+        android:gravity="center"
+        android:text="@string/rs_00"
+        android:textColor="@color/red"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tv_you_will_get_money_frag"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/line_vertical_money_frag"
+        app:layout_constraintEnd_toEndOf="@+id/tv_cash_out_single_group"
+        app:layout_constraintStart_toStartOf="@+id/tv_cash_out_single_group"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/ropa_sans_regular"
+        android:text="@string/cash_out" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/bt_cash_out_singleGroup"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/bt_cash_in_singleGroup"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="64dp"
+        android:visibility="gone"
+        android:background="@drawable/button_shape"
+        app:backgroundTint="@color/red"
+        android:fontFamily="@font/ropa_sans_regular"
+        android:text="@string/cash_out"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/bt_cash_in_singleGroup"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        app:layout_constraintEnd_toStartOf="@+id/bt_cash_out_singleGroup"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="64dp"
+        android:background="@drawable/button_shape"
+        app:backgroundTint="@color/green"
+        android:fontFamily="@font/ropa_sans_regular"
+        android:text="@string/cash_in"
+        android:visibility="gone"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_ledgers_single_group"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_goneMarginBottom="70dp"
+        tools:listitem="@layout/individual_ledger_recycler_view"
+        app:layout_constraintBottom_toTopOf="@+id/bt_cash_in_singleGroup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/shape_bg_ledger_frag" />
+
+    <ProgressBar
+        android:id="@+id/progressBar_singleGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/rv_ledgers_single_group"
+        app:layout_constraintEnd_toEndOf="@+id/rv_ledgers_single_group"
+        app:layout_constraintStart_toStartOf="@+id/rv_ledgers_single_group"
+        app:layout_constraintTop_toBottomOf="@+id/shape_bg_ledger_frag"/>
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

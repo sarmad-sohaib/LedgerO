@@ -9,7 +9,7 @@
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/shape_bg_money_frag"
         android:layout_width="0dp"
-        android:layout_height="200dp"
+        android:layout_height="150dp"
         android:background="@drawable/main_gradient_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,7 +23,7 @@
         android:layout_marginTop="8dp"
         android:background="@drawable/layout_bg"
         android:backgroundTint="@color/white"
-        app:layout_constraintBottom_toTopOf="@id/bt_cash_register_group_ledgers_frag"
+        app:layout_constraintBottom_toTopOf="@+id/bt_cash_register_group_ledgers_frag"
         app:layout_constraintEnd_toEndOf="@id/shape_bg_money_frag"
         app:layout_constraintStart_toStartOf="@id/shape_bg_money_frag"
         app:layout_constraintTop_toTopOf="@id/shape_bg_money_frag" />
@@ -32,7 +32,7 @@
         android:id="@+id/bt_cash_register_group_ledgers_frag"
         android:layout_width="0dp"
         android:layout_height="60dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="10dp"
         android:backgroundTint="@color/white"
         android:fontFamily="@font/ropa_sans_regular"
         android:text="@string/cash_register"
@@ -42,8 +42,8 @@
         app:cornerRadius="10dp"
         app:layout_constraintBottom_toBottomOf="@id/shape_bg_money_frag"
         app:layout_constraintEnd_toEndOf="@+id/shape_bg_white_money_frag"
-        app:layout_constraintStart_toStartOf="@+id/shape_bg_white_money_frag"
-        app:layout_constraintTop_toBottomOf="@id/shape_bg_white_money_frag" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/shape_bg_white_money_frag" />
 
     <View
         android:id="@+id/line_horizontal_money_frag"
@@ -66,24 +66,10 @@
         app:layout_constraintStart_toStartOf="@id/shape_bg_white_money_frag"
         app:layout_constraintTop_toBottomOf="@id/line_horizontal_money_frag" />
 
-    <TextView
-        android:id="@+id/tv_payment_history_money_frag"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:fontFamily="@font/ropa_sans_regular"
-        android:gravity="center"
-        android:text="@string/payment_history"
-        android:textColor="@color/violent_vixen"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@id/shape_bg_white_money_frag"
-        app:layout_constraintEnd_toEndOf="@id/shape_bg_white_money_frag"
-        app:layout_constraintStart_toStartOf="@id/shape_bg_white_money_frag"
-        app:layout_constraintTop_toBottomOf="@id/line_vertical_money_frag" />
+
 
     <TextView
-        android:id="@+id/tv_give_money_frag"
+        android:id="@+id/tv_give_money_frag_money"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:fontFamily="@font/ropa_sans_regular"
@@ -105,11 +91,11 @@
 
         android:text="@string/you_ll_give"
         app:layout_constraintBottom_toTopOf="@id/line_vertical_money_frag"
-        app:layout_constraintEnd_toEndOf="@id/tv_give_money_frag"
-        app:layout_constraintStart_toStartOf="@id/tv_give_money_frag" />
+        app:layout_constraintEnd_toEndOf="@id/tv_give_money_frag_money"
+        app:layout_constraintStart_toStartOf="@id/tv_give_money_frag_money" />
 
     <TextView
-        android:id="@+id/tv_get_money_frag"
+        android:id="@+id/tv_get_money_frag_money"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:fontFamily="@font/ropa_sans_regular"
@@ -130,8 +116,8 @@
         android:fontFamily="@font/ropa_sans_regular"
         android:text="@string/you_ll_get"
         app:layout_constraintBottom_toTopOf="@+id/line_vertical_money_frag"
-        app:layout_constraintEnd_toEndOf="@+id/tv_get_money_frag"
-        app:layout_constraintStart_toStartOf="@+id/tv_get_money_frag" />
+        app:layout_constraintEnd_toEndOf="@+id/tv_get_money_frag_money"
+        app:layout_constraintStart_toStartOf="@+id/tv_get_money_frag_money" />
 
     <View
         android:id="@+id/button_reminders"

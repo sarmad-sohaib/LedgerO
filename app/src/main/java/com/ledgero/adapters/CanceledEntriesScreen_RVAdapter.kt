@@ -148,7 +148,7 @@ class CanceledEntriesScreen_RVAdapter(
 
 
             mainLayout.setOnClickListener{
-                var frag = ViewEntryInfoScreen(canceledEntries!![adapterPosition],ledgerUID,true)
+                var frag = ViewEntryInfoScreen(canceledEntries!![adapterPosition],ledgerUID,true,null  )
                 listener(frag)
 
             }

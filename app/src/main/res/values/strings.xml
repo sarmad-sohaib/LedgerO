@@ -2,7 +2,7 @@
     <string name="home">Home</string>
     <string name="money">Money</string>
     <string name="more">More</string>
-    <string name="view_report" translatable="false">View Report</string>
+    <string name="view_report" translatable="false">View History</string>
     <!-- TODO: Remove or change this placeholder text -->
     <!--Firebase Push Notification Channel ID-->
     <string name="push_notification_channel_id" translatable="false">LedgerO_Entries_Notifications</string>
@@ -112,6 +112,9 @@
     <string name="friend_makes_a_request_to_delete_this_ledger"> makes a request to <html><h2 style="color: #000000">delete</h2></html> this ledger.</string>
     <string name="reject_delete_request">Reject</string>
     <string name="accept_ledger_delete_request">Accept</string>
+    <string name="add_member">Add Member</string>
+    <string name="view_all_members">View All Members</string>
+    <string name="remaining_cash">Remaining Cash</string>
 
     <string-array name="languages">
         <item>English</item>

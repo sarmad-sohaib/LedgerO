@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minWidth="300dp"
+    android:minHeight="300dp"
+    android:background="@drawable/layout_bg"
+    android:padding="8dp"
+    >
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/filledTextField"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/email"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tv_email_dialog_frag"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/search_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="32dp"
+        android:text="Search"
+        android:minWidth="100dp"
+        app:cornerRadius="100dp"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toStartOf="@+id/bt_cancel_dialog_frag"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/filledTextField" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/bt_cancel_dialog_frag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="32dp"
+        android:text="Cancel"
+        style="?attr/materialButtonOutlinedStyle"
+        app:cornerRadius="100dp"
+        app:strokeColor="@color/blackcurrant"
+        android:minWidth="100dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/search_user"
+        app:layout_constraintTop_toBottomOf="@+id/filledTextField" />
+
+    <TextView
+        android:id="@+id/info_tv_dialog_frag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Finding Users..."
+        android:textColor="@color/purple_200"
+        android:layout_marginTop="20dp"
+        android:textSize="12sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@+id/bt_cancel_dialog_frag"
+        app:layout_constraintStart_toEndOf="@+id/search_user"
+        app:layout_constraintTop_toBottomOf="@+id/search_user" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/gray"
+        android:visibility="gone"
+        android:id="@+id/userFound_Container_dialog_frag"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_user">
+
+        <TextView
+            android:id="@+id/userName_user_found_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:text="User Name"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:id="@+id/userEmail_user_found_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/userName_user_found_layout"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="16dp"
+            android:text="useremail@gmail.com"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/add_friend_btn_user_found_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="10dp"
+            android:fontFamily="@font/ropa_sans_regular"
+            android:text="Add Friend"
+            android:layout_centerVertical="true"
+            android:textSize="12sp" />
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

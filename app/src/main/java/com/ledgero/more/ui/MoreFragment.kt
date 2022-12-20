@@ -1,19 +1,24 @@
 package com.ledgero.more.ui
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 import com.ledgero.DataClasses.User
 import com.ledgero.LoginActivity
+import com.ledgero.R
 import com.ledgero.databinding.FragmentMoreBinding
+import com.ledgero.model.UtillFunctions
 import com.ledgero.more.AppThemeDialogFragment
 import com.ledgero.more.LanguageModelBottomSheet
 import dagger.hilt.android.AndroidEntryPoint
@@ -58,7 +63,41 @@ class MoreFragment : Fragment() {
                 showChooseThemeDialog()
             }
         }
+        binding.textViewEmail.setText(User.userEmail!!)
+
+
+        binding.textViewUserName.setText(User.userName!!)
+
+        binding.nameEditBtn.setOnClickListener{
+            val builder = AlertDialog.Builder(requireContext())
+            val inflater = layoutInflater
+            builder.setTitle("Update Your User Name")
+            val dialogLayout = inflater.inflate(R.layout.edit_user_name_dialog_layout, null)
+            val editText  = dialogLayout.findViewById<EditText>(R.id.userNewName)
+            builder.setView(dialogLayout)
+            builder.setPositiveButton("OK") { dialogInterface, i -> updateUserName(editText.text.toString())}
+            builder.show()
+        }
+
+
         return binding.root
+    }
+
+    private fun updateUserName(userName: String) {
+
+
+        if (!userName.isNullOrBlank()){
+       val progress= UtillFunctions.setProgressDialog(requireContext(),"Updating Your Name")
+            UtillFunctions.showProgressDialog(progress)
+            FirebaseDatabase.getInstance().reference.child("users").child(User.userID!!).child("userName")
+                .setValue(userName) .addOnCompleteListener {
+                    User.userName= userName
+                    binding.textViewUserName.setText(userName)
+                    UtillFunctions.hideProgressDialog(progress)
+                }
+
+        }
+
     }
 
     private fun showChooseThemeDialog() {

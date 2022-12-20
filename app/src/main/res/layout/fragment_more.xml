@@ -10,13 +10,15 @@
         android:id="@+id/logout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginVertical="70dp"
+        android:layout_marginBottom="76dp"
         android:background="@drawable/button_shape"
         android:text="@string/logout"
         android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/textView_currentLanguage"
-        app:layout_constraintStart_toStartOf="@+id/textView_chooseLanguage"
-        app:layout_constraintTop_toBottomOf="@id/textView_chooseLanguage" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textView_chooseLanguage" />
 
     <TextView
         android:id="@+id/textView_userName"
@@ -25,6 +27,8 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:textSize="30sp"
+        android:textColor="@color/black"
+        android:fontFamily="sans-serif-condensed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="My Username" />
@@ -33,6 +37,8 @@
         android:id="@+id/textView_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/puce"
+        android:fontFamily="sans-serif-light"
         app:layout_constraintEnd_toEndOf="@+id/textView_userName"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/textView_userName"
@@ -40,6 +46,7 @@
         tools:text="abcd.uu@gmail.com" />
 
     <ImageButton
+        android:id="@+id/nameEditBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"

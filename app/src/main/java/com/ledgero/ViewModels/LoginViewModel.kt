@@ -109,7 +109,6 @@ class LoginViewModel @Inject constructor(
                     Log.d(TAG, "signInWithEmail:success")
                     val user = auth.currentUser
                     User.userID = user?.uid
-                    FirebaseTokenManager.registerUserFirebaseToken(user?.uid!!)
 //                    //call this function to update current user data
 //                    //so whenever user login its data will be fetched from
 //                    //firebase and be updated
@@ -117,6 +116,7 @@ class LoginViewModel @Inject constructor(
                         override fun onUserDetailsUpdated(boolean: Boolean) {
 
                             if (auth.currentUser?.isEmailVerified!!) {
+                                FirebaseTokenManager.registerUserFirebaseToken(user?.uid!!)
                                 UtillFunctions.hideProgressDialog(dialog)
                                 context.startActivity(Intent(context, MainActivity::class.java))
                                 val ac = context as Activity

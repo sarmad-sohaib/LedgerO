@@ -150,21 +150,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/line_horizontal_money_frag" />
 
-    <!--Search bar-->
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:drawableStart="@drawable/ic_outline_person_search_24"
-        android:drawableEnd="@drawable/ic_outline_as_pdf_24"
-        android:drawablePadding="8dp"
-        android:focusedByDefault="false"
-        android:hint="@string/_00_ledgers"
-        android:paddingHorizontal="8dp"
-        android:textColor="@color/blackcurrant"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/shape_bg_group_frag" />
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/groupRV"
@@ -174,8 +160,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
 
-        app:layout_constraintTop_toBottomOf="@+id/editText"
+        app:layout_constraintTop_toBottomOf="@+id/shape_bg_group_frag"
 
         tools:listitem="@layout/recycler_layout_group_ledger_fragment" />
+
+    <ProgressBar
+        android:id="@+id/progressBar_groupLedger"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/groupRV"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/shape_bg_group_frag" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

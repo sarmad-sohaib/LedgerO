@@ -15,7 +15,7 @@
         android:text="@string/ledger_01"
         android:textColor="?android:attr/textColorPrimary"
         android:textSize="15sp"
-        app:layout_constraintEnd_toStartOf="@id/bt_notification_send"
+        app:layout_constraintEnd_toStartOf="@id/tv_money"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -27,25 +27,25 @@
         android:paddingHorizontal="8dp"
         android:text="@string/thu_20_jan_12_37_am"
         android:textSize="13sp"
-        app:layout_constraintEnd_toStartOf="@+id/bt_notification_send"
+        app:layout_constraintEnd_toStartOf="@+id/tv_money"
         app:layout_constraintStart_toStartOf="@+id/ledgerName"
         app:layout_constraintTop_toBottomOf="@+id/ledgerName" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/bt_notification_send"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_margin="16dp"
-        android:background="@drawable/notification_view_background"
-        android:elevation="5dp"
-        app:backgroundTint="@color/white"
-        app:icon="@drawable/ic_outline_notifications_20"
-        app:iconTint="@color/blackcurrant"
-        app:iconGravity="textStart"
-        app:iconPadding="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/view2"
-        app:layout_constraintEnd_toStartOf="@+id/tv_detail"
-        app:layout_constraintTop_toTopOf="@+id/ledgerName" />
+<!--    <com.google.android.material.button.MaterialButton-->
+<!--        android:id="@+id/bt_notification_send"-->
+<!--        android:layout_width="24dp"-->
+<!--        android:layout_height="24dp"-->
+<!--        android:layout_margin="16dp"-->
+<!--        android:background="@drawable/notification_view_background"-->
+<!--        android:elevation="5dp"-->
+<!--        app:backgroundTint="@color/white"-->
+<!--        app:icon="@drawable/ic_outline_notifications_20"-->
+<!--        app:iconTint="@color/blackcurrant"-->
+<!--        app:iconGravity="textStart"-->
+<!--        app:iconPadding="0dp"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/view2"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/tv_detail"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/ledgerName" />-->
 
     <TextView
         android:id="@+id/tv_money"

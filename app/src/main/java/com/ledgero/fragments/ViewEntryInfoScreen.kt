@@ -3,6 +3,7 @@ package com.ledgero.fragments
 import android.opengl.Visibility
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,13 +16,15 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.ledgero.daos.ViewEntryInfoScreenDAO
 import com.ledgero.DataClasses.Entries
+import com.ledgero.DataClasses.User
 import com.ledgero.R
 import com.ledgero.Repositories.ViewEntryInfoScreenRepo
 import com.ledgero.ViewModelFactories.ViewEntryInfoScreenViewModelFactory
 import com.ledgero.ViewModels.ViewEntryInfoScreenViewModel
+import com.ledgero.groupLedger.data.GroupInfo
 import kotlinx.android.synthetic.main.fragment_view_entry_info_screen.view.*
 
-class ViewEntryInfoScreen(val entry:Entries,val ledgerUID:String,var isUnapproved:Boolean=false) : Fragment() {
+class ViewEntryInfoScreen(val entry:Entries,val ledgerUID:String,var isUnapproved:Boolean=false, val groupInfo: GroupInfo?=null) : Fragment() {
 
         lateinit var viewModel: ViewEntryInfoScreenViewModel
     lateinit var totalAmount: EditText
@@ -49,7 +52,12 @@ class ViewEntryInfoScreen(val entry:Entries,val ledgerUID:String,var isUnapprove
         viewModel.view=this
 
             totalAmount= view.tv_Totalamount_view_entry
-           view.add_new_entry_Totalamount_filledTextField.hint= (if(entry.give_take_flag!!){"You Take"}else{"You Gave"}).toString()
+            try {
+                view.add_new_entry_Totalamount_filledTextField.hint= (if(entry.give_take_flag!!){"You Take"}else{"You Gave"}).toString()
+
+            }catch (e:Exception){
+                Log.d("ViewEntry", "onCreateView: ${e.message}")
+            }
 
             description= view.tv_description_view_entry
 
@@ -82,19 +90,33 @@ class ViewEntryInfoScreen(val entry:Entries,val ledgerUID:String,var isUnapprove
 
         view.bt_edit_view_entry.setOnClickListener(){
 
+            if (groupInfo!= null){
+                val frag = EditEntrySingleScreen("null",entry,groupInfo)
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.fl_fragment_container_main,frag)
+                    .addToBackStack(null)
+                    .commit()
+            }else{
 
-            var frag = EditEntrySingleScreen(ledgerUID,entry)
+            val frag = EditEntrySingleScreen(ledgerUID,entry,null)
             parentFragmentManager.beginTransaction()
                 .replace(R.id.fl_fragment_container_main,frag)
                 .addToBackStack(null)
                 .commit()
-
+            }
             }
 
 
             //approve entry
             if (isUnapproved){
                 view.bt_edit_view_entry.visibility= View.GONE
+            }
+            //if not group admin
+            if (groupInfo!=null){
+
+                if (groupInfo.groupAdminUID!= User.userID){
+                    view.bt_edit_view_entry.visibility= View.GONE
+                }
             }
 
 

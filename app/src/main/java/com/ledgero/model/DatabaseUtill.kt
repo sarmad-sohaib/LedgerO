@@ -156,6 +156,7 @@ class DatabaseUtill() {
                         Log.d(TAG, "onDataChange: Current User Data Fetched")
                         user = snapshot.getValue<User>()!!
                         callback.onUserDetailsUpdated(true)
+
 //
 //                        //now call the function so all ledgers get latest meta-data
 //                        if (user.getUserSingleLedgers() != null) {

@@ -102,7 +102,6 @@ init {
         var ledgerTimeStamp: TextView
         var ledgerMoney: TextView
         var ledgerDetail: TextView
-        var ledgerNotification: Button
         var ledgerUID: String=""
 
         init {
@@ -110,7 +109,7 @@ init {
             ledgerTimeStamp = itemView.findViewById(R.id.tv_time_stamp)
             ledgerMoney = itemView.findViewById(R.id.tv_money)
             ledgerDetail = itemView.findViewById(R.id.tv_detail)
-            ledgerNotification = itemView.findViewById(R.id.bt_notification_send)
+      //      ledgerNotification = itemView.findViewById(R.id.bt_notification_send)
 
             itemView.setOnClickListener { v: View ->
                 Toast.makeText(itemView.context, ledgerName.text, Toast.LENGTH_SHORT)

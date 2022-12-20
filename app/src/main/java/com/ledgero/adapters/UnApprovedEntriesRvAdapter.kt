@@ -165,7 +165,7 @@ class UnApprovedEntriesRvAdapter(
 
             mainLayout.setOnClickListener {
 
-                val frag= ViewEntryInfoScreen(unApprovedEntries!![adapterPosition],ledgerUID,true)
+                val frag= ViewEntryInfoScreen(unApprovedEntries!![adapterPosition],ledgerUID,true,null)
 
                 listener(frag)
             }

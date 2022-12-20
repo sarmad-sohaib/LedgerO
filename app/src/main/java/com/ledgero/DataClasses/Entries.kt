@@ -7,7 +7,7 @@ import kotlinx.android.parcel.Parcelize
 import kotlinx.android.parcel.RawValue
 import java.util.*
 @Parcelize
-data class Entries(
+open   class Entries(
     var amount:Float?=null,
     var give_take_flag: Boolean?=null,  // null means all clear /false means he owe/get//You'll Give money, true mean he lend/gave/You'll Get
     var entry_desc: String?=null,

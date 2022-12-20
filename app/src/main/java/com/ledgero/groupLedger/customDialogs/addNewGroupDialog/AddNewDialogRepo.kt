@@ -6,11 +6,13 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ServerValue
 import com.google.firebase.database.ValueEventListener
-import com.ledgero.DataClasses.GroupLedgers
+import com.ledgero.DataClasses.GroupLedgersInfo
 import com.ledgero.DataClasses.User
 import com.ledgero.groupLedger.customDialogs.addNewGroupDialog.data.Member
 import com.ledgero.groupLedger.customDialogs.addNewGroupDialog.flowStates.UserSearchFlowStates
 import com.ledgero.groupLedger.data.GroupInfo
+import com.ledgero.other.Constants.ADDED_IN_GROUP
+import com.ledgero.pushnotifications.PushNotification
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -102,7 +104,8 @@ class AddNewDialogRepo @Inject constructor() {
         withContext(dispatcherIO){
 
              members.forEach{
-               async { addGroupInfoInSingleMember(it.uid,groupInfo) }
+               async { addGroupInfoInSingleMember(it.uid,groupInfo) }.await()
+
              }
            val result= async {
                 addGroupInfoInSingleMember(User.userID.toString(),groupInfo)
@@ -115,21 +118,23 @@ class AddNewDialogRepo @Inject constructor() {
     }
     private suspend fun addGroupInfoInSingleMember(memberUID:String, groupInfo: GroupInfo){
 
-        val timeStamp = groupInfo.groupCreateServerTimestamp
-        val groupLedger= GroupLedgers(groupInfo.groupName,groupInfo.groupUID,timeStamp)
+
        val memberGroupInfo= dbReference.child("users").child(memberUID).child("user_group_Ledgers").get()
             .await()
-        val groupsList= ArrayList<GroupLedgers>()
+        val groupsList= ArrayList<GroupInfo>()
         if (memberGroupInfo.exists()){
             for(group in memberGroupInfo.children){
-                groupsList.add(group.getValue(GroupLedgers::class.java)!!)
+                groupsList.add(group.getValue(GroupInfo::class.java)!!)
             }
         }
-        groupsList.add(groupLedger)
+        groupsList.add(groupInfo)
 
 
       dbReference.child("users").child(memberUID).updateChildren(mapOf("user_group_Ledgers" to groupsList)).await()
 
+        if (memberUID != groupInfo.groupAdminUID){
+            PushNotification().createAndSendNotificationSingleGroupMember(memberUID,ADDED_IN_GROUP)
+        }
 
 
     }
@@ -146,7 +151,7 @@ class AddNewDialogRepo @Inject constructor() {
             groupName,
             groupUID,
             User.userID.toString(), members.size + 1, members,
-             0f, timeStamp
+             0f, timeStamp,User.userName!!,User.userEmail!!
         )
 
     }

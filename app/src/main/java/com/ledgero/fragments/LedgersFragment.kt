@@ -23,7 +23,9 @@ import com.ledgero.DataClasses.SingleLedgers
 import com.ledgero.DataClasses.User
 import com.ledgero.MainActivity
 import com.ledgero.R
+import com.ledgero.ViewReportActivity
 import com.ledgero.adapters.RecyclerViewAdapter
+import com.ledgero.adapters.ViewReportAdapter
 import com.ledgero.cashregister.CashRegisterMainActivity
 import com.ledgero.databinding.FragmentLedgersBinding
 import com.ledgero.model.DatabaseUtill
@@ -162,6 +164,12 @@ class LedgersFragment : Fragment() {
             if (flag == GET_ENTRY_FLAG) binding.tvGiveMoneyFrag.text = amount.toString()
         }
 
+
+        binding.tvPaymentHistoryMoneyFrag.setOnClickListener {
+            val m = Intent(requireContext(),ViewReportActivity::class.java)
+            startActivity(m)
+        }
+
         return binding.root
     }
 
@@ -275,7 +283,7 @@ class LedgersFragment : Fragment() {
 
 
         var totalGaveAmount= 0f
-        var totalGetAmount = 0f
+         var  totalGetAmount = 0f
 
 
                 ledgers.forEach{

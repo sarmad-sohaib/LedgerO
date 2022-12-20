@@ -2,22 +2,29 @@ package com.ledgero.groupLedger.recyclerViews
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.os.Build
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
-import com.ledgero.DataClasses.GroupLedgers
+import com.ledgero.DataClasses.GroupLedgersInfo
 import com.ledgero.R
+import com.ledgero.groupLedger.data.GroupInfo
+import com.ledgero.other.Constants.CASH_IN
 import com.ledgero.utils.TimeFormatter
 import java.util.*
 import kotlin.collections.ArrayList
 
+
+private const val TAG= "GroupAdapter"
 class GroupAdapter(
-   private val context: Context,
-    private val groups: ArrayList<GroupLedgers>?
+    private val context: Context,
+    private val groups: ArrayList<GroupInfo>,
+    private val singleGroupClick: (GroupInfo) -> Unit
 ):RecyclerView.Adapter<GroupAdapter.ViewHolder>()
 {
 
@@ -38,9 +45,7 @@ class GroupAdapter(
          groupNotification = itemView.findViewById(R.id.group_bt_notification_send)
 
          itemView.setOnClickListener {
-             Toast.makeText(context, groupName.text, Toast.LENGTH_SHORT)
-                 .show()
-
+             singleGroupClick(groups!![adapterPosition])
 
          }
      }
@@ -52,18 +57,29 @@ class GroupAdapter(
       return ViewHolder(view)
   }
 
+  @RequiresApi(Build.VERSION_CODES.M)
   @SuppressLint("SetTextI18n")
   override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-      val group = groups!![position]
+
+      try {
+          val group = groups!![position]
 
 
-      holder.groupName.text = group.groupName
-      holder.groupMoney.text = "NN:Rs"
-      holder.groupDetail.text="NN:NN"
+          holder.groupName.text = group.groupName
+          holder.groupMoney.text = group.groupTotalAmount.toString()
+          if (group.cashInOut == CASH_IN){
+              holder.groupDetail.text= "Cash In"
+          }else{
+              holder.groupDetail.text= "Cash Out"
+                holder.groupMoney.setTextColor(context.getColor(R.color.red))
+          }
 
-      val date= Date(group.createdTimeStamp.toLong())
-      holder.groupTimeStamp.text = TimeFormatter.getFormattedTime(date.toString(),date)
+          val date= Date(group.groupCreateServerTimestamp.toLong())
+          holder.groupTimeStamp.text = TimeFormatter.getFormattedTime(date.toString(),date)
 
+      }catch (e:Exception){
+          Log.d(TAG, "onBindViewHolder: ${e.message} ")
+      }
 
   }
 

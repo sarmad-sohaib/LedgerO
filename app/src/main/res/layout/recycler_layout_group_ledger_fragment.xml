@@ -42,6 +42,7 @@
         app:iconTint="@color/blackcurrant"
         app:iconGravity="textStart"
         app:iconPadding="0dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/view2"
         app:layout_constraintEnd_toStartOf="@+id/group_tv_detail"
         app:layout_constraintTop_toTopOf="@+id/groupName" />
@@ -53,7 +54,7 @@
         android:layout_marginTop="8dp"
         android:fontFamily="@font/ropa_sans_regular"
         android:text="@string/_00_00"
-        android:textColor="@color/red"
+        android:textColor="@color/green"
         app:layout_constraintEnd_toEndOf="@id/group_tv_detail"
         app:layout_constraintStart_toStartOf="@+id/group_tv_detail"
         app:layout_constraintTop_toTopOf="parent" />
@@ -64,7 +65,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="@string/you_ll_give"
+        android:text="@string/remaining_cash"
         android:textSize="11sp"
         app:layout_constraintBottom_toTopOf="@+id/view2"
         app:layout_constraintEnd_toEndOf="parent"

@@ -1,15 +1,5 @@
 package com.ledgero.DataClasses
 
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.FirebaseDatabase
-import com.ledgero.groupLedger.data.GroupInfo
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.GlobalScope.coroutineContext
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
-import kotlin.coroutines.coroutineContext
-
 
 object User {
     var userPhone: String? = ""
@@ -20,7 +10,7 @@ object User {
     var user_total_take: Int = 0
     var total_single_ledgers: Int = 0
     private var user_single_Ledgers: ArrayList<SingleLedgers>? = null
-    var user_group_Ledgers: ArrayList<GroupLedgers>? = null
+    var user_group_Ledgers: ArrayList<GroupLedgersInfo>? = null
 
 
 

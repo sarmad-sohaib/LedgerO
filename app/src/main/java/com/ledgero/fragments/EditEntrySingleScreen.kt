@@ -29,13 +29,17 @@ import com.ledgero.Repositories.EditSingleEntriesRepo
 import com.ledgero.utils.Utill_AddNewEntryDetail
 import com.ledgero.ViewModelFactories.EditSingleEntriesViewModelFactory
 import com.ledgero.ViewModels.EditSingleEntriesViewModel
+import com.ledgero.groupLedger.data.GroupInfo
 import com.ledgero.other.Constants
 import com.ledgero.pushnotifications.PushNotification
 import kotlinx.android.synthetic.main.fragment_add_new_entry_detail.view.*
 import kotlinx.android.synthetic.main.fragment_edit_entry_single_screen.view.*
 import kotlinx.android.synthetic.main.fragment_money.view.*
 
-class EditEntrySingleScreen(private val currentLedger:String, private val currentEntry:Entries) : Fragment() , EntryDetailInterface {
+class EditEntrySingleScreen(
+    private val currentLedger: String, private val currentEntry: Entries,
+    override var mGroupInfo: GroupInfo?
+) : Fragment(), EntryDetailInterface {
 
     override lateinit var calculatorLayout: View
     override lateinit var amountTextTV: EditText
@@ -48,16 +52,16 @@ class EditEntrySingleScreen(private val currentLedger:String, private val curren
     override lateinit var recordDuartionText: TextView
     override lateinit var recordMaxLimitText: TextView
     override lateinit var hintRecordText: TextView
-    override lateinit var mLedger: SingleLedgers
-  lateinit  var saveButton:Button
+    override var mLedger: SingleLedgers? = null
+    lateinit var saveButton: Button
 
     lateinit var utill: Utill_AddNewEntryDetail
-    private val pushNotificationInterface= PushNotification()
+    private val pushNotificationInterface = PushNotification()
 
 
     lateinit var viewModel: EditSingleEntriesViewModel
 
-  lateinit  var progressDialog:AlertDialog
+    lateinit var progressDialog: AlertDialog
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreateView(
@@ -65,42 +69,55 @@ class EditEntrySingleScreen(private val currentLedger:String, private val curren
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view= inflater.inflate(R.layout.fragment_edit_entry_single_screen, container, false)
+        val view = inflater.inflate(R.layout.fragment_edit_entry_single_screen, container, false)
 
         calculatorLayout = view.calculator_layout_edit_entry_include
-        amountTextTV= view.tv_amount_edit_entry
-        totalAmount= view.tv_Totalamount_edit_entry
-        myContext=requireContext()
-        recordSeekBar=view.seekBar_editEntry
-        audioLayout=view.audioPlay_layout_editEntry
-        audioPlayBtn= view.btn_play_recordVoice_editEntryDetail
-        recordBtn=view.btn_recordVoice_editEntry
+        amountTextTV = view.tv_amount_edit_entry
+        totalAmount = view.tv_Totalamount_edit_entry
+        myContext = requireContext()
+        recordSeekBar = view.seekBar_editEntry
+        audioLayout = view.audioPlay_layout_editEntry
+        audioPlayBtn = view.btn_play_recordVoice_editEntryDetail
+        recordBtn = view.btn_recordVoice_editEntry
         recordDuartionText = view.audioRecordDuration_tv_editEntryDetail
-        recordMaxLimitText=view.audioMaxLimit_tv_editEntryDetail
-        hintRecordText=view.hint_recordAudio_editEntry
-        saveButton=view.bt_save_edit_entry
-     for ( i in User.getUserSingleLedgers()!!) {if(i.ledgerUID.equals(currentLedger))mLedger=i}
+        recordMaxLimitText = view.audioMaxLimit_tv_editEntryDetail
+        hintRecordText = view.hint_recordAudio_editEntry
+        saveButton = view.bt_save_edit_entry
+
+        if (mGroupInfo == null) {
+            for (i in User.getUserSingleLedgers()!!) {
+                if (i.ledgerUID.equals(currentLedger)) mLedger = i
+            }
 
 
+        }
 
-        var dao= EditSingleEntriesDAO(currentLedger)
+        var dao = EditSingleEntriesDAO(currentLedger)
         var repo = EditSingleEntriesRepo(dao)
-        viewModel= ViewModelProvider(this, EditSingleEntriesViewModelFactory(repo,currentEntry))
+
+        viewModel = ViewModelProvider(this, EditSingleEntriesViewModelFactory(repo, currentEntry))
             .get(EditSingleEntriesViewModel::class.java)
 
-        viewModel.context=requireContext()
-        viewModel.setProgressDialog("Sending Request For Approval")
-        utill= Utill_AddNewEntryDetail(this)
+        viewModel.context = requireContext()
+        if (mGroupInfo != null) {
+            viewModel.setProgressDialog("Updating Group Entry")
+
+        }
+        if (mGroupInfo == null) {
+            viewModel.setProgressDialog("Sending Request For Approval")
+
+        }
+        utill = Utill_AddNewEntryDetail(this)
 
 
         totalAmount.setText(currentEntry.amount.toString())
         view.tv_description_edit_entry.setText(currentEntry.entry_desc)
-        if (currentEntry.hasVoiceNote!!){
-            utill.audioRecordUtill.hasVoiceNote= currentEntry.hasVoiceNote!!
-            utill.audioRecordUtill.localPath=currentEntry.voiceNote!!.localPath
-            utill.audioRecordUtill.VoicefileName=currentEntry.voiceNote!!.fileName
-            audioLayout.visibility=View.VISIBLE
-            hintRecordText.visibility= View.GONE
+        if (currentEntry.hasVoiceNote!!) {
+            utill.audioRecordUtill.hasVoiceNote = currentEntry.hasVoiceNote!!
+            utill.audioRecordUtill.localPath = currentEntry.voiceNote!!.localPath
+            utill.audioRecordUtill.VoicefileName = currentEntry.voiceNote!!.fileName
+            audioLayout.visibility = View.VISIBLE
+            hintRecordText.visibility = View.GONE
         }
 
 
@@ -112,28 +129,28 @@ class EditEntrySingleScreen(private val currentLedger:String, private val curren
         amountTextTV.setInputType(InputType.TYPE_NULL) // disable soft input
 
 
-
-        amountTextTV.setOnTouchListener(object : View.OnTouchListener{
+        amountTextTV.setOnTouchListener(object : View.OnTouchListener {
             override fun onTouch(p0: View?, p1: MotionEvent?): Boolean {
 
                 //this will close the soft keyboard if its open
                 // hide virtual keyboard
                 hideKeyboard()
-                if (view.calculator_layout_edit_entry_include.visibility==View.GONE){
-                    view.calculator_layout_edit_entry_include.visibility=View.VISIBLE
+                if (view.calculator_layout_edit_entry_include.visibility == View.GONE) {
+                    view.calculator_layout_edit_entry_include.visibility = View.VISIBLE
 
                 }
 
                 return false
-            }})
+            }
+        })
 
 
 
 
 
-        view.tv_description_edit_entry.setOnTouchListener(object : View.OnTouchListener{
+        view.tv_description_edit_entry.setOnTouchListener(object : View.OnTouchListener {
             override fun onTouch(p0: View?, p1: MotionEvent?): Boolean {
-                view.calculator_layout_edit_entry_include.visibility=View.GONE
+                view.calculator_layout_edit_entry_include.visibility = View.GONE
                 return false
 
             }
@@ -151,77 +168,99 @@ class EditEntrySingleScreen(private val currentLedger:String, private val curren
             }
 
             override fun afterTextChanged(p0: Editable?) {
-                var amount= if(view.tv_amount_edit_entry.text.isNullOrEmpty()) 0f else view.tv_amount_edit_entry.text.toString().toFloat()
-                if ( amount  <=0f){
-                    view.entryInfoScrollView_edit_entry_screen.visibility=View.GONE
-                saveButton.isEnabled= false
-                    saveButton.text="Total Amount is Empty"
-                }else{
-                    view.entryInfoScrollView_edit_entry_screen.visibility=View.VISIBLE
-                    saveButton.isEnabled= true
+                var amount =
+                    if (view.tv_amount_edit_entry.text.isNullOrEmpty()) 0f else view.tv_amount_edit_entry.text.toString()
+                        .toFloat()
+                if (amount <= 0f) {
+                    view.entryInfoScrollView_edit_entry_screen.visibility = View.GONE
+                    saveButton.isEnabled = false
+                    saveButton.text = "Total Amount is Empty"
+                } else {
+                    view.entryInfoScrollView_edit_entry_screen.visibility = View.VISIBLE
+                    saveButton.isEnabled = true
 
-                    saveButton.text="Save"
+                    saveButton.text = "Save"
 
                 }
             }
 
         })
 
-        saveButton.setOnClickListener(){
+        saveButton.setOnClickListener() {
 
 
-            if (view.tv_description_edit_entry.text.isNullOrEmpty()){
+            if (view.tv_description_edit_entry.text.isNullOrEmpty()) {
                 Toast.makeText(context, "Please Add Description", Toast.LENGTH_SHORT).show()
 
-            }else{
+            } else {
 
-                if (totalAmount.text.toString().toFloat()== currentEntry.amount &&
-                    view.tv_description_edit_entry.text!!.toString().equals(currentEntry.entry_desc,true) && !viewModel.isAudioUpdated
-                        ){
+                if (totalAmount.text.toString().toFloat() == currentEntry.amount &&
+                    view.tv_description_edit_entry.text!!.toString()
+                        .equals(currentEntry.entry_desc, true) && !viewModel.isAudioUpdated
+                ) {
 
                     Toast.makeText(context, "No Changes...", Toast.LENGTH_SHORT).show()
                     parentFragmentManager.popBackStack()
 
-                }
-                else{
-                    Toast.makeText(context, "Sent For Approval", Toast.LENGTH_SHORT).show()
+                } else {
+                    if (mGroupInfo == null) {
+                        Toast.makeText(context, "Sent For Approval", Toast.LENGTH_SHORT).show()
+                        viewModel.addEntryInUnApproved_ForEdit(
+                            view.tv_description_edit_entry.text.toString(),
+                            totalAmount.text.toString().toFloat()
+                        )
+                        pushNotificationInterface.createAndSendNotification(
+                            currentLedger,
+                            Constants.EDIT_REQUEST_REQUEST_MODE
+                        )
+                    }
 
-                    viewModel.addEntryInUnApproved_ForEdit(view.tv_description_edit_entry.text.toString(),totalAmount.text.toString().toFloat())
+                    if (mGroupInfo != null) {
+                        viewModel.audioPath = utill.audioRecordUtill.getPathForStoringFile(false)
+                        viewModel.updateGroupEntry(
+                            view.tv_description_edit_entry.text.toString(),
+                            totalAmount.text.toString().toFloat(),
+                            currentEntry,
+                            mGroupInfo!!,
+                            utill.AudioRecordUtill().audioDuration.toString()
+                        )
 
-                    pushNotificationInterface.createAndSendNotification(currentLedger,
-                        Constants.EDIT_REQUEST_REQUEST_MODE)
+                    }
+
                 }
 
             }
         }
 
 
-        audioPlayBtn.setOnClickListener(){
+        audioPlayBtn.setOnClickListener() {
 
-            if (utill.audioRecordUtill.isAudioPlaying){
+            if (utill.audioRecordUtill.isAudioPlaying) {
                 utill.audioRecordUtill.stopPlayingAudio()
-                audioPlayBtn.foreground=
+                audioPlayBtn.foreground =
                     ContextCompat.getDrawable(requireContext(), R.drawable.ic_play_button)
-                utill.audioRecordUtill.isAudioPlaying=false
-            }else{
-                utill.audioRecordUtill.startPlayingAudio(audioPlayBtn,
-                    ContextCompat.getDrawable(requireContext(), R.drawable.ic_play_button))
-                audioPlayBtn.foreground=
+                utill.audioRecordUtill.isAudioPlaying = false
+            } else {
+                utill.audioRecordUtill.startPlayingAudio(
+                    audioPlayBtn,
+                    ContextCompat.getDrawable(requireContext(), R.drawable.ic_play_button)
+                )
+                audioPlayBtn.foreground =
                     ContextCompat.getDrawable(requireContext(), R.drawable.ic_pause)
-                utill.audioRecordUtill.isAudioPlaying=true
+                utill.audioRecordUtill.isAudioPlaying = true
             }
         }
 
 
-        audioLayout.setOnLongClickListener(object : View.OnLongClickListener{
+        audioLayout.setOnLongClickListener(object : View.OnLongClickListener {
             override fun onLongClick(p0: View?): Boolean {
 
-                var alertDialog=  android.app.AlertDialog.Builder(context)
+                var alertDialog = android.app.AlertDialog.Builder(context)
 
                 alertDialog.setTitle("Deleting Voice Note")
                     .setMessage("Are you sure to delete Voice Note!")
                     .setCancelable(true)
-                    .setPositiveButton("Yes Delete it"){dialogInterface,it->
+                    .setPositiveButton("Yes Delete it") { dialogInterface, it ->
                         //delete voice
                         viewModel.deleteAudio()
                         hideAudioLayoutAndShowHint()
@@ -240,46 +279,55 @@ class EditEntrySingleScreen(private val currentLedger:String, private val curren
         })
 
 
-        recordBtn.setOnClickListener(){
+        recordBtn.setOnClickListener() {
             @RequiresApi(Build.VERSION_CODES.S)
-            if (utill.audioRecordUtill.isAudioRecording){
+            if (utill.audioRecordUtill.isAudioRecording) {
 
                 //stop audio Recording
                 utill.audioRecordUtill.stopAudioRecording()
                 utill.audioRecordUtill.stopTimer()
-                utill.audioRecordUtill.isAudioRecording=false
-                recordBtn.foreground=
+                utill.audioRecordUtill.isAudioRecording = false
+                recordBtn.foreground =
                     ContextCompat.getDrawable(requireContext(), R.drawable.ic_microphone)
                 audioLayout.visibility = View.VISIBLE
-                hintRecordText.visibility=View.GONE
-                recordMaxLimitText.text="Max 60s"
-                viewModel.audioPath= utill.audioRecordUtill.voiceNewVersionPath.toString()
+                hintRecordText.visibility = View.GONE
+                recordMaxLimitText.text = "Max 60s"
+                viewModel.audioPath = utill.audioRecordUtill.voiceNewVersionPath.toString()
 
                 // set audioDuration
-                view.audioRecordDuration_tv_editEntryDetail.text=utill.audioRecordUtill.getAudioDuration()+"s"
-            }else
-            {
+                view.audioRecordDuration_tv_editEntryDetail.text =
+                    utill.audioRecordUtill.getAudioDuration() + "s"
+            } else {
                 //start audio Recording
                 if (utill.audioRecordUtill.isMicPresent()) {
-                    if (!utill.audioRecordUtill.isMicPermission())
-                    {Toast.makeText(context,"Please Allow Us To Use Your Device Mice", Toast.LENGTH_SHORT).show()
-                    }else{
-                        utill.audioRecordUtill.isEditingVoiceNote=true
+                    if (!utill.audioRecordUtill.isMicPermission()) {
+                        Toast.makeText(
+                            context,
+                            "Please Allow Us To Use Your Device Mice",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else {
+                        utill.audioRecordUtill.isEditingVoiceNote = true
                         utill.audioRecordUtill.startAudioRecording()
-                        viewModel.hasAudio=true
-                        viewModel.isAudioUpdated=true
-                        viewModel.isAudioDeleted=false
+                        viewModel.hasAudio = true
+                        viewModel.isAudioUpdated = true
+                        viewModel.isAudioDeleted = false
                         utill.audioRecordUtill.startTimer(recordMaxLimitText)
-                        utill.audioRecordUtill.isAudioRecording=true
-                        audioLayout.visibility=View.GONE
-                        hintRecordText.text= "Your voice note is recording. Tap recording button to stop"
-                        hintRecordText.visibility=View.VISIBLE
+                        utill.audioRecordUtill.isAudioRecording = true
+                        audioLayout.visibility = View.GONE
+                        hintRecordText.text =
+                            "Your voice note is recording. Tap recording button to stop"
+                        hintRecordText.visibility = View.VISIBLE
 
-                        recordBtn.foreground= ContextCompat.getDrawable(requireContext(),
-                            R.drawable.ic_sound_waveform)
-                    } } else {
+                        recordBtn.foreground = ContextCompat.getDrawable(
+                            requireContext(),
+                            R.drawable.ic_sound_waveform
+                        )
+                    }
+                } else {
                     Toast.makeText(context, "Sorry! No Working Mic Found", Toast.LENGTH_SHORT)
-                        .show() }
+                        .show()
+                }
             }
         }
 
@@ -290,8 +338,8 @@ class EditEntrySingleScreen(private val currentLedger:String, private val curren
 
     private fun hideAudioLayoutAndShowHint() {
 
-        audioLayout.visibility=View.GONE
-        hintRecordText.visibility=View.VISIBLE
+        audioLayout.visibility = View.GONE
+        hintRecordText.visibility = View.VISIBLE
     }
 
 
@@ -304,7 +352,8 @@ class EditEntrySingleScreen(private val currentLedger:String, private val curren
     }
 
     fun Context.hideKeyboard(view: View) {
-        val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        val inputMethodManager =
+            getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
@@ -316,6 +365,7 @@ class EditEntrySingleScreen(private val currentLedger:String, private val curren
         utill.audioRecordUtill.stopTimer()
         super.onPause()
     }
+
     override fun onStop() {
 
         super.onStop()
@@ -326,7 +376,7 @@ class EditEntrySingleScreen(private val currentLedger:String, private val curren
     /*Function to calculate the expressions using expression builder library*/
 
     override fun evaluateExpression(string: String, clear: Boolean) {
-        if(clear) {
+        if (clear) {
 
             amountTextTV.append(string)
         } else {
@@ -337,19 +387,19 @@ class EditEntrySingleScreen(private val currentLedger:String, private val curren
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
-    override fun onMaxAudioRecordDuration(){
-        recordBtn.foreground= ContextCompat.getDrawable(requireContext(), R.drawable.ic_microphone)
+    override fun onMaxAudioRecordDuration() {
+        recordBtn.foreground = ContextCompat.getDrawable(requireContext(), R.drawable.ic_microphone)
         audioLayout.visibility = View.VISIBLE
-        hintRecordText.visibility= View.GONE
+        hintRecordText.visibility = View.GONE
 
         // set audioDuration
-        recordDuartionText.setText(utill.audioRecordUtill.getAudioDuration()+"s")
+        recordDuartionText.setText(utill.audioRecordUtill.getAudioDuration() + "s")
     }
 
     private fun setCalculatorBtnListeners(view: View) {
 
 
-        utill.CalculatorUtills().setClickListenersOnButtons(view,this)
+        utill.CalculatorUtills().setClickListenersOnButtons(view, this)
 
     }
 
