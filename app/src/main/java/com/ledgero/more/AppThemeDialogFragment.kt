@@ -2,6 +2,7 @@ package com.ledgero.more
 
 import android.app.Dialog
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -38,7 +39,11 @@ class AppThemeDialogFragment : DialogFragment() {
                     selectedItem = which
 
                 }.setPositiveButton("OK") { dialogInterface, _ ->
-                    viewModel.update(selectedItem)
+                    try {
+                        viewModel.update(selectedItem)
+                    } catch (ex: java.lang.Exception) {
+                        Log.e(TAG, "onCreateDialog: $ex")
+                    }
                     dialogInterface.dismiss()
                 }
                 .setNegativeButton("Cancel", null)

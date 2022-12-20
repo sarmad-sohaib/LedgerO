@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.ledgero.R
 import com.ledgero.databinding.LanguageBottomSheetContentBinding
 
 class LanguageModelBottomSheet : BottomSheetDialogFragment() {
@@ -25,7 +26,7 @@ class LanguageModelBottomSheet : BottomSheetDialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val arrayList = listOf("eng", "urdu")
+        val arrayList = resources.getStringArray(R.array.languages)
         val languagesListAdapter = LanguagesListAdapter(requireActivity(), arrayList.map {
             Language(
                 name = it
@@ -38,8 +39,8 @@ class LanguageModelBottomSheet : BottomSheetDialogFragment() {
         binding.listViewLanguages.adapter = languagesListAdapter
         binding.listViewLanguages.setOnItemClickListener { parent, view, position, id ->
 
-            when (arrayList[position]) {
-                "eng" -> {
+            when (arrayList[position].lowercase()) {
+                "english" -> {
                     Log.i(TAG, "onCreateView: eng")
                     val appLocale: LocaleListCompat = LocaleListCompat.forLanguageTags("en-EN")
                     AppCompatDelegate.setApplicationLocales(appLocale)

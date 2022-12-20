@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".more.ui.MoreFragment">
+    tools:context=".more.ui.MoreFragment"
+    android:padding="8dp">
 
     <Button
         android:id="@+id/logout"
@@ -20,12 +21,11 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/textView_chooseLanguage" />
 
+
     <TextView
         android:id="@+id/textView_userName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
         android:textSize="30sp"
         android:textColor="@color/black"
         android:fontFamily="sans-serif-condensed"
@@ -46,7 +46,9 @@
         tools:text="abcd.uu@gmail.com" />
 
     <ImageButton
+
         android:id="@+id/nameEditBtn"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
@@ -64,36 +66,44 @@
         android:layout_height="1dp"
         android:layout_marginTop="8dp"
         android:background="@color/gray"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/nameEditBtn"
+        app:layout_constraintStart_toStartOf="@+id/textView_email"
         app:layout_constraintTop_toBottomOf="@+id/textView_email" />
 
     <TextView
         android:id="@+id/textView_darkMode"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:text="@string/darkMode"
-        android:textColor="?android:attr/textColorPrimary"
-        android:textSize="15sp"
+        android:layout_height="48dp"
         android:clickable="true"
         android:focusable="true"
-        android:gravity="center|start"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/view2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/textView_email"
+        android:gravity="center_vertical"
+        android:minHeight="20dp"
+        android:text="@string/app_theme"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toStartOf="@+id/textView_currentTheme"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view" />
+
+    <TextView
+        android:id="@+id/textView_currentTheme"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:gravity="center_vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/textView_darkMode"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView_darkMode"
+        tools:text="Current Theme" />
+
 
     <View
         android:id="@+id/view2"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="48dp"
         android:background="@color/gray"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_darkMode" />
 
     <TextView
         android:id="@+id/textView_chooseLanguage"
@@ -106,7 +116,7 @@
         android:textColor="?android:attr/textColorPrimary"
         android:textSize="15sp"
         app:layout_constraintEnd_toStartOf="@+id/textView_currentLanguage"
-        app:layout_constraintStart_toStartOf="@+id/textView_darkMode"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view2" />
 
     <TextView
@@ -114,7 +124,7 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="@+id/textView_chooseLanguage"
-        app:layout_constraintEnd_toEndOf="@+id/textView_darkMode"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView_chooseLanguage"
         tools:text="English" />
 

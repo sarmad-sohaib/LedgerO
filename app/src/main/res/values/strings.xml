@@ -99,19 +99,23 @@
     <string name="spinner_language_description" translatable="false">This is a option menu which allow users to choose between English and Urdu.</string>
     <string name="logout">Logout</string>
     <string name="edit_user_profile" translatable="false">edit user profile</string>
-    <string name="title">Title</string>
-    <string name="thu_20_jan_12_37_am">Thu,20 Jan | 12:37 AM</string>
-    <string name="you_gave">You gave</string>
-    <string name="tap_mic_button_to_start_recording_voice_message_for_entry">Tap mic button to start recording voice message for entry</string>
-    <string name="hold_to_delete_or_record_new_one">Hold To Delete Or Record New One</string>
-    <string name="max_60s">Max 60s</string>
-    <string name="_0">0</string>
-    <string name="no">no</string>
+    <string name="title" translatable="false">Title</string>
+    <string name="thu_20_jan_12_37_am" translatable="false">Thu,20 Jan | 12:37 AM</string>
+    <string name="you_gave" translatable="false">You gave</string>
+    <string name="tap_mic_button_to_start_recording_voice_message_for_entry" translatable="false">Tap mic button to start recording voice message for entry</string>
+    <string name="hold_to_delete_or_record_new_one" translatable="false">Hold To Delete Or Record New One</string>
+    <string name="max_60s" translatable="false">Max 60s</string>
+    <string name="_0" translatable="false">0</string>
+    <string name="no" translatable="false">no</string>
     <string name="voice_note_is_downloading">Voice note is downloading:</string>
-    <string name="ledger_01">Ledger 01</string>
-    <string name="friend_makes_a_request_to_delete_this_ledger"> makes a request to <html><h2 style="color: #000000">delete</h2></html> this ledger.</string>
-    <string name="reject_delete_request">Reject</string>
-    <string name="accept_ledger_delete_request">Accept</string>
+    <string name="ledger_01" translatable="false">Ledger 01</string>
+    <string name="friend_makes_a_request_to_delete_this_ledger" translatable="false">" makes a request to delete this ledger"</string>
+    <string name="reject_delete_request" translatable="false">Reject Delete Request</string>
+    <string name="accept_ledger_delete_request" translatable="false">Accept Ledger Delete Request</string>
+    <string name="system_default">System Default</string>
+    <string name="dark_mode">Dark</string>
+    <string name="light_mode">Light</string>
+    <string name="app_theme">App theme</string>
     <string name="add_member">Add Member</string>
     <string name="view_all_members">View All Members</string>
     <string name="remaining_cash">Remaining Cash</string>
